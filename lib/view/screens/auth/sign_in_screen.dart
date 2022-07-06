@@ -22,6 +22,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
+import 'widget/or_row.dart';
 import 'widget/social_login_widget.dart';
 
 class SignInScreen extends StatefulWidget {
@@ -89,6 +90,7 @@ class _SignInScreenState extends State<SignInScreen> {
         }
       },
       child: Scaffold(
+        backgroundColor: Colors.white,
         appBar: ResponsiveHelper.isDesktop(context)
             ? WebMenuBar()
             : !widget.exitFromApp
@@ -113,7 +115,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   : null,
               decoration: context.width > 700
                   ? BoxDecoration(
-                      color: Theme.of(context).cardColor,
+                      color: Colors.white,
                       borderRadius:
                           BorderRadius.circular(Dimensions.RADIUS_SMALL),
                       boxShadow: [
@@ -123,26 +125,22 @@ class _SignInScreenState extends State<SignInScreen> {
                             spreadRadius: 1)
                       ],
                     )
-                  : null,
+                  : BoxDecoration(color: Colors.white),
               child: GetBuilder<AuthController>(builder: (authController) {
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-                      // Icon(
-                      //   Icons.arrow_back_ios,
-                      // ),
-                      // SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
                       // Image.asset(Images.logo_name, width: 120),
                       // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                      Text('Continue with phone'.tr,
+                      Text('Sign in with phone'.tr,
                           style: poppinsMedium.copyWith(
                             fontSize: 25,
                             fontWeight: FontWeight.w500,
                           )),
-                      SizedBox(height: 30),
+                      SizedBox(height: 20),
                       Column(children: [
                         Row(children: [
                           CodePickerWidget(
@@ -269,7 +267,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               ),
                             ),
                           ]),
-                      _buildOrRow(),
+                      OrRow(),
                       SocialLoginWidget(
                           fontColor: Colors.black,
                           color: Colors.white,
@@ -292,30 +290,6 @@ class _SignInScreenState extends State<SignInScreen> {
           ),
         )),
       ),
-    );
-  }
-
-  Padding _buildOrRow() {
-    return Padding(
-      padding: EdgeInsets.symmetric(
-          horizontal: Dimensions.PADDING_SIZE_LARGE,
-          vertical: Dimensions.PADDING_SIZE_SMALL),
-      child: Row(children: <Widget>[
-        const Expanded(
-          child: Divider(color: Color(0xff5C5C5F)),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 10.0),
-          child: Text(
-            "OR",
-            style: robotoBlack,
-          ),
-        ),
-        const Expanded(
-            child: Divider(
-          color: Colors.black,
-        )),
-      ]),
     );
   }
 

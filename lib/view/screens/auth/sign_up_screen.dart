@@ -16,6 +16,8 @@ import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/code_picker_widget.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/condition_check_box.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/guest_button.dart';
+import 'package:efood_multivendor/view/screens/auth/widget/or_row.dart';
+import 'package:efood_multivendor/view/screens/auth/widget/social_login_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
@@ -55,54 +57,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
       body: SafeArea(
           child: Scrollbar(
         child: SingleChildScrollView(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           physics: BouncingScrollPhysics(),
-          child: Center(
-            child: Container(
-              width: context.width > 700 ? 700 : context.width,
-              padding: context.width > 700
-                  ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
-                  : null,
-              decoration: context.width > 700
-                  ? BoxDecoration(
-                      color: Theme.of(context).cardColor,
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                            blurRadius: 5,
-                            spreadRadius: 1)
-                      ],
-                    )
-                  : null,
-              child: GetBuilder<AuthController>(builder: (authController) {
-                return Column(children: [
-                  SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                  Image.asset(Images.logo_name, width: 100),
-                  SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-
-                  Text('sign_up'.tr.toUpperCase(),
-                      style: robotoBlack.copyWith(fontSize: 30)),
-                  SizedBox(height: 50),
-
-                  Container(
-                    decoration: BoxDecoration(
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                      color: Theme.of(context).cardColor,
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey[Get.isDarkMode ? 800 : 200],
-                            spreadRadius: 1,
-                            blurRadius: 5)
-                      ],
-                    ),
-                    child: Column(children: [
+          child: Container(
+            width: context.width > 700 ? 700 : context.width,
+            padding: context.width > 700
+                ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
+                : null,
+            decoration: context.width > 700
+                ? BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[Get.isDarkMode ? 700 : 300],
+                          blurRadius: 5,
+                          spreadRadius: 1)
+                    ],
+                  )
+                : BoxDecoration(color: Colors.white),
+            child: GetBuilder<AuthController>(builder: (authController) {
+              return Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    Image.asset(Images.logo_name, width: 100),
+                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                    Text('Create Account'.tr,
+                        style: poppinsRegular.copyWith(fontSize: 30)),
+                    SizedBox(height: 20),
+                    Column(children: [
                       CustomTextField(
                         hintText: 'first_name'.tr,
                         controller: _firstNameController,
@@ -111,8 +101,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         inputType: TextInputType.name,
                         capitalization: TextCapitalization.words,
                         prefixIcon: Images.user,
-                        divider: true,
+                        divider: false,
                       ),
+                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                       CustomTextField(
                         hintText: 'last_name'.tr,
                         controller: _lastNameController,
@@ -121,8 +112,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         inputType: TextInputType.name,
                         capitalization: TextCapitalization.words,
                         prefixIcon: Images.user,
-                        divider: true,
+                        divider: false,
                       ),
+                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                       CustomTextField(
                         hintText: 'email'.tr,
                         controller: _emailController,
@@ -130,8 +122,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         nextFocus: _phoneFocus,
                         inputType: TextInputType.emailAddress,
                         prefixIcon: Images.mail,
-                        divider: true,
+                        divider: false,
                       ),
+                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                       Row(children: [
                         CodePickerWidget(
                           onChanged: (CountryCode countryCode) {
@@ -158,6 +151,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             color: Theme.of(context).textTheme.bodyText1.color,
                           ),
                         ),
+                        SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                         Expanded(
                             child: CustomTextField(
                           hintText: 'phone'.tr,
@@ -168,10 +162,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           divider: false,
                         )),
                       ]),
-                      Padding(
-                          padding: EdgeInsets.symmetric(
-                              horizontal: Dimensions.PADDING_SIZE_LARGE),
-                          child: Divider(height: 1)),
+                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                       CustomTextField(
                         hintText: 'password'.tr,
                         controller: _passwordController,
@@ -180,8 +171,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         inputType: TextInputType.visiblePassword,
                         prefixIcon: Images.lock,
                         isPassword: true,
-                        divider: true,
+                        divider: false,
                       ),
+                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                       CustomTextField(
                         hintText: 'confirm_password'.tr,
                         controller: _confirmPasswordController,
@@ -190,12 +182,13 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         inputType: TextInputType.visiblePassword,
                         prefixIcon: Images.lock,
                         isPassword: true,
-                        divider: true,
+                        divider: false,
                         onSubmit: (text) =>
                             (GetPlatform.isWeb && authController.acceptTerms)
                                 ? _register(authController, _countryDialCode)
                                 : null,
                       ),
+                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       CustomTextField(
                         hintText: 'refer_code'.tr,
                         controller: _referCodeController,
@@ -208,39 +201,62 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         prefixSize: 14,
                       ),
                     ]),
-                  ),
-                  SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
-                  ConditionCheckBox(authController: authController),
-                  SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
-                  !authController.isLoading
-                      ? Row(children: [
-                          Expanded(
-                              child: CustomButton(
-                            buttonText: 'sign_in'.tr,
-                            transparent: true,
-                            onPressed: () => Get.toNamed(
-                                RouteHelper.getSignInRoute(RouteHelper.signUp)),
-                          )),
-                          Expanded(
-                              child: CustomButton(
+                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    ConditionCheckBox(authController: authController),
+                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    !authController.isLoading
+                        ? CustomButton(
                             buttonText: 'sign_up'.tr,
                             onPressed: authController.acceptTerms
                                 ? () =>
                                     _register(authController, _countryDialCode)
                                 : null,
-                          )),
-                        ])
-                      : Center(child: CircularProgressIndicator()),
-                  SizedBox(height: 30),
-
-                  // SocialLoginWidget(),
-
-                  GuestButton(),
-                ]);
-              }),
-            ),
+                          )
+                        : Center(child: CircularProgressIndicator()),
+                    SizedBox(
+                      height: Dimensions.PADDING_SIZE_SMALL,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "Already have account ?".tr,
+                          style: poppinsRegular,
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        InkWell(
+                            onTap: () => Get.toNamed(
+                                RouteHelper.getSignInRoute('sign-in')),
+                            child: Text(
+                              "sign_in".tr,
+                              style: poppinsMedium.copyWith(
+                                  color: Theme.of(context).primaryColor),
+                            ))
+                      ],
+                    ),
+                    SizedBox(
+                      height: Dimensions.PADDING_SIZE_SMALL,
+                    ),
+                    OrRow(),
+                    SocialLoginWidget(
+                        fontColor: Colors.black,
+                        color: Colors.white,
+                        iconPath: Images.googleIcon,
+                        title: "Continue With Google",
+                        onTap: () {}),
+                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    SocialLoginWidget(
+                        fontColor: Colors.black,
+                        iconColor: Colors.blue,
+                        color: Colors.white,
+                        iconPath: Images.facebookIcon,
+                        title: "Continue With Faceook",
+                        onTap: () {}),
+                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    GuestButton(),
+                  ]);
+            }),
           ),
         ),
       )),
