@@ -19,10 +19,13 @@ class ConditionCheckBox extends StatelessWidget {
       ),
       Text('i_agree_with'.tr, style: robotoRegular),
       InkWell(
-        onTap: () => Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
+        onTap: () =>
+            Get.toNamed(RouteHelper.getHtmlRoute('terms-and-condition')),
         child: Padding(
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-          child: Text('terms_conditions'.tr, style: robotoMedium.copyWith(color: Colors.blue)),
+          child: Text('terms_conditions'.tr,
+              style: poppinsMedium.copyWith(
+                  color: Theme.of(context).primaryColor)),
         ),
       ),
     ]);

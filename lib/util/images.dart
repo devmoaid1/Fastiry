@@ -15,7 +15,8 @@ class Images {
   static const String onboard_2 = 'assets/image/onboard_2.png';
   static const String onboard_3 = 'assets/image/onboard_3.png';
   static const String restaurant_marker = 'assets/image/restaurant_marker.png';
-  static const String delivery_man_marker = 'assets/image/delivery_man_marker.png';
+  static const String delivery_man_marker =
+      'assets/image/delivery_man_marker.png';
   static const String user = 'assets/image/user.png';
   static const String about_us = 'assets/image/about_us.png';
   static const String coupon = 'assets/image/coupon.png';
@@ -42,7 +43,8 @@ class Images {
   static const String pick_marker = 'assets/image/pick_marker.png';
   static const String house = 'assets/image/house.png';
   static const String tracking = 'assets/image/tracking.png';
-  static const String my_location_marker = 'assets/image/my_location_marker.png';
+  static const String my_location_marker =
+      'assets/image/my_location_marker.png';
   static const String user_marker = 'assets/image/user_marker.png';
   static const String restaurant_cover = 'assets/image/restaurant_cover.png';
   static const String maintenance = 'assets/image/maintenance.png';
@@ -59,4 +61,6 @@ class Images {
   static const String gift_box1 = 'assets/image/gift_box1.gif';
   static const String earn_money = 'assets/image/earn_money.png';
   static const String refer_image = 'assets/image/refer_a_friend.png';
+  static const String googleIcon = 'assets/image/google.svg';
+  static const String facebookIcon = 'assets/image/facebook.svg';
 }

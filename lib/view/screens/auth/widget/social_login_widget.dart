@@ -10,69 +10,64 @@
 // import 'package:get/get.dart';
 // import 'package:google_sign_in/google_sign_in.dart';
 //
-// class SocialLoginWidget extends StatelessWidget {
-//   @override
-//   Widget build(BuildContext context) {
-//     return (Get.find<SplashController>().configModel.socialLogin[0].status
-//     || Get.find<SplashController>().configModel.socialLogin[1].status) ? Column(children: [
-//
-//       Center(child: Text('social_login'.tr, style: robotoMedium)),
-//       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-//
-//       Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-//
-//         Get.find<SplashController>().configModel.socialLogin[0].status ? InkWell(
-//           onTap: () async {
-//             GoogleSignInAccount _googleAccount = await GoogleSignIn().signIn();
-//             GoogleSignInAuthentication _auth = await _googleAccount.authentication;
-//             if(_googleAccount != null) {
-//               Get.find<AuthController>().loginWithSocialMedia(SocialLogInBody(
-//                 email: _googleAccount.email, token: _auth.accessToken, uniqueId: _googleAccount.id, medium: 'google',
-//               ));
-//             }
-//           },
-//           child: Container(
-//             height: 40,width: 40,
-//             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.all(Radius.circular(5)),
-//               boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 700 : 300], spreadRadius: 1, blurRadius: 5)],
-//             ),
-//             child: Image.asset(Images.google),
-//           ),
-//         ) : SizedBox(),
-//         SizedBox(width: Get.find<SplashController>().configModel.socialLogin[0].status ? Dimensions.PADDING_SIZE_SMALL : 0),
-//
-//         Get.find<SplashController>().configModel.socialLogin[1].status ? InkWell(
-//           onTap: () async{
-//             LoginResult _result = await FacebookAuth.instance.login();
-//             if (_result.status == LoginStatus.success) {
-//               Map _userData = await FacebookAuth.instance.getUserData();
-//               if(_userData != null){
-//                 Get.find<AuthController>().loginWithSocialMedia(SocialLogInBody(
-//                   email: _userData['email'], token: _result.accessToken.token, uniqueId: _result.accessToken.userId, medium: 'facebook',
-//                 ));
-//               }
-//             } else {
-//               showCustomSnackBar('${_result.status} ${_result.message}');
-//             }
-//           },
-//           child: Container(
-//             height: 40, width: 40,
-//             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-//             decoration: BoxDecoration(
-//               color: Colors.white,
-//               borderRadius: BorderRadius.all(Radius.circular(5)),
-//               boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 700 : 300], spreadRadius: 1, blurRadius: 5)],
-//             ),
-//             child: Image.asset(Images.facebook),
-//           ),
-//         ) : SizedBox(),
-//
-//       ]),
-//       SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-//
-//     ]) : SizedBox();
-//   }
-// }
+import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+
+import '../../../../util/dimensions.dart';
+import '../../../../util/styles.dart';
+
+class SocialLoginWidget extends StatelessWidget {
+  final String iconPath;
+  final Color color;
+  final String title;
+  final Color fontColor;
+  final Color iconColor;
+  final void Function() onTap;
+  const SocialLoginWidget(
+      {Key key,
+      this.color = Colors.white,
+      this.iconPath,
+      this.title,
+      this.fontColor,
+      this.iconColor,
+      this.onTap})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            horizontal: Dimensions.PADDING_SIZE_LARGE,
+            vertical: Dimensions.PADDING_SIZE_DEFAULT),
+        decoration: BoxDecoration(
+            border: Border.all(
+                style: BorderStyle.solid, width: 1, color: Colors.grey),
+            color: color,
+            borderRadius: BorderRadius.circular(30)),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SvgPicture.asset(
+              iconPath,
+              color: iconColor ?? null,
+              width: 25,
+            ),
+            SizedBox(
+              width: Dimensions.PADDING_SIZE_LARGE,
+            ),
+            FittedBox(
+              fit: BoxFit.fitWidth,
+              child: Text(
+                title,
+                style: poppinsRegular.copyWith(
+                    color: this.fontColor, fontSize: 18),
+              ),
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
