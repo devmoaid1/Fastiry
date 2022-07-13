@@ -86,9 +86,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
               return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                    // Center(child: Image.asset(Images.logo_name, width: 100)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                    Image.asset(Images.logo_name, width: 100),
-                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                     Text('Create Account'.tr,
                         style: poppinsRegular.copyWith(fontSize: 30)),
                     SizedBox(height: 20),
