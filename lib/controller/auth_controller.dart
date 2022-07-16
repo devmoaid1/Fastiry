@@ -97,19 +97,24 @@ class AuthController extends GetxController implements GetxService {
       update();
 
       final result = await authRepo.signInWithGoogle();
-      if (result.additionalUserInfo.isNewUser) {
-        final SignUpBody newUser = SignUpBody(
-            email: result.user.email,
-            fName: result.user.displayName.split('')[0],
-            lName: result.user.displayName.split('')[1],
-            phone: result.user.phoneNumber,
-            password: "");
-        await authRepo.registration(newUser);
+      final token = result.token;
+      final user = result.userCredential.user;
+
+      if (result.userCredential.additionalUserInfo.isNewUser) {
+        // final SocialLogInBody newSocialUser = SocialLogInBody(
+        //     email: result.user.email,
+        //     medium: 'google',
+        //     phone: result.user.phoneNumber,
+        //     token: token,
+        //     uniqueId: result.user.uid);
+        // await authRepo.registerWithSocialMedia(newSocialUser);
+        Get.toNamed(RouteHelper.getSocialPhoneRoute(user, token));
+      } else {
+        authRepo.saveUserToken(token);
+        await authRepo.updateToken();
+        Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
       }
-      final token = result.user.refreshToken;
-      await authRepo.saveUserToken(token);
-      await authRepo.updateToken();
-      Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
+
       _isLoading = false;
       update();
     } catch (err) {

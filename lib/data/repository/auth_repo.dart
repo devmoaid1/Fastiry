@@ -4,6 +4,7 @@ import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/data/api/api_client.dart';
 import 'package:efood_multivendor/data/model/body/signup_body.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
+import 'package:efood_multivendor/data/model/response/google_response.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -40,7 +41,7 @@ class AuthRepo {
         AppConstants.SOCIAL_REGISTER_URL, socialLogInBody.toJson());
   }
 
-  Future<UserCredential> signInWithGoogle() async {
+  Future<GoogleResponse> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
       final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
@@ -57,8 +58,9 @@ class AuthRepo {
 
       final userCrediential = await auth.signInWithCredential(credential);
 
+      final response = GoogleResponse(googleAuth.idToken, userCrediential);
       // Once signed in, return the UserCredential
-      return userCrediential;
+      return response;
     } on PlatformException catch (e) {
       print(e.message);
       throw e.message.toString();
