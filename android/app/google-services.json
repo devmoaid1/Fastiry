@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "473390041062",
-    "project_id": "fasteriy",
-    "storage_bucket": "fasteriy.appspot.com"
+    "project_number": "376361342662",
+    "project_id": "fasteiry",
+    "storage_bucket": "fasteiry.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:473390041062:android:2a25928abf67a7d7517827",
+        "mobilesdk_app_id": "1:376361342662:android:6064c5be11070190c5a9c7",
         "android_client_info": {
           "package_name": "com.apmo.fasteriy"
         }
       },
       "oauth_client": [
         {
-          "client_id": "473390041062-hr2bdlr30qnf1j6c2g6o5l2rvfa0htqb.apps.googleusercontent.com",
+          "client_id": "376361342662-uvkteqldqaguk0315tuetoi5nr4lc6lb.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAX26SWhecTt1OzZinqjQH4AUcxvpVm1oQ"
+          "current_key": "AIzaSyAr09vJINNXz7k8gWvc74RtR5zUd2ZZT0E"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "473390041062-hr2bdlr30qnf1j6c2g6o5l2rvfa0htqb.apps.googleusercontent.com",
+              "client_id": "376361342662-uvkteqldqaguk0315tuetoi5nr4lc6lb.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -273,7 +273,9 @@ class _SignInScreenState extends State<SignInScreen> {
                           color: Colors.white,
                           iconPath: Images.googleIcon,
                           title: "Continue With Google",
-                          onTap: () {}),
+                          onTap: () {
+                            authController.googleSignIn();
+                          }),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       SocialLoginWidget(
                           fontColor: Colors.black,
