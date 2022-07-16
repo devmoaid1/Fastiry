@@ -99,11 +99,11 @@ class AuthController extends GetxController implements GetxService {
       final result = await authRepo.signInWithGoogle();
       if (result.additionalUserInfo.isNewUser) {
         final SignUpBody newUser = SignUpBody(
-          email: result.user.email,
-          fName: result.user.displayName.split('')[0],
-          lName: result.user.displayName.split('')[1],
-          phone: result.user.phoneNumber,
-        );
+            email: result.user.email,
+            fName: result.user.displayName.split('')[0],
+            lName: result.user.displayName.split('')[1],
+            phone: result.user.phoneNumber,
+            password: "");
         await authRepo.registration(newUser);
       }
       final token = result.user.refreshToken;
@@ -113,6 +113,8 @@ class AuthController extends GetxController implements GetxService {
       _isLoading = false;
       update();
     } catch (err) {
+      _isLoading = false;
+      update();
       print(err.toString());
       showCustomSnackBar("something went wrong");
     }

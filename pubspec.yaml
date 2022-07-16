@@ -13,8 +13,8 @@ dependencies:
   country_code_picker: ^2.0.2
   dotted_border: ^2.0.0+2
   firebase_auth: ^3.4.2
-  firebase_core: ^1.2.1
-  firebase_messaging: ^11.4.1
+  firebase_core: ^1.19.2
+  firebase_messaging: ^12.0.0
   flutter:
     sdk: flutter
   flutter_inappwebview: ^5.4.3+7
