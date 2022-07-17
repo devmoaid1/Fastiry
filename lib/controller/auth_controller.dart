@@ -3,12 +3,13 @@ import 'dart:convert';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/model/body/signup_body.dart';
+import 'package:efood_multivendor/data/model/body/social_customer.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/data/model/response/response_model.dart';
 import 'package:efood_multivendor/data/repository/auth_repo.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/generate_strings.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -99,34 +100,30 @@ class AuthController extends GetxController implements GetxService {
 
   Future<void> googleSignIn() async {
     try {
-      _isLoading = true;
-      update();
-
       final result = await authRepo.signInWithGoogle();
       final token = result.token;
       final user = result.userCredential.user;
+      final isSocialExist =
+          isSocialUserExist(); // check is there a table in local storage
+      final List<SocialCustomer> socialCustomers =
+          getCurrentSocialCustomer(); //get list of social accounts
 
-      if (result.userCredential.additionalUserInfo.isNewUser) {
-        final SocialLogInBody newSocialUser = SocialLogInBody(
-            email: user.email,
-            medium: 'google',
-            phone: user.phoneNumber,
-            token: token,
-            uniqueId: user.uid);
-        // await authRepo.registerWithSocialMedia(newSocialUser);
-        Get.toNamed(RouteHelper.getForgotPassRoute(
-            true,
-            newSocialUser,
-            token,
-            Customer(
-                email: user.email,
-                firstName: user.displayName.split(' ')[0],
-                lastName: user.displayName.split(' ')[1],
-                phone: user.phoneNumber)));
+      bool isCustomerExist = false;
+
+      if (isSocialExist) {
+        for (var customer in socialCustomers) {
+          if (customer.email == user.email) {
+            isCustomerExist = true;
+          }
+        }
+      } // check if there social customer in local database
+
+      if (!isCustomerExist || !isSocialExist) {
+        //new user go to phone verification
+        handleNewSocialUser(token, user);
       } else {
-        authRepo.saveUserToken(token);
-        await authRepo.updateToken();
-        Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
+        //existing user login and go to location page
+        handleSocialLogin(user, socialCustomers);
       }
 
       _isLoading = false;
@@ -139,22 +136,80 @@ class AuthController extends GetxController implements GetxService {
     }
   }
 
+  void handleNewSocialUser(String token, User user) {
+    final SocialLogInBody newSocialUser = SocialLogInBody(
+        email: user.email,
+        medium: 'google',
+        phone: user.phoneNumber,
+        token: token,
+        uniqueId: user.uid);
+
+    Get.toNamed(RouteHelper.getForgotPassRoute(
+        true,
+        newSocialUser,
+        token,
+        Customer(
+            email: user.email,
+            firstName: user.displayName.split(' ')[0],
+            lastName: user.displayName.split(' ')[1],
+            phone: user.phoneNumber)));
+  }
+
+  void handleSocialLogin(User user, List<SocialCustomer> socialCustomers) {
+    SocialCustomer socialCustomer = SocialCustomer();
+
+    for (var customer in socialCustomers) {
+      if (customer.email == user.email) {
+        socialCustomer = customer;
+      }
+    }
+    login(socialCustomer.phone.trim(), socialCustomer.password.trim())
+        .then((status) {
+      if (status.isSuccess) {
+        String _token = status.message.substring(1, status.message.length);
+        if (Get.find<SplashController>().configModel.customerVerification &&
+            int.parse(status.message[0]) == 0) {
+          List<int> _encoded = utf8.encode(socialCustomer.password);
+          String _data = base64Encode(_encoded);
+          Get.toNamed(RouteHelper.getVerificationRoute(
+              socialCustomer.phone, _token, RouteHelper.signUp, _data));
+        } else {
+          Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
+        }
+      } else {
+        showCustomSnackBar(status.message);
+      }
+    });
+  }
+
   Future<void> handleSocialPhone(
       SocialLogInBody body, Customer user, String token) async {
     final SignUpBody signUpBody = SignUpBody(
         email: body.email,
         fName: user.firstName,
         lName: user.lastName,
-        password: generateRandomString(),
+        password: body.uniqueId,
         phone: body.phone,
-        refCode: '');
+        refCode: ''); // create sign up body to register social user
 
     registration(signUpBody).then((status) {
+      final SocialCustomer socialCustomer = SocialCustomer(
+        email: body.email,
+        socialId: body.uniqueId,
+        firstName: signUpBody.fName,
+        lastName: signUpBody.lName,
+        password: signUpBody.password,
+        phone: body.phone,
+      );
       if (status.isSuccess) {
         List<int> _encoded = utf8.encode(signUpBody.password);
-        String _data = base64Encode(_encoded);
-        Get.toNamed(RouteHelper.getVerificationRoute(
-            body.phone, token, RouteHelper.signUp, _data));
+        String _data = base64Encode(_encoded); // hash password
+        setSocialCustomer(socialCustomer); // save customer to localStorage
+        Get.toNamed(RouteHelper.getVerificationRoute(body.phone, token,
+            RouteHelper.signUp, _data)); // navigate to phone verfication
+      } else {
+        // setSocialCustomer(socialCustomer);
+        showCustomSnackBar(status.message);
       }
     });
   }
@@ -352,5 +407,17 @@ class AuthController extends GetxController implements GetxService {
     authRepo.setNotificationActive(isActive);
     update();
     return _notification;
+  }
+
+  bool isSocialUserExist() {
+    return authRepo.checkSocialUser();
+  }
+
+  List<SocialCustomer> getCurrentSocialCustomer() {
+    return authRepo.getCurrentSocialCustomer();
+  }
+
+  void setSocialCustomer(SocialCustomer socialCustomer) {
+    authRepo.setSocialCustomer(socialCustomer);
   }
 }

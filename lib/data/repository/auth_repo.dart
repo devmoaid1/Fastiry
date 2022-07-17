@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/data/api/api_client.dart';
@@ -13,6 +14,8 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+
+import '../model/body/social_customer.dart';
 
 class AuthRepo {
   final ApiClient apiClient;
@@ -161,6 +164,42 @@ class AuthRepo {
 
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
+  }
+
+  void setSocialCustomer(SocialCustomer socialCustomer) {
+    List<String> data = [];
+    List<SocialCustomer> currentCustomers = getCurrentSocialCustomer();
+    if (currentCustomers.isEmpty) {
+      data.add(jsonEncode(socialCustomer.toJson()));
+    } else {
+      currentCustomers.forEach((element) {
+        String customer = jsonEncode(socialCustomer.toJson());
+
+        data.add(customer);
+      });
+    }
+    sharedPreferences.setStringList(AppConstants.socialUser, data);
+  }
+
+  List<SocialCustomer> getCurrentSocialCustomer() {
+    final isCustomerExist = checkSocialUser();
+    List<SocialCustomer> customers = [];
+    if (isCustomerExist) {
+      List<String> data =
+          sharedPreferences.getStringList(AppConstants.socialUser);
+      data.forEach((element) {
+        SocialCustomer socialCustomer =
+            SocialCustomer.fromJson(jsonDecode(element));
+        customers.add(socialCustomer);
+      });
+      return customers;
+    }
+
+    return [];
+  }
+
+  bool checkSocialUser() {
+    return sharedPreferences.containsKey(AppConstants.socialUser);
   }
 
   bool isLoggedIn() {
