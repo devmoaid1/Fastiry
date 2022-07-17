@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/model/body/signup_body.dart';
@@ -5,9 +7,12 @@ import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/data/model/response/response_model.dart';
 import 'package:efood_multivendor/data/repository/auth_repo.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/util/generate_strings.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../data/model/body/customer.dart';
 
 class AuthController extends GetxController implements GetxService {
   final AuthRepo authRepo;
@@ -82,7 +87,8 @@ class AuthController extends GetxController implements GetxService {
           Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
         }
       } else {
-        Get.toNamed(RouteHelper.getForgotPassRoute(true, socialLogInBody));
+        Get.toNamed(
+            RouteHelper.getForgotPassRoute(true, socialLogInBody, "", null));
       }
     } else {
       showCustomSnackBar(response.statusText);
@@ -101,14 +107,22 @@ class AuthController extends GetxController implements GetxService {
       final user = result.userCredential.user;
 
       if (result.userCredential.additionalUserInfo.isNewUser) {
-        // final SocialLogInBody newSocialUser = SocialLogInBody(
-        //     email: result.user.email,
-        //     medium: 'google',
-        //     phone: result.user.phoneNumber,
-        //     token: token,
-        //     uniqueId: result.user.uid);
+        final SocialLogInBody newSocialUser = SocialLogInBody(
+            email: user.email,
+            medium: 'google',
+            phone: user.phoneNumber,
+            token: token,
+            uniqueId: user.uid);
         // await authRepo.registerWithSocialMedia(newSocialUser);
-        Get.toNamed(RouteHelper.getSocialPhoneRoute(user, token));
+        Get.toNamed(RouteHelper.getForgotPassRoute(
+            true,
+            newSocialUser,
+            token,
+            Customer(
+                email: user.email,
+                firstName: user.displayName.split(' ')[0],
+                lastName: user.displayName.split(' ')[1],
+                phone: user.phoneNumber)));
       } else {
         authRepo.saveUserToken(token);
         await authRepo.updateToken();
@@ -123,6 +137,26 @@ class AuthController extends GetxController implements GetxService {
       print(err.toString());
       showCustomSnackBar("something went wrong");
     }
+  }
+
+  Future<void> handleSocialPhone(
+      SocialLogInBody body, Customer user, String token) async {
+    final SignUpBody signUpBody = SignUpBody(
+        email: body.email,
+        fName: user.firstName,
+        lName: user.lastName,
+        password: generateRandomString(),
+        phone: body.phone,
+        refCode: '');
+
+    registration(signUpBody).then((status) {
+      if (status.isSuccess) {
+        List<int> _encoded = utf8.encode(signUpBody.password);
+        String _data = base64Encode(_encoded);
+        Get.toNamed(RouteHelper.getVerificationRoute(
+            body.phone, token, RouteHelper.signUp, _data));
+      }
+    });
   }
 
   Future<void> registerWithSocialMedia(SocialLogInBody socialLogInBody) async {

@@ -260,7 +260,8 @@ class _SignInScreenState extends State<SignInScreen> {
                             ),
                             TextButton(
                               onPressed: () => Get.toNamed(
-                                  RouteHelper.getForgotPassRoute(false, null)),
+                                  RouteHelper.getForgotPassRoute(
+                                      false, null, '', null)),
                               child: Text(
                                 '${'forgot_password'.tr}?',
                                 style: poppinsRegular,

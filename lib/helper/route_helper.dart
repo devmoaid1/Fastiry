@@ -57,6 +57,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../data/model/body/customer.dart';
+
 class RouteHelper {
   static const String initial = '/';
   static const String splash = '/splash';
@@ -121,13 +123,15 @@ class RouteHelper {
       '$pickMap?page=$page&route=${canRoute.toString()}';
   static String getInterestRoute() => '$interest';
   static String getMainRoute(String page) => '$main?page=$page';
-  static String getForgotPassRoute(
-      bool fromSocialLogin, SocialLogInBody socialLogInBody) {
+  static String getForgotPassRoute(bool fromSocialLogin,
+      SocialLogInBody socialLogInBody, String token, Customer user) {
     String _data;
+    String _customer;
     if (fromSocialLogin) {
       _data = base64Encode(utf8.encode(jsonEncode(socialLogInBody.toJson())));
+      _customer = jsonEncode(user.toJson());
     }
-    return '$forgotPassword?page=${fromSocialLogin ? 'social-login' : 'forgot-password'}&data=${fromSocialLogin ? _data : 'null'}';
+    return '$forgotPassword?page=${fromSocialLogin ? 'social-login' : 'forgot-password'}&data=${fromSocialLogin ? _data : 'null'}&user=$_customer&token=$token';
   }
 
   static String getSocialPhoneRoute(User user, String token) =>
@@ -288,14 +292,20 @@ class RouteHelper {
         name: forgotPassword,
         page: () {
           SocialLogInBody _data;
+          Customer _customer;
           if (Get.parameters['page'] == 'social-login') {
             List<int> _decode =
                 base64Decode(Get.parameters['data'].replaceAll(' ', '+'));
+
             _data = SocialLogInBody.fromJson(jsonDecode(utf8.decode(_decode)));
+            _customer = Customer.fromJson(jsonDecode(Get.parameters['user']));
           }
           return ForgetPassScreen(
-              fromSocialLogin: Get.parameters['page'] == 'social-login',
-              socialLogInBody: _data);
+            fromSocialLogin: Get.parameters['page'] == 'social-login',
+            socialLogInBody: _data,
+            token: Get.parameters['token'],
+            customer: _customer,
+          );
         }),
     GetPage(
         name: resetPassword,
