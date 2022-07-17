@@ -3,6 +3,7 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
@@ -41,45 +42,50 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: CustomAppBar(
           title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
       body: SafeArea(
           child: Center(
-              child: Scrollbar(
-                  child: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-        child: Center(
-            child: Container(
-          width: context.width > 700 ? 700 : context.width,
-          padding: context.width > 700
-              ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
-              : null,
-          decoration: context.width > 700
-              ? BoxDecoration(
-                  color: Theme.of(context).cardColor,
-                  borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                        blurRadius: 5,
-                        spreadRadius: 1)
-                  ],
-                )
-              : null,
-          child: Column(children: [
-            Image.asset(Images.forgot, height: 220),
-            Padding(
-              padding: EdgeInsets.all(30),
-              child: Text('please_enter_mobile'.tr,
-                  style: robotoRegular, textAlign: TextAlign.center),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                color: Theme.of(context).cardColor,
+        child: Scrollbar(
+            child: SingleChildScrollView(
+          physics: BouncingScrollPhysics(),
+          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+          child: Center(
+              child: Container(
+            width: context.width > 700 ? 700 : context.width,
+            padding: context.width > 700
+                ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
+                : null,
+            decoration: context.width > 700
+                ? BoxDecoration(
+                    color: Theme.of(context).cardColor,
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                    boxShadow: [
+                      BoxShadow(
+                          color: Colors.grey[Get.isDarkMode ? 700 : 300],
+                          blurRadius: 5,
+                          spreadRadius: 1)
+                    ],
+                  )
+                : null,
+            child: Column(children: [
+              Image.asset(Images.forgot,
+                  height: Dimensions.blockscreenVertical * 25),
+              SizedBox(
+                height: Dimensions.PADDING_SIZE_LARGE,
               ),
-              child: Row(children: [
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: Dimensions.RADIUS_SMALL,
+                    vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE),
+                child: Text('please_enter_mobile'.tr,
+                    style: poppinsRegular.copyWith(color: lightGreyTextColor),
+                    textAlign: TextAlign.left),
+              ),
+              SizedBox(height: Dimensions.blockscreenVertical * 5),
+              Row(children: [
                 CodePickerWidget(
                   onChanged: (CountryCode countryCode) {
                     _countryDialCode = countryCode.dialCode;
@@ -99,7 +105,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                   dialogBackgroundColor: Theme.of(context).cardColor,
                   textStyle: robotoRegular.copyWith(
                     fontSize: Dimensions.fontSizeLarge,
-                    color: Theme.of(context).textTheme.bodyText1.color,
+                    color: lightGreyTextColor,
                   ),
                 ),
                 Expanded(
@@ -112,19 +118,20 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                       GetPlatform.isWeb ? _forgetPass(_countryDialCode) : null,
                 )),
               ]),
-            ),
-            SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-            GetBuilder<AuthController>(builder: (authController) {
-              return !authController.isLoading
-                  ? CustomButton(
-                      buttonText: 'next'.tr,
-                      onPressed: () => _forgetPass(_countryDialCode),
-                    )
-                  : Center(child: CircularProgressIndicator());
-            }),
-          ]),
+              SizedBox(height: Dimensions.blockscreenVertical * 5),
+              GetBuilder<AuthController>(builder: (authController) {
+                return !authController.isLoading
+                    ? CustomButton(
+                        height: Dimensions.blockscreenVertical * 8,
+                        buttonText: 'next'.tr,
+                        onPressed: () => _forgetPass(_countryDialCode),
+                      )
+                    : Center(child: CircularProgressIndicator());
+              }),
+            ]),
+          )),
         )),
-      )))),
+      )),
     );
   }
 

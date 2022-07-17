@@ -51,8 +51,8 @@ class CustomButton extends StatelessWidget {
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   icon != null
                       ? Padding(
-                          padding: EdgeInsets.only(
-                              right: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          padding: EdgeInsets.symmetric(
+                              horizontal: Dimensions.PADDING_SIZE_SMALL),
                           child: Icon(icon,
                               color: transparent
                                   ? Theme.of(context).primaryColor
@@ -61,7 +61,7 @@ class CustomButton extends StatelessWidget {
                       : SizedBox(),
                   Text(buttonText ?? '',
                       textAlign: TextAlign.center,
-                      style: poppinsMedium.copyWith(
+                      style: poppinsRegular.copyWith(
                         color: transparent
                             ? Theme.of(context).primaryColor
                             : Theme.of(context).cardColor,

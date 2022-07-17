@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
@@ -78,7 +79,9 @@ class _CustomTextFieldState extends State<CustomTextField> {
             floatingLabelBehavior: FloatingLabelBehavior.never,
             border: UnderlineInputBorder(
               borderSide: BorderSide(
-                  style: BorderStyle.solid, width: 1, color: Colors.grey[100]),
+                  style: BorderStyle.solid,
+                  width: 1,
+                  color: lightGreyTextColor),
             ),
             isDense: true,
             hintText: widget.hintText,
