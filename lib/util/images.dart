@@ -63,4 +63,5 @@ class Images {
   static const String refer_image = 'assets/image/refer_a_friend.png';
   static const String googleIcon = 'assets/image/google.svg';
   static const String facebookIcon = 'assets/image/facebook.svg';
+  static const String verficationImage = 'assets/image/verification_image.png';
 }

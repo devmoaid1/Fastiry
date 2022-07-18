@@ -284,7 +284,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           color: Colors.white,
                           iconPath: Images.facebookIcon,
                           title: "Continue With Faceook",
-                          onTap: () {}),
+                          onTap: () {
+                            Get.toNamed(RouteHelper.getVerificationRoute(
+                                '01033266366', 'asasasasas', 'sign-up', ''));
+                          }),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       GuestButton(),
                     ]);
