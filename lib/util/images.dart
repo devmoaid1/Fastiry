@@ -64,4 +64,7 @@ class Images {
   static const String googleIcon = 'assets/image/google.svg';
   static const String facebookIcon = 'assets/image/facebook.svg';
   static const String verficationImage = 'assets/image/verification_image.png';
+  static const String fastiryNewIconRed = 'assets/image/f.png';
+
+  static const String fastiryNewIconType = 'assets/image/fastiry_type_only.png';
 }
