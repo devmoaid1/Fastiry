@@ -2,6 +2,7 @@ import 'package:efood_multivendor/controller/onboarding_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
@@ -36,7 +37,7 @@ class OnBoardingScreen extends StatelessWidget {
 
                   Text(
                     onBoardingController.onBoardingList[index].title,
-                    style: robotoMedium.copyWith(fontSize: context.height*0.022),
+                    style: poppinsMedium.copyWith(fontSize: context.height*0.022),
                     textAlign: TextAlign.center,
                   ),
                   SizedBox(height: context.height*0.025),
@@ -45,7 +46,7 @@ class OnBoardingScreen extends StatelessWidget {
                     padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
                     child: Text(
                       onBoardingController.onBoardingList[index].description,
-                      style: robotoRegular.copyWith(fontSize: context.height*0.015, color: Theme.of(context).disabledColor),
+                      style: robotoRegular.copyWith(fontSize: context.height*0.015, color: lightGreyTextColor.withOpacity(0.7)),
                       textAlign: TextAlign.center,
                     ),
                   ),

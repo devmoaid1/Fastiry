@@ -42,7 +42,7 @@ class GuestButton extends StatelessWidget {
             FittedBox(
               fit: BoxFit.fitWidth,
               child: Text(
-                "Continue As Guest",
+                "guest_login".tr,
                 style:
                     poppinsRegular.copyWith(color: Colors.black, fontSize: 18),
               ),

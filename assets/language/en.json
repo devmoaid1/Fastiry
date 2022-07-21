@@ -1,6 +1,10 @@
 {
   "select_language": "Select Language",
   "save": "Save",
+  "facebook_login": "Continue with facebook",
+  "google_login": "Continue with google",
+  "guest_login": "Continue as guest",
+  "new_user": "New User?",
   "select_a_language": "Select a language",
   "on_boarding_1_title": "Get Favorite Foods",
   "on_boarding_2_title": "Easy Payment",

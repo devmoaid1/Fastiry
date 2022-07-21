@@ -8,6 +8,7 @@ import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
@@ -129,16 +130,17 @@ class _SignInScreenState extends State<SignInScreen> {
               child: GetBuilder<AuthController>(builder: (authController) {
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
 
-                      // Image.asset(Images.logo_name, width: 120),
+                      // Image.asset(Images.fastiryRed, width: 120),
                       // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-                      Text('Sign in with phone'.tr,
-                          style: poppinsMedium.copyWith(
-                            fontSize: 25,
-                            fontWeight: FontWeight.w500,
+                      Text('sign_in'.tr,
+                          style: poppinsRegular.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal*7,
+                            fontWeight: FontWeight.w600,
+                            color: lightGreyTextColor
                           )),
                       SizedBox(height: 20),
                       Column(children: [
@@ -254,7 +256,7 @@ class _SignInScreenState extends State<SignInScreen> {
                               onPressed: () =>
                                   Get.toNamed(RouteHelper.getSignUpRoute()),
                               child: Text(
-                                '${'New User'.tr}?',
+                                '${'new_user'.tr}',
                                 style: poppinsRegular,
                               ),
                             ),
@@ -263,7 +265,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   RouteHelper.getForgotPassRoute(
                                       false, null, '', null)),
                               child: Text(
-                                '${'forgot_password'.tr}?',
+                                '${'forgot_password'.tr}',
                                 style: poppinsRegular,
                               ),
                             ),
@@ -273,7 +275,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           fontColor: Colors.black,
                           color: Colors.white,
                           iconPath: Images.googleIcon,
-                          title: "Continue With Google",
+                          title: "google_login".tr,
                           onTap: () {
                             authController.googleSignIn();
                           }),
@@ -283,7 +285,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           iconColor: Colors.blue,
                           color: Colors.white,
                           iconPath: Images.facebookIcon,
-                          title: "Continue With Faceook",
+                          title: "facebook_login".tr,
                           onTap: () {
                             Get.toNamed(RouteHelper.getVerificationRoute(
                                 '01033266366', 'asasasasas', 'sign-up', ''));

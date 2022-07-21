@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(

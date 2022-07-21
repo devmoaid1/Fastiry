@@ -64,4 +64,10 @@ class Images {
   static const String googleIcon = 'assets/image/google.svg';
   static const String facebookIcon = 'assets/image/facebook.svg';
   static const String verficationImage = 'assets/image/verification_image.png';
+  static const String fastiryLogoRed = 'assets/image/fastiry_logo_red.png';
+  static const String fastiryLogoType = 'assets/image/fastiry_logo_type.png';
+  static const String fastiryRed = 'assets/image/fastiry_red.png';
+  static const String egyptFlag = 'assets/image/egypt.png';
+  static const String englandFlag = 'assets/image/united-kingdom.png';
+  static const String americaFlag = 'assets/image/united-states.png';
 }

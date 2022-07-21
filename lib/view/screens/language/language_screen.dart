@@ -1,5 +1,6 @@
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/screens/language/widget/language_widget.dart';
@@ -19,54 +20,49 @@ class ChooseLanguageScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: (fromMenu || ResponsiveHelper.isDesktop(context)) ? CustomAppBar(title: 'language'.tr, isBackButtonExist: true) : null,
       body: SafeArea(
         child: GetBuilder<LocalizationController>(builder: (localizationController) {
           return Column(children: [
 
-            Expanded(child: Center(
-              child: Scrollbar(
-                child: SingleChildScrollView(
-                  physics: BouncingScrollPhysics(),
-                  padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                  child: Center(child: SizedBox(
-                    width: Dimensions.WEB_MAX_WIDTH,
-                    child: Column(mainAxisSize: MainAxisSize.min, crossAxisAlignment: CrossAxisAlignment.start, children: [
+            Expanded(child: Scrollbar(
+              child: SingleChildScrollView(
+                physics: BouncingScrollPhysics(),
+                padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                child: Container(
+                  width: Dimensions.WEB_MAX_WIDTH,
+                  child: Column( crossAxisAlignment: CrossAxisAlignment.start, children: [
 
-                      Center(child: Image.asset(Images.logo, width: 100)),
-                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                      Center(child: Image.asset(Images.logo_name, width: 100)),
+                    Center(child: Container(child: Image.asset(Images.fastiryRed, fit: BoxFit.fill,),height: Dimensions.blockscreenHorizontal*30)),
+                    
+                   SizedBox(height: Dimensions.blockscreenVertical*3,),
+                    //Center(child: Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE))),
+                   
 
-                      //Center(child: Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: Dimensions.FONT_SIZE_LARGE))),
-                      SizedBox(height: 30),
+                    Padding(
+                      padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                      child: Text('select_language'.tr, style: poppinsMedium),
+                    ),
+                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
-                      Padding(
-                        padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                        child: Text('select_language'.tr, style: robotoMedium),
+                    ListView.builder(
+                      
+                      itemCount: localizationController.languages.length,
+                      physics: NeverScrollableScrollPhysics(),
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) => LanguageWidget(
+                        languageModel: localizationController.languages[index],
+                        localizationController: localizationController, index: index,
                       ),
-                      SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    ),
+                    SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
-                      GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: ResponsiveHelper.isDesktop(context) ? 4 : ResponsiveHelper.isTab(context) ? 3 : 2,
-                          childAspectRatio: (1/1),
-                        ),
-                        itemCount: localizationController.languages.length,
-                        physics: NeverScrollableScrollPhysics(),
-                        shrinkWrap: true,
-                        itemBuilder: (context, index) => LanguageWidget(
-                          languageModel: localizationController.languages[index],
-                          localizationController: localizationController, index: index,
-                        ),
-                      ),
-                      SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                    Text('you_can_change_language'.tr, style: poppinsRegular.copyWith(
+                      fontSize: Dimensions.fontSizeSmall, color: lightGreyTextColor.withOpacity(0.7),
+                    )),
 
-                      Text('you_can_change_language'.tr, style: robotoRegular.copyWith(
-                        fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).disabledColor,
-                      )),
-
-                    ]),
-                  )),
+                  ]),
                 ),
               ),
             )),
