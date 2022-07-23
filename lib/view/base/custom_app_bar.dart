@@ -32,11 +32,11 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Image.asset(
-                        Images.fastiryNewIconRed,
+                        Images.fastiryLogoRed,
                         height: 70,
                       ),
                       Image.asset(
-                        Images.fastiryNewIconType,
+                        Images.fastiryLogoType,
                         height: 100,
                       ),
                     ],
