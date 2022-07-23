@@ -4,6 +4,7 @@
   "google_login": "استمرار جوجل",
   "guest_login": "استمرار كزائر",
   "new_user": "مستخدم جديد؟",
+  "already_have_account":"لديك حساب بالفعل؟",
   "save": "حفظ",
   "select_a_language": "اختر لغة",
   "on_boarding_1_title": "احصل على الأطعمة المفضلة",

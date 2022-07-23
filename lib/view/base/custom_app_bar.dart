@@ -15,11 +15,13 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final Function onBackPressed;
   final bool showCart;
   final bool isWithLogo;
+  final bool isWithSpace;
   CustomAppBar(
       {@required this.title,
       this.isBackButtonExist = true,
       this.onBackPressed,
       this.showCart = false,
+      this.isWithSpace = false,
       this.isWithLogo = false});
 
   @override
@@ -29,15 +31,22 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         : AppBar(
             title: isWithLogo
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: isWithSpace
+                        ? MainAxisAlignment.start
+                        : MainAxisAlignment.center,
                     children: [
+                      isWithSpace
+                          ? SizedBox(
+                              width: Dimensions.blockscreenHorizontal * 4,
+                            )
+                          : Container(),
                       Image.asset(
                         Images.fastiryLogoRed,
-                        height: 70,
+                        height: Dimensions.blockscreenVertical * 10,
                       ),
                       Image.asset(
                         Images.fastiryLogoType,
-                        height: 100,
+                        height: Dimensions.blockscreenVertical * 20,
                       ),
                     ],
                   )

@@ -8,6 +8,7 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
+import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/view/base/no_internet_screen.dart';
 import 'package:flutter/material.dart';
@@ -104,7 +105,10 @@ class _SplashScreenState extends State<SplashScreen> {
                     Get.offNamed(RouteHelper.getOnBoardingRoute());
                   }
                 } else {
-                  Get.offNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
+                  // change to access location if not first time
+                  Get.offNamed(
+                      RouteHelper.getAccessLocationRoute(RouteHelper.splash));
+                  // Get.offNamed(RouteHelper.getSignInRoute(RouteHelper.splash));
                 }
               }
             }
@@ -117,22 +121,17 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFCC293D),
+      backgroundColor: Get.isDarkMode ? Color(0xff101010) : Colors.white,
       key: _globalKey,
       body: GetBuilder<SplashController>(builder: (splashController) {
         return Center(
           child: splashController.hasConnection
               ? Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Image.asset(Images.backe,
-                        width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height),
-
-                    // SizedBox(height: MediaQuery.of(context).size.height,width: MediaQuery.of(context).size.width),
-                    //Image.asset(Images.logo_name, width: 150),
-                    /*SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-            Text(AppConstants.APP_NAME, style: robotoMedium.copyWith(fontSize: 25)),*/
+                    Image.asset(Images.fastiryRed,
+                        height: Dimensions.blockscreenVertical * 35),
                   ],
                 )
               : NoInternetScreen(child: SplashScreen(orderID: widget.orderID)),

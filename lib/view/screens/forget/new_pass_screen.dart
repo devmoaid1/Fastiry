@@ -42,7 +42,9 @@ class _NewPassScreenState extends State<NewPassScreen> {
             ? 'change_password'.tr
             : 'reset_password'.tr,
         isWithLogo: true,
-        isBackButtonExist: false,
+        onBackPressed: () {
+          Get.offNamed(RouteHelper.signIn);
+        },
       ),
       body: SafeArea(
           child: Scrollbar(
@@ -68,10 +70,13 @@ class _NewPassScreenState extends State<NewPassScreen> {
               : null,
           child:
               Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+            SizedBox(
+              height: Dimensions.blockscreenVertical * 6,
+            ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimensions.blockscreenHorizontal * 2,
-                  vertical: Dimensions.blockscreenHorizontal * 5),
+                  vertical: Dimensions.blockscreenHorizontal * 3),
               child: Text('reset_password'.tr,
                   style: poppinsRegular.copyWith(
                     fontSize: Dimensions.blockscreenHorizontal * 8,
@@ -87,7 +92,7 @@ class _NewPassScreenState extends State<NewPassScreen> {
                       color: lightGreyTextColor),
                   textAlign: TextAlign.left),
             ),
-            SizedBox(height: Dimensions.blockscreenHorizontal * 6),
+            SizedBox(height: Dimensions.blockscreenHorizontal * 14),
             Column(children: [
               CustomTextField(
                 hintText: 'new_password'.tr,

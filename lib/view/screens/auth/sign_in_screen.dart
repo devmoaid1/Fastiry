@@ -6,7 +6,6 @@ import 'package:country_code_picker/country_code.dart';
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
@@ -15,7 +14,6 @@ import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/custom_text_field.dart';
-import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/code_picker_widget.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/guest_button.dart';
 import 'package:flutter/material.dart';
@@ -92,18 +90,6 @@ class _SignInScreenState extends State<SignInScreen> {
       },
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: ResponsiveHelper.isDesktop(context)
-            ? WebMenuBar()
-            : !widget.exitFromApp
-                ? AppBar(
-                    leading: IconButton(
-                      onPressed: () => Get.back(),
-                      icon: Icon(Icons.arrow_back_ios_rounded,
-                          color: Theme.of(context).textTheme.bodyText1.color),
-                    ),
-                    elevation: 0,
-                    backgroundColor: Colors.transparent)
-                : null,
         body: SafeArea(
             child: Scrollbar(
           child: SingleChildScrollView(
@@ -132,17 +118,14 @@ class _SignInScreenState extends State<SignInScreen> {
                     mainAxisAlignment: MainAxisAlignment.start,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
+                      SizedBox(height: Dimensions.blockscreenHorizontal * 4),
 
-                      // Image.asset(Images.fastiryRed, width: 120),
-                      // SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                       Text('sign_in'.tr,
                           style: poppinsRegular.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal*7,
-                            fontWeight: FontWeight.w600,
-                            color: lightGreyTextColor
-                          )),
-                      SizedBox(height: 20),
+                              fontSize: Dimensions.blockscreenHorizontal * 7,
+                              fontWeight: FontWeight.w500,
+                              color: lightGreyTextColor)),
+                      SizedBox(height: Dimensions.blockscreenHorizontal * 4),
                       Column(children: [
                         Row(children: [
                           CodePickerWidget(

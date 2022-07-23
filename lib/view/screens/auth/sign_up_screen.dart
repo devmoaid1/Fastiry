@@ -22,6 +22,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
+import '../../base/custom_app_bar.dart';
+
 class SignUpScreen extends StatefulWidget {
   @override
   _SignUpScreenState createState() => _SignUpScreenState();
@@ -58,7 +60,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white,
-      appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
+      appBar: ResponsiveHelper.isDesktop(context)
+          ? WebMenuBar()
+          : CustomAppBar(
+              title: "",
+              isWithLogo: true,
+              onBackPressed: () {
+                Get.offNamed(RouteHelper.signIn);
+              },
+            ),
       body: SafeArea(
           child: Scrollbar(
         child: SingleChildScrollView(
@@ -219,15 +229,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     Row(
                       children: [
                         Text(
-                          "Already have account ?".tr,
+                          "already_have_account".tr,
                           style: poppinsRegular,
                         ),
                         SizedBox(
                           width: 5,
                         ),
                         InkWell(
-                            onTap: () => Get.toNamed(
-                                RouteHelper.getSignInRoute('sign-in')),
+                            onTap: () => Get.offNamed(RouteHelper.signIn),
                             child: Text(
                               "sign_in".tr,
                               style: poppinsMedium.copyWith(
