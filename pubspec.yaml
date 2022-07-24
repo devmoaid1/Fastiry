@@ -1,6 +1,6 @@
 name: efood_multivendor
 description: A new Flutter application.
-publish_to: 'none'
+publish_to: "none"
 version: 2.9.2+21
 
 environment:
@@ -45,6 +45,7 @@ dependencies:
   universal_ui: ^0.0.8
   url_launcher: ^6.0.17
   url_strategy: ^0.2.0
+  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:
