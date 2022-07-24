@@ -70,4 +70,5 @@ class Images {
   static const String egyptFlag = 'assets/image/egypt.png';
   static const String englandFlag = 'assets/image/united-kingdom.png';
   static const String americaFlag = 'assets/image/united-states.png';
+  static const String pinIcon = 'assets/image/pin.png';
 }
