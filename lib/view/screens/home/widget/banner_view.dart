@@ -36,13 +36,8 @@ class BannerView extends StatelessWidget {
                       children: [
                         CarouselSlider.builder(
                           options: CarouselOptions(
-                            autoPlay: true,
                             aspectRatio: 16 / 9,
-                            autoPlayCurve: Curves.fastOutSlowIn,
-                            enableInfiniteScroll: true,
-                            autoPlayAnimationDuration:
-                                Duration(milliseconds: 800),
-                            viewportFraction: 0.8,
+                            viewportFraction: 1,
                             onPageChanged: (index, reason) {
                               bannerController.setCurrentIndex(index, true);
                             },
