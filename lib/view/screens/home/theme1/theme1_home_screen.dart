@@ -141,6 +141,8 @@ class Theme1HomeScreen extends StatelessWidget {
                   Expanded(
                       child: Text(
                     'search_food_or_restaurant'.tr,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
                     style: poppinsRegular.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 3.5,
                       color: extraLightGrey,
@@ -153,8 +155,7 @@ class Theme1HomeScreen extends StatelessWidget {
         ),
 
         SliverToBoxAdapter(
-          child: Center(
-              child: SizedBox(
+          child: SizedBox(
             width: Dimensions.WEB_MAX_WIDTH,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -166,13 +167,17 @@ class Theme1HomeScreen extends StatelessWidget {
               PopularItemView1(isPopular: true),
               PopularStoreView1(isPopular: false),
               Padding(
-                padding: EdgeInsets.fromLTRB(10, 15, 0, 5),
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.blockscreenVertical * 3,
+                    horizontal: Dimensions.blockscreenHorizontal * 3),
                 child: Row(children: [
                   Expanded(
                       child: Text(
                     'all_restaurants'.tr,
-                    style: robotoMedium.copyWith(
-                        fontSize: Dimensions.fontSizeLarge),
+                    style: poppinsRegular.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                        fontWeight: FontWeight.w600,
+                        color: lightGreyTextColor),
                   )),
                   FilterView(),
                 ]),
@@ -207,7 +212,7 @@ class Theme1HomeScreen extends StatelessWidget {
                 );
               }),
             ]),
-          )),
+          ),
         ),
       ],
     );

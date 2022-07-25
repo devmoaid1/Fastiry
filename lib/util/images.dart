@@ -72,4 +72,5 @@ class Images {
   static const String americaFlag = 'assets/image/united-states.png';
   static const String pinIcon = 'assets/image/pin.png';
   static const String breakFastImage = 'assets/image/breakfast.jpg';
+  static const String priceTagIcon = 'assets/image/price-tag.svg';
 }
