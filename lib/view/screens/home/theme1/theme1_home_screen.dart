@@ -1,10 +1,8 @@
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/view/screens/home/widget/filter_view.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/controller/notification_controller.dart';
 import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
@@ -13,7 +11,6 @@ import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/product_view.dart';
 import 'package:efood_multivendor/view/base/paginated_list_view.dart';
 import 'package:efood_multivendor/view/screens/home/home_screen.dart';
-import 'package:efood_multivendor/view/screens/home/theme1/banner_view1.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/best_reviewed_item_view.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/category_view1.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/item_campaign_view1.dart';
@@ -21,6 +18,7 @@ import 'package:efood_multivendor/view/screens/home/theme1/popular_item_view1.da
 import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.dart';
 
 import '../../../../util/images.dart';
+import 'banner_view1.dart';
 
 class Theme1HomeScreen extends StatelessWidget {
   final ScrollController scrollController;
@@ -35,7 +33,7 @@ class Theme1HomeScreen extends StatelessWidget {
         // App Bar
         SliverAppBar(
           toolbarHeight: Dimensions.blockscreenVertical * 10,
-          expandedHeight: Dimensions.blockscreenVertical * 10,
+          expandedHeight: Dimensions.blockscreenVertical * 12,
           floating: true,
           elevation: 0,
           automaticallyImplyLeading: false,
@@ -53,7 +51,7 @@ class Theme1HomeScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "Delever to",
+                  "Deliver to",
                   style: poppinsRegular.copyWith(
                       color: lightGreyTextColor,
                       fontSize: Dimensions.blockscreenHorizontal * 3),
@@ -79,22 +77,8 @@ class Theme1HomeScreen extends StatelessWidget {
                             Image.asset(
                               Images.pinIcon,
                               color: Theme.of(context).primaryColor,
-                              fit: BoxFit.cover,
-                              height: 20,
+                              height: Dimensions.blockscreenHorizontal * 5,
                             ),
-                            // Icon(
-                            //   locationController.getUserAddress().addressType ==
-                            //           'home'
-                            //       ? Icons.home_filled
-                            //       : locationController
-                            //                   .getUserAddress()
-                            //                   .addressType ==
-                            //               'office'
-                            //           ? Icons.work
-                            //           : Icons.location_on,
-                            //   size: 20,
-                            //   color: Theme.of(context).primaryColor,
-                            // ),
                             SizedBox(
                                 width: Dimensions.blockscreenHorizontal * 2),
                             Flexible(
@@ -115,48 +99,18 @@ class Theme1HomeScreen extends StatelessWidget {
                       }),
                     ),
                   )),
-                  // InkWell(
-                  //   child: GetBuilder<NotificationController>(
-                  //       builder: (notificationController) {
-                  //     return Stack(children: [
-                  //       Icon(Icons.notifications,
-                  //           size: 25,
-                  //           color: Theme.of(context).textTheme.bodyText1.color),
-                  //       notificationController.hasNotification
-                  //           ? Positioned(
-                  //               top: 0,
-                  //               right: 0,
-                  //               child: Container(
-                  //                 height: 10,
-                  //                 width: 10,
-                  //                 decoration: BoxDecoration(
-                  //                   color: Theme.of(context).primaryColor,
-                  //                   shape: BoxShape.circle,
-                  //                   border: Border.all(
-                  //                       width: 1,
-                  //                       color: Theme.of(context).cardColor),
-                  //                 ),
-                  //               ))
-                  //           : SizedBox(),
-                  //     ]);
-                  //   }),
-                  //   onTap: () =>
-                  //       Get.toNamed(RouteHelper.getNotificationRoute()),
-                  // ),
                 ]),
               ],
             ),
           ),
-          actions: [SizedBox()],
         ),
 
         // Search Button
         SliverPersistentHeader(
           pinned: true,
           delegate: SliverDelegate(
-              child: Center(
-                  child: Container(
-            height: 50,
+              child: Container(
+            height: Dimensions.blockscreenHorizontal * 20,
             width: Dimensions.WEB_MAX_WIDTH,
             color: Theme.of(context).backgroundColor,
             padding:
@@ -167,12 +121,12 @@ class Theme1HomeScreen extends StatelessWidget {
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimensions.PADDING_SIZE_SMALL),
                 decoration: BoxDecoration(
-                  color: lightGreyTextColor.withOpacity(0.3),
+                  color: offWhite,
                   borderRadius: BorderRadius.circular(25),
                   boxShadow: [
                     BoxShadow(
                         color: Colors.grey[Get.isDarkMode ? 800 : 300],
-                        spreadRadius: 1,
+                        spreadRadius: 0.4,
                         blurRadius: 5)
                   ],
                 ),
@@ -181,21 +135,21 @@ class Theme1HomeScreen extends StatelessWidget {
                   Icon(
                     Icons.search,
                     size: 25,
-                    color: Theme.of(context).hintColor,
+                    color: extraLightGrey,
                   ),
                   SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   Expanded(
                       child: Text(
                     'search_food_or_restaurant'.tr,
-                    style: robotoRegular.copyWith(
-                      fontSize: Dimensions.fontSizeSmall,
-                      color: Theme.of(context).hintColor,
+                    style: poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                      color: extraLightGrey,
                     ),
                   )),
                 ]),
               ),
             ),
-          ))),
+          )),
         ),
 
         SliverToBoxAdapter(

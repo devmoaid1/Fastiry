@@ -1,6 +1,7 @@
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/model/response/banner_model.dart';
 import 'package:efood_multivendor/data/repository/banner_repo.dart';
+import 'package:efood_multivendor/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -8,8 +9,8 @@ class BannerController extends GetxController implements GetxService {
   final BannerRepo bannerRepo;
   BannerController({@required this.bannerRepo});
 
-  List<String> _bannerImageList;
-  List<dynamic> _bannerDataList;
+  List<String> _bannerImageList = [Images.americaFlag, Images.breakFastImage];
+  List<dynamic> _bannerDataList = [{}, {}];
   int _currentIndex = 0;
 
   List<String> get bannerImageList => _bannerImageList;
@@ -17,7 +18,7 @@ class BannerController extends GetxController implements GetxService {
   int get currentIndex => _currentIndex;
 
   Future<void> getBannerList(bool reload) async {
-    if(_bannerImageList == null || reload) {
+    if (_bannerImageList == null || reload) {
       Response response = await bannerRepo.getBannerList();
       if (response.statusCode == 200) {
         _bannerImageList = [];
@@ -29,9 +30,9 @@ class BannerController extends GetxController implements GetxService {
         });
         _bannerModel.banners.forEach((banner) {
           _bannerImageList.add(banner.image);
-          if(banner.food != null) {
+          if (banner.food != null) {
             _bannerDataList.add(banner.food);
-          }else {
+          } else {
             _bannerDataList.add(banner.restaurant);
           }
         });
@@ -44,7 +45,7 @@ class BannerController extends GetxController implements GetxService {
 
   void setCurrentIndex(int index, bool notify) {
     _currentIndex = index;
-    if(notify) {
+    if (notify) {
       update();
     }
   }
