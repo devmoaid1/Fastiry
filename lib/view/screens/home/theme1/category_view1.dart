@@ -12,6 +12,8 @@ import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/home_controller.dart';
+
 class CategoryView1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -182,7 +184,7 @@ class CategoryShimmer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 75,
+      height: Dimensions.blockscreenVertical * 22,
       child: ListView.builder(
         itemCount: 14,
         padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
@@ -193,20 +195,17 @@ class CategoryShimmer extends StatelessWidget {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 1),
             child: SizedBox(
-              width: 75,
               child: Container(
-                height: 65,
-                width: 65,
                 margin: EdgeInsets.only(
                   left: index == 0 ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL,
                   right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
                 ),
                 child: Shimmer(
                   duration: Duration(seconds: 2),
-                  enabled: categoryController.categoryList == null,
+                  enabled: Get.find<HomeController>().isLoading,
                   child: Container(
-                    height: 65,
-                    width: 65,
+                    height: Dimensions.blockscreenVertical * 22,
+                    width: Dimensions.blockscreenHorizontal * 35,
                     decoration: BoxDecoration(
                       color: Colors.grey[300],
                       borderRadius:

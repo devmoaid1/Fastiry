@@ -2,8 +2,7 @@ import 'dart:async';
 
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/cart_widget.dart';
-import 'package:efood_multivendor/view/screens/cart/cart_screen.dart';
+import 'package:efood_multivendor/view/screens/dashboard/dashboard_controller.dart';
 import 'package:efood_multivendor/view/screens/dashboard/widget/bottom_nav_item.dart';
 import 'package:efood_multivendor/view/screens/favourite/favourite_screen.dart';
 import 'package:efood_multivendor/view/screens/home/home_screen.dart';
@@ -11,6 +10,8 @@ import 'package:efood_multivendor/view/screens/menu/menu_screen.dart';
 import 'package:efood_multivendor/view/screens/order/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../util/images.dart';
 
 class DashboardScreen extends StatefulWidget {
   final int pageIndex;
@@ -38,7 +39,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
     _screens = [
       HomeScreen(),
       FavouriteScreen(),
-      CartScreen(fromNav: true),
       OrderScreen(),
       Container(),
     ];
@@ -52,19 +52,23 @@ class _DashboardScreenState extends State<DashboardScreen> {
     }*/
   }
 
+  final dashBoardController = Get.find<DashBoardController>();
   @override
   Widget build(BuildContext context) {
+    print(widget.pageIndex);
+
     return WillPopScope(
       onWillPop: () async {
-        if (_pageIndex != 0) {
-          _setPage(0);
+        if (dashBoardController.currentIndex != 0) {
+          dashBoardController.setIndex(0);
           return false;
         } else {
-          if(_canExit) {
+          if (_canExit) {
             return true;
-          }else {
+          } else {
             ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: Text('back_press_again_to_exit'.tr, style: TextStyle(color: Colors.white)),
+              content: Text('back_press_again_to_exit'.tr,
+                  style: TextStyle(color: Colors.white)),
               behavior: SnackBarBehavior.floating,
               backgroundColor: Colors.green,
               duration: Duration(seconds: 2),
@@ -80,34 +84,64 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
-
-        floatingActionButton: ResponsiveHelper.isDesktop(context) ? null : FloatingActionButton(
-          elevation: 5,
-          backgroundColor: _pageIndex == 2 ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
-          onPressed: () => _setPage(2),
-          child: CartWidget(color: _pageIndex == 2 ? Theme.of(context).cardColor : Theme.of(context).disabledColor, size: 30),
-        ),
-        floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-        bottomNavigationBar: ResponsiveHelper.isDesktop(context) ? SizedBox() : BottomAppBar(
-          elevation: 5,
-          notchMargin: 5,
-          clipBehavior: Clip.antiAlias,
-          shape: CircularNotchedRectangle(),
-
-          child: Padding(
-            padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Row(children: [
-              BottomNavItem(iconData: Icons.home, isSelected: _pageIndex == 0, onTap: () => _setPage(0)),
-              BottomNavItem(iconData: Icons.favorite, isSelected: _pageIndex == 1, onTap: () => _setPage(1)),
-              Expanded(child: SizedBox()),
-              BottomNavItem(iconData: Icons.shopping_bag, isSelected: _pageIndex == 3, onTap: () => _setPage(3)),
-              BottomNavItem(iconData: Icons.menu, isSelected: _pageIndex == 4, onTap: () {
-                Get.bottomSheet(MenuScreen(), backgroundColor: Colors.transparent, isScrollControlled: true);
-              }),
-            ]),
-          ),
-        ),
+        //
+        bottomNavigationBar: ResponsiveHelper.isDesktop(context)
+            ? SizedBox()
+            : BottomNavigationBar(
+                elevation: 2,
+                selectedItemColor: Theme.of(context).primaryColor,
+                currentIndex: dashBoardController.currentIndex,
+                type: BottomNavigationBarType.fixed,
+                // showUnselectedLabels: true,
+                unselectedItemColor: Colors.grey,
+                selectedLabelStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    color: Theme.of(context).primaryColor),
+                unselectedLabelStyle:
+                    TextStyle(fontFamily: 'Poppins', color: Colors.grey),
+                onTap: (index) {
+                  _setPage(index);
+                  if (index == 3) {
+                    Get.bottomSheet(MenuScreen(),
+                        backgroundColor: Colors.transparent,
+                        isScrollControlled: true);
+                  }
+                },
+                items: [
+                  BottomNavigationBarItem(
+                      label: 'home',
+                      icon: BottomNavItem(
+                          iconData: Icons.favorite,
+                          iconPath: Images.homeIcon,
+                          iconName: 'wishlist',
+                          isSelected: dashBoardController.currentIndex == 0,
+                          onTap: () {})),
+                  BottomNavigationBarItem(
+                      label: 'wishlist',
+                      icon: BottomNavItem(
+                          iconData: Icons.favorite,
+                          iconPath: Images.favouritesIcon,
+                          iconName: 'wishlist',
+                          isSelected: dashBoardController.currentIndex == 1,
+                          onTap: () {})),
+                  BottomNavigationBarItem(
+                      label: 'orders',
+                      icon: BottomNavItem(
+                          iconData: Icons.shopping_bag,
+                          iconPath: Images.ordersIcon,
+                          iconName: 'orders',
+                          isSelected: dashBoardController.currentIndex == 2,
+                          onTap: () {})),
+                  BottomNavigationBarItem(
+                      label: 'menu',
+                      icon: BottomNavItem(
+                          iconData: Icons.menu,
+                          iconPath: Images.menuIcon,
+                          iconName: 'menu',
+                          isSelected: dashBoardController.currentIndex == 3,
+                          onTap: () {})),
+                ],
+              ),
         body: PageView.builder(
           controller: _pageController,
           itemCount: _screens.length,
@@ -123,7 +157,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void _setPage(int pageIndex) {
     setState(() {
       _pageController.jumpToPage(pageIndex);
-      _pageIndex = pageIndex;
     });
+    dashBoardController.setIndex(pageIndex);
   }
 }

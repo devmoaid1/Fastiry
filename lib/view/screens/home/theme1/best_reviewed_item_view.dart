@@ -19,6 +19,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/home_controller.dart';
+
 class BestReviewedItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
@@ -330,7 +332,7 @@ class BestReviewedItemShimmer extends StatelessWidget {
             ),
             child: Shimmer(
               duration: Duration(seconds: 2),
-              enabled: productController.reviewedProductList == null,
+              enabled: Get.find<HomeController>().isLoading,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,

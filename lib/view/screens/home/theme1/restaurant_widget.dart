@@ -162,7 +162,7 @@ class RestaurantShimmer extends StatelessWidget {
         enabled: isEnable,
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Container(
-            height: context.width * 0.3,
+            height: Dimensions.blockscreenVertical * 15,
             width: Dimensions.WEB_MAX_WIDTH,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.vertical(
@@ -170,29 +170,25 @@ class RestaurantShimmer extends StatelessWidget {
               color: Colors.grey[300],
             ),
           ),
-          Expanded(
-              child: Padding(
+          Padding(
             padding:
                 EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_SMALL),
             child: Row(children: [
-              Expanded(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Container(
-                          height: 15, width: 150, color: Colors.grey[300]),
-                      SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                      Container(height: 10, width: 50, color: Colors.grey[300]),
-                      SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                      RatingBar(rating: 0, size: 12, ratingCount: 0),
-                    ]),
-              ),
+              Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    Container(height: 15, width: 150, color: Colors.grey[300]),
+                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    Container(height: 10, width: 50, color: Colors.grey[300]),
+                    SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    RatingBar(rating: 0, size: 12, ratingCount: 0),
+                  ]),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
               Icon(Icons.favorite_border,
                   size: 25, color: Theme.of(context).disabledColor),
             ]),
-          )),
+          ),
         ]),
       ),
     );

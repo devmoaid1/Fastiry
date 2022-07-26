@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/controller/banner_controller.dart';
+import 'package:efood_multivendor/controller/home_controller.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/view/screens/home/widget/banner_slider.dart';
 import 'package:flutter/material.dart';
@@ -54,7 +55,7 @@ class BannerView1 extends StatelessWidget {
                     )
                   : Shimmer(
                       duration: Duration(seconds: 2),
-                      enabled: bannerList == null,
+                      enabled: Get.find<HomeController>().isLoading,
                       child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(

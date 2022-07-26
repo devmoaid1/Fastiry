@@ -2,6 +2,7 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/banner_controller.dart';
 import 'package:efood_multivendor/controller/campaign_controller.dart';
 import 'package:efood_multivendor/controller/category_controller.dart';
+import 'package:efood_multivendor/controller/home_controller.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/controller/notification_controller.dart';
 import 'package:efood_multivendor/controller/product_controller.dart';
@@ -61,12 +62,12 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   ConfigModel _configModel = Get.find<SplashController>().configModel;
+  final homeController = Get.find<HomeController>();
 
   @override
   void initState() {
     super.initState();
-
-    HomeScreen.loadData(false);
+    homeController.loadData(false);
   }
 
   @override
@@ -77,23 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
-            await Get.find<BannerController>().getBannerList(true);
-            await Get.find<CategoryController>().getCategoryList(true);
-            await Get.find<RestaurantController>()
-                .getPopularRestaurantList(true, 'all', false);
-            await Get.find<CampaignController>().getItemCampaignList(true);
-            await Get.find<ProductController>()
-                .getPopularProductList(true, 'all', false);
-            await Get.find<RestaurantController>()
-                .getLatestRestaurantList(true, 'all', false);
-            await Get.find<ProductController>()
-                .getReviewedProductList(true, 'all', false);
-            await Get.find<RestaurantController>().getRestaurantList(1, true);
-            if (Get.find<AuthController>().isLoggedIn()) {
-              await Get.find<UserController>().getUserInfo();
-              await Get.find<NotificationController>()
-                  .getNotificationList(true);
-            }
+            homeController.refresh();
           },
           child: ResponsiveHelper.isDesktop(context)
               ? WebHomeScreen(
