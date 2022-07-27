@@ -77,4 +77,8 @@ class Images {
   static const String ordersIcon = 'assets/image/orders.svg';
   static const String favouritesIcon = 'assets/image/love.svg';
   static const String menuIcon = 'assets/image/menu.svg';
+  static const String languageIcon = 'assets/image/language.svg';
+  static const String settingsIcon = 'assets/image/settings.svg';
+  static const String profileIcon = 'assets/image/profile.svg';
+  static const String notificationIcon = 'assets/image/notification.svg';
 }

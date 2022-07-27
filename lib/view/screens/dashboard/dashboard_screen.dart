@@ -6,7 +6,7 @@ import 'package:efood_multivendor/view/screens/dashboard/dashboard_controller.da
 import 'package:efood_multivendor/view/screens/dashboard/widget/bottom_nav_item.dart';
 import 'package:efood_multivendor/view/screens/favourite/favourite_screen.dart';
 import 'package:efood_multivendor/view/screens/home/home_screen.dart';
-import 'package:efood_multivendor/view/screens/menu/menu_screen.dart';
+import 'package:efood_multivendor/view/screens/menu/menu_screen_new.dart';
 import 'package:efood_multivendor/view/screens/order/order_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -40,7 +40,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
       HomeScreen(),
       FavouriteScreen(),
       OrderScreen(),
-      Container(),
+      MenuScreenNew(),
     ];
 
     Future.delayed(Duration(seconds: 1), () {
@@ -101,11 +101,11 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     TextStyle(fontFamily: 'Poppins', color: Colors.grey),
                 onTap: (index) {
                   _setPage(index);
-                  if (index == 3) {
-                    Get.bottomSheet(MenuScreen(),
-                        backgroundColor: Colors.transparent,
-                        isScrollControlled: true);
-                  }
+                  // if (index == 3) {
+                  //   Get.bottomSheet(MenuScreen(),
+                  //       backgroundColor: Colors.transparent,
+                  //       isScrollControlled: true);
+                  // }
                 },
                 items: [
                   BottomNavigationBarItem(
