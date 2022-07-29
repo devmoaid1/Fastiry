@@ -1,6 +1,7 @@
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -33,20 +34,19 @@ class ProfileButton extends StatelessWidget {
             SvgPicture.asset(
               iconPath,
               color: lightGreyTextColor,
-              width: 27,
-              height: 27,
+              width: Dimensions.blockscreenHorizontal * 6,
+              height: Dimensions.blockscreenHorizontal * 6,
             ),
             SizedBox(width: Dimensions.blockscreenHorizontal * 4),
             Expanded(
                 child: Text(title,
                     style: poppinsRegular.copyWith(color: lightGreyTextColor))),
             isButtonActive != null
-                ? Switch(
+                ? CupertinoSwitch(
                     value: isButtonActive,
+                    trackColor: lightGreyTextColor.withOpacity(0.4),
                     onChanged: (bool isActive) => onTap(),
                     activeColor: Theme.of(context).primaryColor,
-                    activeTrackColor:
-                        Theme.of(context).primaryColor.withOpacity(0.5),
                   )
                 : SizedBox(),
           ]),

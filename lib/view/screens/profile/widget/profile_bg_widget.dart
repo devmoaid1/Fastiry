@@ -9,8 +9,6 @@ class ProfileBgWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      mainWidget,
-    ]);
+    return mainWidget;
   }
 }
