@@ -85,4 +85,6 @@ class Images {
   static const String loginIcon = 'assets/image/login.svg';
   static const String logoutIcon = 'assets/image/logout.svg';
   static const String termsIcon = 'assets/image/terms.svg';
+  static const String discountIcon = 'assets/image/discount.svg';
+  static const String darkModeIcon = 'assets/image/dark_mode.svg';
 }

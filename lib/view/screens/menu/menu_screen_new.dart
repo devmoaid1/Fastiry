@@ -4,7 +4,6 @@ import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -41,12 +40,11 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: 'Menu', isBackButtonExist: false),
       backgroundColor: Theme.of(context).backgroundColor,
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: Dimensions.blockscreenVertical * 1,
+            vertical: Dimensions.blockscreenVertical * 4,
             horizontal: Dimensions.blockscreenHorizontal * 3),
         child: SingleChildScrollView(
           child: Column(
@@ -116,7 +114,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               ),
               MenuDivider(),
               MenuSelection(
-                iconPath: Images.priceTagIcon,
+                iconPath: Images.discountIcon,
                 label: 'Offers',
                 onTap: () {
                   Get.toNamed(RouteHelper.getCouponRoute());
