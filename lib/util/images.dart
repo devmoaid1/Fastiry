@@ -81,4 +81,8 @@ class Images {
   static const String settingsIcon = 'assets/image/settings.svg';
   static const String profileIcon = 'assets/image/profile.svg';
   static const String notificationIcon = 'assets/image/notification.svg';
+  static const String privacyIcon = 'assets/image/lock.svg';
+  static const String loginIcon = 'assets/image/login.svg';
+  static const String logoutIcon = 'assets/image/logout.svg';
+  static const String termsIcon = 'assets/image/terms.svg';
 }
