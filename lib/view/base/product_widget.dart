@@ -148,7 +148,7 @@ class ProductWidget extends StatelessWidget {
                       Text(
                         isRestaurant ? restaurant.name : product.name,
                         style: poppinsMedium.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 6,
+                          fontSize: Dimensions.blockscreenHorizontal * 5.5,
                         ),
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
@@ -175,7 +175,7 @@ class ProductWidget extends StatelessWidget {
                                 style: poppinsMedium.copyWith(
                                     color: Theme.of(context).dividerColor,
                                     fontSize:
-                                        Dimensions.blockscreenHorizontal * 5),
+                                        Dimensions.blockscreenHorizontal * 4),
                               ),
                               SizedBox(
                                   width: _discount > 0
@@ -188,7 +188,7 @@ class ProductWidget extends StatelessWidget {
                                       style: poppinsRegular.copyWith(
                                         fontSize:
                                             Dimensions.blockscreenHorizontal *
-                                                3.5,
+                                                3.2,
                                         color: Theme.of(context).disabledColor,
                                         decoration: TextDecoration.lineThrough,
                                       ),

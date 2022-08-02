@@ -53,6 +53,8 @@ class ProductView extends StatelessWidget {
       }
     }
 
+    print(Dimensions.screeHeight);
+
     return Column(children: [
       type != null
           ? VegFilterWidget(type: type, onSelected: onVegFilterTap)
@@ -68,7 +70,9 @@ class ProductView extends StatelessWidget {
                         ? 4
                         : showTheme1Restaurant
                             ? 1.9
-                            : Dimensions.blockscreenHorizontal * 0.52,
+                            : Dimensions.screenWidth < 411
+                                ? Dimensions.blockscreenHorizontal * 0.52
+                                : Dimensions.blockscreenHorizontal * 0.54,
                     crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
                   ),
                   physics: isScrollable
