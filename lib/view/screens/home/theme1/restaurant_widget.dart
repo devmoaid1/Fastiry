@@ -1,3 +1,5 @@
+import 'package:efood_multivendor/util/image_checker.dart';
+import 'package:efood_multivendor/util/images.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
@@ -9,7 +11,6 @@ import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -51,15 +52,28 @@ class RestaurantWidget extends StatelessWidget {
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
           Stack(children: [
             ClipRRect(
-                borderRadius: BorderRadius.vertical(
-                    top: Radius.circular(Dimensions.RADIUS_SMALL)),
-                child: CustomImage(
-                  image:
+              borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(Dimensions.RADIUS_SMALL)),
+              child: restaurant.coverPhoto.isNotEmpty
+                  ? checkImage(
                       '${_baseUrls.restaurantCoverPhotoUrl}/${restaurant.coverPhoto}',
-                  height: Dimensions.blockscreenVertical * 15,
-                  width: Dimensions.screenWidth,
-                  fit: BoxFit.fill,
-                )),
+                      Dimensions.screenWidth,
+                      Dimensions.blockscreenVertical * 15,
+                      BoxFit.fill)
+                  : Image.asset(
+                      Images.placeholder,
+                      fit: BoxFit.fill,
+                      width: Dimensions.screenWidth,
+                      height: Dimensions.blockscreenVertical * 15,
+                    ),
+              // child: CustomImage(
+              //   image:
+              //       '${_baseUrls.restaurantCoverPhotoUrl}/${restaurant.coverPhoto}',
+              //   height: Dimensions.blockscreenVertical * 15,
+              //   width: Dimensions.screenWidth,
+              //   fit: BoxFit.fill,
+              // )
+            ),
             Get.find<RestaurantController>().isOpenNow(restaurant)
                 ? SizedBox()
                 : NotAvailableWidget(isRestaurant: true),

@@ -1,5 +1,4 @@
 import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
@@ -17,7 +16,7 @@ class TitleWidget extends StatelessWidget {
           style: poppinsRegular.copyWith(
               fontSize: Dimensions.blockscreenHorizontal * 3.5,
               fontWeight: FontWeight.w600,
-              color: lightGreyTextColor)),
+              color: Theme.of(context).dividerColor)),
       (onTap != null && !ResponsiveHelper.isDesktop(context))
           ? InkWell(
               onTap: onTap,

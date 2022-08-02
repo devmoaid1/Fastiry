@@ -64,7 +64,7 @@ class CustomButton extends StatelessWidget {
                       style: poppinsRegular.copyWith(
                         color: transparent
                             ? Theme.of(context).primaryColor
-                            : Theme.of(context).cardColor,
+                            : Colors.white,
                         fontSize: fontSize != null
                             ? fontSize
                             : Dimensions.fontSizeLarge,

@@ -20,7 +20,7 @@ class ApiClient extends GetxService {
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage =
       'Connection to API server failed due to internet connection';
-  final int timeoutInSeconds = 30;
+  final int timeoutInSeconds = 10;
 
   String token;
   Map<String, String> _mainHeaders;
@@ -44,7 +44,7 @@ class ApiClient extends GetxService {
 
   void updateHeader(String token, List<int> zoneIDs, String languageCode) {
     _mainHeaders = {
-      'Content-Type': 'application/json; charset=utf8',
+      'Content-Type': 'application/json; charset=UTF-8',
       AppConstants.ZONE_ID: zoneIDs != null ? jsonEncode(zoneIDs) : null,
       AppConstants.LOCALIZATION_KEY:
           languageCode ?? AppConstants.languages[0].languageCode,
@@ -60,10 +60,12 @@ class ApiClient extends GetxService {
         Uri.parse(appBaseUrl + uri),
         // headers: {'Content-Type': 'application/json; charset=utf8'}
         headers: headers ?? _mainHeaders,
-      ).timeout(Duration(seconds: timeoutInSeconds));
+      ).whenComplete(
+        () => print("completed"),
+      );
       return handleResponse(_response, uri);
-    } catch (e) {
-      return Response(statusCode: 1, statusText: noInternetMessage);
+    } on Response catch (e) {
+      return Response(statusCode: e.statusCode, statusText: e.statusText);
     }
   }
 
@@ -79,7 +81,7 @@ class ApiClient extends GetxService {
       ).timeout(Duration(seconds: timeoutInSeconds));
       return handleResponse(_response, uri);
     } catch (e) {
-      return Response(statusCode: 1, statusText: noInternetMessage);
+      return Response(statusCode: 0, statusText: e.toString());
     }
   }
 
@@ -185,7 +187,8 @@ class ApiClient extends GetxService {
             statusText: _response.body['message']);
       }
     } else if (_response.statusCode != 200 && _response.body == null) {
-      _response = Response(statusCode: 0, statusText: noInternetMessage);
+      _response = Response(
+          statusCode: _response.statusCode, statusText: _response.statusText);
     }
     debugPrint(
         '====> API Response: [${_response.statusCode}] $uri\n${_response.body}');

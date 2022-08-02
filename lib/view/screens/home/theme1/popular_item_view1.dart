@@ -6,7 +6,6 @@ import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
+import '../../../../util/image_checker.dart';
 import '../../../base/discount_tag.dart';
 import 'best_reviewed_item_view.dart';
 
@@ -78,7 +78,8 @@ class PopularItemView1 extends StatelessWidget {
                                         );
                                 },
                                 child: Container(
-                                  width: 230,
+                                  width: Dimensions.blockscreenHorizontal * 60,
+                                  margin: EdgeInsets.only(right: 7),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(
@@ -90,8 +91,8 @@ class PopularItemView1 extends StatelessWidget {
                                                     .darkTheme
                                                 ? 800
                                                 : 300],
-                                        blurRadius: 5,
-                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        spreadRadius: 0.4,
                                       )
                                     ],
                                   ),
@@ -105,18 +106,26 @@ class PopularItemView1 extends StatelessWidget {
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(
                                                 Dimensions.RADIUS_SMALL),
-                                            child: CustomImage(
-                                              image:
-                                                  '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
-                                                  '/${_productList[index].image}',
-                                              height: Dimensions
-                                                      .blockscreenVertical *
-                                                  18,
-                                              width: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  25,
-                                              fit: BoxFit.fill,
-                                            ),
+                                            child: checkImage(
+                                                '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
+                                                Dimensions
+                                                        .blockscreenHorizontal *
+                                                    25,
+                                                Dimensions.blockscreenVertical *
+                                                    18,
+                                                BoxFit.fill),
+                                            // child: CustomImage(
+                                            //   image:
+                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
+                                            //       '/${_productList[index].image}',
+                                            //   height: Dimensions
+                                            //           .blockscreenVertical *
+                                            //       18,
+                                            //   width: Dimensions
+                                            //           .blockscreenHorizontal *
+                                            //       25,
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -128,7 +137,8 @@ class PopularItemView1 extends StatelessWidget {
                                             padding: EdgeInsets.symmetric(
                                                 vertical: 3,
                                                 horizontal: Dimensions
-                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                                        .blockscreenHorizontal *
+                                                    3),
                                             child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,

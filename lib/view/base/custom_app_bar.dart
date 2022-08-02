@@ -1,5 +1,4 @@
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/cart_widget.dart';
@@ -40,20 +39,28 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                               width: Dimensions.blockscreenHorizontal * 4,
                             )
                           : Container(),
+                      Get.locale.languageCode != "en"
+                          ? Image.asset(
+                              Images.fastiryLogoTypeArabic,
+                              height: Dimensions.blockscreenVertical * 20,
+                            )
+                          : Container(),
                       Image.asset(
                         Images.fastiryLogoRed,
                         height: Dimensions.blockscreenVertical * 10,
                       ),
-                      Image.asset(
-                        Images.fastiryLogoType,
-                        height: Dimensions.blockscreenVertical * 20,
-                      ),
+                      Get.locale.languageCode == "en"
+                          ? Image.asset(
+                              Images.fastiryLogoType,
+                              height: Dimensions.blockscreenVertical * 20,
+                            )
+                          : Container()
                     ],
                   )
                 : Text(title,
                     style: poppinsRegular.copyWith(
                         fontSize: Dimensions.fontSizeLarge,
-                        color: lightGreyTextColor)),
+                        color: Theme.of(context).dividerColor)),
             centerTitle: true,
             leading: isBackButtonExist
                 ? IconButton(
@@ -64,7 +71,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         : Navigator.pop(context),
                   )
                 : SizedBox(),
-            backgroundColor: Theme.of(context).cardColor,
+            backgroundColor: Theme.of(context).backgroundColor,
             elevation: 0,
             actions: showCart
                 ? [

@@ -51,7 +51,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              isLogged
+              (isLogged && userContoller.userInfoModel != null)
                   ? ListTile(
                       leading: CircleAvatar(
                         radius: 25,
@@ -71,6 +71,17 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                         style: poppinsRegular.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
+                      trailing: InkWell(
+                        onTap: () {
+                          Get.toNamed(RouteHelper.getProfileRoute());
+                        },
+                        child: SvgPicture.asset(
+                          Images.settingsIcon,
+                          width: 25,
+                          height: 25,
+                          color: Theme.of(context).dividerColor,
+                        ),
+                      ),
                     )
                   : ListTile(
                       contentPadding: EdgeInsets.symmetric(
@@ -88,7 +99,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                         ),
                       ),
                       title: Text(
-                        "Guest",
+                        "guest".tr,
                         style: poppinsRegular.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
@@ -107,7 +118,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               SizedBox(height: Dimensions.blockscreenVertical * 3),
               MenuSelection(
                 iconPath: Images.notificationIcon,
-                label: 'Notification',
+                label: 'notification'.tr,
                 onTap: () {
                   Get.toNamed(RouteHelper.getNotificationRoute());
                 },
@@ -115,7 +126,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               MenuDivider(),
               MenuSelection(
                 iconPath: Images.discountIcon,
-                label: 'Offers',
+                label: 'coupon'.tr,
                 onTap: () {
                   Get.toNamed(RouteHelper.getCouponRoute());
                 },
@@ -123,7 +134,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               MenuDivider(),
               MenuSelection(
                 iconPath: Images.privacyIcon,
-                label: 'Privacy Policy',
+                label: 'privacy_policy'.tr,
                 onTap: () async {
                   final route = RouteHelper.getHtmlRoute('privacy-policy');
                   if (await canLaunchUrl(Uri.parse(route))) {
@@ -134,7 +145,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               MenuDivider(),
               MenuSelection(
                 iconPath: Images.termsIcon,
-                label: 'Terms and Conditions',
+                label: 'terms_conditions'.tr,
                 onTap: () async {
                   final route = RouteHelper.getHtmlRoute('terms-and-condition');
                   if (await canLaunchUrl(Uri.parse(route))) {
@@ -146,7 +157,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
               isLogged
                   ? MenuSelection(
                       iconPath: Images.logoutIcon,
-                      label: 'Logout',
+                      label: 'logout'.tr,
                       onTap: () {
                         Get.dialog(
                             ConfirmationDialog(
@@ -192,7 +203,7 @@ class MenuDivider extends StatelessWidget {
           vertical: Dimensions.blockscreenVertical * 2,
           horizontal: Dimensions.blockscreenHorizontal * 3),
       child: Divider(
-        color: lightGreyTextColor,
+        color: Theme.of(context).dividerColor,
         thickness: 0.3,
         height: 1,
       ),

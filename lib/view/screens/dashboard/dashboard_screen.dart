@@ -84,32 +84,29 @@ class _DashboardScreenState extends State<DashboardScreen> {
       },
       child: Scaffold(
         key: _scaffoldKey,
-        //
         bottomNavigationBar: ResponsiveHelper.isDesktop(context)
             ? SizedBox()
             : BottomNavigationBar(
                 elevation: 2,
+                backgroundColor: Get.isDarkMode
+                    ? Color.fromARGB(255, 31, 30, 30)
+                    : Colors.grey[100],
                 selectedItemColor: Theme.of(context).primaryColor,
                 currentIndex: dashBoardController.currentIndex,
                 type: BottomNavigationBarType.fixed,
                 // showUnselectedLabels: true,
-                unselectedItemColor: Colors.grey,
+                unselectedItemColor: Colors.grey[600],
                 selectedLabelStyle: TextStyle(
                     fontFamily: 'Poppins',
                     color: Theme.of(context).primaryColor),
                 unselectedLabelStyle:
-                    TextStyle(fontFamily: 'Poppins', color: Colors.grey),
+                    TextStyle(fontFamily: 'Poppins', color: Colors.grey[600]),
                 onTap: (index) {
                   _setPage(index);
-                  // if (index == 3) {
-                  //   Get.bottomSheet(MenuScreen(),
-                  //       backgroundColor: Colors.transparent,
-                  //       isScrollControlled: true);
-                  // }
                 },
                 items: [
                   BottomNavigationBarItem(
-                      label: 'home',
+                      label: 'home_screen'.tr,
                       icon: BottomNavItem(
                           iconData: Icons.favorite,
                           iconPath: Images.homeIcon,
@@ -117,7 +114,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           isSelected: dashBoardController.currentIndex == 0,
                           onTap: () {})),
                   BottomNavigationBarItem(
-                      label: 'wishlist',
+                      label: 'wishlist'.tr,
                       icon: BottomNavItem(
                           iconData: Icons.favorite,
                           iconPath: Images.favouritesIcon,
@@ -125,7 +122,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           isSelected: dashBoardController.currentIndex == 1,
                           onTap: () {})),
                   BottomNavigationBarItem(
-                      label: 'orders',
+                      label: 'orders'.tr,
                       icon: BottomNavItem(
                           iconData: Icons.shopping_bag,
                           iconPath: Images.ordersIcon,
@@ -133,7 +130,7 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           isSelected: dashBoardController.currentIndex == 2,
                           onTap: () {})),
                   BottomNavigationBarItem(
-                      label: 'menu',
+                      label: 'menu_screen'.tr,
                       icon: BottomNavItem(
                           iconData: Icons.menu,
                           iconPath: Images.menuIcon,

@@ -5,11 +5,9 @@ import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/discount_tag.dart';
 import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
@@ -20,6 +18,7 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../util/image_checker.dart';
 
 class BestReviewedItemView extends StatelessWidget {
   @override
@@ -89,8 +88,8 @@ class BestReviewedItemView extends StatelessWidget {
                                                     .darkTheme
                                                 ? 800
                                                 : 300],
-                                        blurRadius: 5,
-                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        spreadRadius: 0.4,
                                       )
                                     ],
                                   ),
@@ -105,17 +104,26 @@ class BestReviewedItemView extends StatelessWidget {
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.RADIUS_SMALL)),
-                                            child: CustomImage(
-                                              image:
-                                                  '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
-                                              height: Dimensions
-                                                      .blockscreenVertical *
-                                                  13,
-                                              width: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  50,
-                                              fit: BoxFit.fill,
-                                            ),
+
+                                            child: checkImage(
+                                                '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
+                                                Dimensions
+                                                        .blockscreenHorizontal *
+                                                    50,
+                                                Dimensions.blockscreenVertical *
+                                                    13,
+                                                BoxFit.fill),
+                                            // child: CustomImage(
+                                            //   image:
+                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
+                                            //   height: Dimensions
+                                            //           .blockscreenVertical *
+                                            //       13,
+                                            //   width: Dimensions
+                                            //           .blockscreenHorizontal *
+                                            //       50,
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -201,6 +209,7 @@ class PriceRow extends StatelessWidget {
       SvgPicture.asset(
         Images.priceTagIcon,
         height: 18,
+        color: Theme.of(context).dividerColor,
       ),
       SizedBox(
         width: Dimensions.blockscreenHorizontal,
@@ -224,7 +233,7 @@ class PriceRow extends StatelessWidget {
                   productController.getStartingPrice(_productList[index])),
               style: poppinsRegular.copyWith(
                 fontSize: Dimensions.blockscreenHorizontal * 3,
-                color: lightGreyTextColor.withOpacity(0.6),
+                color: Theme.of(context).dividerColor.withOpacity(0.6),
                 decoration: TextDecoration.lineThrough,
               ),
             )
@@ -279,7 +288,7 @@ class FoodDetailsRow extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: poppinsMedium.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 3,
-                      color: lightGreyTextColor.withOpacity(0.5)),
+                      color: Theme.of(context).dividerColor.withOpacity(0.6)),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),

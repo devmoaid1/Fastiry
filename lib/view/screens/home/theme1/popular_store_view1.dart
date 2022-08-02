@@ -6,10 +6,8 @@ import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -20,6 +18,8 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../util/image_checker.dart';
+import '../../../../util/images.dart';
 import '../../../base/discount_tag.dart';
 
 class PopularStoreView1 extends StatelessWidget {
@@ -85,8 +85,8 @@ class PopularStoreView1 extends StatelessWidget {
                                                     .darkTheme
                                                 ? 800
                                                 : 300],
-                                        blurRadius: 5,
-                                        spreadRadius: 1,
+                                        blurRadius: 7,
+                                        spreadRadius: 0.4,
                                       )
                                     ],
                                   ),
@@ -101,18 +101,42 @@ class PopularStoreView1 extends StatelessWidget {
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.RADIUS_SMALL)),
-                                            child: CustomImage(
-                                              image:
-                                                  '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
-                                                  '/${_restaurant[index].coverPhoto}',
-                                              height: Dimensions
-                                                      .blockscreenVertical *
-                                                  13,
-                                              width: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  50,
-                                              fit: BoxFit.fill,
-                                            ),
+
+                                            child: _restaurant[index]
+                                                    .coverPhoto
+                                                    .isNotEmpty
+                                                ? checkImage(
+                                                    '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
+                                                    '/${_restaurant[index].coverPhoto}',
+                                                    Dimensions
+                                                            .blockscreenHorizontal *
+                                                        50,
+                                                    Dimensions
+                                                            .blockscreenVertical *
+                                                        13,
+                                                    BoxFit.fill)
+                                                : Image.asset(
+                                                    Images.placeholder,
+                                                    fit: BoxFit.fill,
+                                                    width: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        50,
+                                                    height: Dimensions
+                                                            .blockscreenVertical *
+                                                        13,
+                                                  ),
+                                            // child: CustomImage(
+                                            //   image:
+                                            //       '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
+                                            //       '/${_restaurant[index].coverPhoto}',
+                                            //   height: Dimensions
+                                            //           .blockscreenVertical *
+                                            //       13,
+                                            //   width: Dimensions
+                                            //           .blockscreenHorizontal *
+                                            //       50,
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ),
                                           restaurantController
                                                   .isOpenNow(_restaurant[index])
@@ -227,7 +251,8 @@ class PopularStoreView1 extends StatelessWidget {
                                                                   .blockscreenHorizontal *
                                                               3,
                                                           color:
-                                                              lightGreyTextColor
+                                                              Theme.of(context)
+                                                                  .dividerColor
                                                                   .withOpacity(
                                                                       0.6)),
                                                       maxLines: 1,

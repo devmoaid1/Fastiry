@@ -18,7 +18,7 @@ class BottomNavItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return SvgPicture.asset(
       iconPath,
-      color: isSelected ? Theme.of(context).primaryColor : Colors.grey,
+      color: isSelected ? Theme.of(context).primaryColor : Colors.grey[600],
       height: 25,
       width: 25,
     );

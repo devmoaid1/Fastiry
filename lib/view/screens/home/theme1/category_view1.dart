@@ -1,11 +1,9 @@
 import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:efood_multivendor/view/screens/home/widget/category_pop_up.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +26,7 @@ class CategoryView1 extends StatelessWidget {
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: Dimensions.blockscreenVertical * 3,
-                      horizontal: Dimensions.blockscreenHorizontal * 2),
+                      horizontal: Dimensions.blockscreenHorizontal * 4),
                   child: TitleWidget(
                       title: 'categories'.tr,
                       onTap: () => Get.toNamed(RouteHelper.getCategoryRoute())),
@@ -76,28 +74,37 @@ class CategoryView1 extends StatelessWidget {
                                                   color: Colors.grey[
                                                       Get.isDarkMode
                                                           ? 800
-                                                          : 300],
+                                                          : 200],
                                                   spreadRadius: 0.4,
-                                                  blurRadius: 4)
+                                                  blurRadius: 7)
                                             ],
                                           ),
                                           child: ClipRRect(
                                             clipBehavior: Clip.antiAlias,
                                             borderRadius: BorderRadius.circular(
                                                 Dimensions.RADIUS_SMALL),
-                                            child: CustomImage(
+                                            child: Image.asset(
+                                              Images.breakFastImage,
                                               height: Dimensions
                                                       .blockscreenVertical *
                                                   15,
                                               width: Dimensions
                                                       .blockscreenHorizontal *
                                                   35,
-                                              placeholder:
-                                                  Images.breakFastImage,
-                                              image: "",
-                                              // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
-                                              fit: BoxFit.fill,
                                             ),
+                                            // child: CustomImage(
+                                            //   height: Dimensions
+                                            //           .blockscreenVertical *
+                                            //       15,
+                                            //   width: Dimensions
+                                            //           .blockscreenHorizontal *
+                                            //       35,
+                                            //   placeholder:
+                                            //       Images.breakFastImage,
+                                            //   image: "",
+                                            //   // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ),
                                         ),
                                         Container(
@@ -116,7 +123,8 @@ class CategoryView1 extends StatelessWidget {
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
                                                     3.5,
-                                                color: lightGreyTextColor),
+                                                color: Theme.of(context)
+                                                    .dividerColor),
                                           ),
                                         ),
                                       ]),

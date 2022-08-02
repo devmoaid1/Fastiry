@@ -3,7 +3,6 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
@@ -42,7 +41,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(
           title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
       body: SafeArea(
@@ -57,19 +56,6 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
             padding: context.width > 700
                 ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
                 : null,
-            decoration: context.width > 700
-                ? BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                          blurRadius: 5,
-                          spreadRadius: 1)
-                    ],
-                  )
-                : null,
             child: Column(children: [
               Image.asset(Images.forgot,
                   height: Dimensions.blockscreenVertical * 25),
@@ -81,8 +67,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                     horizontal: Dimensions.RADIUS_SMALL,
                     vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                 child: Text('please_enter_mobile'.tr,
-                    style: poppinsRegular.copyWith(color: lightGreyTextColor),
-                    textAlign: TextAlign.left),
+                    style: poppinsRegular.copyWith(
+                        color: Theme.of(context).dividerColor),
+                    textAlign: TextAlign.center),
               ),
               SizedBox(height: Dimensions.blockscreenVertical * 5),
               Row(children: [
@@ -103,9 +90,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                   showFlagMain: true,
                   countryFilter: [_countryDialCode],
                   dialogBackgroundColor: Theme.of(context).cardColor,
-                  textStyle: robotoRegular.copyWith(
+                  textStyle: poppinsRegular.copyWith(
                     fontSize: Dimensions.fontSizeLarge,
-                    color: lightGreyTextColor,
+                    color: Theme.of(context).dividerColor,
                   ),
                 ),
                 Expanded(
@@ -113,6 +100,7 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                   controller: _numberController,
                   inputType: TextInputType.phone,
                   inputAction: TextInputAction.done,
+                  textColor: Theme.of(context).dividerColor,
                   hintText: 'phone'.tr,
                   onSubmit: (text) =>
                       GetPlatform.isWeb ? _forgetPass(_countryDialCode) : null,

@@ -67,7 +67,12 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void initState() {
     super.initState();
+    // init();
     homeController.loadData(false);
+  }
+
+  void init() async {
+    await homeController.loadData(false);
   }
 
   @override
@@ -78,7 +83,7 @@ class _HomeScreenState extends State<HomeScreen> {
       body: SafeArea(
         child: RefreshIndicator(
           onRefresh: () async {
-            homeController.refresh();
+            await homeController.refresh();
           },
           child: ResponsiveHelper.isDesktop(context)
               ? WebHomeScreen(

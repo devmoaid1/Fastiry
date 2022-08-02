@@ -2,7 +2,6 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/colors.dart';
@@ -13,7 +12,6 @@ import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/profile/widget/profile_bg_widget.dart';
 import 'package:efood_multivendor/view/screens/profile/widget/profile_button.dart';
-import 'package:efood_multivendor/view/screens/profile/widget/profile_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -48,29 +46,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
       appBar: ResponsiveHelper.isDesktop(context)
           ? WebMenuBar()
           : CustomAppBar(title: '', isWithLogo: true),
-      backgroundColor: Theme.of(context).cardColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       body: GetBuilder<UserController>(builder: (userController) {
         return (_isLoggedIn && userController.userInfoModel == null)
             ? Center(child: CircularProgressIndicator())
             : ProfileBgWidget(
-                // backButton: true,
-                // circularImage: Container(
-                //   decoration: BoxDecoration(
-                //     border: Border.all(
-                //         width: 2, color: Theme.of(context).cardColor),
-                //     shape: BoxShape.circle,
-                //   ),
-                //   alignment: Alignment.center,
-                //   child: ClipOval(
-                //       child: CustomImage(
-                //     image:
-                //         '${Get.find<SplashController>().configModel.baseUrls.customerImageUrl}'
-                //         '/${(userController.userInfoModel != null && _isLoggedIn) ? userController.userInfoModel.image : ''}',
-                //     height: 100,
-                //     width: 100,
-                //     fit: BoxFit.cover,
-                //   )),
-                // ),
                 mainWidget: SafeArea(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -85,7 +65,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         Dimensions.blockscreenVertical * 2),
                                 child: Container(
                                   width: Dimensions.WEB_MAX_WIDTH,
-                                  color: Theme.of(context).cardColor,
                                   padding: EdgeInsets.all(
                                       Dimensions.PADDING_SIZE_SMALL),
                                   child: Column(
@@ -101,10 +80,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       .blockscreenVertical *
                                                   1),
                                           child: Text(
-                                            "Settings",
+                                            "settings".tr,
                                             textAlign: TextAlign.left,
                                             style: poppinsRegular.copyWith(
-                                                color: lightGreyTextColor,
+                                                color: Theme.of(context)
+                                                    .dividerColor,
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
                                                     7),
@@ -119,108 +99,48 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             height: Dimensions
                                                     .blockscreenHorizontal *
                                                 7,
-                                            color: lightGreyTextColor,
+                                            color:
+                                                Theme.of(context).dividerColor,
                                           ),
                                           title: Text(
                                             _isLoggedIn
                                                 ? '${userController.userInfoModel.fName} ${userController.userInfoModel.lName}'
                                                 : 'guest'.tr,
                                             style: poppinsRegular.copyWith(
-                                                color: lightGreyTextColor,
+                                                color: Theme.of(context)
+                                                    .dividerColor,
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
                                                     4),
                                           ),
-                                          trailing: Text(
-                                            _isLoggedIn
-                                                ? "Edit Profile"
-                                                : "Login/signup",
-                                            style: poppinsMedium.copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    3.3,
-                                                color: Theme.of(context)
-                                                    .primaryColor),
+                                          trailing: InkWell(
+                                            onTap: () {
+                                              if (_isLoggedIn) {
+                                                Get.toNamed(RouteHelper
+                                                    .getUpdateProfileRoute());
+                                              } else {
+                                                Get.offNamed(
+                                                    RouteHelper.getSignInRoute(
+                                                        'splash'));
+                                              }
+                                            },
+                                            child: Text(
+                                              _isLoggedIn
+                                                  ? "profile".tr
+                                                  : "login/signUp".tr,
+                                              style: poppinsMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      3.3,
+                                                  color: Theme.of(context)
+                                                      .primaryColor),
+                                            ),
                                           ),
                                         ),
                                         SizedBox(
                                             height:
                                                 Dimensions.blockscreenVertical *
                                                     4),
-                                        _isLoggedIn
-                                            ? Column(children: [
-                                                Row(children: [
-                                                  ProfileCard(
-                                                      title: 'since_joining'.tr,
-                                                      data:
-                                                          '${userController.userInfoModel.memberSinceDays} ${'days'.tr}'),
-                                                  SizedBox(
-                                                      width: Dimensions
-                                                          .PADDING_SIZE_SMALL),
-                                                  ProfileCard(
-                                                      title: 'total_order'.tr,
-                                                      data: userController
-                                                          .userInfoModel
-                                                          .orderCount
-                                                          .toString()),
-                                                ]),
-                                                SizedBox(
-                                                    height: _showWalletCard
-                                                        ? Dimensions
-                                                            .PADDING_SIZE_SMALL
-                                                        : 0),
-                                                _showWalletCard
-                                                    ? Row(children: [
-                                                        Get.find<SplashController>()
-                                                                    .configModel
-                                                                    .customerWalletStatus ==
-                                                                1
-                                                            ? ProfileCard(
-                                                                title:
-                                                                    'wallet_amount'
-                                                                        .tr,
-                                                                data: PriceConverter.convertPrice(
-                                                                    userController
-                                                                        .userInfoModel
-                                                                        .walletBalance),
-                                                              )
-                                                            : SizedBox.shrink(),
-                                                        SizedBox(
-                                                            width: Get.find<SplashController>()
-                                                                            .configModel
-                                                                            .customerWalletStatus ==
-                                                                        1 &&
-                                                                    Get.find<SplashController>()
-                                                                            .configModel
-                                                                            .loyaltyPointStatus ==
-                                                                        1
-                                                                ? Dimensions
-                                                                    .PADDING_SIZE_SMALL
-                                                                : 0.0),
-                                                        Get.find<SplashController>()
-                                                                    .configModel
-                                                                    .loyaltyPointStatus ==
-                                                                1
-                                                            ? ProfileCard(
-                                                                title:
-                                                                    'loyalty_points'
-                                                                        .tr,
-                                                                data: userController
-                                                                            .userInfoModel
-                                                                            .loyaltyPoint !=
-                                                                        null
-                                                                    ? userController
-                                                                        .userInfoModel
-                                                                        .loyaltyPoint
-                                                                        .toString()
-                                                                    : '0',
-                                                              )
-                                                            : SizedBox.shrink(),
-                                                      ])
-                                                    : SizedBox(),
-                                              ])
-                                            : SizedBox(),
-                                        SizedBox(height: _isLoggedIn ? 30 : 0),
                                         Padding(
                                           padding: EdgeInsets.symmetric(
                                               horizontal: Dimensions
@@ -230,10 +150,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       .blockscreenVertical *
                                                   3),
                                           child: Text(
-                                            "App Settings",
+                                            "preferences".tr,
                                             textAlign: TextAlign.left,
                                             style: poppinsRegular.copyWith(
-                                                color: lightGreyTextColor,
+                                                color: Theme.of(context)
+                                                    .dividerColor,
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
                                                     5),
@@ -248,7 +169,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             children: [
                                               SvgPicture.asset(
                                                 Images.languageIcon,
-                                                color: lightGreyTextColor,
+                                                color: Theme.of(context)
+                                                    .dividerColor,
                                                 width: 27,
                                                 height: 27,
                                               ),
@@ -258,9 +180,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     4,
                                               ),
                                               Text(
-                                                "Langauge",
+                                                'language'.tr,
                                                 style: poppinsRegular.copyWith(
-                                                    color: lightGreyTextColor),
+                                                    color: Theme.of(context)
+                                                        .dividerColor),
                                               ),
                                               Spacer(),
                                               Row(
@@ -273,9 +196,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             "en"
                                                         ? "English"
                                                         : "العربية",
-                                                    style: poppinsRegular.copyWith(
-                                                        color:
-                                                            lightGreyTextColor),
+                                                    style:
+                                                        poppinsRegular.copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .dividerColor),
                                                   ),
                                                   SizedBox(
                                                     width: Dimensions
@@ -284,13 +209,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   ),
                                                   InkWell(
                                                     onTap: () {
-                                                      Get.toNamed(RouteHelper
-                                                          .getLanguageRoute(
-                                                              RouteHelper
-                                                                  .profile));
+                                                      Get.toNamed(
+                                                        RouteHelper
+                                                            .getLanguageRoute(
+                                                                'menu'),
+                                                      );
                                                     },
                                                     child: Text(
-                                                      "change",
+                                                      "change".tr,
                                                       style: poppinsMedium
                                                           .copyWith(
                                                               color: Theme.of(

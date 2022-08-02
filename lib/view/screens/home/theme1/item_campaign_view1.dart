@@ -3,7 +3,7 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
+import 'package:efood_multivendor/util/image_checker.dart';
 import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -68,14 +68,20 @@ class ItemCampaignView1 extends StatelessWidget {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(
                                       Dimensions.RADIUS_SMALL),
-                                  child: CustomImage(
-                                    image:
-                                        '${Get.find<SplashController>().configModel.baseUrls.campaignImageUrl}'
-                                        '/${campaignController.itemCampaignList[index].image}',
-                                    height: 150,
-                                    width: 150,
-                                    fit: BoxFit.cover,
-                                  ),
+                                  child: checkImage(
+                                      '${Get.find<SplashController>().configModel.baseUrls.campaignImageUrl}'
+                                      '/${campaignController.itemCampaignList[index].image}',
+                                      150,
+                                      150,
+                                      BoxFit.fill),
+                                  // child: CustomImage(
+                                  //   image:
+                                  //       '${Get.find<SplashController>().configModel.baseUrls.campaignImageUrl}'
+                                  //       '/${campaignController.itemCampaignList[index].image}',
+                                  //   height: 150,
+                                  //   width: 150,
+                                  //   fit: BoxFit.cover,
+                                  // ),
                                 ),
                               ),
                             );

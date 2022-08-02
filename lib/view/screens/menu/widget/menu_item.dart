@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
-import '../../../../util/colors.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/styles.dart';
 
@@ -18,7 +17,7 @@ class MenuSelection extends StatelessWidget {
       onTap: onTap,
       leading: SvgPicture.asset(
         iconPath,
-        color: lightGreyTextColor,
+        color: Theme.of(context).dividerColor,
         height: 27,
         width: 27,
       ),
@@ -26,11 +25,11 @@ class MenuSelection extends StatelessWidget {
         label,
         style: poppinsRegular.copyWith(
             fontSize: Dimensions.blockscreenHorizontal * 4,
-            color: lightGreyTextColor),
+            color: Theme.of(context).dividerColor),
       ),
       trailing: Icon(
         Icons.arrow_forward_ios,
-        color: lightGreyTextColor,
+        color: Theme.of(context).dividerColor,
         size: 23,
       ),
     );

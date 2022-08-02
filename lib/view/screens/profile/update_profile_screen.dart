@@ -3,14 +3,15 @@ import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/data/model/response/response_model.dart';
 import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
+import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/base/my_text_field.dart';
+import 'package:efood_multivendor/view/base/custom_text_field.dart';
 import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
-import 'package:efood_multivendor/view/screens/profile/widget/profile_bg_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -44,8 +45,10 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
-      appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: ResponsiveHelper.isDesktop(context)
+          ? WebMenuBar()
+          : CustomAppBar(title: '', isWithLogo: true, isBackButtonExist: true),
       body: GetBuilder<UserController>(builder: (userController) {
         if (userController.userInfoModel != null &&
             _phoneController.text.isEmpty) {
@@ -56,159 +59,119 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
         }
 
         return _isLoggedIn
-            ? userController.userInfoModel != null
-                ? ProfileBgWidget(
-                    // backButton: true,
-                    // circularImage: Center(child: Stack(children: [
-                    //   ClipOval(child: userController.pickedFile != null ? GetPlatform.isWeb ? Image.network(
-                    //     userController.pickedFile.path, width: 100, height: 100, fit: BoxFit.cover,
-                    //   ) : Image.file(
-                    //     File(userController.pickedFile.path), width: 100, height: 100, fit: BoxFit.cover,
-                    //   ) : CustomImage(
-                    //     image: '${Get.find<SplashController>().configModel.baseUrls.customerImageUrl}/${userController.userInfoModel.image}',
-                    //     height: 100, width: 100, fit: BoxFit.cover,
-                    //   )),
-                    //   Positioned(
-                    //     bottom: 0, right: 0, top: 0, left: 0,
-                    //     child: InkWell(
-                    //       onTap: () => userController.pickImage(),
-                    //       child: Container(
-                    //         decoration: BoxDecoration(
-                    //           color: Colors.black.withOpacity(0.3), shape: BoxShape.circle,
-                    //           border: Border.all(width: 1, color: Theme.of(context).primaryColor),
-                    //         ),
-                    //         child: Container(
-                    //           margin: EdgeInsets.all(25),
-                    //           decoration: BoxDecoration(
-                    //             border: Border.all(width: 2, color: Colors.white),
-                    //             shape: BoxShape.circle,
-                    //           ),
-                    //           child: Icon(Icons.camera_alt, color: Colors.white),
-                    //         ),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ])),
-                    mainWidget: Column(children: [
-                      Expanded(
-                          child: Scrollbar(
-                              child: SingleChildScrollView(
-                        physics: BouncingScrollPhysics(),
-                        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                        child: Center(
-                            child: SizedBox(
-                                width: Dimensions.WEB_MAX_WIDTH,
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'first_name'.tr,
-                                        style: robotoRegular.copyWith(
-                                            fontSize: Dimensions.fontSizeSmall,
-                                            color: Theme.of(context)
-                                                .disabledColor),
-                                      ),
-                                      SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      MyTextField(
-                                        hintText: 'first_name'.tr,
-                                        controller: _firstNameController,
-                                        focusNode: _firstNameFocus,
-                                        nextFocus: _lastNameFocus,
-                                        inputType: TextInputType.name,
-                                        capitalization:
-                                            TextCapitalization.words,
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.PADDING_SIZE_LARGE),
-                                      Text(
-                                        'last_name'.tr,
-                                        style: robotoRegular.copyWith(
-                                            fontSize: Dimensions.fontSizeSmall,
-                                            color: Theme.of(context)
-                                                .disabledColor),
-                                      ),
-                                      SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      MyTextField(
-                                        hintText: 'last_name'.tr,
-                                        controller: _lastNameController,
-                                        focusNode: _lastNameFocus,
-                                        nextFocus: _emailFocus,
-                                        inputType: TextInputType.name,
-                                        capitalization:
-                                            TextCapitalization.words,
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.PADDING_SIZE_LARGE),
-                                      Text(
-                                        'email'.tr,
-                                        style: robotoRegular.copyWith(
-                                            fontSize: Dimensions.fontSizeSmall,
-                                            color: Theme.of(context)
-                                                .disabledColor),
-                                      ),
-                                      SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      MyTextField(
-                                        hintText: 'email'.tr,
-                                        controller: _emailController,
-                                        focusNode: _emailFocus,
-                                        inputAction: TextInputAction.done,
-                                        inputType: TextInputType.emailAddress,
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.PADDING_SIZE_LARGE),
-                                      Row(children: [
-                                        Text(
-                                          'phone'.tr,
-                                          style: robotoRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall,
-                                              color: Theme.of(context)
-                                                  .disabledColor),
-                                        ),
-                                        SizedBox(
-                                            width: Dimensions
-                                                .PADDING_SIZE_EXTRA_SMALL),
-                                        Text('(${'non_changeable'.tr})',
-                                            style: robotoRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeExtraSmall,
-                                              color:
-                                                  Theme.of(context).errorColor,
-                                            )),
-                                      ]),
-                                      SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      MyTextField(
-                                        hintText: 'phone'.tr,
-                                        controller: _phoneController,
-                                        focusNode: _phoneFocus,
-                                        inputType: TextInputType.phone,
-                                        isEnabled: false,
-                                      ),
-                                    ]))),
-                      ))),
-                      !userController.isLoading
-                          ? CustomButton(
-                              onPressed: () => _updateProfile(userController),
-                              margin:
-                                  EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                              buttonText: 'update'.tr,
-                            )
-                          : Center(child: CircularProgressIndicator()),
-                    ]),
-                  )
-                : Center(child: CircularProgressIndicator())
+            ? Padding(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.blockscreenHorizontal),
+                child: Column(children: [
+                  Expanded(
+                      child: Scrollbar(
+                          child: SingleChildScrollView(
+                    physics: BouncingScrollPhysics(),
+                    padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                    child: SizedBox(
+                        width: Dimensions.WEB_MAX_WIDTH,
+                        child: Padding(
+                          padding: EdgeInsets.symmetric(
+                            vertical: Dimensions.blockscreenVertical * 3,
+                          ),
+                          child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  'profile'.tr,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 6,
+                                      color: Theme.of(context).dividerColor),
+                                ),
+                                SizedBox(
+                                  height: Dimensions.blockscreenVertical * 5,
+                                ),
+                                Text(
+                                  'first_name'.tr,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 4,
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.6)),
+                                ),
+                                CustomTextField(
+                                  hintText: 'first_name'.tr,
+                                  controller: _firstNameController,
+                                  focusNode: _firstNameFocus,
+                                  nextFocus: _lastNameFocus,
+                                  inputType: TextInputType.name,
+                                  capitalization: TextCapitalization.words,
+                                  textColor: Theme.of(context).dividerColor,
+                                ),
+                                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                                Text(
+                                  'last_name'.tr,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 4,
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.6)),
+                                ),
+                                CustomTextField(
+                                  hintText: 'last_name'.tr,
+                                  controller: _lastNameController,
+                                  focusNode: _lastNameFocus,
+                                  nextFocus: _emailFocus,
+                                  inputType: TextInputType.name,
+                                  capitalization: TextCapitalization.words,
+                                  textColor: Theme.of(context).dividerColor,
+                                ),
+                                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                                Text(
+                                  'email'.tr,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 4,
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.6)),
+                                ),
+                                CustomTextField(
+                                  hintText: 'email'.tr,
+                                  controller: _emailController,
+                                  focusNode: _emailFocus,
+                                  inputAction: TextInputAction.done,
+                                  inputType: TextInputType.emailAddress,
+                                  textColor: Theme.of(context).dividerColor,
+                                ),
+                                SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
+                                Text(
+                                  'phone'.tr,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 4,
+                                      color: Theme.of(context)
+                                          .disabledColor
+                                          .withOpacity(0.6)),
+                                ),
+                                CustomTextField(
+                                    hintText: 'phone'.tr,
+                                    controller: _phoneController,
+                                    focusNode: _phoneFocus,
+                                    inputType: TextInputType.phone,
+                                    isEnabled: false,
+                                    textColor:
+                                        lightGreyTextColor.withOpacity(0.5)),
+                              ]),
+                        )),
+                  ))),
+                  !userController.isLoading
+                      ? CustomButton(
+                          onPressed: () => _updateProfile(userController),
+                          margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                          buttonText: 'update'.tr,
+                        )
+                      : Center(child: CircularProgressIndicator()),
+                ]),
+              )
             : NotLoggedInScreen();
       }),
     );

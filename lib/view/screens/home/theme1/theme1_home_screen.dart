@@ -51,9 +51,9 @@ class Theme1HomeScreen extends StatelessWidget {
                   height: 10,
                 ),
                 Text(
-                  "Deliver to",
+                  "deliver_to".tr,
                   style: poppinsRegular.copyWith(
-                      color: lightGreyTextColor,
+                      color: Theme.of(context).dividerColor,
                       fontSize: Dimensions.blockscreenHorizontal * 3),
                 ),
                 Row(children: [
@@ -177,7 +177,7 @@ class Theme1HomeScreen extends StatelessWidget {
                     style: poppinsRegular.copyWith(
                         fontSize: Dimensions.blockscreenHorizontal * 3.5,
                         fontWeight: FontWeight.w600,
-                        color: lightGreyTextColor),
+                        color: Theme.of(context).dividerColor),
                   )),
                   FilterView(),
                 ]),
