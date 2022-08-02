@@ -85,15 +85,14 @@ class PopularItemView1 extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.RADIUS_SMALL),
                                     boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey[
-                                            Get.find<ThemeController>()
-                                                    .darkTheme
-                                                ? 800
-                                                : 300],
-                                        blurRadius: 7,
-                                        spreadRadius: 0.4,
-                                      )
+                                      !Get.isDarkMode
+                                          ? BoxShadow(
+                                              color: Colors.grey[200],
+                                              spreadRadius: 0.4,
+                                              blurRadius: 7)
+                                          : BoxShadow(
+                                              color: Theme.of(context)
+                                                  .backgroundColor)
                                     ],
                                   ),
                                   child: Row(

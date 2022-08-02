@@ -10,6 +10,7 @@ import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
+import 'package:efood_multivendor/view/screens/menu/widget/menu_item.dart';
 import 'package:efood_multivendor/view/screens/profile/widget/profile_bg_widget.dart';
 import 'package:efood_multivendor/view/screens/profile/widget/profile_button.dart';
 import 'package:flutter/material.dart';
@@ -136,6 +137,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                       .primaryColor),
                                             ),
                                           ),
+                                        ),
+                                        MenuSelection(
+                                          iconPath: Images.walletIcon,
+                                          label: "wallet".tr,
+                                          onTap: () {
+                                            Get.toNamed(
+                                                RouteHelper.getWalletRoute(
+                                                    true));
+                                          },
                                         ),
                                         SizedBox(
                                             height:

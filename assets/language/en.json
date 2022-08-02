@@ -1,6 +1,7 @@
 {
   "select_language": "Select Language",
   "save": "Save",
+  "login_menu":"Login",
   "facebook_login": "Continue with facebook",
   "google_login": "Continue with google",
   "guest_login": "Continue as guest",
@@ -10,7 +11,8 @@
   "wishlist":"wishlist",
   "menu_screen":"menu",
   "change":"change",
-  "preferences":"preferences",
+  "create_account":"Create Account",
+  "preferences":"Preferences",
   "login/signUp":"login/signup",
   "already_have_account":"Already have account?",
   "select_a_language": "Select a language",

@@ -42,11 +42,10 @@ class RestaurantWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
           color: Theme.of(context).cardColor,
           boxShadow: [
-            BoxShadow(
-              color: Colors.grey[Get.isDarkMode ? 800 : 300],
-              spreadRadius: 1,
-              blurRadius: 5,
-            )
+            !Get.isDarkMode
+                ? BoxShadow(
+                    color: Colors.grey[200], spreadRadius: 0.4, blurRadius: 7)
+                : BoxShadow(color: Theme.of(context).backgroundColor)
           ],
         ),
         child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

@@ -32,9 +32,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
   void initState() {
     super.initState();
 
-    _pageIndex = widget.pageIndex;
+    _pageIndex = dashBoardController.currentIndex;
 
-    _pageController = PageController(initialPage: widget.pageIndex);
+    _pageController =
+        PageController(initialPage: dashBoardController.currentIndex);
 
     _screens = [
       HomeScreen(),

@@ -3,7 +3,6 @@ import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/data/model/response/address_model.dart';
 import 'package:efood_multivendor/data/model/response/zone_response_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
@@ -46,7 +45,7 @@ class AccessLocationScreen extends StatelessWidget {
     }
 
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(
         title: 'set_location'.tr,
         isBackButtonExist: fromHome,
@@ -97,7 +96,9 @@ class AccessLocationScreen extends StatelessWidget {
                         textAlign: TextAlign.center,
                         style: poppinsRegular.copyWith(
                             fontSize: Dimensions.fontSizeSmall,
-                            color: lightGreyTextColor.withOpacity(0.7)),
+                            color: Theme.of(context)
+                                .dividerColor
+                                .withOpacity(0.7)),
                       ),
                     ),
                     SizedBox(height: Dimensions.blockscreenVertical * 3),
@@ -126,7 +127,7 @@ class BottomButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
         child: SizedBox(
-            width: 700,
+            width: Dimensions.screenWidth,
             child: Column(children: [
               CustomButton(
                 buttonText: 'user_current_location'.tr,
@@ -151,6 +152,7 @@ class BottomButton extends StatelessWidget {
                   });
                 },
                 icon: Icons.my_location,
+                iconColor: Theme.of(context).dividerColor,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               TextButton(

@@ -70,13 +70,14 @@ class CategoryView1 extends StatelessWidget {
                                         Container(
                                           decoration: BoxDecoration(
                                             boxShadow: [
-                                              BoxShadow(
-                                                  color: Colors.grey[
-                                                      Get.isDarkMode
-                                                          ? 800
-                                                          : 200],
-                                                  spreadRadius: 0.4,
-                                                  blurRadius: 7)
+                                              !Get.isDarkMode
+                                                  ? BoxShadow(
+                                                      color: Colors.grey[200],
+                                                      spreadRadius: 0.4,
+                                                      blurRadius: 7)
+                                                  : BoxShadow(
+                                                      color: Theme.of(context)
+                                                          .backgroundColor)
                                             ],
                                           ),
                                           child: ClipRRect(

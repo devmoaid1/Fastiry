@@ -7,7 +7,6 @@ import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:efood_multivendor/view/screens/wallet/widget/history_item.dart';
@@ -31,30 +30,37 @@ class _WalletScreenState extends State<WalletScreen> {
   @override
   void initState() {
     super.initState();
-    if(_isLoggedIn){
-      if(Get.find<UserController>().userInfoModel == null) {
+    if (_isLoggedIn) {
+      if (Get.find<UserController>().userInfoModel == null) {
         Get.find<UserController>().getUserInfo();
       }
-      Get.find<WalletController>().getWalletTransactionList('1', false, widget.fromWallet);
+      Get.find<WalletController>()
+          .getWalletTransactionList('1', false, widget.fromWallet);
 
       Get.find<WalletController>().setOffset(1);
 
       scrollController?.addListener(() {
-        if (scrollController.position.pixels == scrollController.position.maxScrollExtent
-            && Get.find<WalletController>().transactionList != null
-            && !Get.find<WalletController>().isLoading) {
-          int pageSize = (Get.find<WalletController>().popularPageSize / 10).ceil();
+        if (scrollController.position.pixels ==
+                scrollController.position.maxScrollExtent &&
+            Get.find<WalletController>().transactionList != null &&
+            !Get.find<WalletController>().isLoading) {
+          int pageSize =
+              (Get.find<WalletController>().popularPageSize / 10).ceil();
           if (Get.find<WalletController>().offset < pageSize) {
-            Get.find<WalletController>().setOffset(Get.find<WalletController>().offset + 1);
+            Get.find<WalletController>()
+                .setOffset(Get.find<WalletController>().offset + 1);
             print('end of the page');
             Get.find<WalletController>().showBottomLoader();
-            Get.find<WalletController>().getWalletTransactionList(Get.find<WalletController>().offset.toString(), false, widget.fromWallet);
+            Get.find<WalletController>().getWalletTransactionList(
+                Get.find<WalletController>().offset.toString(),
+                false,
+                widget.fromWallet);
           }
         }
       });
     }
-
   }
+
   @override
   void dispose() {
     super.dispose();
@@ -64,135 +70,298 @@ class _WalletScreenState extends State<WalletScreen> {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
-      backgroundColor: Theme.of(context).cardColor,
-      appBar: CustomAppBar(title: widget.fromWallet ? 'wallet'.tr : 'loyalty_points'.tr,isBackButtonExist: true),
-      body: GetBuilder<UserController>(
-        builder: (userController) {
-          return _isLoggedIn ? userController.userInfoModel != null ? SafeArea(
-            child: RefreshIndicator(
-              onRefresh: () async{
-                 Get.find<WalletController>().getWalletTransactionList('1', true, widget.fromWallet);
-                 Get.find<UserController>().getUserInfo();
-              },
-              child: SingleChildScrollView(
-                controller: scrollController,
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_DEFAULT),
-                child: Center(
-                  child: SizedBox(
-                    width: Dimensions.WEB_MAX_WIDTH,
-                    child: GetBuilder<WalletController>(
-                      builder: (walletController) {
-                        return Column(children: [
-
-                           Stack(
-                            children: [
-                              Container(
-                                padding: widget.fromWallet ? EdgeInsets.all(Dimensions.PADDING_SIZE_OVER_LARGE)
-                                    : EdgeInsets.only(top: 40, left: Dimensions.PADDING_SIZE_OVER_LARGE, right: Dimensions.PADDING_SIZE_OVER_LARGE),
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
-                                  color: widget.fromWallet ? Theme.of(context).primaryColor : Theme.of(context).cardColor,
-                                ),
-                                child:  Row(mainAxisAlignment: widget.fromWallet ? MainAxisAlignment.start : MainAxisAlignment.center, children: [
-
-                                  Image.asset( widget.fromWallet ? Images.wallet : Images.loyal , height: 60, width: 60, color: widget.fromWallet ? Theme.of(context).cardColor : null),
-                                  SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_LARGE),
-
-                                  widget.fromWallet ? Column(crossAxisAlignment: CrossAxisAlignment.start, mainAxisSize: MainAxisSize.min,
-                                    children: [
-                                      Text('wallet_amount'.tr,style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).cardColor)),
-                                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
-                                      Text(
-                                        PriceConverter.convertPrice(userController.userInfoModel.walletBalance),
-                                        style: robotoBold.copyWith(fontSize: Dimensions.fontSizeOverLarge, color: Theme.of(context).cardColor),
-                                      ),
-                                    ])
-                                      : Column(crossAxisAlignment: CrossAxisAlignment.center, mainAxisAlignment: MainAxisAlignment.end, children: [
-
-                                        Text(
-                                          userController.userInfoModel.loyaltyPoint == null ? '0' : userController.userInfoModel.loyaltyPoint.toString(),
-                                          style: robotoBold.copyWith(fontSize: Dimensions.fontSizeOverLarge, color: Theme.of(context).textTheme.bodyText1.color),
-                                        ),
-                                        Text(
-                                          'loyalty_points'.tr + ' !',
-                                          style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).textTheme.bodyText1.color),
-                                        ),
-                                        SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-
-                                    ],)
-                                ]),
-                              ),
-
-                              widget.fromWallet ? SizedBox.shrink() : Positioned(
-                                top: 10,right: 10,
-                                child: InkWell(
-                                  onTap: (){
-                                    ResponsiveHelper.isMobile(context) ? Get.bottomSheet(
-                                        WalletBottomSheet(fromWallet: widget.fromWallet)
-                                    ) : Get.dialog(
-                                      Dialog(child: WalletBottomSheet(fromWallet: widget.fromWallet)),
-                                    );
-                                  },
-                                  child: Row(
-                                    children: [
-                                      Text(
-                                        'convert_to_currency'.tr , style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeSmall,
-                                          color: widget.fromWallet ? Theme.of(context).cardColor : Theme.of(context).textTheme.bodyText1.color),
-                                      ),
-                                      Icon(Icons.keyboard_arrow_down_outlined,size: 16, color: widget.fromWallet ? Theme.of(context).cardColor
-                                          : Theme.of(context).textTheme.bodyText1.color)
-                                    ],
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: CustomAppBar(
+          backgroundColor:
+              Get.isDarkMode ? Theme.of(context).cardColor : Colors.grey[200],
+          title: widget.fromWallet ? 'wallet'.tr : 'loyalty_points'.tr,
+          isBackButtonExist: true),
+      body: GetBuilder<UserController>(builder: (userController) {
+        return _isLoggedIn
+            ? userController.userInfoModel != null
+                ? SafeArea(
+                    child: RefreshIndicator(
+                      onRefresh: () async {
+                        Get.find<WalletController>().getWalletTransactionList(
+                            '1', true, widget.fromWallet);
+                        Get.find<UserController>().getUserInfo();
+                      },
+                      child: SingleChildScrollView(
+                        controller: scrollController,
+                        child: SizedBox(
+                          width: Dimensions.WEB_MAX_WIDTH,
+                          child: GetBuilder<WalletController>(
+                              builder: (walletController) {
+                            return Column(children: [
+                              Stack(
+                                children: [
+                                  Container(
+                                    width: Dimensions.screenWidth,
+                                    height: Dimensions.screeHeight * 0.35,
+                                    padding: widget.fromWallet
+                                        ? EdgeInsets.symmetric(
+                                            horizontal: Dimensions
+                                                    .blockscreenHorizontal *
+                                                5)
+                                        : EdgeInsets.only(
+                                            top: 40,
+                                            left: Dimensions
+                                                .PADDING_SIZE_OVER_LARGE,
+                                            right: Dimensions
+                                                .PADDING_SIZE_OVER_LARGE),
+                                    decoration: BoxDecoration(
+                                      color: Get.isDarkMode
+                                          ? Theme.of(context).cardColor
+                                          : Colors.grey[200],
+                                    ),
+                                    child: Row(
+                                        mainAxisAlignment: widget.fromWallet
+                                            ? MainAxisAlignment.start
+                                            : MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(
+                                              widget.fromWallet
+                                                  ? Images.wallet
+                                                  : Images.loyal,
+                                              height: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  14,
+                                              width: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  14,
+                                              color: widget.fromWallet
+                                                  ? Theme.of(context)
+                                                      .dividerColor
+                                                  : null),
+                                          SizedBox(
+                                              width: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  8),
+                                          widget.fromWallet
+                                              ? Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  children: [
+                                                      Text('wallet_amount'.tr,
+                                                          style: poppinsRegular.copyWith(
+                                                              fontSize: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  6,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .dividerColor)),
+                                                      SizedBox(
+                                                          height: Dimensions
+                                                              .PADDING_SIZE_SMALL),
+                                                      Text(
+                                                        PriceConverter.convertPrice(
+                                                            userController
+                                                                .userInfoModel
+                                                                .walletBalance),
+                                                        style: poppinsBold.copyWith(
+                                                            fontSize: Dimensions
+                                                                    .blockscreenHorizontal *
+                                                                8,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .dividerColor),
+                                                      ),
+                                                    ])
+                                              : Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.center,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.end,
+                                                  children: [
+                                                    Text(
+                                                      userController
+                                                                  .userInfoModel
+                                                                  .loyaltyPoint ==
+                                                              null
+                                                          ? '0'
+                                                          : userController
+                                                              .userInfoModel
+                                                              .loyaltyPoint
+                                                              .toString(),
+                                                      style: poppinsBold.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeOverLarge,
+                                                          color:
+                                                              Theme.of(context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color),
+                                                    ),
+                                                    Text(
+                                                      'loyalty_points'.tr +
+                                                          ' !',
+                                                      style: poppinsRegular
+                                                          .copyWith(
+                                                              fontSize: Dimensions
+                                                                  .fontSizeSmall,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color),
+                                                    ),
+                                                    SizedBox(
+                                                        height: Dimensions
+                                                            .PADDING_SIZE_SMALL),
+                                                  ],
+                                                )
+                                        ]),
                                   ),
-                                ),
-                              )
-                            ],
-                          ) ,
-
-
-                          Column(children: [
-
-                            Padding(
-                              padding: EdgeInsets.only(top: Dimensions.PADDING_SIZE_OVER_LARGE),
-                              child: TitleWidget(title: 'transaction_history'.tr),
-                            ),
-                            walletController.transactionList != null ? walletController.transactionList.length > 0 ? GridView.builder(
-                              key: UniqueKey(),
-                              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                crossAxisSpacing: 50,
-                                mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.PADDING_SIZE_LARGE : 0.01,
-                                childAspectRatio: ResponsiveHelper.isDesktop(context) ? 5 : 4.45,
-                                crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
+                                  widget.fromWallet
+                                      ? SizedBox.shrink()
+                                      : Positioned(
+                                          top: 10,
+                                          right: 10,
+                                          child: InkWell(
+                                            onTap: () {
+                                              ResponsiveHelper.isMobile(context)
+                                                  ? Get.bottomSheet(
+                                                      WalletBottomSheet(
+                                                          fromWallet: widget
+                                                              .fromWallet))
+                                                  : Get.dialog(
+                                                      Dialog(
+                                                          child: WalletBottomSheet(
+                                                              fromWallet: widget
+                                                                  .fromWallet)),
+                                                    );
+                                            },
+                                            child: Row(
+                                              children: [
+                                                Text(
+                                                  'convert_to_currency'.tr,
+                                                  style:
+                                                      poppinsRegular.copyWith(
+                                                          fontSize: Dimensions
+                                                              .fontSizeSmall,
+                                                          color: widget
+                                                                  .fromWallet
+                                                              ? Theme.of(
+                                                                      context)
+                                                                  .cardColor
+                                                              : Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color),
+                                                ),
+                                                Icon(
+                                                    Icons
+                                                        .keyboard_arrow_down_outlined,
+                                                    size: 16,
+                                                    color: widget.fromWallet
+                                                        ? Theme.of(context)
+                                                            .cardColor
+                                                        : Theme.of(context)
+                                                            .textTheme
+                                                            .bodyText1
+                                                            .color)
+                                              ],
+                                            ),
+                                          ),
+                                        )
+                                ],
                               ),
-                              physics:  NeverScrollableScrollPhysics(),
-                              shrinkWrap:  true,
-                              itemCount: walletController.transactionList.length ,
-                              padding: EdgeInsets.only(top: ResponsiveHelper.isDesktop(context) ? 28 : 25),
-                              itemBuilder: (context, index) {
-                                return HistoryItem(index: index,fromWallet: widget.fromWallet, data: walletController.transactionList );
-                              },
-                            ) : NoDataScreen(text: 'no_data_found'.tr) : WalletShimmer(walletController: walletController),
-
-                            walletController.isLoading ? Center(child: Padding(
-                              padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                              child: CircularProgressIndicator(),
-                            )) : SizedBox(),
-                          ])
-                        ]);
-                      }
+                              Column(children: [
+                                Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.blockscreenVertical * 2,
+                                      horizontal:
+                                          Dimensions.blockscreenHorizontal * 2),
+                                  child: TitleWidget(
+                                      title: 'transaction_history'.tr),
+                                ),
+                                walletController.transactionList != null
+                                    ? walletController.transactionList.length >
+                                            0
+                                        ? GridView.builder(
+                                            key: UniqueKey(),
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                              crossAxisSpacing: 50,
+                                              mainAxisSpacing:
+                                                  ResponsiveHelper.isDesktop(
+                                                          context)
+                                                      ? Dimensions
+                                                          .PADDING_SIZE_LARGE
+                                                      : 0.01,
+                                              childAspectRatio:
+                                                  ResponsiveHelper.isDesktop(
+                                                          context)
+                                                      ? 5
+                                                      : 4.45,
+                                              crossAxisCount:
+                                                  ResponsiveHelper.isMobile(
+                                                          context)
+                                                      ? 1
+                                                      : 2,
+                                            ),
+                                            physics:
+                                                NeverScrollableScrollPhysics(),
+                                            shrinkWrap: true,
+                                            itemCount: walletController
+                                                .transactionList.length,
+                                            padding: EdgeInsets.only(
+                                                top: ResponsiveHelper.isDesktop(
+                                                        context)
+                                                    ? 28
+                                                    : 25),
+                                            itemBuilder: (context, index) {
+                                              return HistoryItem(
+                                                  index: index,
+                                                  fromWallet: widget.fromWallet,
+                                                  data: walletController
+                                                      .transactionList);
+                                            },
+                                          )
+                                        : Padding(
+                                            padding: EdgeInsets.only(
+                                                top: Dimensions
+                                                        .blockscreenVertical *
+                                                    14),
+                                            child: Text(
+                                              "No transaction yet..",
+                                              style: poppinsRegular.copyWith(
+                                                  color: Theme.of(context)
+                                                      .disabledColor,
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4),
+                                            ),
+                                          )
+                                    : WalletShimmer(
+                                        walletController: walletController),
+                                walletController.isLoading
+                                    ? Center(
+                                        child: Padding(
+                                        padding: EdgeInsets.all(
+                                            Dimensions.PADDING_SIZE_SMALL),
+                                        child: CircularProgressIndicator(),
+                                      ))
+                                    : SizedBox(),
+                              ])
+                            ]);
+                          }),
+                        ),
+                      ),
                     ),
-                  ),
-                ),
-              ),
-            ),
-          ) : Center(child: CircularProgressIndicator()) : NotLoggedInScreen();
-        }
-      ),
+                  )
+                : Center(child: CircularProgressIndicator())
+            : NotLoggedInScreen();
+      }),
     );
   }
 }
+
 class WalletShimmer extends StatelessWidget {
   final WalletController walletController;
   WalletShimmer({@required this.walletController});
@@ -203,36 +372,69 @@ class WalletShimmer extends StatelessWidget {
       key: UniqueKey(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisSpacing: 50,
-        mainAxisSpacing: ResponsiveHelper.isDesktop(context) ? Dimensions.PADDING_SIZE_LARGE : 0.01,
+        mainAxisSpacing: ResponsiveHelper.isDesktop(context)
+            ? Dimensions.PADDING_SIZE_LARGE
+            : 0.01,
         childAspectRatio: ResponsiveHelper.isDesktop(context) ? 5 : 4.45,
         crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
       ),
-      physics:  NeverScrollableScrollPhysics(),
-      shrinkWrap:  true,
+      physics: NeverScrollableScrollPhysics(),
+      shrinkWrap: true,
       itemCount: 10,
-      padding: EdgeInsets.only(top: ResponsiveHelper.isDesktop(context) ? 28 : 25),
+      padding:
+          EdgeInsets.only(top: ResponsiveHelper.isDesktop(context) ? 28 : 25),
       itemBuilder: (context, index) {
         return Padding(
-          padding: EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
+          padding:
+              EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
           child: Shimmer(
             duration: Duration(seconds: 2),
             enabled: walletController.transactionList == null,
-            child: Column(children: [
-              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                    Container(height: 10, width: 50, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
-                    SizedBox(height: 10),
-                    Container(height: 10, width: 70, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
-                  ]),
-                  Column(crossAxisAlignment: CrossAxisAlignment.end, children: [
-                    Container(height: 10, width: 50, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
-                    SizedBox(height: 10),
-                    Container(height: 10, width: 70, decoration: BoxDecoration(color: Colors.grey[300], borderRadius: BorderRadius.circular(2))),
-                  ]),
-                ],
-              ),
-              Padding(padding: const EdgeInsets.only(top: Dimensions.PADDING_SIZE_LARGE), child: Divider(color: Theme.of(context).disabledColor)),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                              height: 10,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(2))),
+                          SizedBox(height: 10),
+                          Container(
+                              height: 10,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(2))),
+                        ]),
+                    Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          Container(
+                              height: 10,
+                              width: 50,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(2))),
+                          SizedBox(height: 10),
+                          Container(
+                              height: 10,
+                              width: 70,
+                              decoration: BoxDecoration(
+                                  color: Colors.grey[300],
+                                  borderRadius: BorderRadius.circular(2))),
+                        ]),
+                  ],
+                ),
+                Padding(
+                    padding: const EdgeInsets.only(
+                        top: Dimensions.PADDING_SIZE_LARGE),
+                    child: Divider(color: Theme.of(context).disabledColor)),
               ],
             ),
           ),

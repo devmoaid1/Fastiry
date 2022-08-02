@@ -15,8 +15,10 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final bool showCart;
   final bool isWithLogo;
   final bool isWithSpace;
+  final Color backgroundColor;
   CustomAppBar(
       {@required this.title,
+      this.backgroundColor,
       this.isBackButtonExist = true,
       this.onBackPressed,
       this.showCart = false,
@@ -71,7 +73,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                         : Navigator.pop(context),
                   )
                 : SizedBox(),
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: backgroundColor != null
+                ? backgroundColor
+                : Theme.of(context).backgroundColor,
             elevation: 0,
             actions: showCart
                 ? [

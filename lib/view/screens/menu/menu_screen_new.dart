@@ -1,6 +1,5 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 
@@ -51,70 +50,41 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              (isLogged && userContoller.userInfoModel != null)
-                  ? ListTile(
-                      leading: CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.grey[300],
-                        child: Center(
-                          child: Text(
-                            userContoller.userInfoModel.fName.substring(0, 1),
-                            style: poppinsMedium.copyWith(
-                                fontSize: Dimensions.blockscreenHorizontal * 5),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        userContoller.userInfoModel.fName +
-                            " " +
-                            userContoller.userInfoModel.lName,
-                        style: poppinsRegular.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 4),
-                      ),
-                      trailing: InkWell(
-                        onTap: () {
-                          Get.toNamed(RouteHelper.getProfileRoute());
-                        },
-                        child: SvgPicture.asset(
-                          Images.settingsIcon,
-                          width: 25,
-                          height: 25,
-                          color: Theme.of(context).dividerColor,
-                        ),
-                      ),
-                    )
-                  : ListTile(
-                      contentPadding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.blockscreenHorizontal * 7),
-                      leading: CircleAvatar(
-                        radius: 25,
-                        backgroundColor: Colors.grey[300],
-                        child: Center(
-                          child: Text(
-                            "G",
-                            style: poppinsMedium.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 5,
-                            ),
-                          ),
-                        ),
-                      ),
-                      title: Text(
-                        "guest".tr,
-                        style: poppinsRegular.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 4),
-                      ),
-                      trailing: InkWell(
-                        onTap: () {
-                          Get.toNamed(RouteHelper.getProfileRoute());
-                        },
-                        child: SvgPicture.asset(
-                          Images.settingsIcon,
-                          width: 25,
-                          height: 25,
-                          color: lightGreyTextColor,
-                        ),
-                      ),
+              ListTile(
+                leading: CircleAvatar(
+                  radius: 25,
+                  backgroundColor: Colors.grey[300],
+                  child: Center(
+                    child: Text(
+                      (isLogged && userContoller.userInfoModel != null)
+                          ? userContoller.userInfoModel.fName.substring(0, 1)
+                          : 'G',
+                      style: poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 5),
                     ),
+                  ),
+                ),
+                title: Text(
+                  (isLogged && userContoller.userInfoModel != null)
+                      ? userContoller.userInfoModel.fName +
+                          " " +
+                          userContoller.userInfoModel.lName
+                      : "guest".tr,
+                  style: poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 4),
+                ),
+                trailing: InkWell(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getProfileRoute());
+                  },
+                  child: SvgPicture.asset(
+                    Images.settingsIcon,
+                    width: 25,
+                    height: 25,
+                    color: Theme.of(context).dividerColor,
+                  ),
+                ),
+              ),
               SizedBox(height: Dimensions.blockscreenVertical * 3),
               MenuSelection(
                 iconPath: Images.notificationIcon,
@@ -176,7 +146,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                     )
                   : MenuSelection(
                       iconPath: Images.loginIcon,
-                      label: 'Login',
+                      label: 'login_menu'.tr,
                       onTap: () {
                         Get.find<WishListController>().removeWishes();
                         Get.toNamed(

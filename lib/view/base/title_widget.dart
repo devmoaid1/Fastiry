@@ -14,7 +14,7 @@ class TitleWidget extends StatelessWidget {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(title,
           style: poppinsRegular.copyWith(
-              fontSize: Dimensions.blockscreenHorizontal * 3.5,
+              fontSize: Dimensions.blockscreenHorizontal * 4,
               fontWeight: FontWeight.w600,
               color: Theme.of(context).dividerColor)),
       (onTap != null && !ResponsiveHelper.isDesktop(context))
@@ -23,7 +23,7 @@ class TitleWidget extends StatelessWidget {
               child: Text(
                 'view_all'.tr,
                 style: poppinsMedium.copyWith(
-                    fontSize: Dimensions.fontSizeSmall,
+                    fontSize: Dimensions.blockscreenHorizontal * 3.5,
                     color: Theme.of(context).primaryColor),
               ),
             )

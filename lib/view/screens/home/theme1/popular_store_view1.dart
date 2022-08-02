@@ -1,7 +1,6 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
@@ -79,15 +78,14 @@ class PopularStoreView1 extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.RADIUS_SMALL),
                                     boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey[
-                                            Get.find<ThemeController>()
-                                                    .darkTheme
-                                                ? 800
-                                                : 300],
-                                        blurRadius: 7,
-                                        spreadRadius: 0.4,
-                                      )
+                                      !Get.isDarkMode
+                                          ? BoxShadow(
+                                              color: Colors.grey[200],
+                                              spreadRadius: 0.4,
+                                              blurRadius: 7)
+                                          : BoxShadow(
+                                              color: Theme.of(context)
+                                                  .backgroundColor)
                                     ],
                                   ),
                                   child: Column(

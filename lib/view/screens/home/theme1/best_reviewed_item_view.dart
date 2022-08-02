@@ -41,7 +41,7 @@ class BestReviewedItemView extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: Dimensions.blockscreenVertical * 33,
+                  height: Dimensions.blockscreenVertical * 34,
                   child: _productList != null
                       ? ListView.builder(
                           controller: ScrollController(),
@@ -82,15 +82,14 @@ class BestReviewedItemView extends StatelessWidget {
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.RADIUS_SMALL),
                                     boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey[
-                                            Get.find<ThemeController>()
-                                                    .darkTheme
-                                                ? 800
-                                                : 300],
-                                        blurRadius: 7,
-                                        spreadRadius: 0.4,
-                                      )
+                                      !Get.isDarkMode
+                                          ? BoxShadow(
+                                              color: Colors.grey[200],
+                                              spreadRadius: 0.4,
+                                              blurRadius: 7)
+                                          : BoxShadow(
+                                              color: Theme.of(context)
+                                                  .backgroundColor)
                                     ],
                                   ),
                                   child: Column(
@@ -205,40 +204,53 @@ class PriceRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(children: [
-      SvgPicture.asset(
-        Images.priceTagIcon,
-        height: 18,
-        color: Theme.of(context).dividerColor,
-      ),
-      SizedBox(
-        width: Dimensions.blockscreenHorizontal,
-      ),
-      Text(
-        PriceConverter.convertPrice(
-          productController.getStartingPrice(_productList[index]),
-          discount: productController.getDiscount(_productList[index]),
-          discountType: productController.getDiscountType(_productList[index]),
-        ),
-        style: poppinsMedium.copyWith(
-            fontSize: Dimensions.blockscreenHorizontal * 3),
-      ),
-      SizedBox(
-          width: _productList[index].discount > 0
-              ? Dimensions.blockscreenHorizontal * 2
-              : 0),
-      productController.getDiscount(_productList[index]) > 0
-          ? Text(
-              PriceConverter.convertPrice(
-                  productController.getStartingPrice(_productList[index])),
-              style: poppinsRegular.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3,
-                color: Theme.of(context).dividerColor.withOpacity(0.6),
-                decoration: TextDecoration.lineThrough,
-              ),
-            )
-          : SizedBox()
-    ]);
+    return Expanded(
+      child: ListView(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          children: [
+            Flex(
+              direction: Axis.horizontal,
+              children: [
+                SvgPicture.asset(
+                  Images.priceTagIcon,
+                  height: 18,
+                  color: Theme.of(context).dividerColor,
+                ),
+                SizedBox(
+                  width: Dimensions.blockscreenHorizontal,
+                ),
+                Text(
+                  PriceConverter.convertPrice(
+                    productController.getStartingPrice(_productList[index]),
+                    discount:
+                        productController.getDiscount(_productList[index]),
+                    discountType:
+                        productController.getDiscountType(_productList[index]),
+                  ),
+                  style: poppinsMedium.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3),
+                ),
+                SizedBox(
+                    width: _productList[index].discount > 0
+                        ? Dimensions.blockscreenHorizontal * 2
+                        : 0),
+                productController.getDiscount(_productList[index]) > 0
+                    ? Text(
+                        PriceConverter.convertPrice(productController
+                            .getStartingPrice(_productList[index])),
+                        style: poppinsRegular.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 3,
+                          color:
+                              Theme.of(context).dividerColor.withOpacity(0.6),
+                          decoration: TextDecoration.lineThrough,
+                        ),
+                      )
+                    : SizedBox()
+              ],
+            ),
+          ]),
+    );
   }
 }
 
@@ -261,11 +273,13 @@ class FoodDetailsRow extends StatelessWidget {
         Row(
           children: [
             ClipOval(
+              clipBehavior: Clip.antiAlias,
               child: Image.asset(
                 Images.breakFastImage,
                 height: Dimensions.blockscreenVertical * 6,
-                width: Dimensions.blockscreenHorizontal * 9,
+                width: Dimensions.blockscreenHorizontal * 8,
                 fit: BoxFit.fill,
+                isAntiAlias: true,
               ),
             ),
             SizedBox(
