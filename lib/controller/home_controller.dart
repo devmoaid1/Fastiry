@@ -13,9 +13,10 @@ import 'restaurant_controller.dart';
 
 class HomeController extends GetxController implements GetxService {
   bool _isLoading;
+  bool _isFirstTimeLoad = true; // to dertmine whther to call api again or not
 
   bool get isLoading => _isLoading;
-
+  bool get isFirstTimeLoad => _isFirstTimeLoad;
   final bannerController = Get.find<BannerController>();
   final authController = Get.find<AuthController>();
   final splashController = Get.find<SplashController>();
@@ -81,7 +82,7 @@ class HomeController extends GetxController implements GetxService {
       await userController.getUserInfo();
       await notificationController.getNotificationList(reload);
     }
-
+    _isFirstTimeLoad = false;
     setIsLoading(false);
   }
 

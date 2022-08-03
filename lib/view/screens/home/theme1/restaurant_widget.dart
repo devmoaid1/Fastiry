@@ -56,7 +56,7 @@ class RestaurantWidget extends StatelessWidget {
               child: restaurant.coverPhoto.isNotEmpty
                   ? checkImage(
                       '${_baseUrls.restaurantCoverPhotoUrl}/${restaurant.coverPhoto}',
-                      Dimensions.screenWidth,
+                      double.infinity,
                       Dimensions.blockscreenVertical * 15,
                       BoxFit.fill)
                   : Image.asset(

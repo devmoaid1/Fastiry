@@ -71,8 +71,8 @@ class ProductView extends StatelessWidget {
                         : showTheme1Restaurant
                             ? 1.9
                             : Dimensions.screenWidth < 411
-                                ? Dimensions.blockscreenHorizontal * 0.52
-                                : Dimensions.blockscreenHorizontal * 0.54,
+                                ? Dimensions.blockscreenHorizontal * 0.5
+                                : Dimensions.blockscreenHorizontal * 0.60,
                     crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
                   ),
                   physics: isScrollable

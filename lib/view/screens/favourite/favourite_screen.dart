@@ -25,6 +25,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>
 
   @override
   Widget build(BuildContext context) {
+    print(Dimensions.orientation);
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(title: 'favourite'.tr, isBackButtonExist: false),
