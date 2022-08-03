@@ -64,21 +64,19 @@ class ProductView extends StatelessWidget {
               ? GridView.builder(
                   key: UniqueKey(),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    mainAxisSpacing: 2,
                     crossAxisSpacing: 1,
-                    mainAxisSpacing: 0,
                     childAspectRatio: ResponsiveHelper.isDesktop(context)
                         ? 4
-                        : showTheme1Restaurant
-                            ? 1.9
-                            : Dimensions.screenWidth < 411
-                                ? Dimensions.blockscreenHorizontal * 0.5
-                                : Dimensions.blockscreenHorizontal * 0.60,
+                        : Dimensions.screenWidth < 411
+                            ? Dimensions.blockscreenHorizontal * 0.5
+                            : 16 / 6.5, //60
                     crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
                   ),
                   physics: isScrollable
                       ? BouncingScrollPhysics()
                       : NeverScrollableScrollPhysics(),
-                  shrinkWrap: isScrollable ? false : true,
+                  shrinkWrap: true,
                   itemCount: _length,
                   padding: padding,
                   itemBuilder: (context, index) {

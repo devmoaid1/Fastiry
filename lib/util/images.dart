@@ -91,4 +91,5 @@ class Images {
   static const String darkModeIcon = 'assets/image/dark_mode.svg';
   static const String readOnly = 'assets/image/read-only.png';
   static const String walletIcon = 'assets/image/wallet.svg';
+  static const String clockIcon = 'assets/image/clock.svg';
 }

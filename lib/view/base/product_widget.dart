@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/controller/splash_controller.dart';
+import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/config_model.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
@@ -6,6 +7,7 @@ import 'package:efood_multivendor/helper/date_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
+import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
@@ -13,6 +15,7 @@ import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../helper/price_converter.dart';
@@ -39,11 +42,11 @@ class ProductWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     BaseUrls _baseUrls = Get.find<SplashController>().configModel.baseUrls;
-    bool _desktop = ResponsiveHelper.isDesktop(context);
     double _discount;
     String _discountType;
     bool _isAvailable;
     String _image;
+    bool _desktop = ResponsiveHelper.isDesktop(context);
     if (isRestaurant) {
       _image = restaurant.logo;
       _discount =
@@ -66,240 +69,348 @@ class ProductWidget extends StatelessWidget {
           product.availableTimeStarts, product.availableTimeEnds);
     }
 
-    return InkWell(
-      onTap: () {
-        if (isRestaurant) {
-          Get.toNamed(RouteHelper.getRestaurantRoute(restaurant.id),
-              arguments: RestaurantScreen(restaurant: restaurant));
-        } else {
-          ResponsiveHelper.isMobile(context)
-              ? Get.bottomSheet(
-                  ProductBottomSheet(
-                      product: product,
-                      inRestaurantPage: inRestaurant,
-                      isCampaign: isCampaign),
-                  backgroundColor: Colors.transparent,
-                  isScrollControlled: true,
-                )
-              : Get.dialog(
-                  Dialog(
-                      child: ProductBottomSheet(
-                          product: product,
-                          inRestaurantPage: inRestaurant,
-                          isCampaign: isCampaign)),
-                );
-        }
-      },
-      child: Container(
-        padding: ResponsiveHelper.isDesktop(context)
-            ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
-            : null,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-          color: ResponsiveHelper.isDesktop(context)
-              ? Theme.of(context).cardColor
-              : null,
-          boxShadow: ResponsiveHelper.isDesktop(context)
-              ? [
-                  Get.isDarkMode
-                      ? BoxShadow(
-                          color: Colors.grey[300],
-                          spreadRadius: 0.4,
-                          blurRadius: 7,
-                        )
-                      : BoxShadow(color: Theme.of(context).backgroundColor)
-                ]
-              : null,
+    Widget _buildRestaurantView(BuildContext context) {
+      return Dismissible(
+        key: ObjectKey(restaurant),
+        background: Container(
+          color: Colors.red,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(Icons.delete, color: Colors.white),
+                Text('remove from wishlist',
+                    style: poppinsRegular.copyWith(color: Colors.white)),
+              ],
+            ),
+          ),
         ),
-        child: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: _desktop ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              (_image != null && _image.isNotEmpty)
-                  ? Stack(children: [
-                      ClipRRect(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                        child: CustomImage(
-                          image:
-                              '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
-                              '/${isRestaurant ? restaurant.logo : product.image}',
-                          height: _desktop
-                              ? 120
-                              : Dimensions.blockscreenHorizontal * 32,
-                          width: _desktop
-                              ? 120
-                              : Dimensions.blockscreenHorizontal * 32,
-                          fit: BoxFit.fill,
-                        ),
-                      ),
-                      _isAvailable
-                          ? SizedBox()
-                          : NotAvailableWidget(isRestaurant: isRestaurant),
-                    ])
-                  : SizedBox.shrink(),
-              SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Expanded(
-                child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Text(
-                        isRestaurant ? restaurant.name : product.name,
-                        style: poppinsMedium.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 5.5,
-                        ),
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                      ),
-                      SizedBox(
-                          height: isRestaurant
-                              ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                              : Dimensions.blockscreenVertical * 2),
-                      isRestaurant
-                          ? RatingBar(
-                              rating: isRestaurant
-                                  ? restaurant.avgRating
-                                  : product.avgRating,
-                              size: _desktop ? 15 : 12,
-                              ratingCount: isRestaurant
-                                  ? restaurant.ratingCount
-                                  : product.ratingCount,
+        onDismissed: (dismiss) {
+          Get.find<WishListController>()
+              .removeFromWishList(restaurant.id, isRestaurant);
+        },
+        child: InkWell(
+          onTap: () {
+            Get.toNamed(RouteHelper.getRestaurantRoute(restaurant.id),
+                arguments: RestaurantScreen(restaurant: restaurant));
+          },
+          child: Container(
+            padding: ResponsiveHelper.isDesktop(context)
+                ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                : null,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
+              color: ResponsiveHelper.isDesktop(context)
+                  ? Theme.of(context).cardColor
+                  : null,
+              boxShadow: ResponsiveHelper.isDesktop(context)
+                  ? [
+                      Get.isDarkMode
+                          ? BoxShadow(
+                              color: Colors.grey[300],
+                              spreadRadius: 0.4,
+                              blurRadius: 7,
                             )
-                          : Row(children: [
+                          : BoxShadow(color: Theme.of(context).backgroundColor)
+                    ]
+                  : null,
+            ),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical:
+                        _desktop ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                child: Row(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      (_image != null && _image.isNotEmpty)
+                          ? Stack(children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.RADIUS_SMALL),
+                                child: CustomImage(
+                                  image:
+                                      '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                      '/${isRestaurant ? restaurant.logo : product.image}',
+                                  height: _desktop
+                                      ? 120
+                                      : Dimensions.blockscreenHorizontal * 32,
+                                  width: _desktop
+                                      ? 120
+                                      : Dimensions.blockscreenHorizontal * 32,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                              _isAvailable
+                                  ? SizedBox()
+                                  : NotAvailableWidget(
+                                      isRestaurant: isRestaurant),
+                            ])
+                          : SizedBox.shrink(),
+                      SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                      Expanded(
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: [
                               Text(
-                                PriceConverter.convertPrice(product.price,
-                                    discount: _discount,
-                                    discountType: _discountType),
+                                restaurant.name,
                                 style: poppinsMedium.copyWith(
-                                    color: Theme.of(context).dividerColor,
-                                    fontSize:
-                                        Dimensions.blockscreenHorizontal * 4),
+                                  fontSize:
+                                      Dimensions.blockscreenHorizontal * 5.5,
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
                               ),
                               SizedBox(
-                                  width: _discount > 0
-                                      ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                                      : 0),
-                              _discount > 0
-                                  ? Text(
-                                      PriceConverter.convertPrice(
-                                          product.price),
-                                      style: poppinsRegular.copyWith(
-                                        fontSize:
-                                            Dimensions.blockscreenHorizontal *
-                                                3.2,
-                                        color: Theme.of(context).disabledColor,
-                                        decoration: TextDecoration.lineThrough,
-                                      ),
-                                    )
-                                  : SizedBox(),
+                                  height: Dimensions.blockscreenVertical * 2),
+                              Text(restaurant.address,
+                                  style: poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal *
+                                              3.5,
+                                      color: Theme.of(context).disabledColor)),
                               SizedBox(
-                                  width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                              (_image != null && _image.isNotEmpty)
-                                  ? SizedBox.shrink()
-                                  : DiscountTagWithoutImage(
-                                      discount: _discount,
-                                      discountType: _discountType,
-                                      freeDelivery: isRestaurant
-                                          ? restaurant.freeDelivery
-                                          : false),
+                                  height: Dimensions.blockscreenVertical * 0.5),
+                              RatingBar(
+                                  rating: restaurant.avgRating,
+                                  size: _desktop ? 15 : 12,
+                                  ratingCount: restaurant.ratingCount),
+                              SizedBox(height: Dimensions.blockscreenVertical),
+                              Row(
+                                children: [
+                                  SvgPicture.asset(
+                                    Images.clockIcon,
+                                    color: Theme.of(context).dividerColor,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Container(
+                                    width:
+                                        Dimensions.blockscreenHorizontal * 20,
+                                    child: FittedBox(
+                                        fit: BoxFit.contain,
+                                        child: Text(
+                                          "in ${restaurant.deliveryTime} mins",
+                                          style: poppinsRegular.copyWith(
+                                              color: Theme.of(context)
+                                                  .disabledColor),
+                                        )),
+                                  )
+                                ],
+                              ),
+                              DiscountTag(
+                                discount: _discount,
+                                discountType: _discountType,
+                              )
                             ]),
-                      !isRestaurant
-                          ? RatingBar(
-                              rating: isRestaurant
-                                  ? restaurant.avgRating
-                                  : product.avgRating,
-                              size: _desktop ? 15 : 14,
-                              ratingCount: isRestaurant
-                                  ? restaurant.ratingCount
-                                  : product.ratingCount,
-                            )
-                          : SizedBox(),
-                      SizedBox(
-                          height: (!isRestaurant && _desktop)
-                              ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                              : Dimensions.blockscreenVertical),
-                      DiscountTag(
-                        discount: _discount,
-                        discountType: _discountType,
-                      )
+                      ),
                     ]),
               ),
-              // Column(
-              //     mainAxisAlignment: isRestaurant
-              //         ? MainAxisAlignment.center
-              //         : MainAxisAlignment.spaceBetween,
-              //     children: [
-              //       !isRestaurant
-              //           ? Padding(
-              //               padding: EdgeInsets.symmetric(
-              //                   vertical: _desktop
-              //                       ? Dimensions.PADDING_SIZE_SMALL
-              //                       : 0),
-              //               child: Container(
-              //                   padding: EdgeInsets.all(
-              //                       Dimensions.blockscreenHorizontal * 0.5),
-              //                   decoration: BoxDecoration(
-              //                       borderRadius: BorderRadius.circular(8),
-              //                       border: Border.all(
-              //                           color: Theme.of(context).dividerColor,
-              //                           width: 2)),
-              //                   child:
-              //                       Icon(Icons.add, size: _desktop ? 30 : 25)),
-              //             )
-              //           : SizedBox(),
-              //       GetBuilder<WishListController>(builder: (wishController) {
-              //         bool _isWished = isRestaurant
-              //             ? wishController.wishRestIdList
-              //                 .contains(restaurant.id)
-              //             : wishController.wishProductIdList
-              //                 .contains(product.id);
-              //         return InkWell(
-              //           onTap: () {
-              //             if (Get.find<AuthController>().isLoggedIn()) {
-              //               _isWished
-              //                   ? wishController.removeFromWishList(
-              //                       isRestaurant ? restaurant.id : product.id,
-              //                       isRestaurant)
-              //                   : wishController.addToWishList(
-              //                       product, restaurant, isRestaurant);
-              //             } else {
-              //               showCustomSnackBar('you_are_not_logged_in'.tr);
-              //             }
-              //           },
-              //           child: Padding(
-              //             padding: EdgeInsets.symmetric(
-              //                 vertical:
-              //                     _desktop ? Dimensions.PADDING_SIZE_SMALL : 0),
-              //             child: Icon(
-              //               _isWished ? Icons.favorite : Icons.favorite_border,
-              //               size: _desktop ? 30 : 25,
-              //               color: _isWished
-              //                   ? Theme.of(context).primaryColor
-              //                   : Theme.of(context).disabledColor,
-              //             ),
-              //           ),
-              //         );
-              //       }),
-              //     ]),
+              _desktop
+                  ? SizedBox()
+                  : Padding(
+                      padding: EdgeInsets.only(
+                          left: _desktop
+                              ? 130
+                              : Dimensions.screenWidth -
+                                  Dimensions.blockscreenHorizontal * 67),
+                      child: Divider(
+                          color: index == length - 1
+                              ? Colors.transparent
+                              : Theme.of(context).disabledColor),
+                    ),
             ]),
           ),
-          _desktop
-              ? SizedBox()
-              : Padding(
-                  padding: EdgeInsets.only(
-                      left: _desktop
-                          ? 130
-                          : Dimensions.screenWidth -
-                              Dimensions.blockscreenHorizontal * 67),
-                  child: Divider(
-                      color: index == length - 1
-                          ? Colors.transparent
-                          : Theme.of(context).disabledColor),
+        ),
+      );
+    }
+
+    Widget _buildProductView(context) {
+      return Dismissible(
+        key: ObjectKey(product),
+        background: Container(
+          color: Colors.red,
+          child: Padding(
+            padding: const EdgeInsets.all(15),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Icon(Icons.delete, color: Colors.white),
+                Text('remove from wishlist',
+                    style: poppinsRegular.copyWith(color: Colors.white)),
+              ],
+            ),
+          ),
+        ),
+        onDismissed: (dismissDirection) {
+          Get.find<WishListController>()
+              .removeFromWishList(product.id, isRestaurant);
+        },
+        child: InkWell(
+          onTap: () {
+            ResponsiveHelper.isMobile(context)
+                ? Get.bottomSheet(
+                    ProductBottomSheet(
+                        product: product,
+                        inRestaurantPage: inRestaurant,
+                        isCampaign: isCampaign),
+                    backgroundColor: Colors.transparent,
+                    isScrollControlled: true,
+                  )
+                : Get.dialog(
+                    Dialog(
+                        child: ProductBottomSheet(
+                            product: product,
+                            inRestaurantPage: inRestaurant,
+                            isCampaign: isCampaign)),
+                  );
+          },
+          child: Container(
+            padding: ResponsiveHelper.isDesktop(context)
+                ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                : null,
+            decoration: BoxDecoration(
+              color: ResponsiveHelper.isDesktop(context)
+                  ? Theme.of(context).cardColor
+                  : null,
+              boxShadow: ResponsiveHelper.isDesktop(context)
+                  ? [
+                      Get.isDarkMode
+                          ? BoxShadow(
+                              color: Colors.grey[300],
+                              spreadRadius: 0.4,
+                              blurRadius: 7,
+                            )
+                          : BoxShadow(color: Theme.of(context).backgroundColor)
+                    ]
+                  : null,
+            ),
+            child:
+                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+                (_image != null && _image.isNotEmpty)
+                    ? Stack(children: [
+                        ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                          child: CustomImage(
+                            image:
+                                '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                '/${isRestaurant ? restaurant.logo : product.image}',
+                            height: _desktop
+                                ? 120
+                                : Dimensions.blockscreenHorizontal * 32,
+                            width: _desktop
+                                ? 120
+                                : Dimensions.blockscreenHorizontal * 32,
+                            fit: BoxFit.fill,
+                          ),
+                        ),
+                        _isAvailable
+                            ? SizedBox()
+                            : NotAvailableWidget(isRestaurant: isRestaurant),
+                      ])
+                    : SizedBox.shrink(),
+                SizedBox(width: Dimensions.blockscreenHorizontal * 3),
+                Expanded(
+                  child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          product.name,
+                          style: poppinsMedium.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 5.5,
+                          ),
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(
+                            height: product.discount > 0
+                                ? 4
+                                : Dimensions.blockscreenVertical * 3),
+                        Text(
+                          product.description,
+                          style: poppinsMedium.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                              color: Theme.of(context).disabledColor),
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        SizedBox(height: Dimensions.blockscreenVertical * 0.4),
+                        RatingBar(
+                          rating: product.avgRating,
+                          size: _desktop ? 15 : 12,
+                          ratingCount: product.ratingCount,
+                        ),
+                        SizedBox(height: Dimensions.blockscreenVertical * 0.4),
+                        Row(children: [
+                          Text(
+                            PriceConverter.convertPrice(product.price,
+                                discount: _discount,
+                                discountType: _discountType),
+                            style: poppinsMedium.copyWith(
+                                color: Theme.of(context).dividerColor,
+                                fontSize: Dimensions.blockscreenHorizontal * 4),
+                          ),
+                          SizedBox(
+                              width: _discount > 0
+                                  ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                                  : 0),
+                          _discount > 0
+                              ? Text(
+                                  PriceConverter.convertPrice(product.price),
+                                  style: poppinsRegular.copyWith(
+                                    fontSize:
+                                        Dimensions.blockscreenHorizontal * 3.2,
+                                    color: Theme.of(context).disabledColor,
+                                    decoration: TextDecoration.lineThrough,
+                                  ),
+                                )
+                              : SizedBox(),
+                          SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          (_image != null && _image.isNotEmpty)
+                              ? SizedBox.shrink()
+                              : DiscountTagWithoutImage(
+                                  discount: _discount,
+                                  discountType: _discountType,
+                                  freeDelivery: isRestaurant
+                                      ? restaurant.freeDelivery
+                                      : false),
+                        ]),
+                        SizedBox(height: Dimensions.blockscreenVertical),
+                        DiscountTag(
+                          discount: _discount,
+                          discountType: _discountType,
+                        )
+                      ]),
                 ),
-        ]),
-      ),
-    );
+              ]),
+              Padding(
+                padding: EdgeInsets.only(
+                    left: _desktop
+                        ? 130
+                        : Dimensions.screenWidth -
+                            Dimensions.blockscreenHorizontal * 65),
+                child: Divider(
+                    color: index == length - 1
+                        ? Colors.transparent
+                        : Theme.of(context).disabledColor),
+              ),
+            ]),
+          ),
+        ),
+      );
+    }
+
+    if (isRestaurant) {
+      return _buildRestaurantView(context);
+    }
+
+    return _buildProductView(context);
   }
 }
