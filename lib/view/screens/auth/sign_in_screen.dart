@@ -7,7 +7,6 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
@@ -15,7 +14,6 @@ import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/custom_text_field.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/code_picker_widget.dart';
-import 'package:efood_multivendor/view/screens/auth/widget/guest_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -89,30 +87,17 @@ class _SignInScreenState extends State<SignInScreen> {
         }
       },
       child: Scaffold(
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
             child: Scrollbar(
           child: SingleChildScrollView(
             physics: BouncingScrollPhysics(),
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
             child: Container(
-              width: context.width > 700 ? 700 : context.width,
+              width: context.width,
               padding: context.width > 700
                   ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
                   : null,
-              decoration: context.width > 700
-                  ? BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                      boxShadow: [
-                        BoxShadow(
-                            color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                            blurRadius: 5,
-                            spreadRadius: 1)
-                      ],
-                    )
-                  : BoxDecoration(color: Colors.white),
               child: GetBuilder<AuthController>(builder: (authController) {
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -124,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           style: poppinsRegular.copyWith(
                               fontSize: Dimensions.blockscreenHorizontal * 7,
                               fontWeight: FontWeight.w500,
-                              color: lightGreyTextColor)),
+                              color: Theme.of(context).dividerColor)),
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
                       Column(children: [
                         Row(children: [
@@ -175,13 +160,13 @@ class _SignInScreenState extends State<SignInScreen> {
                           Expanded(
                               flex: 1,
                               child: CustomTextField(
-                                hintText: 'phone'.tr,
-                                controller: _phoneController,
-                                focusNode: _phoneFocus,
-                                nextFocus: _passwordFocus,
-                                inputType: TextInputType.phone,
-                                divider: false,
-                              )),
+                                  hintText: 'phone'.tr,
+                                  controller: _phoneController,
+                                  focusNode: _phoneFocus,
+                                  nextFocus: _passwordFocus,
+                                  inputType: TextInputType.phone,
+                                  divider: false,
+                                  textColor: Theme.of(context).dividerColor)),
                         ]),
                         SizedBox(
                           height: Dimensions.PADDING_SIZE_LARGE,
@@ -194,6 +179,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           inputType: TextInputType.visiblePassword,
                           prefixIcon: Images.lock,
                           isPassword: true,
+                          textColor: Theme.of(context).dividerColor,
                           onSubmit: (text) =>
                               (GetPlatform.isWeb && authController.acceptTerms)
                                   ? _login(authController, _countryDialCode)
@@ -213,8 +199,8 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         title: Text(
                           'remember_me'.tr,
-                          style:
-                              poppinsRegular.copyWith(color: Color(0xff5C5C5F)),
+                          style: poppinsRegular.copyWith(
+                              color: Theme.of(context).dividerColor),
                         ),
                         contentPadding: EdgeInsets.zero,
                         dense: true,
@@ -255,8 +241,10 @@ class _SignInScreenState extends State<SignInScreen> {
                           ]),
                       OrRow(),
                       SocialLoginWidget(
-                          fontColor: Colors.black,
-                          color: Colors.white,
+                          fontColor: Get.isDarkMode
+                              ? Theme.of(context).dividerColor
+                              : Colors.black,
+                          color: Colors.transparent,
                           iconPath: Images.googleIcon,
                           title: "google_login".tr,
                           onTap: () {
@@ -264,17 +252,17 @@ class _SignInScreenState extends State<SignInScreen> {
                           }),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                       SocialLoginWidget(
-                          fontColor: Colors.black,
+                          fontColor: Get.isDarkMode
+                              ? Theme.of(context).dividerColor
+                              : Colors.black,
                           iconColor: Colors.blue,
-                          color: Colors.white,
+                          color: Colors.transparent,
                           iconPath: Images.facebookIcon,
                           title: "facebook_login".tr,
                           onTap: () {
                             Get.toNamed(RouteHelper.getVerificationRoute(
                                 '01033266366', 'asasasasas', 'sign-up', ''));
                           }),
-                      SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                      GuestButton(),
                     ]);
               }),
             ),

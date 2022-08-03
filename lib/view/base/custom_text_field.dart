@@ -22,26 +22,27 @@ class CustomTextField extends StatefulWidget {
   final bool divider;
   final TextAlign textAlign;
   final bool isAmount;
+  Color textColor;
 
-  CustomTextField({
-    this.hintText = 'Write something...',
-    this.controller,
-    this.focusNode,
-    this.nextFocus,
-    this.isEnabled = true,
-    this.inputType = TextInputType.text,
-    this.inputAction = TextInputAction.next,
-    this.maxLines = 1,
-    this.onSubmit,
-    this.onChanged,
-    this.prefixIcon,
-    this.capitalization = TextCapitalization.none,
-    this.isPassword = false,
-    this.prefixSize = Dimensions.PADDING_SIZE_SMALL,
-    this.divider = false,
-    this.textAlign = TextAlign.start,
-    this.isAmount = false,
-  });
+  CustomTextField(
+      {this.hintText = 'Write something...',
+      this.controller,
+      this.focusNode,
+      this.nextFocus,
+      this.isEnabled = true,
+      this.inputType = TextInputType.text,
+      this.inputAction = TextInputAction.next,
+      this.maxLines = 1,
+      this.onSubmit,
+      this.onChanged,
+      this.prefixIcon,
+      this.capitalization = TextCapitalization.none,
+      this.isPassword = false,
+      this.prefixSize = Dimensions.PADDING_SIZE_SMALL,
+      this.divider = false,
+      this.textAlign = TextAlign.start,
+      this.isAmount = false,
+      this.textColor = Colors.black});
 
   @override
   _CustomTextFieldState createState() => _CustomTextFieldState();
@@ -59,7 +60,8 @@ class _CustomTextFieldState extends State<CustomTextField> {
           controller: widget.controller,
           focusNode: widget.focusNode,
           textAlign: widget.textAlign,
-          style: poppinsRegular.copyWith(fontSize: Dimensions.fontSizeLarge),
+          style: poppinsRegular.copyWith(
+              fontSize: Dimensions.fontSizeLarge, color: widget.textColor),
           textInputAction: widget.inputAction,
           keyboardType:
               widget.isAmount ? TextInputType.number : widget.inputType,
@@ -81,7 +83,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
               borderSide: BorderSide(
                   style: BorderStyle.solid,
                   width: 1,
-                  color: lightGreyTextColor),
+                  color: lightGreyTextColor.withOpacity(0.7)),
             ),
             isDense: true,
             hintText: widget.hintText,
@@ -94,8 +96,12 @@ class _CustomTextFieldState extends State<CustomTextField> {
                 ? Padding(
                     padding:
                         EdgeInsets.symmetric(horizontal: widget.prefixSize),
-                    child:
-                        Image.asset(widget.prefixIcon, height: 20, width: 20),
+                    child: Image.asset(
+                      widget.prefixIcon,
+                      height: 20,
+                      color: Theme.of(context).dividerColor,
+                      width: 20,
+                    ),
                   )
                 : null,
             suffixIcon: widget.isPassword

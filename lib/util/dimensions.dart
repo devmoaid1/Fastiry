@@ -25,5 +25,7 @@ class Dimensions {
   static double blockscreenHorizontal = screenWidth / 100;
   static double blockscreenVertical = screeHeight / 100;
 
+  static String orientation = Get.context.orientation.name;
+
   static const double WEB_MAX_WIDTH = 1170;
 }

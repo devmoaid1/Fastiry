@@ -13,8 +13,8 @@ class OrRow extends StatelessWidget {
           horizontal: Dimensions.PADDING_SIZE_LARGE,
           vertical: Dimensions.PADDING_SIZE_SMALL),
       child: Row(children: <Widget>[
-        const Expanded(
-          child: Divider(color: Color(0xff5C5C5F)),
+        Expanded(
+          child: Divider(color: Theme.of(context).dividerColor),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
@@ -23,9 +23,9 @@ class OrRow extends StatelessWidget {
             style: poppinsRegular,
           ),
         ),
-        const Expanded(
+        Expanded(
             child: Divider(
-          color: Colors.black,
+          color: Theme.of(context).dividerColor,
         )),
       ]),
     );

@@ -2,13 +2,10 @@ import 'package:efood_multivendor/controller/product_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
-import 'package:efood_multivendor/view/base/discount_tag.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -16,6 +13,10 @@ import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
+
+import '../../../../util/image_checker.dart';
+import '../../../base/discount_tag.dart';
+import 'best_reviewed_item_view.dart';
 
 class PopularItemView1 extends StatelessWidget {
   final bool isPopular;
@@ -43,7 +44,7 @@ class PopularItemView1 extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: 120,
+                  height: Dimensions.blockscreenVertical * 20,
                   child: _productList != null
                       ? ListView.builder(
                           controller: ScrollController(),
@@ -56,8 +57,9 @@ class PopularItemView1 extends StatelessWidget {
                               : _productList.length,
                           itemBuilder: (context, index) {
                             return Padding(
-                              padding: EdgeInsets.fromLTRB(
-                                  2, 2, Dimensions.PADDING_SIZE_SMALL, 2),
+                              padding: EdgeInsets.symmetric(
+                                  horizontal: Dimensions.blockscreenHorizontal,
+                                  vertical: Dimensions.blockscreenVertical),
                               child: InkWell(
                                 onTap: () {
                                   ResponsiveHelper.isMobile(context)
@@ -76,52 +78,53 @@ class PopularItemView1 extends StatelessWidget {
                                         );
                                 },
                                 child: Container(
-                                  height: 90,
-                                  width: 250,
-                                  padding: EdgeInsets.all(
-                                      Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  width: Dimensions.blockscreenHorizontal * 60,
+                                  margin: EdgeInsets.only(right: 7),
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(
                                         Dimensions.RADIUS_SMALL),
                                     boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.grey[
-                                            Get.find<ThemeController>()
-                                                    .darkTheme
-                                                ? 800
-                                                : 300],
-                                        blurRadius: 5,
-                                        spreadRadius: 1,
-                                      )
+                                      !Get.isDarkMode
+                                          ? BoxShadow(
+                                              color: Colors.grey[200],
+                                              spreadRadius: 0.4,
+                                              blurRadius: 7)
+                                          : BoxShadow(
+                                              color: Theme.of(context)
+                                                  .backgroundColor)
                                     ],
                                   ),
                                   child: Row(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       mainAxisAlignment:
-                                          MainAxisAlignment.center,
+                                          MainAxisAlignment.start,
                                       children: [
                                         Stack(children: [
                                           ClipRRect(
                                             borderRadius: BorderRadius.circular(
                                                 Dimensions.RADIUS_SMALL),
-                                            child: CustomImage(
-                                              image:
-                                                  '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
-                                                  '/${_productList[index].image}',
-                                              height: 80,
-                                              width: 80,
-                                              fit: BoxFit.cover,
-                                            ),
-                                          ),
-                                          DiscountTag(
-                                            discount:
-                                                productController.getDiscount(
-                                                    _productList[index]),
-                                            discountType: productController
-                                                .getDiscountType(
-                                                    _productList[index]),
+                                            child: checkImage(
+                                                '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
+                                                Dimensions
+                                                        .blockscreenHorizontal *
+                                                    25,
+                                                Dimensions.blockscreenVertical *
+                                                    18,
+                                                BoxFit.fill),
+                                            // child: CustomImage(
+                                            //   image:
+                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
+                                            //       '/${_productList[index].image}',
+                                            //   height: Dimensions
+                                            //           .blockscreenVertical *
+                                            //       18,
+                                            //   width: Dimensions
+                                            //           .blockscreenHorizontal *
+                                            //       25,
+                                            //   fit: BoxFit.fill,
+                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -131,31 +134,33 @@ class PopularItemView1 extends StatelessWidget {
                                         Expanded(
                                           child: Padding(
                                             padding: EdgeInsets.symmetric(
+                                                vertical: 3,
                                                 horizontal: Dimensions
-                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                                        .blockscreenHorizontal *
+                                                    3),
                                             child: Column(
                                                 crossAxisAlignment:
                                                     CrossAxisAlignment.start,
                                                 mainAxisAlignment:
-                                                    MainAxisAlignment.center,
+                                                    MainAxisAlignment.start,
                                                 children: [
                                                   Text(
                                                     _productList[index].name,
-                                                    style:
-                                                        robotoMedium.copyWith(
-                                                            fontSize: Dimensions
-                                                                .fontSizeSmall),
+                                                    style: poppinsMedium.copyWith(
+                                                        fontSize: Dimensions
+                                                                .blockscreenHorizontal *
+                                                            3),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
-                                                  SizedBox(
-                                                      height: Dimensions
-                                                          .PADDING_SIZE_EXTRA_SMALL),
+                                                  // SizedBox(
+                                                  //     height: Dimensions
+                                                  //         .blockscreenHorizontal),
                                                   Text(
                                                     _productList[index]
                                                         .restaurantName,
-                                                    style: robotoMedium.copyWith(
+                                                    style: poppinsMedium.copyWith(
                                                         fontSize: Dimensions
                                                             .fontSizeExtraSmall,
                                                         color: Theme.of(context)
@@ -167,85 +172,29 @@ class PopularItemView1 extends StatelessWidget {
                                                   RatingBar(
                                                     rating: _productList[index]
                                                         .avgRating,
-                                                    size: 12,
+                                                    size: 13,
                                                     ratingCount:
                                                         _productList[index]
                                                             .ratingCount,
                                                   ),
-                                                  Row(children: [
-                                                    Expanded(
-                                                      child: Row(
-                                                          crossAxisAlignment:
-                                                              CrossAxisAlignment
-                                                                  .end,
-                                                          children: [
-                                                            _productList[index]
-                                                                        .discount >
-                                                                    0
-                                                                ? Flexible(
-                                                                    child: Text(
-                                                                    PriceConverter.convertPrice(
-                                                                        productController
-                                                                            .getStartingPrice(_productList[index])),
-                                                                    style: robotoMedium
-                                                                        .copyWith(
-                                                                      fontSize:
-                                                                          Dimensions
-                                                                              .fontSizeExtraSmall,
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .errorColor,
-                                                                      decoration:
-                                                                          TextDecoration
-                                                                              .lineThrough,
-                                                                    ),
-                                                                  ))
-                                                                : SizedBox(),
-                                                            SizedBox(
-                                                                width: _productList[index]
-                                                                            .discount >
-                                                                        0
-                                                                    ? Dimensions
-                                                                        .PADDING_SIZE_EXTRA_SMALL
-                                                                    : 0),
-                                                            Text(
-                                                              PriceConverter
-                                                                  .convertPrice(
-                                                                productController
-                                                                    .getStartingPrice(
-                                                                        _productList[
-                                                                            index]),
-                                                                discount:
-                                                                    _productList[
-                                                                            index]
-                                                                        .discount,
-                                                                discountType:
-                                                                    _productList[
-                                                                            index]
-                                                                        .discountType,
-                                                              ),
-                                                              style: robotoBold
-                                                                  .copyWith(
-                                                                      fontSize:
-                                                                          Dimensions
-                                                                              .fontSizeSmall),
-                                                            ),
-                                                          ]),
-                                                    ),
-                                                    Container(
-                                                      height: 25,
-                                                      width: 25,
-                                                      decoration: BoxDecoration(
-                                                          shape:
-                                                              BoxShape.circle,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .primaryColor),
-                                                      child: Icon(Icons.add,
-                                                          size: 20,
-                                                          color: Colors.white),
-                                                    ),
-                                                  ]),
+                                                  PriceRow(
+                                                    productList: _productList,
+                                                    productController:
+                                                        productController,
+                                                    index: index,
+                                                  ),
+                                                  SizedBox(
+                                                    height: Dimensions
+                                                        .blockscreenVertical,
+                                                  ),
+                                                  DiscountTag(
+                                                    discount:
+                                                        _productList[index]
+                                                            .discount,
+                                                    discountType:
+                                                        _productList[index]
+                                                            .discountType,
+                                                  )
                                                 ]),
                                           ),
                                         ),

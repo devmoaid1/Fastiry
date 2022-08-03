@@ -66,8 +66,29 @@ class Images {
   static const String verficationImage = 'assets/image/verification_image.png';
   static const String fastiryLogoRed = 'assets/image/fastiry_logo_red.png';
   static const String fastiryLogoType = 'assets/image/fastiry_logo_type.png';
+  static const String fastiryLogoTypeArabic =
+      'assets/image/fasteriy_arabic_type.png';
   static const String fastiryRed = 'assets/image/fastiry_red.png';
   static const String egyptFlag = 'assets/image/egypt.png';
   static const String englandFlag = 'assets/image/united-kingdom.png';
   static const String americaFlag = 'assets/image/united-states.png';
+  static const String pinIcon = 'assets/image/pin.png';
+  static const String breakFastImage = 'assets/image/breakfast.jpg';
+  static const String priceTagIcon = 'assets/image/price-tag.svg';
+  static const String homeIcon = 'assets/image/home.svg';
+  static const String ordersIcon = 'assets/image/orders.svg';
+  static const String favouritesIcon = 'assets/image/love.svg';
+  static const String menuIcon = 'assets/image/menu.svg';
+  static const String languageIcon = 'assets/image/language.svg';
+  static const String settingsIcon = 'assets/image/settings.svg';
+  static const String profileIcon = 'assets/image/profile.svg';
+  static const String notificationIcon = 'assets/image/notification.svg';
+  static const String privacyIcon = 'assets/image/lock.svg';
+  static const String loginIcon = 'assets/image/login.svg';
+  static const String logoutIcon = 'assets/image/logout.svg';
+  static const String termsIcon = 'assets/image/terms.svg';
+  static const String discountIcon = 'assets/image/discount.svg';
+  static const String darkModeIcon = 'assets/image/dark_mode.svg';
+  static const String readOnly = 'assets/image/read-only.png';
+  static const String walletIcon = 'assets/image/wallet.svg';
 }

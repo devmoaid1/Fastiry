@@ -12,17 +12,22 @@ class TitleWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-      Text(title, style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge)),
-      (onTap != null && !ResponsiveHelper.isDesktop(context)) ? InkWell(
-        onTap: onTap,
-        child: Padding(
-          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
-          child: Text(
-            'view_all'.tr,
-            style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
-          ),
-        ),
-      ) : SizedBox(),
+      Text(title,
+          style: poppinsRegular.copyWith(
+              fontSize: Dimensions.blockscreenHorizontal * 4,
+              fontWeight: FontWeight.w600,
+              color: Theme.of(context).dividerColor)),
+      (onTap != null && !ResponsiveHelper.isDesktop(context))
+          ? InkWell(
+              onTap: onTap,
+              child: Text(
+                'view_all'.tr,
+                style: poppinsMedium.copyWith(
+                    fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                    color: Theme.of(context).primaryColor),
+              ),
+            )
+          : SizedBox(),
     ]);
   }
 }

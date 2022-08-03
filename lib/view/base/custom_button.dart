@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
@@ -12,10 +13,12 @@ class CustomButton extends StatelessWidget {
   final double fontSize;
   final double radius;
   final IconData icon;
+  final Color iconColor;
   CustomButton(
       {this.onPressed,
       @required this.buttonText,
       this.transparent = false,
+      this.iconColor = lightGreyTextColor,
       this.margin,
       this.width,
       this.height,
@@ -56,7 +59,7 @@ class CustomButton extends StatelessWidget {
                           child: Icon(icon,
                               color: transparent
                                   ? Theme.of(context).primaryColor
-                                  : Theme.of(context).cardColor),
+                                  : iconColor),
                         )
                       : SizedBox(),
                   Text(buttonText ?? '',
@@ -64,7 +67,7 @@ class CustomButton extends StatelessWidget {
                       style: poppinsRegular.copyWith(
                         color: transparent
                             ? Theme.of(context).primaryColor
-                            : Theme.of(context).cardColor,
+                            : Colors.white,
                         fontSize: fontSize != null
                             ? fontSize
                             : Dimensions.fontSizeLarge,

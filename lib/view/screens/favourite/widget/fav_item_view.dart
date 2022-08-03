@@ -11,6 +11,7 @@ class FavItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: GetBuilder<WishListController>(builder: (wishController) {
         return RefreshIndicator(
           onRefresh: () async {
@@ -18,12 +19,15 @@ class FavItemView extends StatelessWidget {
           },
           child: SingleChildScrollView(
             physics: AlwaysScrollableScrollPhysics(),
-            child: Center(child: SizedBox(
-              width: Dimensions.WEB_MAX_WIDTH, child: ProductView(
-                isRestaurant: isRestaurant, products: wishController.wishProductList, restaurants: wishController.wishRestList,
+            child: SizedBox(
+              width: Dimensions.WEB_MAX_WIDTH,
+              child: ProductView(
+                isRestaurant: isRestaurant,
+                products: wishController.wishProductList,
+                restaurants: wishController.wishRestList,
                 noDataText: 'no_wish_data_found'.tr,
               ),
-            )),
+            ),
           ),
         );
       }),

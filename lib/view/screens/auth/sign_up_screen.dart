@@ -15,7 +15,6 @@ import 'package:efood_multivendor/view/base/custom_text_field.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/code_picker_widget.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/condition_check_box.dart';
-import 'package:efood_multivendor/view/screens/auth/widget/guest_button.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/or_row.dart';
 import 'package:efood_multivendor/view/screens/auth/widget/social_login_widget.dart';
 import 'package:flutter/material.dart';
@@ -59,7 +58,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: ResponsiveHelper.isDesktop(context)
           ? WebMenuBar()
           : CustomAppBar(
@@ -75,23 +74,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
           padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
           physics: BouncingScrollPhysics(),
           child: Container(
-            width: context.width > 700 ? 700 : context.width,
+            width: context.width,
             padding: context.width > 700
                 ? EdgeInsets.all(Dimensions.PADDING_SIZE_DEFAULT)
                 : null,
-            decoration: context.width > 700
-                ? BoxDecoration(
-                    color: Theme.of(context).cardColor,
-                    borderRadius:
-                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                          blurRadius: 5,
-                          spreadRadius: 1)
-                    ],
-                  )
-                : BoxDecoration(color: Colors.white),
             child: GetBuilder<AuthController>(builder: (authController) {
               return Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -249,21 +235,28 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     OrRow(),
                     SocialLoginWidget(
-                        fontColor: Colors.black,
-                        color: Colors.white,
+                        fontColor: Get.isDarkMode
+                            ? Theme.of(context).dividerColor
+                            : Colors.black,
+                        color: Colors.transparent,
                         iconPath: Images.googleIcon,
-                        title: "Continue With Google",
-                        onTap: () {}),
+                        title: "google_login".tr,
+                        onTap: () {
+                          authController.googleSignIn();
+                        }),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                     SocialLoginWidget(
-                        fontColor: Colors.black,
+                        fontColor: Get.isDarkMode
+                            ? Theme.of(context).dividerColor
+                            : Colors.black,
                         iconColor: Colors.blue,
-                        color: Colors.white,
+                        color: Colors.transparent,
                         iconPath: Images.facebookIcon,
-                        title: "Continue With Faceook",
-                        onTap: () {}),
-                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                    GuestButton(),
+                        title: "facebook_login".tr,
+                        onTap: () {
+                          Get.toNamed(RouteHelper.getVerificationRoute(
+                              '01033266366', 'asasasasas', 'sign-up', ''));
+                        }),
                   ]);
             }),
           ),
