@@ -69,8 +69,10 @@ class ProductView extends StatelessWidget {
                     childAspectRatio: ResponsiveHelper.isDesktop(context)
                         ? 4
                         : Dimensions.screenWidth < 411
-                            ? Dimensions.blockscreenHorizontal * 0.5
-                            : 16 / 6.5, //60
+                            ? Dimensions.blockscreenHorizontal * 0.4
+                            : showTheme1Restaurant
+                                ? 16 / 9
+                                : 16 / 6.8, //60
                     crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
                   ),
                   physics: isScrollable

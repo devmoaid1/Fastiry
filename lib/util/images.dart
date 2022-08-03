@@ -92,4 +92,6 @@ class Images {
   static const String readOnly = 'assets/image/read-only.png';
   static const String walletIcon = 'assets/image/wallet.svg';
   static const String clockIcon = 'assets/image/clock.svg';
+  static const String locationIconSvg = 'assets/image/location.svg';
+  static const String scooterIconSvg = 'assets/image/scooter.svg';
 }

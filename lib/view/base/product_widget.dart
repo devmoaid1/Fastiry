@@ -303,10 +303,10 @@ class ProductWidget extends StatelessWidget {
                                 '/${isRestaurant ? restaurant.logo : product.image}',
                             height: _desktop
                                 ? 120
-                                : Dimensions.blockscreenHorizontal * 32,
+                                : Dimensions.blockscreenHorizontal * 30,
                             width: _desktop
                                 ? 120
-                                : Dimensions.blockscreenHorizontal * 32,
+                                : Dimensions.blockscreenHorizontal * 30,
                             fit: BoxFit.fill,
                           ),
                         ),
