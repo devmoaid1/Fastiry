@@ -94,4 +94,6 @@ class Images {
   static const String clockIcon = 'assets/image/clock.svg';
   static const String locationIconSvg = 'assets/image/location.svg';
   static const String scooterIconSvg = 'assets/image/scooter.svg';
+  static const String plusIconSvg = 'assets/image/plus.svg';
+  static const String minusIconSvg = 'assets/image/minus.svg';
 }

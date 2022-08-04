@@ -87,10 +87,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
           }
           restController.setCategoryList();
 
-          bool isAvailable = restController.isRestaurantOpenNow(
-              restController.restaurant.active,
-              restController.restaurant.schedules);
-
           return (restController.restaurant != null &&
                   restController.restaurant.name != null &&
                   categoryController.categoryList != null)
@@ -169,7 +165,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                   image:
                                       '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}/${_restaurant.coverPhoto}',
                                 ),
-                                isAvailable
+                                restController.isAvailable
                                     ? Align(
                                         alignment: Alignment.center,
                                         child: Container(
@@ -232,6 +228,8 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                               )
                             ],
                           ),
+
+                    // products
                     SliverToBoxAdapter(
                         child: Container(
                       width: Dimensions.WEB_MAX_WIDTH,

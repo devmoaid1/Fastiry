@@ -19,7 +19,6 @@ class CustomImage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Theme.of(context).cardColor,
       child: FadeInImage.assetNetwork(
         image: image,
         height: height,

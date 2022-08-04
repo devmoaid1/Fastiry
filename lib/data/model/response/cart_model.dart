@@ -1,7 +1,7 @@
-
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 
 class CartModel {
+  int _restaurantId;
   double _price;
   double _discountedPrice;
   List<Variation> _variation;
@@ -13,16 +13,18 @@ class CartModel {
   Product _product;
 
   CartModel(
-        double price,
-        double discountedPrice,
-        List<Variation> variation,
-        double discountAmount,
-        int quantity,
-        List<AddOn> addOnIds,
-        List<AddOns> addOns,
-        bool isCampaign,
-        Product product) {
+      // int restaurantId,
+      double price,
+      double discountedPrice,
+      List<Variation> variation,
+      double discountAmount,
+      int quantity,
+      List<AddOn> addOnIds,
+      List<AddOns> addOns,
+      bool isCampaign,
+      Product product) {
     this._price = price;
+    // this._restaurantId = restaurantId;
     this._discountedPrice = discountedPrice;
     this._variation = variation;
     this._discountAmount = discountAmount;
@@ -39,6 +41,7 @@ class CartModel {
   double get discountAmount => _discountAmount;
   // ignore: unnecessary_getters_setters
   int get quantity => _quantity;
+  int get restaurantId => _restaurantId;
   // ignore: unnecessary_getters_setters
   set quantity(int qty) => _quantity = qty;
   List<AddOn> get addOnIds => _addOnIds;
@@ -48,6 +51,7 @@ class CartModel {
 
   CartModel.fromJson(Map<String, dynamic> json) {
     _price = json['price'].toDouble();
+    // _restaurantId = int.parse(json['restaurantId'].toString());
     _discountedPrice = json['discounted_price'].toDouble();
     if (json['variation'] != null) {
       _variation = [];
@@ -78,6 +82,7 @@ class CartModel {
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['price'] = this._price;
+    // data['restaurantId'] = this._restaurantId;
     data['discounted_price'] = this._discountedPrice;
     if (this._variation != null) {
       data['variation'] = this._variation.map((v) => v.toJson()).toList();

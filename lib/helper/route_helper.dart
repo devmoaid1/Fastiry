@@ -58,6 +58,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../data/model/body/customer.dart';
+import '../view/screens/product_details/productDetails.dart';
 
 class RouteHelper {
   static const String initial = '/';
@@ -75,6 +76,7 @@ class RouteHelper {
   static const String resetPassword = '/reset-password';
   static const String search = '/search';
   static const String restaurant = '/restaurant';
+  static const String productDetails = '/product-details';
   static const String orderDetails = '/order-details';
   static const String profile = '/profile';
   static const String updateProfile = '/update-profile';
@@ -141,6 +143,7 @@ class RouteHelper {
       '$resetPassword?phone=$phone&token=$token&page=$page';
   static String getSearchRoute() => '$search';
   static String getRestaurantRoute(int id) => '$restaurant?id=$id';
+  static String getProductDetailsRoute(int id) => '$productDetails?id=$id';
   static String getOrderDetailsRoute(int orderID) {
     return '$orderDetails?id=$orderID';
   }
@@ -322,6 +325,14 @@ class RouteHelper {
               ? Get.arguments
               : RestaurantScreen(
                   restaurant: Restaurant(id: int.parse(Get.parameters['id']))));
+        }),
+    GetPage(
+        name: productDetails,
+        page: () {
+          return getRoute(Get.arguments != null
+              ? Get.arguments
+              : ProductDetailsScreen(
+                  product: Product(id: int.parse(Get.parameters['id']))));
         }),
     GetPage(
         name: orderDetails,

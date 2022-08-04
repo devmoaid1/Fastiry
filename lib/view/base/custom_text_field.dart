@@ -1,3 +1,5 @@
+// ignore_for_file: must_be_immutable
+
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';

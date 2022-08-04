@@ -11,8 +11,8 @@ import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
-import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
+import 'package:efood_multivendor/view/screens/product_details/productDetails.dart';
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -252,22 +252,24 @@ class ProductWidget extends StatelessWidget {
         },
         child: InkWell(
           onTap: () {
-            ResponsiveHelper.isMobile(context)
-                ? Get.bottomSheet(
-                    ProductBottomSheet(
-                        product: product,
-                        inRestaurantPage: inRestaurant,
-                        isCampaign: isCampaign),
-                    backgroundColor: Colors.transparent,
-                    isScrollControlled: true,
-                  )
-                : Get.dialog(
-                    Dialog(
-                        child: ProductBottomSheet(
-                            product: product,
-                            inRestaurantPage: inRestaurant,
-                            isCampaign: isCampaign)),
-                  );
+            Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
+                arguments: ProductDetailsScreen(product: product));
+            // ResponsiveHelper.isMobile(context)
+            //     ? Get.bottomSheet(
+            //         ProductBottomSheet(
+            //             product: product,
+            //             inRestaurantPage: inRestaurant,
+            //             isCampaign: isCampaign),
+            //         backgroundColor: Colors.transparent,
+            //         isScrollControlled: true,
+            //       )
+            //     : Get.dialog(
+            //         Dialog(
+            //             child: ProductBottomSheet(
+            //                 product: product,
+            //                 inRestaurantPage: inRestaurant,
+            //                 isCampaign: isCampaign)),
+            //       );
           },
           child: Container(
             padding: ResponsiveHelper.isDesktop(context)
