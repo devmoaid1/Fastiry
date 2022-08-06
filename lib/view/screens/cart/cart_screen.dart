@@ -30,6 +30,10 @@ class _CartScreenState extends State<CartScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(
           title: 'my_cart'.tr,
+          onBackPressed: () {
+            Get.find<CartController>().update();
+            Get.back();
+          },
           isBackButtonExist:
               (ResponsiveHelper.isDesktop(context) || !widget.fromNav),
           isWithLogo: true),

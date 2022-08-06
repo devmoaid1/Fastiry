@@ -53,8 +53,6 @@ class ProductView extends StatelessWidget {
       }
     }
 
-    print(Dimensions.screeHeight);
-
     return Column(children: [
       type != null
           ? VegFilterWidget(type: type, onSelected: onVegFilterTap)

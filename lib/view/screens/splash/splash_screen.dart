@@ -54,6 +54,7 @@ class _SplashScreenState extends State<SplashScreen> {
 
     splashController.initSharedData();
     cartController.getCartData();
+    cartController.getCartSubTotal();
     splashController.handleSplashRouting(widget.orderID);
   }
 

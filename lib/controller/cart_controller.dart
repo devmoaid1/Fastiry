@@ -9,19 +9,21 @@ class CartController extends GetxController implements GetxService {
   CartController({@required this.cartRepo});
 
   List<CartModel> _cartList = [];
+  double _cartSubTotal = 0;
 
+  double get cartSubTotal => _cartSubTotal;
   List<CartModel> get cartList => _cartList;
 
   void getCartData() {
     _cartList = [];
     _cartList.addAll(cartRepo.getCartList());
+    update();
   }
 
   void addToCart(CartModel cartModel, int index) {
-    if(index != null && index != -1) {
+    if (index != null && index != -1) {
       _cartList.replaceRange(index, index + 1, [cartModel]);
-
-    }else {
+    } else {
       _cartList.add(cartModel);
     }
     cartRepo.addToCartList(_cartList);
@@ -58,13 +60,16 @@ class CartController extends GetxController implements GetxService {
     update();
   }
 
-
-  int isExistInCart(int productID, String variationType, bool isUpdate, int cartIndex) {
-    for(int index=0; index<_cartList.length; index++) {
-      if(_cartList[index].product.id == productID && (_cartList[index].variation.length > 0 ? _cartList[index].variation[0].type == variationType : true)) {
-        if((isUpdate && index == cartIndex)) {
+  int isExistInCart(
+      int productID, String variationType, bool isUpdate, int cartIndex) {
+    for (int index = 0; index < _cartList.length; index++) {
+      if (_cartList[index].product.id == productID &&
+          (_cartList[index].variation.length > 0
+              ? _cartList[index].variation[0].type == variationType
+              : true)) {
+        if ((isUpdate && index == cartIndex)) {
           return -1;
-        }else {
+        } else {
           return index;
         }
       }
@@ -72,27 +77,25 @@ class CartController extends GetxController implements GetxService {
     return -1;
   }
 
-
-  int getCartIndex (Product product) {
-    for(int index = 0; index < _cartList.length; index ++) {
-      if(_cartList[index].product.id == product.id ) {
-        if(_cartList[index].product.variations[0].type  != null){
-          if(_cartList[index].product.variations[0].type == product.variations[0].type){
+  int getCartIndex(Product product) {
+    for (int index = 0; index < _cartList.length; index++) {
+      if (_cartList[index].product.id == product.id) {
+        if (_cartList[index].product.variations[0].type != null) {
+          if (_cartList[index].product.variations[0].type ==
+              product.variations[0].type) {
             return index;
           }
-        }
-        else{
+        } else {
           return index;
         }
-
       }
     }
     return null;
   }
 
   bool existAnotherRestaurantProduct(int restaurantID) {
-    for(CartModel cartModel in _cartList) {
-      if(cartModel.product.restaurantId != restaurantID) {
+    for (CartModel cartModel in _cartList) {
+      if (cartModel.product.restaurantId != restaurantID) {
         return true;
       }
     }
@@ -106,5 +109,12 @@ class CartController extends GetxController implements GetxService {
     update();
   }
 
+  void getCartSubTotal() {
+    _cartSubTotal = 0;
+    for (var cartProduct in _cartList) {
+      _cartSubTotal += (cartProduct.quantity * cartProduct.price);
+    }
 
+    update();
+  }
 }

@@ -1,5 +1,8 @@
+import 'package:badges/badges.dart';
+import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/view/screens/home/widget/filter_view.dart';
+import 'package:efood_multivendor/view/screens/home/widget/not_logged_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
@@ -17,6 +20,7 @@ import 'package:efood_multivendor/view/screens/home/theme1/item_campaign_view1.d
 import 'package:efood_multivendor/view/screens/home/theme1/popular_item_view1.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.dart';
 
+import '../../../../controller/cart_controller.dart';
 import '../../../../util/images.dart';
 import 'banner_view1.dart';
 
@@ -92,8 +96,35 @@ class Theme1HomeScreen extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
-                            Icon(Icons.arrow_drop_down,
-                                color: Theme.of(context).primaryColor),
+                            Icon(
+                              Icons.arrow_drop_down,
+                              color: Theme.of(context).disabledColor,
+                            ),
+                            Get.find<CartController>().cartList.length > 0
+                                ? InkWell(
+                                    onTap: () =>
+                                        Get.toNamed(RouteHelper.getCartRoute()),
+                                    child: Badge(
+                                      showBadge: true,
+                                      padding: EdgeInsets.all(5),
+                                      borderRadius: BorderRadius.circular(5),
+                                      badgeColor:
+                                          Theme.of(context).primaryColor,
+                                      badgeContent: Text(
+                                        Get.find<CartController>()
+                                            .cartList
+                                            .length
+                                            .toString(),
+                                        style: poppinsRegular.copyWith(
+                                            color: Colors.white),
+                                      ),
+                                      child: Icon(
+                                        Icons.shopping_cart,
+                                        color: Theme.of(context).disabledColor,
+                                      ),
+                                    ),
+                                  )
+                                : SizedBox()
                           ],
                         );
                       }),
@@ -159,6 +190,9 @@ class Theme1HomeScreen extends StatelessWidget {
             width: Dimensions.WEB_MAX_WIDTH,
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              !Get.find<AuthController>().isLoggedIn()
+                  ? NotLoggedCard()
+                  : SizedBox(),
               BannerView1(),
               CategoryView1(),
               ItemCampaignView1(),

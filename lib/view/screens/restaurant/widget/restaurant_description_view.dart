@@ -57,7 +57,7 @@ class RestaurantDescriptionView extends StatelessWidget {
               onTap: () => Get.toNamed(
                   RouteHelper.getRestaurantReviewRoute(restaurant.id)),
               child: Text(
-                "Review",
+                "review_rate".tr,
                 style: poppinsRegular.copyWith(
                     color: Theme.of(context).primaryColor),
               ),
@@ -113,7 +113,7 @@ class RestaurantDescriptionView extends StatelessWidget {
             SizedBox(
               width: Dimensions.PADDING_SIZE_EXTRA_SMALL,
             ),
-            Text('view on map',
+            Text('view_on_map'.tr,
                 style: poppinsRegular.copyWith(
                     fontSize: Dimensions.blockscreenHorizontal * 3,
                     color: Theme.of(context).dividerColor)),
