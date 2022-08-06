@@ -55,7 +55,8 @@ class BannerView1 extends StatelessWidget {
                     )
                   : Shimmer(
                       duration: Duration(seconds: 2),
-                      enabled: Get.find<HomeController>().isLoading,
+                      enabled: Get.find<HomeController>().isLoading &&
+                          bannerList == null,
                       child: Container(
                           margin: EdgeInsets.symmetric(horizontal: 10),
                           decoration: BoxDecoration(

@@ -1,13 +1,12 @@
+import 'package:efood_multivendor/controller/home_controller.dart';
 import 'package:efood_multivendor/controller/product_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
-import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -16,6 +15,7 @@ import 'package:get/get.dart';
 
 import '../../../../util/image_checker.dart';
 import '../../../base/discount_tag.dart';
+import '../../product_details/productDetails.dart';
 import 'best_reviewed_item_view.dart';
 
 class PopularItemView1 extends StatelessWidget {
@@ -62,20 +62,26 @@ class PopularItemView1 extends StatelessWidget {
                                   vertical: Dimensions.blockscreenVertical),
                               child: InkWell(
                                 onTap: () {
-                                  ResponsiveHelper.isMobile(context)
-                                      ? Get.bottomSheet(
-                                          ProductBottomSheet(
-                                              product: _productList[index],
-                                              isCampaign: false),
-                                          backgroundColor: Colors.transparent,
-                                          isScrollControlled: true,
-                                        )
-                                      : Get.dialog(
-                                          Dialog(
-                                              child: ProductBottomSheet(
-                                                  product:
-                                                      _productList[index])),
-                                        );
+                                  Get.toNamed(
+                                      RouteHelper.getProductDetailsRoute(
+                                          _productList[index].id),
+                                      arguments: ProductDetailsScreen(
+                                          product: _productList[index],
+                                          isCampaign: false));
+                                  // ResponsiveHelper.isMobile(context)
+                                  //     ? Get.bottomSheet(
+                                  //         ProductBottomSheet(
+                                  //             product: _productList[index],
+                                  //             isCampaign: false),
+                                  //         backgroundColor: Colors.transparent,
+                                  //         isScrollControlled: true,
+                                  //       )
+                                  //     : Get.dialog(
+                                  //         Dialog(
+                                  //             child: ProductBottomSheet(
+                                  //                 product:
+                                  //                     _productList[index])),
+                                  //       );
                                 },
                                 child: Container(
                                   width: Dimensions.blockscreenHorizontal * 60,
@@ -189,7 +195,9 @@ class PopularItemView1 extends StatelessWidget {
                             );
                           },
                         )
-                      : PopularItemShimmer(enabled: _productList == null),
+                      : PopularItemShimmer(
+                          enabled: _productList == null &&
+                              Get.find<HomeController>().isLoading),
                 ),
               ],
             );

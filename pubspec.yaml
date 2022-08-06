@@ -47,7 +47,7 @@ dependencies:
   url_strategy: ^0.2.0
   device_preview: ^1.1.0
   badges: ^2.0.3
-
+  extended_image: ^6.2.1
 dev_dependencies:
   flutter_test:
     sdk: flutter

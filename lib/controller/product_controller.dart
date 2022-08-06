@@ -58,8 +58,6 @@ class ProductController extends GetxController implements GetxService {
         _popularProductList
             .addAll(ProductModel.fromJson(response.body).products);
         _isLoading = false;
-      } else if (response.statusCode == 403) {
-        update();
       } else {
         ApiChecker.checkApi(response);
       }

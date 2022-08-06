@@ -1,6 +1,7 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/banner_controller.dart';
 import 'package:efood_multivendor/controller/campaign_controller.dart';
+import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/controller/home_controller.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
@@ -63,7 +64,7 @@ class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
   ConfigModel _configModel = Get.find<SplashController>().configModel;
   final homeController = Get.find<HomeController>();
-
+  final cartController = Get.find<CartController>();
   @override
   void initState() {
     super.initState();
@@ -71,6 +72,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (homeController.isFirstTimeLoad) {
       homeController.loadData(false);
     }
+    cartController.update();
   }
 
   void init() async {

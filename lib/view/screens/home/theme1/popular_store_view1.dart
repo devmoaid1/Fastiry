@@ -332,7 +332,8 @@ class PopularStoreShimmer extends StatelessWidget {
                     color: Colors.grey[300], blurRadius: 10, spreadRadius: 1)
               ]),
           child: Shimmer(
-            enabled: Get.find<HomeController>().isLoading,
+            enabled: Get.find<HomeController>().isLoading &&
+                restaurantController.restaurantList == null,
             duration: Duration(seconds: 2),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

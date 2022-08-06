@@ -331,7 +331,7 @@ class BestReviewedItemShimmer extends StatelessWidget {
           padding:
               EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL, bottom: 5),
           child: Container(
-            height: 220,
+            height: Dimensions.blockscreenVertical * 34,
             width: 180,
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
             decoration: BoxDecoration(
@@ -348,41 +348,20 @@ class BestReviewedItemShimmer extends StatelessWidget {
             ),
             child: Shimmer(
               duration: Duration(seconds: 2),
-              enabled: Get.find<HomeController>().isLoading,
+              enabled: Get.find<HomeController>().isLoading &&
+                  productController.popularProductList == null,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stack(children: [
                       Container(
-                        height: 125,
+                        height: Dimensions.blockscreenVertical * 13,
                         width: 170,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.vertical(
                               top: Radius.circular(Dimensions.RADIUS_SMALL)),
                           color: Colors.grey[300],
-                        ),
-                      ),
-                      Positioned(
-                        top: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                        left: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor.withOpacity(0.8),
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                          ),
-                          child: Row(children: [
-                            Icon(Icons.star,
-                                color: Theme.of(context).primaryColor,
-                                size: 15),
-                            SizedBox(
-                                width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            Text('0.0', style: robotoRegular),
-                          ]),
                         ),
                       ),
                     ]),

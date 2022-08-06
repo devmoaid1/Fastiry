@@ -214,7 +214,8 @@ class CategoryShimmer extends StatelessWidget {
                 ),
                 child: Shimmer(
                   duration: Duration(seconds: 2),
-                  enabled: Get.find<HomeController>().isLoading,
+                  enabled: Get.find<HomeController>().isLoading &&
+                      categoryController.categoryList == null,
                   child: Container(
                     height: Dimensions.blockscreenVertical * 22,
                     width: Dimensions.blockscreenHorizontal * 35,
