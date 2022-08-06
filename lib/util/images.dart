@@ -96,4 +96,5 @@ class Images {
   static const String scooterIconSvg = 'assets/image/scooter.svg';
   static const String plusIconSvg = 'assets/image/plus.svg';
   static const String minusIconSvg = 'assets/image/minus.svg';
+  static const String trashIcon = 'assets/image/trash.svg';
 }

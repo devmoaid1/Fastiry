@@ -62,7 +62,9 @@ class BestReviewedItemView extends StatelessWidget {
                                       RouteHelper.getProductDetailsRoute(
                                           _productList[index].id),
                                       arguments: ProductDetailsScreen(
-                                          product: _productList[index]));
+                                        product: _productList[index],
+                                        isCampaign: false,
+                                      ));
                                 },
                                 child: Container(
                                   height: Dimensions.blockscreenVertical * 13,
@@ -93,7 +95,6 @@ class BestReviewedItemView extends StatelessWidget {
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.RADIUS_SMALL)),
-
                                             child: checkImage(
                                                 '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
                                                 Dimensions
@@ -102,17 +103,6 @@ class BestReviewedItemView extends StatelessWidget {
                                                 Dimensions.blockscreenVertical *
                                                     13,
                                                 BoxFit.fill),
-                                            // child: CustomImage(
-                                            //   image:
-                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
-                                            //   height: Dimensions
-                                            //           .blockscreenVertical *
-                                            //       13,
-                                            //   width: Dimensions
-                                            //           .blockscreenHorizontal *
-                                            //       50,
-                                            //   fit: BoxFit.fill,
-                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -279,22 +269,35 @@ class FoodDetailsRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  _productList[index].name ?? '',
-                  textAlign: TextAlign.center,
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 4),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                Container(
+                  constraints: BoxConstraints(maxWidth: 100),
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Text(
+                      _productList[index].name ?? '',
+                      textAlign: TextAlign.center,
+                      style: poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 4),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
-                Text(
-                  _productList[index].restaurantName ?? '',
-                  textAlign: TextAlign.center,
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3,
-                      color: Theme.of(context).dividerColor.withOpacity(0.6)),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                FittedBox(
+                  fit: BoxFit.fill,
+                  child: Container(
+                    constraints: BoxConstraints(maxWidth: 100),
+                    child: Text(
+                      _productList[index].restaurantName ?? '',
+                      textAlign: TextAlign.center,
+                      style: poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 3,
+                          color:
+                              Theme.of(context).dividerColor.withOpacity(0.6)),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ],
             ),

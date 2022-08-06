@@ -11,6 +11,8 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../controller/splash_controller.dart';
+import '../../../base/custom_image.dart';
 
 class CategoryView1 extends StatelessWidget {
   @override
@@ -84,28 +86,29 @@ class CategoryView1 extends StatelessWidget {
                                             clipBehavior: Clip.antiAlias,
                                             borderRadius: BorderRadius.circular(
                                                 Dimensions.RADIUS_SMALL),
-                                            child: Image.asset(
-                                              Images.breakFastImage,
-                                              height: Dimensions
-                                                      .blockscreenVertical *
-                                                  15,
-                                              width: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  35,
-                                            ),
-                                            // child: CustomImage(
+                                            // child: Image.asset(
+                                            //   Images.breakFastImage,
                                             //   height: Dimensions
                                             //           .blockscreenVertical *
                                             //       15,
                                             //   width: Dimensions
                                             //           .blockscreenHorizontal *
                                             //       35,
-                                            //   placeholder:
-                                            //       Images.breakFastImage,
-                                            //   image: "",
-                                            //   // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
-                                            //   fit: BoxFit.fill,
                                             // ),
+                                            child: CustomImage(
+                                              height: Dimensions
+                                                      .blockscreenVertical *
+                                                  15,
+                                              width: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  35,
+                                              placeholder:
+                                                  Images.breakFastImage,
+                                              image:
+                                                  '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
+                                              // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
+                                              fit: BoxFit.fill,
+                                            ),
                                           ),
                                         ),
                                         Container(
@@ -243,7 +246,7 @@ class CategoryAllShimmer extends StatelessWidget {
         padding: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
         child: Shimmer(
           duration: Duration(seconds: 2),
-          enabled: categoryController.categoryList == null,
+          enabled: Get.find<HomeController>().isLoading,
           child: Column(children: [
             Container(
               height: 50,

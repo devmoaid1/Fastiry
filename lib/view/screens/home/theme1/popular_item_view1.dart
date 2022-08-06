@@ -113,18 +113,6 @@ class PopularItemView1 extends StatelessWidget {
                                                 Dimensions.blockscreenVertical *
                                                     18,
                                                 BoxFit.fill),
-                                            // child: CustomImage(
-                                            //   image:
-                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
-                                            //       '/${_productList[index].image}',
-                                            //   height: Dimensions
-                                            //           .blockscreenVertical *
-                                            //       18,
-                                            //   width: Dimensions
-                                            //           .blockscreenHorizontal *
-                                            //       25,
-                                            //   fit: BoxFit.fill,
-                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -154,9 +142,6 @@ class PopularItemView1 extends StatelessWidget {
                                                     overflow:
                                                         TextOverflow.ellipsis,
                                                   ),
-                                                  // SizedBox(
-                                                  //     height: Dimensions
-                                                  //         .blockscreenHorizontal),
                                                   Text(
                                                     _productList[index]
                                                         .restaurantName,
