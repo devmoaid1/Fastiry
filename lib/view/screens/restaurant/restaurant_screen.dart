@@ -12,7 +12,8 @@ import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
-import 'package:efood_multivendor/view/base/product_view.dart';
+import 'package:efood_multivendor/view/base/no_data_screen.dart';
+import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/restaurant/widget/categories_selection.dart';
 import 'package:efood_multivendor/view/screens/restaurant/widget/restaurant_bottom._bar.dart';
@@ -267,7 +268,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                         _restaurant.discount.maxDiscount != 0
                                             ? Text(
                                                 '[ ${'maximum_discount'.tr}: ${PriceConverter.convertPrice(_restaurant.discount.maxDiscount)} ]',
-                                                style: robotoRegular.copyWith(
+                                                style: poppinsRegular.copyWith(
                                                     fontSize: Dimensions
                                                         .fontSizeExtraSmall,
                                                     color: Theme.of(context)
@@ -277,7 +278,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                         Text(
                                           '[ ${'daily_time'.tr}: ${DateConverter.convertTimeToTime(_restaurant.discount.startTime)} '
                                           '- ${DateConverter.convertTimeToTime(_restaurant.discount.endTime)} ]',
-                                          style: robotoRegular.copyWith(
+                                          style: poppinsRegular.copyWith(
                                               fontSize:
                                                   Dimensions.fontSizeExtraSmall,
                                               color:
@@ -311,43 +312,73 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                           child: Padding(
                         padding: EdgeInsets.symmetric(
                             vertical: Dimensions.blockscreenVertical * 2),
-                        child: Container(
-                          width: Dimensions.WEB_MAX_WIDTH,
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).backgroundColor,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            mainAxisSize: MainAxisSize.min,
+                            children: restController.categoryList.length > 0
+                                ? restaurantController.restaurantProducts !=
+                                        null
+                                    ? restaurantController
+                                            .restaurantProducts.isEmpty
+                                        ? [
+                                            Center(
+                                                child: NoDataScreen(
+                                              text: "No Products found",
+                                            ))
+                                          ]
+                                        : restController.restaurantProducts
+                                            .map((product) => ProductWidget(
+                                                product: product,
+                                                isRestaurant: false,
+                                                inRestaurant: true,
+                                                isCampaign: false,
+                                                restaurant: null,
+                                                index: product.id,
+                                                length: restController
+                                                    .restaurantProducts.length))
+                                            .toList()
+                                    : [Container()]
+                                : [
+                                    Center(
+                                      child:
+                                          CircularProgressIndicator.adaptive(),
+                                    )
+                                  ],
+                            // restController.foodPaginate
+                            //     ? Center(
+                            //         child: Padding(
+                            //         padding: EdgeInsets.all(
+                            //             Dimensions.PADDING_SIZE_SMALL),
+                            //         child: CircularProgressIndicator
+                            //             .adaptive(),
+                            //       ))
+                            //     : SizedBox(),
+                            // ProductView(
+                            //   isRestaurant: false,
+                            //   restaurants: null,
+                            //   products:
+                            //       restController.categoryList.length > 0
+                            //           ? restController.restaurantProducts
+                            //           : null,
+                            //   inRestaurantPage: true,
+                            //   type: restController.type,
+                            //   onVegFilterTap: (String type) {
+                            //     restController.getRestaurantProductList(
+                            //         restController.restaurant.id,
+                            //         1,
+                            //         type,
+                            //         true);
+                            //   },
+                            //   padding: EdgeInsets.symmetric(
+                            //     horizontal: Dimensions.PADDING_SIZE_SMALL,
+                            //     vertical:
+                            //         ResponsiveHelper.isDesktop(context)
+                            //             ? Dimensions.PADDING_SIZE_SMALL
+                            //             : 0,
+                            //   ),
+                            // ),
                           ),
-                          child: Column(children: [
-                            ProductView(
-                              isRestaurant: false,
-                              restaurants: null,
-                              products: restController.categoryList.length > 0
-                                  ? restController.restaurantProducts
-                                  : null,
-                              inRestaurantPage: true,
-                              type: restController.type,
-                              onVegFilterTap: (String type) {
-                                restController.getRestaurantProductList(
-                                    restController.restaurant.id,
-                                    1,
-                                    type,
-                                    true);
-                              },
-                              padding: EdgeInsets.symmetric(
-                                horizontal: Dimensions.PADDING_SIZE_SMALL,
-                                vertical: ResponsiveHelper.isDesktop(context)
-                                    ? Dimensions.PADDING_SIZE_SMALL
-                                    : 0,
-                              ),
-                            ),
-                            restController.foodPaginate
-                                ? Center(
-                                    child: Padding(
-                                    padding: EdgeInsets.all(
-                                        Dimensions.PADDING_SIZE_SMALL),
-                                    child: CircularProgressIndicator(),
-                                  ))
-                                : SizedBox(),
-                          ]),
                         ),
                       )),
                     ],

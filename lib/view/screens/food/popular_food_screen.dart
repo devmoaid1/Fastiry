@@ -61,7 +61,8 @@ class _PopularFoodScreenState extends State<PopularFoodScreen> {
               width: Dimensions.WEB_MAX_WIDTH,
               child:
                   GetBuilder<ProductController>(builder: (productController) {
-                return productController.popularProductList != null
+                return productController.popularProductList != null &&
+                        productController.reviewedProductList != null
                     ? ListView.builder(
                         shrinkWrap: true,
                         itemBuilder: (context, index) {

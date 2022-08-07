@@ -195,8 +195,9 @@ class RouteHelper {
     return '$editAddress?data=$_data';
   }
 
-  static String getRestaurantReviewRoute(int restaurantID) =>
-      '$restaurantReview?id=$restaurantID';
+  static String getRestaurantReviewRoute(
+          int restaurantID, String restaurantName) =>
+      '$restaurantReview?id=$restaurantID&restaurantName=$restaurantName';
   static String getAllRestaurantRoute(String page) =>
       '$allRestaurants?page=$page';
   static String getWalletRoute(bool fromWallet) =>
@@ -446,7 +447,10 @@ class RouteHelper {
             getRoute(Get.arguments != null ? Get.arguments : NotFound())),
     GetPage(
         name: restaurantReview,
-        page: () => getRoute(ReviewScreen(restaurantID: Get.parameters['id']))),
+        page: () => getRoute(ReviewScreen(
+              restaurantID: Get.parameters['id'],
+              restaurantName: Get.parameters['restaurantName'],
+            ))),
     GetPage(
         name: allRestaurants,
         page: () => getRoute(AllRestaurantScreen(

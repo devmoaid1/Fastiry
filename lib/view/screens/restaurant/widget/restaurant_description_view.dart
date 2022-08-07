@@ -6,6 +6,7 @@ import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
+import 'package:efood_multivendor/view/screens/restaurant/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
@@ -55,7 +56,12 @@ class RestaurantDescriptionView extends StatelessWidget {
             ),
             InkWell(
               onTap: () => Get.toNamed(
-                  RouteHelper.getRestaurantReviewRoute(restaurant.id)),
+                  RouteHelper.getRestaurantReviewRoute(
+                      restaurant.id, restaurant.name),
+                  arguments: ReviewScreen(
+                    restaurantID: restaurant.id.toString(),
+                    restaurantName: restaurant.name,
+                  )),
               child: Text(
                 "review_rate".tr,
                 style: poppinsRegular.copyWith(

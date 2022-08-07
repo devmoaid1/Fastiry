@@ -18,10 +18,10 @@ class RestaurantBottomBar extends StatelessWidget {
           vertical: Dimensions.blockscreenVertical * 2,
           horizontal: Dimensions.blockscreenHorizontal * 3),
       decoration: BoxDecoration(color: Theme.of(context).cardColor, boxShadow: [
-        Get.isDarkMode
+        !Get.isDarkMode
             ? BoxShadow(
                 blurRadius: 7, spreadRadius: 0.4, color: Colors.grey[300])
-            : BoxShadow()
+            : BoxShadow(color: Theme.of(context).backgroundColor)
       ]),
       child: InkWell(
         child: Container(
