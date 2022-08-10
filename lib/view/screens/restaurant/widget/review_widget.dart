@@ -16,69 +16,72 @@ class ReviewWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-        ClipOval(
-            clipBehavior: Clip.antiAlias,
-            child: Image.asset(
-              Images.profilePlaceholder,
-              height: Dimensions.blockscreenVertical * 8,
-              width: Dimensions.blockscreenVertical * 8,
-              fit: BoxFit.fill,
-            )),
-        SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-        Expanded(
-            child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-              Text(
-                review.customerName,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: poppinsBold.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 4),
-              ),
-              Text(
-                resturantName ?? '',
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: poppinsRegular.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 3.5,
-                    color: Theme.of(context).disabledColor),
-              ),
-              Row(
-                children: [
-                  RatingBar(
-                      rating: review.rating.toDouble(),
-                      ratingCount: null,
-                      size: 15),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    review.createdAt,
-                    style: poppinsRegular.copyWith(
-                        fontSize: Dimensions.blockscreenHorizontal * 3,
-                        color: Theme.of(context).disabledColor),
-                  )
-                ],
-              ),
-            ])),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
+      child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+        Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+          ClipOval(
+              clipBehavior: Clip.antiAlias,
+              child: Image.asset(
+                Images.profilePlaceholder,
+                height: Dimensions.blockscreenVertical * 8,
+                width: Dimensions.blockscreenVertical * 8,
+                fit: BoxFit.fill,
+              )),
+          SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+          Expanded(
+              child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                Text(
+                  review.customerName,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: poppinsBold.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 4),
+                ),
+                Text(
+                  resturantName ?? '',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                      color: Theme.of(context).disabledColor),
+                ),
+                Row(
+                  children: [
+                    RatingBar(
+                        rating: review.rating.toDouble(),
+                        ratingCount: null,
+                        size: 15),
+                    SizedBox(
+                      width: 10,
+                    ),
+                    Text(
+                      review.createdAt,
+                      style: poppinsRegular.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 3,
+                          color: Theme.of(context).disabledColor),
+                    )
+                  ],
+                ),
+              ])),
+        ]),
+        SizedBox(
+          height: Dimensions.blockscreenVertical * 4,
+        ),
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 8.0),
+          child: Text(review.comment,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: poppinsRegular.copyWith(
+                fontSize: Dimensions.blockscreenHorizontal * 4,
+              )),
+        ),
+        Divider(color: Theme.of(context).disabledColor)
       ]),
-      SizedBox(
-        height: Dimensions.blockscreenVertical * 4,
-      ),
-      Padding(
-        padding: EdgeInsets.symmetric(vertical: 8.0),
-        child: Text(review.comment,
-            maxLines: 2,
-            overflow: TextOverflow.ellipsis,
-            style: poppinsRegular.copyWith(
-              fontSize: Dimensions.blockscreenHorizontal * 4,
-            )),
-      ),
-      Divider(color: Theme.of(context).disabledColor)
-    ]);
+    );
   }
 }

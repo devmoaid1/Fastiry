@@ -97,5 +97,8 @@ class Images {
   static const String plusIconSvg = 'assets/image/plus.svg';
   static const String minusIconSvg = 'assets/image/minus.svg';
   static const String trashIcon = 'assets/image/trash.svg';
+  static const String historyIcon = 'assets/image/history.svg';
   static const String profilePlaceholder = 'assets/image/profile_tag.png';
+  static const String fastiryFoodImage = 'assets/image/food.jpg';
+  static const String fastiryMartImage = 'assets/image/mart.jpg';
 }

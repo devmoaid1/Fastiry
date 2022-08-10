@@ -1,8 +1,6 @@
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/screens/language/widget/language_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:efood_multivendor/controller/localization_controller.dart';
@@ -21,9 +19,6 @@ class ChooseLanguageScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: (fromMenu || ResponsiveHelper.isDesktop(context))
-          ? CustomAppBar(title: 'language'.tr, isBackButtonExist: true)
-          : null,
       body: SafeArea(
         child: GetBuilder<LocalizationController>(
             builder: (localizationController) {

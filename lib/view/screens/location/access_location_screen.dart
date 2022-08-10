@@ -152,7 +152,9 @@ class BottomButton extends StatelessWidget {
                   });
                 },
                 icon: Icons.my_location,
-                iconColor: Theme.of(context).dividerColor,
+                iconColor: Get.isDarkMode
+                    ? Theme.of(context).dividerColor
+                    : Colors.white,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
               TextButton(

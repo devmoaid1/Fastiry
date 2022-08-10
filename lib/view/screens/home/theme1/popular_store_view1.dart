@@ -4,7 +4,6 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -41,7 +40,7 @@ class PopularStoreView1 extends StatelessWidget {
                   child: TitleWidget(
                     title: isPopular
                         ? 'popular_restaurants'.tr
-                        : '${'new_on'.tr} ${AppConstants.APP_NAME}',
+                        : '${'new_on'.tr} ${"fasteriy".tr}',
                     onTap: () => Get.toNamed(RouteHelper.getAllRestaurantRoute(
                         isPopular ? 'popular' : 'latest')),
                   ),

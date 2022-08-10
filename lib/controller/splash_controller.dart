@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/api/api_client.dart';
@@ -52,6 +53,7 @@ class SplashController extends GetxController implements GetxService {
     final authController = Get.find<AuthController>();
     final wishListController = Get.find<WishListController>();
     final locationController = Get.find<LocationController>();
+    final userController = Get.find<UserController>();
 
     getConfigData().then((isSuccess) {
       if (isSuccess) {
@@ -71,6 +73,7 @@ class SplashController extends GetxController implements GetxService {
             if (authController.isLoggedIn()) {
               authController.updateToken();
               await wishListController.getWishList();
+              await userController.getUserInfo();
               checkUserAddress(locationController);
             } else {
               if (showIntro()) {

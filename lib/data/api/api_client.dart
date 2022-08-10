@@ -30,8 +30,18 @@ class ApiClient extends GetxService {
     debugPrint('Token: $token');
     AddressModel _addressModel;
     try {
-      _addressModel = AddressModel.fromJson(
-          jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
+      final addressString =
+          sharedPreferences.getString(AppConstants.USER_ADDRESS);
+
+      if (addressString != null) {
+        _addressModel = AddressModel.fromJson(jsonDecode(addressString));
+      }
+
+      updateHeader(
+        token,
+        _addressModel == null ? null : _addressModel.zoneIds,
+        sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
+      );
       print('-------------');
       print(_addressModel.toJson());
     } catch (e) {}

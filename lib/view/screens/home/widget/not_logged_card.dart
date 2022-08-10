@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,7 +41,9 @@ class NotLoggedCard extends StatelessWidget {
               height: 10,
             ),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                Get.toNamed(RouteHelper.getSignInRoute('home'));
+              },
               child: Container(
                 decoration: BoxDecoration(
                     color: Theme.of(context).primaryColor,

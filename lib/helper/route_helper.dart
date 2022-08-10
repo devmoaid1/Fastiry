@@ -24,6 +24,7 @@ import 'package:efood_multivendor/view/screens/checkout/order_successful_screen.
 import 'package:efood_multivendor/view/screens/checkout/payment_screen.dart';
 import 'package:efood_multivendor/view/screens/coupon/coupon_screen.dart';
 import 'package:efood_multivendor/view/screens/dashboard/dashboard_screen.dart';
+import 'package:efood_multivendor/view/screens/fastiry_food/food_screen.dart';
 import 'package:efood_multivendor/view/screens/food/item_campaign_screen.dart';
 import 'package:efood_multivendor/view/screens/food/popular_food_screen.dart';
 import 'package:efood_multivendor/view/screens/forget/forget_pass_screen.dart';
@@ -58,6 +59,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../data/model/body/customer.dart';
+import '../view/screens/fastiry mart/mart_screen.dart';
 import '../view/screens/product_details/productDetails.dart';
 
 class RouteHelper {
@@ -67,6 +69,8 @@ class RouteHelper {
   static const String onBoarding = '/on-boarding';
   static const String signIn = '/sign-in';
   static const String signUp = '/sign-up';
+  static const String fastiryFood = '/fastiry-food';
+  static const String fastiryMart = '/fastiry-mart';
   static const String verification = '/verification';
   static const String accessLocation = '/access-location';
   static const String pickMap = '/pick-map';
@@ -109,6 +113,8 @@ class RouteHelper {
   static const String socialPhone = '/social-phone';
 
   static String getInitialRoute() => '$initial';
+  static String getFastiryFoodRoute() => '$fastiryFood';
+  static String getFastiryMartRoute() => '$fastiryMart';
   static String getSplashRoute(int orderID) => '$splash?id=$orderID';
   static String getLanguageRoute(String page) => '$language?page=$page';
   static String getOnBoardingRoute() => '$onBoarding';
@@ -213,6 +219,8 @@ class RouteHelper {
 
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => getRoute(DashboardScreen(pageIndex: 0))),
+    GetPage(name: fastiryFood, page: () => getRoute(FoodScreen())),
+    GetPage(name: fastiryMart, page: () => getRoute(MartScreen())),
     GetPage(
         name: socialPhone,
         page: () {
