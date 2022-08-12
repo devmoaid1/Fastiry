@@ -1,6 +1,8 @@
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:flutter/material.dart';
 
+import 'app_constants.dart';
+
 final robotoRegular = TextStyle(
   fontFamily: 'Roboto',
   fontWeight: FontWeight.w500,
@@ -26,25 +28,25 @@ final robotoBlack = TextStyle(
 );
 
 final poppinsRegular = TextStyle(
-  fontFamily: 'Poppins',
-  fontWeight: FontWeight.w500,
+  fontFamily: AppConstants.tajawal,
+  fontWeight: FontWeight.w400,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsMedium = TextStyle(
-  fontFamily: 'Poppins',
-  fontWeight: FontWeight.w600,
+  fontFamily: AppConstants.tajawal,
+  fontWeight: FontWeight.w700,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsBold = TextStyle(
-  fontFamily: 'Poppins',
+  fontFamily: AppConstants.tajawal,
   fontWeight: FontWeight.w800,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsBlack = TextStyle(
-  fontFamily: 'Poppins',
+  fontFamily: AppConstants.tajawal,
   fontWeight: FontWeight.w900,
   fontSize: Dimensions.fontSizeDefault,
 );

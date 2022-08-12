@@ -16,9 +16,10 @@ class FastiryOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<UserController>(builder: (userController) {
       return Container(
+        height: Dimensions.blockscreenHorizontal * 53,
         child: Padding(
           padding: EdgeInsets.symmetric(
-              horizontal: Dimensions.blockscreenHorizontal * 5, vertical: 10),
+              horizontal: Dimensions.blockscreenHorizontal * 3, vertical: 10),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -33,9 +34,8 @@ class FastiryOptions extends StatelessWidget {
               SizedBox(
                 height: Dimensions.blockscreenVertical * 2,
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
+              Expanded(
+                child: ListView(scrollDirection: Axis.horizontal, children: [
                   FastiryOption(
                       imagePath: Images.breakFastImage,
                       onTap: () {
@@ -48,7 +48,7 @@ class FastiryOptions extends StatelessWidget {
                         Get.toNamed(RouteHelper.getFastiryMartRoute());
                       },
                       optionName: "fasteriy_mart".tr),
-                ],
+                ]),
               )
             ],
           ),

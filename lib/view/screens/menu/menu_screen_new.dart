@@ -52,7 +52,6 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
                   backgroundColor: Colors.grey[300],
                   child: Center(
                     child: Text(

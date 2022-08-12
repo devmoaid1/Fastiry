@@ -44,8 +44,8 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   horizontal: Dimensions.blockscreenHorizontal * 3),
               child: Text(
                 "categories".tr,
-                style: poppinsMedium.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 4),
+                style: poppinsBold.copyWith(
+                    fontSize: Dimensions.blockscreenHorizontal * 5),
               ),
             ),
             GetBuilder<CategoryController>(builder: (catController) {
@@ -62,7 +62,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     ? 4
                                     : 3,
                             childAspectRatio:
-                                Dimensions.blockscreenHorizontal / 4.2,
+                                Dimensions.blockscreenHorizontal / 4.8,
                             mainAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                             crossAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                           ),

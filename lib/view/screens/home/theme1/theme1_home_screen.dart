@@ -3,6 +3,7 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/view/screens/home/widget/fastiry_options.dart';
 import 'package:efood_multivendor/view/screens/home/widget/not_logged_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
@@ -49,9 +50,9 @@ class Theme1HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   "deliver_to".tr,
-                  style: poppinsRegular.copyWith(
+                  style: poppinsMedium.copyWith(
                       color: Theme.of(context).dividerColor,
-                      fontSize: Dimensions.blockscreenHorizontal * 3),
+                      fontSize: Dimensions.blockscreenHorizontal * 3.5),
                 ),
                 Row(children: [
                   Expanded(
@@ -69,54 +70,63 @@ class Theme1HomeScreen extends StatelessWidget {
                           builder: (locationController) {
                         return Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.start,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Image.asset(
-                              Images.pinIcon,
-                              color: Theme.of(context).primaryColor,
-                              height: Dimensions.blockscreenHorizontal * 5,
-                            ),
-                            SizedBox(
-                                width: Dimensions.blockscreenHorizontal * 2),
                             Flexible(
-                              child: Text(
-                                locationController.getUserAddress().address,
-                                style: poppinsRegular.copyWith(
-                                  color: Theme.of(context).primaryColor,
-                                  fontSize: Dimensions.fontSizeSmall,
-                                ),
-                                maxLines: 1,
-                                overflow: TextOverflow.ellipsis,
+                              flex: 3,
+                              child: Row(
+                                children: [
+                                  Image.asset(
+                                    Images.pinIcon,
+                                    color: Theme.of(context).primaryColor,
+                                    height:
+                                        Dimensions.blockscreenHorizontal * 5,
+                                  ),
+                                  SizedBox(
+                                      width:
+                                          Dimensions.blockscreenHorizontal * 2),
+                                  Flexible(
+                                    child: Text(
+                                      locationController
+                                          .getUserAddress()
+                                          .address,
+                                      style: poppinsRegular.copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: Dimensions.fontSizeSmall,
+                                      ),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Theme.of(context).disabledColor,
+                                  ),
+                                ],
                               ),
                             ),
-                            Icon(
-                              Icons.arrow_drop_down,
-                              color: Theme.of(context).disabledColor,
-                            ),
-                            Get.find<CartController>().cartList.length > 0
-                                ? Expanded(child: SizedBox())
-                                : SizedBox(),
                             Get.find<CartController>().cartList.length > 0
                                 ? InkWell(
                                     onTap: () =>
                                         Get.toNamed(RouteHelper.getCartRoute()),
                                     child: Badge(
                                       showBadge: true,
-                                      padding: EdgeInsets.all(5),
-                                      borderRadius: BorderRadius.circular(5),
                                       badgeColor:
                                           Theme.of(context).primaryColor,
-                                      badgeContent: Text(
-                                        Get.find<CartController>()
-                                            .cartList
-                                            .length
-                                            .toString(),
-                                        style: poppinsRegular.copyWith(
-                                            color: Colors.white),
+                                      badgeContent: Center(
+                                        child: Text(
+                                          Get.find<CartController>()
+                                              .cartList
+                                              .length
+                                              .toString(),
+                                          style: poppinsRegular.copyWith(
+                                              color: Colors.white),
+                                        ),
                                       ),
-                                      child: Icon(
-                                        Icons.shopping_cart,
-                                        color: Theme.of(context).disabledColor,
+                                      child: SvgPicture.asset(
+                                        Images.cartIcon,
+                                        width: 25,
+                                        height: 25,
                                       ),
                                     ),
                                   )

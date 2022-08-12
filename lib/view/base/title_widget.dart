@@ -13,10 +13,9 @@ class TitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
       Text(title,
-          style: poppinsRegular.copyWith(
-              fontSize: Dimensions.blockscreenHorizontal * 4,
-              fontWeight: FontWeight.w600,
-              color: Theme.of(context).dividerColor)),
+          style: poppinsMedium.copyWith(
+            fontSize: Dimensions.blockscreenHorizontal * 5,
+          )),
       (onTap != null && !ResponsiveHelper.isDesktop(context))
           ? InkWell(
               onTap: onTap,

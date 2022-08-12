@@ -76,6 +76,7 @@ class Images {
   static const String breakFastImage = 'assets/image/breakfast.jpg';
   static const String priceTagIcon = 'assets/image/price-tag.svg';
   static const String homeIcon = 'assets/image/home.svg';
+  static const String cartIcon = 'assets/image/cart.svg';
   static const String ordersIcon = 'assets/image/orders.svg';
   static const String favouritesIcon = 'assets/image/love.svg';
   static const String menuIcon = 'assets/image/menu.svg';

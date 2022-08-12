@@ -51,11 +51,15 @@ class RestaurantBottomBar extends StatelessWidget {
                 children: [
                   Text(
                     "view_bascket".tr,
-                    style: poppinsRegular.copyWith(color: Colors.white),
+                    style: poppinsRegular.copyWith(
+                        color: Colors.white,
+                        fontSize: Dimensions.blockscreenHorizontal * 4),
                   ),
                   Text(
                     PriceConverter.convertPrice(cartController.cartSubTotal),
-                    style: poppinsRegular.copyWith(color: Colors.white),
+                    style: poppinsRegular.copyWith(
+                        color: Colors.white,
+                        fontSize: Dimensions.blockscreenHorizontal * 4),
                   ),
                 ],
               ),

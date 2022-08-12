@@ -65,13 +65,6 @@ class RestaurantWidget extends StatelessWidget {
                       width: Dimensions.screenWidth,
                       height: Dimensions.blockscreenVertical * 15,
                     ),
-              // child: CustomImage(
-              //   image:
-              //       '${_baseUrls.restaurantCoverPhotoUrl}/${restaurant.coverPhoto}',
-              //   height: Dimensions.blockscreenVertical * 15,
-              //   width: Dimensions.screenWidth,
-              //   fit: BoxFit.fill,
-              // )
             ),
             Get.find<RestaurantController>().isOpenNow(restaurant)
                 ? SizedBox()
@@ -90,17 +83,17 @@ class RestaurantWidget extends StatelessWidget {
                       Text(
                         restaurant.name,
                         style: poppinsMedium.copyWith(
-                            fontSize: Dimensions.fontSizeSmall),
+                            fontSize: Dimensions.blockscreenHorizontal * 4),
                         maxLines: _desktop ? 2 : 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 2),
+                      SizedBox(height: 3),
                       (restaurant.address != null)
                           ? Text(
                               restaurant.address ?? '',
-                              style: robotoRegular.copyWith(
-                                fontSize: Dimensions.fontSizeExtraSmall,
-                                color: Theme.of(context).disabledColor,
+                              style: poppinsRegular.copyWith(
+                                fontSize: Dimensions.blockscreenHorizontal * 3,
+                                color: Theme.of(context).dividerColor,
                               ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,

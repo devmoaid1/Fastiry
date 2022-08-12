@@ -53,9 +53,9 @@ class FastiryOption extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: poppinsRegular.copyWith(
-                  fontSize: Dimensions.blockscreenHorizontal * 3.5,
-                  color: Theme.of(context).dividerColor),
+              style: poppinsMedium.copyWith(
+                fontSize: Dimensions.blockscreenHorizontal * 3.8,
+              ),
             ),
           ),
         ]),

@@ -111,6 +111,10 @@ class AuthRepo {
     return _deviceToken;
   }
 
+  Future<Response> getUserByEmail(String email) async {
+    return await apiClient.postData('${AppConstants.getUserUri}$email', {});
+  }
+
   Future<Response> forgetPassword(String phone) async {
     return await apiClient
         .postData(AppConstants.FORGET_PASSWORD_URI, {"phone": phone});

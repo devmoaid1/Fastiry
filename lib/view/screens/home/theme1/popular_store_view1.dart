@@ -98,7 +98,6 @@ class PopularStoreView1 extends StatelessWidget {
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.RADIUS_SMALL)),
-
                                             child: _restaurant[index]
                                                     .coverPhoto
                                                     .isNotEmpty
@@ -122,18 +121,6 @@ class PopularStoreView1 extends StatelessWidget {
                                                             .blockscreenVertical *
                                                         13,
                                                   ),
-                                            // child: CustomImage(
-                                            //   image:
-                                            //       '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
-                                            //       '/${_restaurant[index].coverPhoto}',
-                                            //   height: Dimensions
-                                            //           .blockscreenVertical *
-                                            //       13,
-                                            //   width: Dimensions
-                                            //           .blockscreenHorizontal *
-                                            //       50,
-                                            //   fit: BoxFit.fill,
-                                            // ),
                                           ),
                                           restaurantController
                                                   .isOpenNow(_restaurant[index])
@@ -168,7 +155,8 @@ class PopularStoreView1 extends StatelessWidget {
                                                               .copyWith(
                                                                   fontSize:
                                                                       Dimensions
-                                                                          .fontSizeSmall),
+                                                                              .blockscreenHorizontal *
+                                                                          4),
                                                           maxLines: 1,
                                                           overflow: TextOverflow
                                                               .ellipsis,
@@ -324,7 +312,7 @@ class PopularStoreShimmer extends StatelessWidget {
           margin:
               EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL, bottom: 5),
           decoration: BoxDecoration(
-              color: Colors.white,
+              color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
               boxShadow: [
                 BoxShadow(

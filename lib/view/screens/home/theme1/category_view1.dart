@@ -34,7 +34,7 @@ class CategoryView1 extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: Dimensions.blockscreenVertical * 22,
+                        height: Dimensions.blockscreenVertical * 30,
                         child: categoryController.categoryList != null
                             ? ListView.builder(
                                 controller: _scrollController,
@@ -124,24 +124,23 @@ class CategoryShimmer extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 1),
-            child: SizedBox(
-              child: Container(
-                margin: EdgeInsets.only(
-                  left: index == 0 ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                  right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                ),
-                child: Shimmer(
-                  duration: Duration(seconds: 2),
-                  enabled: Get.find<HomeController>().isLoading &&
-                      categoryController.categoryList == null,
-                  child: Container(
-                    height: Dimensions.blockscreenVertical * 22,
-                    width: Dimensions.blockscreenHorizontal * 35,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                    ),
+            child: Container(
+              color: Theme.of(context).cardColor,
+              margin: EdgeInsets.only(
+                left: index == 0 ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+              ),
+              child: Shimmer(
+                duration: Duration(seconds: 2),
+                enabled: Get.find<HomeController>().isLoading &&
+                    categoryController.categoryList == null,
+                child: Container(
+                  height: Dimensions.blockscreenVertical * 22,
+                  width: Dimensions.blockscreenHorizontal * 35,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
                   ),
                 ),
               ),
@@ -159,7 +158,8 @@ class CategoryAllShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).cardColor,
       height: 75,
       child: Padding(
         padding: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),

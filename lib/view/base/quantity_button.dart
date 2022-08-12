@@ -21,7 +21,7 @@ class QuantityButton extends StatelessWidget {
         alignment: Alignment.center,
         child: canDecrement
             ? Icon(isIncrement ? Icons.add : Icons.remove,
-                size: 25, color: Theme.of(context).primaryColor
+                size: 27, color: Theme.of(context).primaryColor
                 // : Theme.of(context).primaryColor.withOpacity(0.4),
                 )
             : SvgPicture.asset(

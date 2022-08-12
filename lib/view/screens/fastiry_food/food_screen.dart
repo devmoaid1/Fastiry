@@ -189,8 +189,8 @@ class _FoodScreenState extends State<FoodScreen> {
                     Expanded(
                         child: Text(
                       'all_restaurants'.tr,
-                      style: poppinsRegular.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                      style: poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 4,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).dividerColor),
                     )),

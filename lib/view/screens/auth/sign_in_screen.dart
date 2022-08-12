@@ -260,8 +260,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           iconPath: Images.facebookIcon,
                           title: "facebook_login".tr,
                           onTap: () {
-                            Get.toNamed(RouteHelper.getVerificationRoute(
-                                '01033266366', 'asasasasas', 'sign-up', ''));
+                            authController
+                                .getUserByEmail('moaidmohamed123@gmail.com');
                           }),
                     ]);
               }),

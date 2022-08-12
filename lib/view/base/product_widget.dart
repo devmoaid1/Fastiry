@@ -70,163 +70,343 @@ class ProductWidget extends StatelessWidget {
     }
 
     Widget _buildRestaurantView(BuildContext context) {
-      return Dismissible(
-        key: ObjectKey(restaurant),
-        background: Container(
-          color: Colors.red,
-          child: Padding(
-            padding: const EdgeInsets.all(15),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Icon(Icons.delete, color: Colors.white),
-                Text('remove from wishlist',
-                    style: poppinsRegular.copyWith(color: Colors.white)),
-              ],
-            ),
-          ),
-        ),
-        onDismissed: (dismiss) {
-          Get.find<WishListController>()
-              .removeFromWishList(restaurant.id, isRestaurant);
-        },
-        child: InkWell(
-          onTap: () {
-            Get.toNamed(RouteHelper.getRestaurantRoute(restaurant.id),
-                arguments: RestaurantScreen(restaurant: restaurant));
-          },
-          child: Container(
-            padding: ResponsiveHelper.isDesktop(context)
-                ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
-                : null,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-              color: ResponsiveHelper.isDesktop(context)
-                  ? Theme.of(context).cardColor
-                  : null,
-              boxShadow: ResponsiveHelper.isDesktop(context)
-                  ? [
-                      Get.isDarkMode
-                          ? BoxShadow(
-                              color: Colors.grey[300],
-                              spreadRadius: 0.4,
-                              blurRadius: 7,
-                            )
-                          : BoxShadow(color: Theme.of(context).backgroundColor)
-                    ]
-                  : null,
-            ),
-            child:
-                Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                    vertical:
-                        _desktop ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
+      return !inRestaurant
+          ? Dismissible(
+              key: ObjectKey(restaurant),
+              background: Container(
+                color: Colors.red,
+                child: Padding(
+                  padding: const EdgeInsets.all(15),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      (_image != null && _image.isNotEmpty)
-                          ? Stack(children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.RADIUS_SMALL),
-                                child: CustomImage(
-                                  image:
-                                      '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
-                                      '/${isRestaurant ? restaurant.logo : product.image}',
-                                  height: _desktop
-                                      ? 120
-                                      : Dimensions.blockscreenHorizontal * 32,
-                                  width: _desktop
-                                      ? 120
-                                      : Dimensions.blockscreenHorizontal * 32,
-                                  fit: BoxFit.fill,
-                                ),
-                              ),
-                              _isAvailable
-                                  ? SizedBox()
-                                  : NotAvailableWidget(
-                                      isRestaurant: isRestaurant),
-                            ])
-                          : SizedBox.shrink(),
-                      SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                      Expanded(
-                        child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Text(
-                                restaurant.name,
-                                style: poppinsMedium.copyWith(
-                                  fontSize:
-                                      Dimensions.blockscreenHorizontal * 5.5,
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                              ),
-                              SizedBox(
-                                  height: Dimensions.blockscreenVertical * 2),
-                              Text(restaurant.address,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal *
-                                              3.5,
-                                      color: Theme.of(context).disabledColor)),
-                              SizedBox(
-                                  height: Dimensions.blockscreenVertical * 0.5),
-                              RatingBar(
-                                  rating: restaurant.avgRating,
-                                  size: _desktop ? 15 : 12,
-                                  ratingCount: restaurant.ratingCount),
-                              SizedBox(height: Dimensions.blockscreenVertical),
-                              Row(
-                                children: [
-                                  SvgPicture.asset(
-                                    Images.clockIcon,
-                                    color: Theme.of(context).dividerColor,
-                                  ),
-                                  SizedBox(
-                                    width: 5,
-                                  ),
-                                  Container(
-                                    width:
-                                        Dimensions.blockscreenHorizontal * 20,
-                                    child: FittedBox(
-                                        fit: BoxFit.contain,
-                                        child: Text(
-                                          "in ${restaurant.deliveryTime} mins",
-                                          style: poppinsRegular.copyWith(
-                                              color: Theme.of(context)
-                                                  .disabledColor),
-                                        )),
+                      Icon(Icons.delete, color: Colors.white),
+                      Text('remove from wishlist',
+                          style: poppinsRegular.copyWith(color: Colors.white)),
+                    ],
+                  ),
+                ),
+              ),
+              onDismissed: (dismiss) {
+                Get.find<WishListController>()
+                    .removeFromWishList(restaurant.id, isRestaurant);
+              },
+              child: InkWell(
+                onTap: () {
+                  Get.toNamed(RouteHelper.getRestaurantRoute(restaurant.id),
+                      arguments: RestaurantScreen(restaurant: restaurant));
+                },
+                child: Container(
+                  padding: ResponsiveHelper.isDesktop(context)
+                      ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                      : null,
+                  decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                    color: ResponsiveHelper.isDesktop(context)
+                        ? Theme.of(context).cardColor
+                        : null,
+                    boxShadow: ResponsiveHelper.isDesktop(context)
+                        ? [
+                            Get.isDarkMode
+                                ? BoxShadow(
+                                    color: Colors.grey[300],
+                                    spreadRadius: 0.4,
+                                    blurRadius: 7,
                                   )
-                                ],
+                                : BoxShadow(
+                                    color: Theme.of(context).backgroundColor)
+                          ]
+                        : null,
+                  ),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                              vertical: _desktop
+                                  ? 0
+                                  : Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                          child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (_image != null && _image.isNotEmpty)
+                                    ? Stack(children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.RADIUS_SMALL),
+                                          child: CustomImage(
+                                            image:
+                                                '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                                '/${isRestaurant ? restaurant.logo : product.image}',
+                                            height: _desktop
+                                                ? 120
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    32,
+                                            width: _desktop
+                                                ? 120
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    32,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        _isAvailable
+                                            ? SizedBox()
+                                            : NotAvailableWidget(
+                                                isRestaurant: isRestaurant),
+                                      ])
+                                    : SizedBox.shrink(),
+                                SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                                Expanded(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          restaurant.name,
+                                          style: poppinsMedium.copyWith(
+                                            fontSize: Dimensions
+                                                    .blockscreenHorizontal *
+                                                5.5,
+                                          ),
+                                          maxLines: 2,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical *
+                                                    2),
+                                        Text(restaurant.address,
+                                            style: poppinsRegular.copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  3.5,
+                                            )),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical *
+                                                    0.5),
+                                        RatingBar(
+                                            rating: restaurant.avgRating,
+                                            size: _desktop ? 15 : 12,
+                                            ratingCount:
+                                                restaurant.ratingCount),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical),
+                                        Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              Images.clockIcon,
+                                              color: Theme.of(context)
+                                                  .dividerColor,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Container(
+                                              width: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  20,
+                                              child: FittedBox(
+                                                  fit: BoxFit.contain,
+                                                  child: Text(
+                                                    "in ${restaurant.deliveryTime} mins",
+                                                    style:
+                                                        poppinsRegular.copyWith(
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor),
+                                                  )),
+                                            )
+                                          ],
+                                        ),
+                                        DiscountTag(
+                                          discount: _discount,
+                                          discountType: _discountType,
+                                        )
+                                      ]),
+                                ),
+                              ]),
+                        ),
+                        _desktop
+                            ? SizedBox()
+                            : Padding(
+                                padding: EdgeInsets.only(
+                                    left: _desktop
+                                        ? 130
+                                        : Dimensions.screenWidth -
+                                            Dimensions.blockscreenHorizontal *
+                                                67),
+                                child: Divider(
+                                    color: index == length - 1
+                                        ? Colors.transparent
+                                        : Theme.of(context).disabledColor),
                               ),
-                              DiscountTag(
-                                discount: _discount,
-                                discountType: _discountType,
-                              )
+                      ]),
+                ),
+              ),
+            )
+          : InkWell(
+              onTap: () {
+                Get.toNamed(RouteHelper.getRestaurantRoute(restaurant.id),
+                    arguments: RestaurantScreen(restaurant: restaurant));
+              },
+              child: Container(
+                padding: ResponsiveHelper.isDesktop(context)
+                    ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                    : null,
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                  color: ResponsiveHelper.isDesktop(context)
+                      ? Theme.of(context).cardColor
+                      : null,
+                  boxShadow: ResponsiveHelper.isDesktop(context)
+                      ? [
+                          Get.isDarkMode
+                              ? BoxShadow(
+                                  color: Colors.grey[300],
+                                  spreadRadius: 0.4,
+                                  blurRadius: 7,
+                                )
+                              : BoxShadow(
+                                  color: Theme.of(context).backgroundColor)
+                        ]
+                      : null,
+                ),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: _desktop
+                                ? 0
+                                : Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                        child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              (_image != null && _image.isNotEmpty)
+                                  ? Stack(children: [
+                                      ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.RADIUS_SMALL),
+                                        child: CustomImage(
+                                          image:
+                                              '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                              '/${isRestaurant ? restaurant.logo : product.image}',
+                                          height: _desktop
+                                              ? 120
+                                              : Dimensions
+                                                      .blockscreenHorizontal *
+                                                  32,
+                                          width: _desktop
+                                              ? 120
+                                              : Dimensions
+                                                      .blockscreenHorizontal *
+                                                  32,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                      _isAvailable
+                                          ? SizedBox()
+                                          : NotAvailableWidget(
+                                              isRestaurant: isRestaurant),
+                                    ])
+                                  : SizedBox.shrink(),
+                              SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+                              Expanded(
+                                child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        restaurant.name,
+                                        style: poppinsMedium.copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  5.5,
+                                        ),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                      ),
+                                      SizedBox(
+                                          height:
+                                              Dimensions.blockscreenVertical *
+                                                  2),
+                                      Text(restaurant.address,
+                                          style: poppinsRegular.copyWith(
+                                            fontSize: Dimensions
+                                                    .blockscreenHorizontal *
+                                                3.5,
+                                          )),
+                                      SizedBox(
+                                          height:
+                                              Dimensions.blockscreenVertical *
+                                                  0.5),
+                                      RatingBar(
+                                          rating: restaurant.avgRating,
+                                          size: _desktop ? 15 : 12,
+                                          ratingCount: restaurant.ratingCount),
+                                      SizedBox(
+                                          height:
+                                              Dimensions.blockscreenVertical),
+                                      Row(
+                                        children: [
+                                          SvgPicture.asset(
+                                            Images.clockIcon,
+                                            color:
+                                                Theme.of(context).dividerColor,
+                                          ),
+                                          SizedBox(
+                                            width: 5,
+                                          ),
+                                          Container(
+                                            width: Dimensions
+                                                    .blockscreenHorizontal *
+                                                20,
+                                            child: FittedBox(
+                                                fit: BoxFit.contain,
+                                                child: Text(
+                                                  "in ${restaurant.deliveryTime} mins",
+                                                  style:
+                                                      poppinsRegular.copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .disabledColor),
+                                                )),
+                                          )
+                                        ],
+                                      ),
+                                      DiscountTag(
+                                        discount: _discount,
+                                        discountType: _discountType,
+                                      )
+                                    ]),
+                              ),
                             ]),
                       ),
+                      _desktop
+                          ? SizedBox()
+                          : Padding(
+                              padding: EdgeInsets.only(
+                                  left: _desktop
+                                      ? 130
+                                      : Dimensions.screenWidth -
+                                          Dimensions.blockscreenHorizontal *
+                                              67),
+                              child: Divider(
+                                  color: index == length - 1
+                                      ? Colors.transparent
+                                      : Theme.of(context).disabledColor),
+                            ),
                     ]),
               ),
-              _desktop
-                  ? SizedBox()
-                  : Padding(
-                      padding: EdgeInsets.only(
-                          left: _desktop
-                              ? 130
-                              : Dimensions.screenWidth -
-                                  Dimensions.blockscreenHorizontal * 67),
-                      child: Divider(
-                          color: index == length - 1
-                              ? Colors.transparent
-                              : Theme.of(context).disabledColor),
-                    ),
-            ]),
-          ),
-        ),
-      );
+            );
     }
 
     Widget _buildProductView(context) {
@@ -255,22 +435,6 @@ class ProductWidget extends StatelessWidget {
                 onTap: () {
                   Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
                       arguments: ProductDetailsScreen(product: product));
-                  // ResponsiveHelper.isMobile(context)
-                  //     ? Get.bottomSheet(
-                  //         ProductBottomSheet(
-                  //             product: product,
-                  //             inRestaurantPage: inRestaurant,
-                  //             isCampaign: isCampaign),
-                  //         backgroundColor: Colors.transparent,
-                  //         isScrollControlled: true,
-                  //       )
-                  //     : Get.dialog(
-                  //         Dialog(
-                  //             child: ProductBottomSheet(
-                  //                 product: product,
-                  //                 inRestaurantPage: inRestaurant,
-                  //                 isCampaign: isCampaign)),
-                  //       );
                 },
                 child: Container(
                   padding: ResponsiveHelper.isDesktop(context)
@@ -349,15 +513,14 @@ class ProductWidget extends StatelessWidget {
                                           height: product.discount > 0
                                               ? 4
                                               : Dimensions.blockscreenVertical *
-                                                  3),
+                                                  2),
                                       Text(
                                         product.description,
-                                        style: poppinsMedium.copyWith(
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                3.5,
-                                            color: Theme.of(context)
-                                                .disabledColor),
+                                        style: poppinsRegular.copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  3.5,
+                                        ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -448,22 +611,6 @@ class ProductWidget extends StatelessWidget {
               onTap: () {
                 Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
                     arguments: ProductDetailsScreen(product: product));
-                // ResponsiveHelper.isMobile(context)
-                //     ? Get.bottomSheet(
-                //         ProductBottomSheet(
-                //             product: product,
-                //             inRestaurantPage: inRestaurant,
-                //             isCampaign: isCampaign),
-                //         backgroundColor: Colors.transparent,
-                //         isScrollControlled: true,
-                //       )
-                //     : Get.dialog(
-                //         Dialog(
-                //             child: ProductBottomSheet(
-                //                 product: product,
-                //                 inRestaurantPage: inRestaurant,
-                //                 isCampaign: isCampaign)),
-                //       );
               },
               child: Container(
                 padding: ResponsiveHelper.isDesktop(context)
@@ -542,7 +689,7 @@ class ProductWidget extends StatelessWidget {
                                                 3),
                                     Text(
                                       product.description,
-                                      style: poppinsMedium.copyWith(
+                                      style: poppinsRegular.copyWith(
                                           fontSize:
                                               Dimensions.blockscreenHorizontal *
                                                   3.5,

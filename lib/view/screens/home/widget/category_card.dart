@@ -44,6 +44,7 @@ class CategoryCard extends StatelessWidget {
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
               child: CustomImage(
                 width: Dimensions.blockscreenHorizontal * 35,
+                height: Dimensions.blockscreenHorizontal * 25,
                 placeholder: Images.breakFastImage,
                 image:
                     '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${category.image}',
@@ -61,8 +62,8 @@ class CategoryCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: poppinsRegular.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3.5,
+              style: poppinsMedium.copyWith(
+                fontSize: Dimensions.blockscreenHorizontal * 3.8,
               ),
             ),
           ),

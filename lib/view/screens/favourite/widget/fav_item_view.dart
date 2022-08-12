@@ -1,6 +1,7 @@
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/product_view.dart';
+import 'package:efood_multivendor/view/base/no_data_screen.dart';
+import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,18 +18,35 @@ class FavItemView extends StatelessWidget {
           onRefresh: () async {
             await wishController.getWishList();
           },
-          child: SingleChildScrollView(
-            physics: AlwaysScrollableScrollPhysics(),
-            child: SizedBox(
+          child: SizedBox(
               width: Dimensions.WEB_MAX_WIDTH,
-              child: ProductView(
-                isRestaurant: isRestaurant,
-                products: wishController.wishProductList,
-                restaurants: wishController.wishRestList,
-                noDataText: 'no_wish_data_found'.tr,
-              ),
-            ),
-          ),
+              child: isRestaurant && wishController.wishRestList.isNotEmpty ||
+                      wishController.wishProductList.isNotEmpty
+                  ? ListView.builder(
+                      padding: EdgeInsets.symmetric(
+                          vertical: Dimensions.blockscreenVertical * 2,
+                          horizontal: Dimensions.blockscreenHorizontal * 2),
+                      itemCount: isRestaurant
+                          ? wishController.wishRestList.length
+                          : wishController.wishProductList.length,
+                      itemBuilder: (context, index) {
+                        return isRestaurant
+                            ? ProductWidget(
+                                product: null,
+                                isRestaurant: isRestaurant,
+                                restaurant: wishController.wishRestList[index],
+                                index: index,
+                                length: wishController.wishRestList.length ?? 0)
+                            : ProductWidget(
+                                product: wishController.wishProductList[index],
+                                isRestaurant: isRestaurant,
+                                restaurant: null,
+                                index: index,
+                                length:
+                                    wishController.wishProductList.length ?? 0);
+                      },
+                    )
+                  : NoDataScreen(text: 'no_data_found'.tr)),
         );
       }),
     );

@@ -68,7 +68,7 @@ class ProductDetailsCard extends StatelessWidget {
                           padding: EdgeInsets.all(
                               Dimensions.PADDING_SIZE_EXTRA_SMALL),
                           decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor,
+                            color: Theme.of(context).backgroundColor,
                             borderRadius:
                                 BorderRadius.circular(Dimensions.RADIUS_SMALL),
                           ),
@@ -90,8 +90,7 @@ class ProductDetailsCard extends StatelessWidget {
                 Text(product.description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: poppinsMedium.copyWith(
-                        color: Theme.of(context).disabledColor,
+                    style: poppinsRegular.copyWith(
                         fontSize: Dimensions.blockscreenHorizontal * 4)),
                 SizedBox(
                   height: Dimensions.blockscreenVertical,
@@ -116,7 +115,7 @@ class ProductDetailsCard extends StatelessWidget {
                               fontSize: Dimensions.blockscreenHorizontal * 3.2,
                               color: Theme.of(context)
                                   .disabledColor
-                                  .withOpacity(0.7),
+                                  .withOpacity(0.8),
                               decoration: TextDecoration.lineThrough,
                             ),
                           )
@@ -145,24 +144,29 @@ class ProductDetailsCard extends StatelessWidget {
                                 : BoxShadow(
                                     color: Theme.of(context).backgroundColor)
                           ]),
-                      child: Row(children: [
-                        QuantityButton(
-                          onTap: () {
-                            if (productController.quantity > 1) {
-                              productController.setQuantity(false);
-                            }
-                          },
-                          isIncrement: false,
-                          canDecrement: productController.quantity != 1,
-                        ),
-                        Text(productController.quantity.toString(),
-                            style: poppinsMedium.copyWith(
-                                fontSize: Dimensions.fontSizeLarge)),
-                        QuantityButton(
-                          onTap: () => productController.setQuantity(true),
-                          isIncrement: true,
-                        ),
-                      ]),
+                      child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            QuantityButton(
+                              onTap: () {
+                                if (productController.quantity > 1) {
+                                  productController.setQuantity(false);
+                                }
+                              },
+                              isIncrement: false,
+                              canDecrement: productController.quantity != 1,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(productController.quantity.toString(),
+                                  style: poppinsMedium.copyWith(
+                                      fontSize: Dimensions.fontSizeLarge)),
+                            ),
+                            QuantityButton(
+                              onTap: () => productController.setQuantity(true),
+                              isIncrement: true,
+                            ),
+                          ]),
                     ),
                   ],
                 ),
