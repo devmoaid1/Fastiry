@@ -48,6 +48,7 @@ class SocialLoginWidget extends StatelessWidget {
             borderRadius: BorderRadius.circular(30)),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SvgPicture.asset(
               iconPath,
@@ -61,8 +62,8 @@ class SocialLoginWidget extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: Text(
                 title,
-                style: poppinsRegular.copyWith(
-                    color: this.fontColor, fontSize: 18),
+                style:
+                    poppinsMedium.copyWith(color: this.fontColor, fontSize: 20),
               ),
             )
           ],

@@ -1,5 +1,6 @@
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'app_constants.dart';
 
@@ -28,25 +29,36 @@ final robotoBlack = TextStyle(
 );
 
 final poppinsRegular = TextStyle(
-  fontFamily: AppConstants.tajawal,
-  fontWeight: FontWeight.w400,
+  fontFamily: Get.locale.languageCode == "en"
+      ? AppConstants.poppins
+      : AppConstants.tajawal,
+  fontWeight:
+      Get.locale.languageCode == "en" ? FontWeight.w500 : FontWeight.w600,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsMedium = TextStyle(
-  fontFamily: AppConstants.tajawal,
-  fontWeight: FontWeight.w700,
+  fontFamily: Get.locale.languageCode == "en"
+      ? AppConstants.poppins
+      : AppConstants.tajawal,
+  fontWeight:
+      Get.locale.languageCode == "en" ? FontWeight.w600 : FontWeight.w700,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsBold = TextStyle(
-  fontFamily: AppConstants.tajawal,
-  fontWeight: FontWeight.w800,
+  fontFamily: Get.locale.languageCode == "en"
+      ? AppConstants.poppins
+      : AppConstants.tajawal,
+  fontWeight:
+      Get.locale.languageCode == "en" ? FontWeight.w700 : FontWeight.w800,
   fontSize: Dimensions.fontSizeDefault,
 );
 
 final poppinsBlack = TextStyle(
-  fontFamily: AppConstants.tajawal,
+  fontFamily: Get.locale.languageCode == "en"
+      ? AppConstants.poppins
+      : AppConstants.tajawal,
   fontWeight: FontWeight.w900,
   fontSize: Dimensions.fontSizeDefault,
 );

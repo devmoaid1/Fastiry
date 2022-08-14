@@ -91,7 +91,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             hintText: widget.hintText,
             fillColor: Theme.of(context).cardColor,
             hintStyle: poppinsRegular.copyWith(
-                fontSize: Dimensions.fontSizeLarge,
+                fontSize: Dimensions.fontSizeDefault,
                 color: Theme.of(context).hintColor),
             filled: false,
             prefixIcon: widget.prefixIcon != null

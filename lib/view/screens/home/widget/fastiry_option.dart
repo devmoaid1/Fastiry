@@ -41,6 +41,7 @@ class FastiryOption extends StatelessWidget {
               child: Image.asset(
                 imagePath,
                 width: Dimensions.blockscreenHorizontal * 35,
+                height: Dimensions.blockscreenHorizontal * 25,
               ),
             ),
           ),
@@ -53,9 +54,13 @@ class FastiryOption extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: poppinsMedium.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3.8,
-              ),
+              style: Get.locale.languageCode != "en"
+                  ? poppinsMedium.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                    )
+                  : poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                    ),
             ),
           ),
         ]),

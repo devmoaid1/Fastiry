@@ -10,7 +10,11 @@ class DeliveryOptionButton extends StatelessWidget {
   final String title;
   final double charge;
   final bool isFree;
-  DeliveryOptionButton({@required this.value, @required this.title, @required this.charge, @required this.isFree});
+  DeliveryOptionButton(
+      {@required this.value,
+      @required this.title,
+      @required this.charge,
+      @required this.isFree});
 
   @override
   Widget build(BuildContext context) {
@@ -24,19 +28,17 @@ class DeliveryOptionButton extends StatelessWidget {
                 value: value,
                 groupValue: orderController.orderType,
                 materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-                onChanged: (String value) => orderController.setOrderType(value),
+                onChanged: (String value) =>
+                    orderController.setOrderType(value),
                 activeColor: Theme.of(context).primaryColor,
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-
-              Text(title, style: robotoRegular),
+              Text(title, style: poppinsMedium),
               SizedBox(width: 5),
-
               Text(
                 '(${(value == 'take_away' || isFree) ? 'free'.tr : charge != -1 ? PriceConverter.convertPrice(charge) : 'calculating'.tr})',
-                style: robotoMedium,
+                style: poppinsRegular,
               ),
-
             ],
           ),
         );

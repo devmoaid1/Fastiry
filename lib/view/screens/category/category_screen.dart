@@ -62,7 +62,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                     ? 4
                                     : 3,
                             childAspectRatio:
-                                Dimensions.blockscreenHorizontal / 4.8,
+                                Dimensions.blockscreenHorizontal / 4.9,
                             mainAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                             crossAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                           ),

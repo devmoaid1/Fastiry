@@ -37,13 +37,13 @@ class FastiryOptions extends StatelessWidget {
               Expanded(
                 child: ListView(scrollDirection: Axis.horizontal, children: [
                   FastiryOption(
-                      imagePath: Images.breakFastImage,
+                      imagePath: Images.fastiryFoodImage,
                       onTap: () {
                         Get.toNamed(RouteHelper.getFastiryFoodRoute());
                       },
                       optionName: "food".tr),
                   FastiryOption(
-                      imagePath: Images.breakFastImage,
+                      imagePath: Images.fastiryMartImage,
                       onTap: () {
                         Get.toNamed(RouteHelper.getFastiryMartRoute());
                       },

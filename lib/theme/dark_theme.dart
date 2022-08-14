@@ -1,8 +1,10 @@
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:flutter/material.dart';
 
+import '../util/app_constants.dart';
+
 ThemeData dark = ThemeData(
-  fontFamily: 'Poppins',
+  fontFamily: AppConstants.poppins,
   primaryColor: Color(0xFFCC293D),
   secondaryHeaderColor: Color(0xFF009f67),
   disabledColor: Color.fromARGB(255, 192, 196, 201),

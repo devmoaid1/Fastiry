@@ -1,3 +1,5 @@
+// ignore_for_file: missing_return
+
 import 'dart:async';
 import 'dart:convert';
 
@@ -11,6 +13,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -21,7 +24,8 @@ class AuthRepo {
   final ApiClient apiClient;
   final SharedPreferences sharedPreferences;
   AuthRepo({@required this.apiClient, @required this.sharedPreferences});
-  final FirebaseAuth auth = FirebaseAuth.instance;
+  final FirebaseAuth _auth = FirebaseAuth.instance;
+  final FacebookAuth _faceBookAuth = FacebookAuth.i;
 
   Future<Response> registration(SignUpBody signUpBody) async {
     return await apiClient.postData(
@@ -59,7 +63,7 @@ class AuthRepo {
         idToken: googleAuth.idToken,
       );
 
-      final userCrediential = await auth.signInWithCredential(credential);
+      final userCrediential = await _auth.signInWithCredential(credential);
 
       final response = GoogleResponse(googleAuth.idToken, userCrediential);
       // Once signed in, return the UserCredential
@@ -67,6 +71,19 @@ class AuthRepo {
     } on PlatformException catch (e) {
       print(e.message);
       throw e.message.toString();
+    }
+  }
+
+  Future<UserCredential> signInWithFacebook() async {
+    try {
+      final loginResult = await _faceBookAuth.login();
+
+      final faceBookCredentials =
+          FacebookAuthProvider.credential(loginResult.accessToken.token);
+
+      return await _auth.signInWithCredential(faceBookCredentials);
+    } on FirebaseAuthException catch (err) {
+      print(err.message);
     }
   }
 

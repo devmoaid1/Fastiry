@@ -110,6 +110,15 @@ class AuthController extends GetxController implements GetxService {
     return user;
   }
 
+  Future<void> facebookSignIn() async {
+    try {
+      final result = await authRepo.signInWithFacebook();
+      print(result.user.email);
+    } catch (err) {
+      showCustomSnackBar(err);
+    }
+  }
+
   Future<void> googleSignIn() async {
     try {
       bool isSocialExist = false;

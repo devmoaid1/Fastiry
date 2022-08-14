@@ -76,7 +76,7 @@ class _CartScreenState extends State<CartScreen> {
                       padding: EdgeInsets.symmetric(
                           vertical: Dimensions.blockscreenHorizontal * 3,
                           horizontal: Dimensions.blockscreenHorizontal * 2),
-                      child: Text("Shopping Cart",
+                      child: Text("shopping_cart".tr,
                           textAlign: TextAlign.left,
                           style: poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 5,
@@ -121,7 +121,7 @@ class _CartScreenState extends State<CartScreen> {
                                         horizontal:
                                             Dimensions.blockscreenHorizontal *
                                                 2),
-                                    child: Text("Summary",
+                                    child: Text("summary".tr,
                                         textAlign: TextAlign.left,
                                         style: poppinsMedium.copyWith(
                                           fontSize:

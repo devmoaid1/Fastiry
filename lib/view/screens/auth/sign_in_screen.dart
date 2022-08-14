@@ -106,9 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
 
                       Text('sign_in'.tr,
-                          style: poppinsRegular.copyWith(
+                          style: poppinsMedium.copyWith(
                               fontSize: Dimensions.blockscreenHorizontal * 7,
-                              fontWeight: FontWeight.w500,
                               color: Theme.of(context).dividerColor)),
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
                       Column(children: [
@@ -260,8 +259,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           iconPath: Images.facebookIcon,
                           title: "facebook_login".tr,
                           onTap: () {
-                            authController
-                                .getUserByEmail('moaidmohamed123@gmail.com');
+                            authController.facebookSignIn();
                           }),
                     ]);
               }),

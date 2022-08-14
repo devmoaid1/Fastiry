@@ -77,7 +77,7 @@ class Theme1HomeScreen extends StatelessWidget {
                               child: Row(
                                 children: [
                                   Image.asset(
-                                    Images.pinIcon,
+                                    Images.pin_marker,
                                     color: Theme.of(context).primaryColor,
                                     height:
                                         Dimensions.blockscreenHorizontal * 5,
@@ -125,8 +125,8 @@ class Theme1HomeScreen extends StatelessWidget {
                                       ),
                                       child: SvgPicture.asset(
                                         Images.cartIcon,
-                                        width: 25,
-                                        height: 25,
+                                        width: 20,
+                                        height: 20,
                                       ),
                                     ),
                                   )

@@ -9,7 +9,11 @@ class PaymentButton extends StatelessWidget {
   final String title;
   final String subtitle;
   final int index;
-  PaymentButton({@required this.index, @required this.icon, @required this.title, @required this.subtitle});
+  PaymentButton(
+      {@required this.index,
+      @required this.icon,
+      @required this.title,
+      @required this.subtitle});
 
   @override
   Widget build(BuildContext context) {
@@ -21,25 +25,46 @@ class PaymentButton extends StatelessWidget {
           onTap: () => orderController.setPaymentMethod(index),
           child: Container(
             decoration: BoxDecoration(
-              color: Theme.of(context).cardColor,
+              color: Theme.of(context).backgroundColor,
+              border: Border.all(
+                color: !_selected
+                    ? Theme.of(context).disabledColor
+                    : Theme.of(context).primaryColor,
+                width: 2,
+              ),
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-              boxShadow: [BoxShadow(color: Colors.grey[Get.isDarkMode ? 800 : 200], blurRadius: 5, spreadRadius: 1)],
+              boxShadow: [
+                !Get.isDarkMode
+                    ? BoxShadow(
+                        color: Colors.grey[200], blurRadius: 5, spreadRadius: 1)
+                    : BoxShadow(color: Theme.of(context).backgroundColor)
+              ],
             ),
             child: ListTile(
               leading: Image.asset(
-                icon, width: 40, height: 40,
-                color: _selected ? Theme.of(context).primaryColor : Theme.of(context).disabledColor,
+                icon,
+                width: 40,
+                height: 40,
+                color: _selected
+                    ? Theme.of(context).primaryColor
+                    : Theme.of(context).disabledColor,
               ),
               title: Text(
                 title,
-                style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
+                style:
+                    poppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
               ),
               subtitle: Text(
                 subtitle,
-                style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall, color: Theme.of(context).disabledColor),
-                maxLines: 1, overflow: TextOverflow.ellipsis,
+                style: poppinsRegular.copyWith(
+                    fontSize: Dimensions.fontSizeExtraSmall,
+                    color: Theme.of(context).disabledColor),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
-              trailing: _selected ? Icon(Icons.check_circle, color: Theme.of(context).primaryColor) : null,
+              trailing: _selected
+                  ? Icon(Icons.check, color: Theme.of(context).primaryColor)
+                  : null,
             ),
           ),
         ),

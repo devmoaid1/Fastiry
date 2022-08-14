@@ -58,12 +58,14 @@ class LocationController extends GetxController implements GetxService {
   int _zoneID = 0;
   bool _buttonDisabled = true;
   bool _changeAddress = true;
+  AddressModel _selectedAddress;
   GoogleMapController _mapController;
   List<PredictionModel> _predictionList = [];
   bool _updateAddAddressData = true;
 
   List<PredictionModel> get predictionList => _predictionList;
   bool get isLoading => _isLoading;
+  AddressModel get selectedAddress => _selectedAddress;
   bool get loading => _loading;
   Position get position => _position;
   Position get pickPosition => _pickPosition;
@@ -77,6 +79,11 @@ class LocationController extends GetxController implements GetxService {
   int get zoneID => _zoneID;
   bool get buttonDisabled => _buttonDisabled;
   GoogleMapController get mapController => _mapController;
+
+  void changeAddress(AddressModel address) {
+    _selectedAddress = address;
+    update();
+  }
 
   Future<AddressModel> getCurrentLocation(bool fromAddress,
       {GoogleMapController mapController,
@@ -329,6 +336,8 @@ class LocationController extends GetxController implements GetxService {
     try {
       _addressModel =
           AddressModel.fromJson(jsonDecode(locationRepo.getUserAddress()));
+      _selectedAddress = _addressModel;
+      update();
     } catch (e) {}
     return _addressModel;
   }

@@ -62,9 +62,13 @@ class CategoryCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: poppinsMedium.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3.8,
-              ),
+              style: Get.locale.languageCode != "en"
+                  ? poppinsMedium.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                    )
+                  : poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                    ),
             ),
           ),
         ]),

@@ -2,6 +2,7 @@ import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../helper/route_helper.dart';
 import '../../../../helper/price_converter.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/styles.dart';
@@ -24,6 +25,9 @@ class RestaurantBottomBar extends StatelessWidget {
             : BoxShadow(color: Theme.of(context).backgroundColor)
       ]),
       child: InkWell(
+        onTap: () {
+          Get.toNamed(RouteHelper.getCartRoute());
+        },
         child: Container(
           padding: EdgeInsets.symmetric(
               vertical: Dimensions.blockscreenVertical * 2,

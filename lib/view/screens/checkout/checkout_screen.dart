@@ -23,7 +23,6 @@ import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/custom_text_field.dart';
-import 'package:efood_multivendor/view/base/my_text_field.dart';
 import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/screens/address/widget/address_widget.dart';
 import 'package:efood_multivendor/view/screens/cart/widget/delivery_option_button.dart';
@@ -32,9 +31,10 @@ import 'package:efood_multivendor/view/screens/checkout/widget/slot_widget.dart'
 import 'package:efood_multivendor/view/screens/checkout/widget/tips_widget.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
+
+import 'widget/address_map_card.dart';
 
 class CheckoutScreen extends StatefulWidget {
   final List<CartModel> cartList;
@@ -295,16 +295,22 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                 physics: BouncingScrollPhysics(),
                                 padding: EdgeInsets.all(
                                     Dimensions.PADDING_SIZE_SMALL),
-                                child: Center(
-                                    child: SizedBox(
+                                child: SizedBox(
                                   width: Dimensions.WEB_MAX_WIDTH,
                                   child: Column(
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: [
+                                        AddressMapCard(
+                                            locationController:
+                                                locationController),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical *
+                                                    3),
                                         // Order type
                                         Text('delivery_option'.tr,
-                                            style: robotoMedium),
+                                            style: poppinsMedium),
                                         restController.restaurant.delivery
                                             ? DeliveryOptionButton(
                                                 value: 'delivery',
@@ -326,229 +332,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             height:
                                                 Dimensions.PADDING_SIZE_LARGE),
 
-                                        orderController.orderType != 'take_away'
-                                            ? Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                    Row(
-                                                        mainAxisAlignment:
-                                                            MainAxisAlignment
-                                                                .spaceBetween,
-                                                        children: [
-                                                          Text('deliver_to'.tr,
-                                                              style:
-                                                                  robotoMedium),
-                                                          TextButton.icon(
-                                                            onPressed:
-                                                                () async {
-                                                              var _address = await Get
-                                                                  .toNamed(RouteHelper
-                                                                      .getAddAddressRoute(
-                                                                          true));
-                                                              if (_address !=
-                                                                  null) {
-                                                                _streetNumberController
-                                                                        .text =
-                                                                    _address.road ??
-                                                                        '';
-                                                                _houseController
-                                                                        .text =
-                                                                    _address.house ??
-                                                                        '';
-                                                                _floorController
-                                                                        .text =
-                                                                    _address.floor ??
-                                                                        '';
-                                                              }
-                                                            },
-                                                            icon: Icon(
-                                                                Icons.add,
-                                                                size: 20),
-                                                            label: Text(
-                                                                'add'.tr,
-                                                                style: robotoMedium
-                                                                    .copyWith(
-                                                                        fontSize:
-                                                                            Dimensions.fontSizeSmall)),
-                                                          ),
-                                                        ]),
-                                                    DropdownButton(
-                                                      value: orderController
-                                                          .addressIndex,
-                                                      items: _addressList,
-                                                      itemHeight:
-                                                          ResponsiveHelper
-                                                                  .isMobile(
-                                                                      context)
-                                                              ? 70
-                                                              : 85,
-                                                      elevation: 0,
-                                                      iconSize: 30,
-                                                      underline: SizedBox(),
-                                                      onChanged: (int index) {
-                                                        if (restController
-                                                                .restaurant
-                                                                .selfDeliverySystem ==
-                                                            0) {
-                                                          orderController
-                                                              .getDistanceInMeter(
-                                                            LatLng(
-                                                              double.parse(index ==
-                                                                      -1
-                                                                  ? locationController
-                                                                      .getUserAddress()
-                                                                      .latitude
-                                                                  : locationController
-                                                                      .addressList[
-                                                                          index]
-                                                                      .latitude),
-                                                              double.parse(index ==
-                                                                      -1
-                                                                  ? locationController
-                                                                      .getUserAddress()
-                                                                      .longitude
-                                                                  : locationController
-                                                                      .addressList[
-                                                                          index]
-                                                                      .longitude),
-                                                            ),
-                                                            LatLng(
-                                                                double.parse(
-                                                                    restController
-                                                                        .restaurant
-                                                                        .latitude),
-                                                                double.parse(
-                                                                    restController
-                                                                        .restaurant
-                                                                        .longitude)),
-                                                          );
-                                                        }
-                                                        orderController
-                                                            .setAddressIndex(
-                                                                index);
-                                                        _streetNumberController
-                                                            .text = index ==
-                                                                -1
-                                                            ? locationController
-                                                                    .getUserAddress()
-                                                                    .road ??
-                                                                ''
-                                                            : locationController
-                                                                    .addressList[
-                                                                        index]
-                                                                    .road ??
-                                                                '';
-                                                        _houseController
-                                                            .text = index ==
-                                                                -1
-                                                            ? locationController
-                                                                    .getUserAddress()
-                                                                    .house ??
-                                                                ''
-                                                            : locationController
-                                                                    .addressList[
-                                                                        index]
-                                                                    .house ??
-                                                                '';
-                                                        _floorController
-                                                            .text = index ==
-                                                                -1
-                                                            ? locationController
-                                                                    .getUserAddress()
-                                                                    .floor ??
-                                                                ''
-                                                            : locationController
-                                                                    .addressList[
-                                                                        index]
-                                                                    .floor ??
-                                                                '';
-                                                      },
-                                                    ),
-                                                    SizedBox(
-                                                        height: Dimensions
-                                                            .PADDING_SIZE_LARGE),
-                                                    Text(
-                                                      'street_number'.tr,
-                                                      style: robotoRegular.copyWith(
-                                                          fontSize: Dimensions
-                                                              .fontSizeSmall,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .disabledColor),
-                                                    ),
-                                                    SizedBox(
-                                                        height: Dimensions
-                                                            .PADDING_SIZE_SMALL),
-                                                    MyTextField(
-                                                      hintText:
-                                                          'street_number'.tr,
-                                                      inputType: TextInputType
-                                                          .streetAddress,
-                                                      focusNode: _streetNode,
-                                                      nextFocus: _houseNode,
-                                                      controller:
-                                                          _streetNumberController,
-                                                    ),
-                                                    SizedBox(
-                                                        height: Dimensions
-                                                            .PADDING_SIZE_LARGE),
-                                                    Text(
-                                                      'house'.tr +
-                                                          ' / ' +
-                                                          'floor'.tr +
-                                                          ' ' +
-                                                          'number'.tr,
-                                                      style: robotoRegular.copyWith(
-                                                          fontSize: Dimensions
-                                                              .fontSizeSmall,
-                                                          color: Theme.of(
-                                                                  context)
-                                                              .disabledColor),
-                                                    ),
-                                                    SizedBox(
-                                                        height: Dimensions
-                                                            .PADDING_SIZE_SMALL),
-                                                    Row(
-                                                      children: [
-                                                        Expanded(
-                                                          child: MyTextField(
-                                                            hintText:
-                                                                'house'.tr,
-                                                            inputType:
-                                                                TextInputType
-                                                                    .text,
-                                                            focusNode:
-                                                                _houseNode,
-                                                            nextFocus:
-                                                                _floorNode,
-                                                            controller:
-                                                                _houseController,
-                                                          ),
-                                                        ),
-                                                        SizedBox(
-                                                            width: Dimensions
-                                                                .PADDING_SIZE_SMALL),
-                                                        Expanded(
-                                                          child: MyTextField(
-                                                            hintText:
-                                                                'floor'.tr,
-                                                            inputType:
-                                                                TextInputType
-                                                                    .text,
-                                                            focusNode:
-                                                                _floorNode,
-                                                            inputAction:
-                                                                TextInputAction
-                                                                    .done,
-                                                            controller:
-                                                                _floorController,
-                                                          ),
-                                                        ),
-                                                      ],
-                                                    ),
-                                                  ])
-                                            : SizedBox(),
                                         SizedBox(
                                             height:
                                                 Dimensions.PADDING_SIZE_LARGE),
@@ -560,7 +343,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                     Text('preference_time'.tr,
-                                                        style: robotoMedium),
+                                                        style: poppinsMedium),
                                                     SizedBox(
                                                         height: Dimensions
                                                             .PADDING_SIZE_SMALL),
@@ -655,6 +438,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                   ])
                                             : SizedBox(),
 
+                                        Text('promo'.tr, style: poppinsMedium),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
                                         // Coupon
                                         GetBuilder<CouponController>(
                                           builder: (couponController) {
@@ -665,7 +452,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                   child: TextField(
                                                     controller:
                                                         _couponController,
-                                                    style: robotoRegular.copyWith(
+                                                    style: poppinsRegular.copyWith(
                                                         height: ResponsiveHelper
                                                                 .isMobile(
                                                                     context)
@@ -674,7 +461,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     decoration: InputDecoration(
                                                       hintText:
                                                           'enter_promo_code'.tr,
-                                                      hintStyle: robotoRegular
+                                                      hintStyle: poppinsRegular
                                                           .copyWith(
                                                               color: Theme.of(
                                                                       context)
@@ -686,7 +473,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           0,
                                                       fillColor:
                                                           Theme.of(context)
-                                                              .cardColor,
+                                                              .backgroundColor,
                                                       border:
                                                           OutlineInputBorder(
                                                         borderRadius:
@@ -703,8 +490,6 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   ? 0
                                                                   : 10),
                                                         ),
-                                                        borderSide:
-                                                            BorderSide.none,
                                                       ),
                                                     ),
                                                   ),
@@ -761,13 +546,16 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     color: Theme.of(context)
                                                         .primaryColor,
                                                     boxShadow: [
-                                                      BoxShadow(
-                                                          color: Colors.grey[
-                                                              Get.isDarkMode
-                                                                  ? 800
-                                                                  : 200],
-                                                          spreadRadius: 1,
-                                                          blurRadius: 5)
+                                                      !Get.isDarkMode
+                                                          ? BoxShadow(
+                                                              color: Colors
+                                                                  .grey[200],
+                                                              spreadRadius: 1,
+                                                              blurRadius: 5)
+                                                          : BoxShadow(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .backgroundColor)
                                                     ],
                                                     borderRadius:
                                                         BorderRadius.horizontal(
@@ -792,10 +580,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                               .isLoading
                                                           ? Text(
                                                               'apply'.tr,
-                                                              style: robotoMedium.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .cardColor),
+                                                              style: poppinsMedium
+                                                                  .copyWith(
+                                                                      color: Colors
+                                                                          .white),
                                                             )
                                                           : CircularProgressIndicator(
                                                               valueColor:
@@ -825,7 +613,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                     Text('delivery_man_tips'.tr,
-                                                        style: robotoMedium),
+                                                        style: poppinsMedium),
                                                     SizedBox(
                                                         height: Dimensions
                                                             .PADDING_SIZE_SMALL),
@@ -936,7 +724,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 : 0),
 
                                         Text('choose_payment_method'.tr,
-                                            style: robotoMedium),
+                                            style: poppinsMedium),
                                         SizedBox(
                                             height:
                                                 Dimensions.PADDING_SIZE_SMALL),
@@ -975,8 +763,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
 
                                         CustomTextField(
                                           controller: _noteController,
+                                          textColor: Get.isDarkMode
+                                              ? Colors.white
+                                              : Colors.black,
                                           hintText: 'additional_note'.tr,
-                                          maxLines: 3,
+                                          maxLines: 1,
                                           inputType: TextInputType.multiline,
                                           inputAction: TextInputAction.newline,
                                           capitalization:
@@ -984,18 +775,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                         ),
                                         SizedBox(
                                             height:
-                                                Dimensions.PADDING_SIZE_LARGE),
+                                                Dimensions.blockscreenVertical *
+                                                    4),
 
                                         Row(
                                             mainAxisAlignment:
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('subtotal'.tr,
-                                                  style: robotoMedium),
+                                                  style: poppinsRegular),
                                               Text(
                                                   PriceConverter.convertPrice(
                                                       _subTotal),
-                                                  style: robotoMedium),
+                                                  style:
+                                                      poppinsRegular.copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .dividerColor)),
                                             ]),
                                         SizedBox(
                                             height:
@@ -1005,10 +801,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('discount'.tr,
-                                                  style: robotoRegular),
+                                                  style: poppinsRegular),
                                               Text(
                                                   '(-) ${PriceConverter.convertPrice(_discount)}',
-                                                  style: robotoRegular),
+                                                  style:
+                                                      poppinsRegular.copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .dividerColor)),
                                             ]),
                                         SizedBox(
                                             height:
@@ -1022,7 +822,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                             .spaceBetween,
                                                     children: [
                                                       Text('coupon_discount'.tr,
-                                                          style: robotoRegular),
+                                                          style:
+                                                              poppinsRegular),
                                                       (couponController
                                                                       .coupon !=
                                                                   null &&
@@ -1033,15 +834,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           ? Text(
                                                               'free_delivery'
                                                                   .tr,
-                                                              style: robotoRegular.copyWith(
+                                                              style: poppinsRegular.copyWith(
                                                                   color: Theme.of(
                                                                           context)
                                                                       .primaryColor),
                                                             )
                                                           : Text(
                                                               '(-) ${PriceConverter.convertPrice(couponController.discount)}',
-                                                              style:
-                                                                  robotoRegular,
+                                                              style: poppinsRegular.copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .dividerColor),
                                                             ),
                                                     ]),
                                                 SizedBox(
@@ -1054,10 +857,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('vat_tax'.tr,
-                                                  style: robotoRegular),
+                                                  style: poppinsRegular),
                                               Text(
                                                   '(+) ${PriceConverter.convertPrice(_tax)}',
-                                                  style: robotoRegular),
+                                                  style:
+                                                      poppinsRegular.copyWith(
+                                                          color: Theme.of(
+                                                                  context)
+                                                              .dividerColor)),
                                             ]),
                                         SizedBox(
                                             height:
@@ -1075,10 +882,10 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text('delivery_man_tips'.tr,
-                                                      style: robotoRegular),
+                                                      style: poppinsRegular),
                                                   Text(
                                                       '(+) ${PriceConverter.convertPrice(orderController.tips)}',
-                                                      style: robotoRegular),
+                                                      style: poppinsRegular),
                                                 ],
                                               )
                                             : SizedBox.shrink(),
@@ -1093,11 +900,11 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('delivery_fee'.tr,
-                                                  style: robotoRegular),
+                                                  style: poppinsRegular),
                                               _deliveryCharge == -1
                                                   ? Text(
                                                       'calculating'.tr,
-                                                      style: robotoRegular
+                                                      style: poppinsRegular
                                                           .copyWith(
                                                               color:
                                                                   Colors.red),
@@ -1112,14 +919,15 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   'free_delivery'))
                                                       ? Text(
                                                           'free'.tr,
-                                                          style: robotoRegular.copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor),
+                                                          style: poppinsRegular
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .primaryColor),
                                                         )
                                                       : Text(
                                                           '(+) ${PriceConverter.convertPrice(_deliveryCharge)}',
-                                                          style: robotoRegular,
+                                                          style: poppinsRegular,
                                                         ),
                                             ]),
 
@@ -1139,24 +947,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             children: [
                                               Text(
                                                 'total_amount'.tr,
-                                                style: robotoMedium.copyWith(
+                                                style: poppinsMedium.copyWith(
                                                     fontSize: Dimensions
-                                                        .fontSizeLarge,
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
+                                                            .blockscreenHorizontal *
+                                                        4.5),
                                               ),
                                               Text(
                                                 PriceConverter.convertPrice(
                                                     _total),
-                                                style: robotoMedium.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeLarge,
-                                                    color: Theme.of(context)
-                                                        .primaryColor),
+                                                style: poppinsMedium.copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4.5,
+                                                ),
                                               ),
                                             ]),
                                       ]),
-                                )),
+                                ),
                               ))),
                               Container(
                                 width: Dimensions.WEB_MAX_WIDTH,
