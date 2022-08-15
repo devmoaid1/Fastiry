@@ -7,7 +7,6 @@ import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/menu/widget/menu_item.dart';
@@ -18,6 +17,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../helper/route_helper.dart';
+import '../../../theme/font_styles.dart';
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -83,12 +83,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: Text(
                                             "settings".tr,
                                             textAlign: TextAlign.left,
-                                            style: poppinsRegular.copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    7),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        7),
                                           ),
                                         ),
                                         ListTile(
@@ -107,12 +109,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                             _isLoggedIn
                                                 ? '${userController.userInfoModel.fName} ${userController.userInfoModel.lName}'
                                                 : 'guest'.tr,
-                                            style: poppinsRegular.copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    4),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        4),
                                           ),
                                           trailing: InkWell(
                                             onTap: () {
@@ -129,12 +133,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               _isLoggedIn
                                                   ? "profile".tr
                                                   : "login/signUp".tr,
-                                              style: poppinsMedium.copyWith(
-                                                  fontSize: Dimensions
-                                                          .blockscreenHorizontal *
-                                                      3.3,
-                                                  color: Theme.of(context)
-                                                      .primaryColor),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsMedium
+                                                  .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          3.3,
+                                                      color: Theme.of(context)
+                                                          .primaryColor),
                                             ),
                                           ),
                                         ),
@@ -162,12 +168,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                           child: Text(
                                             "preferences".tr,
                                             textAlign: TextAlign.left,
-                                            style: poppinsRegular.copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    5),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        5),
                                           ),
                                         ),
                                         Container(
@@ -191,9 +199,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                               ),
                                               Text(
                                                 'language'.tr,
-                                                style: poppinsRegular.copyWith(
-                                                    color: Theme.of(context)
-                                                        .dividerColor),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                        color: Theme.of(context)
+                                                            .dividerColor),
                                               ),
                                               Spacer(),
                                               Row(
@@ -206,8 +216,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                             "en"
                                                         ? "English"
                                                         : "العربية",
-                                                    style:
-                                                        poppinsRegular.copyWith(
+                                                    style: Get.find<
+                                                            FontStyles>()
+                                                        .poppinsRegular
+                                                        .copyWith(
                                                             color: Theme.of(
                                                                     context)
                                                                 .dividerColor),
@@ -227,7 +239,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                     },
                                                     child: Text(
                                                       "change".tr,
-                                                      style: poppinsMedium
+                                                      style: Get.find<
+                                                              FontStyles>()
+                                                          .poppinsMedium
                                                           .copyWith(
                                                               color: Theme.of(
                                                                       context)
@@ -265,18 +279,23 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Text('${'version'.tr}:',
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 3,
-                                      color: lightGreyTextColor)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  3,
+                                          color: lightGreyTextColor)),
                               SizedBox(
                                   width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                               Text(AppConstants.APP_VERSION.toString(),
-                                  style: poppinsMedium.copyWith(
-                                      color: lightGreyTextColor,
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal *
-                                              3)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsMedium
+                                      .copyWith(
+                                          color: lightGreyTextColor,
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  3)),
                             ]),
                       ),
                     ],

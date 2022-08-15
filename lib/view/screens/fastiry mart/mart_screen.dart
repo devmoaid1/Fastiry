@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 import '../../../controller/restaurant_controller.dart';
 import '../../../helper/responsive_helper.dart';
 import '../../../helper/route_helper.dart';
+import '../../../theme/font_styles.dart';
 import '../../../util/colors.dart';
 import '../../../util/dimensions.dart';
-import '../../../util/styles.dart';
 import '../../base/paginated_list_view.dart';
 import '../../base/product_view.dart';
 import '../home/home_screen.dart';
@@ -43,7 +43,7 @@ class _MartScreenState extends State<MartScreen> {
             backgroundColor: Theme.of(context).backgroundColor,
             title: Text(
               "fasteriy_mart".tr,
-              style: poppinsRegular.copyWith(
+              style: Get.find<FontStyles>().poppinsRegular.copyWith(
                   color: Theme.of(context).dividerColor,
                   fontSize: Dimensions.blockscreenHorizontal * 4),
             ),
@@ -88,10 +88,10 @@ class _MartScreenState extends State<MartScreen> {
                       'search_food_or_restaurant'.tr,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: poppinsRegular.copyWith(
-                        fontSize: Dimensions.blockscreenHorizontal * 3.5,
-                        color: extraLightGrey,
-                      ),
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                            color: extraLightGrey,
+                          ),
                     )),
                   ]),
                 ),
@@ -110,7 +110,7 @@ class _MartScreenState extends State<MartScreen> {
                     Expanded(
                         child: Text(
                       'all_restaurants'.tr,
-                      style: poppinsRegular.copyWith(
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 3.5,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).dividerColor),

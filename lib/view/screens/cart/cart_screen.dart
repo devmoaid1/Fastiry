@@ -6,7 +6,6 @@ import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -14,6 +13,8 @@ import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:efood_multivendor/view/screens/cart/widget/cart_product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class CartScreen extends StatefulWidget {
   final fromNav;
@@ -78,9 +79,9 @@ class _CartScreenState extends State<CartScreen> {
                           horizontal: Dimensions.blockscreenHorizontal * 2),
                       child: Text("shopping_cart".tr,
                           textAlign: TextAlign.left,
-                          style: poppinsMedium.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 5,
-                          )),
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                                fontSize: Dimensions.blockscreenHorizontal * 5,
+                              )),
                     ),
                     SizedBox(
                       height: 10,
@@ -123,11 +124,13 @@ class _CartScreenState extends State<CartScreen> {
                                                 2),
                                     child: Text("summary".tr,
                                         textAlign: TextAlign.left,
-                                        style: poppinsMedium.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   5,
-                                        )),
+                                            )),
                                   ),
                                   // Total
                                   Container(
@@ -140,17 +143,21 @@ class _CartScreenState extends State<CartScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('item_price'.tr,
-                                              style: poppinsRegular.copyWith(
-                                                  fontSize: Dimensions
-                                                          .blockscreenHorizontal *
-                                                      4)),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          4)),
                                           Text(
                                               PriceConverter.convertPrice(
                                                   _itemPrice),
-                                              style: poppinsRegular.copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                              )),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                  )),
                                         ]),
                                   ),
                                   SizedBox(height: 10),
@@ -165,16 +172,20 @@ class _CartScreenState extends State<CartScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('addons'.tr,
-                                              style: poppinsRegular.copyWith(
-                                                  fontSize: Dimensions
-                                                          .blockscreenHorizontal *
-                                                      4)),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          4)),
                                           Text(
                                               '${PriceConverter.convertPrice(_addOns)}',
-                                              style: poppinsRegular.copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                              )),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                  )),
                                         ]),
                                   ),
 
@@ -199,19 +210,23 @@ class _CartScreenState extends State<CartScreen> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           Text('subtotal'.tr,
-                                              style: poppinsMedium.copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    5,
-                                              )),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsMedium
+                                                  .copyWith(
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        5,
+                                                  )),
                                           Text(
                                               PriceConverter.convertPrice(
                                                   _subTotal),
-                                              style: poppinsMedium.copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    5,
-                                              )),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsMedium
+                                                  .copyWith(
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        5,
+                                                  )),
                                         ]),
                                   ),
                                 ]),

@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
@@ -10,7 +11,6 @@ import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:efood_multivendor/view/base/product_widget.dart';
@@ -22,7 +22,7 @@ import 'package:efood_multivendor/view/screens/restaurant/widget/restaurant_imag
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/cart_controller.dart';
+import '../../../theme/font_styles.dart';
 
 class RestaurantScreen extends StatefulWidget {
   final Restaurant restaurant;
@@ -36,18 +36,21 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
   final ScrollController scrollController = ScrollController();
   final restaurantController = Get.find<RestaurantController>();
   final categoryController = Get.find<CategoryController>();
-  final cartController = Get.find<CartController>();
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      restaurantController
+          .getRestaurantDetails(Restaurant(id: widget.restaurant.id));
+      if (categoryController.categoryList == null) {
+        categoryController.getCategoryList(true);
+      }
+      restaurantController.getRestaurantProductList(
+          widget.restaurant.id, 1, 'all', false);
 
-    restaurantController
-        .getRestaurantDetails(Restaurant(id: widget.restaurant.id));
-    if (categoryController.categoryList == null) {
-      categoryController.getCategoryList(true);
-    }
-    restaurantController.getRestaurantProductList(
-        widget.restaurant.id, 1, 'all', false);
+      Get.find<CartController>().getCartSubTotal();
+    });
 
     scrollController?.addListener(() {
       if (scrollController.position.pixels ==
@@ -228,11 +231,13 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                                   'percent'
                                               ? '${_restaurant.discount.discount}% OFF'
                                               : '${PriceConverter.convertPrice(_restaurant.discount.discount)} OFF',
-                                          style: poppinsMedium.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeLarge,
-                                              color:
-                                                  Theme.of(context).cardColor),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeLarge,
+                                                  color: Theme.of(context)
+                                                      .cardColor),
                                         ),
                                         Text(
                                           _restaurant.discount.discountType ==
@@ -240,11 +245,13 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                               ? '${'enjoy'.tr} ${_restaurant.discount.discount}% ${'off_on_all_categories'.tr}'
                                               : '${'enjoy'.tr} ${PriceConverter.convertPrice(_restaurant.discount.discount)}'
                                                   ' ${'off_on_all_categories'.tr}',
-                                          style: poppinsMedium.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeSmall,
-                                              color:
-                                                  Theme.of(context).cardColor),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                  fontSize:
+                                                      Dimensions.fontSizeSmall,
+                                                  color: Theme.of(context)
+                                                      .cardColor),
                                         ),
                                         SizedBox(
                                             height: (_restaurant.discount
@@ -258,31 +265,37 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                         _restaurant.discount.minPurchase != 0
                                             ? Text(
                                                 '[ ${'minimum_purchase'.tr}: ${PriceConverter.convertPrice(_restaurant.discount.minPurchase)} ]',
-                                                style: poppinsRegular.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeExtraSmall,
-                                                    color: Theme.of(context)
-                                                        .cardColor),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                        fontSize: Dimensions
+                                                            .fontSizeExtraSmall,
+                                                        color: Theme.of(context)
+                                                            .cardColor),
                                               )
                                             : SizedBox(),
                                         _restaurant.discount.maxDiscount != 0
                                             ? Text(
                                                 '[ ${'maximum_discount'.tr}: ${PriceConverter.convertPrice(_restaurant.discount.maxDiscount)} ]',
-                                                style: poppinsRegular.copyWith(
-                                                    fontSize: Dimensions
-                                                        .fontSizeExtraSmall,
-                                                    color: Theme.of(context)
-                                                        .cardColor),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                        fontSize: Dimensions
+                                                            .fontSizeExtraSmall,
+                                                        color: Theme.of(context)
+                                                            .cardColor),
                                               )
                                             : SizedBox(),
                                         Text(
                                           '[ ${'daily_time'.tr}: ${DateConverter.convertTimeToTime(_restaurant.discount.startTime)} '
                                           '- ${DateConverter.convertTimeToTime(_restaurant.discount.endTime)} ]',
-                                          style: poppinsRegular.copyWith(
-                                              fontSize:
-                                                  Dimensions.fontSizeExtraSmall,
-                                              color:
-                                                  Theme.of(context).cardColor),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  fontSize: Dimensions
+                                                      .fontSizeExtraSmall,
+                                                  color: Theme.of(context)
+                                                      .cardColor),
                                         ),
                                       ]),
                                 )
@@ -345,39 +358,6 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                           CircularProgressIndicator.adaptive(),
                                     )
                                   ],
-                            // restController.foodPaginate
-                            //     ? Center(
-                            //         child: Padding(
-                            //         padding: EdgeInsets.all(
-                            //             Dimensions.PADDING_SIZE_SMALL),
-                            //         child: CircularProgressIndicator
-                            //             .adaptive(),
-                            //       ))
-                            //     : SizedBox(),
-                            // ProductView(
-                            //   isRestaurant: false,
-                            //   restaurants: null,
-                            //   products:
-                            //       restController.categoryList.length > 0
-                            //           ? restController.restaurantProducts
-                            //           : null,
-                            //   inRestaurantPage: true,
-                            //   type: restController.type,
-                            //   onVegFilterTap: (String type) {
-                            //     restController.getRestaurantProductList(
-                            //         restController.restaurant.id,
-                            //         1,
-                            //         type,
-                            //         true);
-                            //   },
-                            //   padding: EdgeInsets.symmetric(
-                            //     horizontal: Dimensions.PADDING_SIZE_SMALL,
-                            //     vertical:
-                            //         ResponsiveHelper.isDesktop(context)
-                            //             ? Dimensions.PADDING_SIZE_SMALL
-                            //             : 0,
-                            //   ),
-                            // ),
                           ),
                         ),
                       )),
@@ -386,9 +366,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                 : Center(child: CircularProgressIndicator());
           });
         }),
-        bottomNavigationBar: RestaurantBottomBar(
-          cartController: cartController,
-        ));
+        bottomNavigationBar: RestaurantBottomBar());
   }
 }
 

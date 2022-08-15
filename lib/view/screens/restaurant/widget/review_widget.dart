@@ -1,9 +1,11 @@
 import 'package:efood_multivendor/data/model/response/review_model.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class ReviewWidget extends StatelessWidget {
   final ReviewModel review;
@@ -38,14 +40,15 @@ class ReviewWidget extends StatelessWidget {
                   review.customerName,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: poppinsBold.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 4),
+                  style: Get.find<FontStyles>()
+                      .poppinsBold
+                      .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4),
                 ),
                 Text(
                   resturantName ?? '',
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: poppinsRegular.copyWith(
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 3.5,
                       color: Theme.of(context).disabledColor),
                 ),
@@ -60,7 +63,7 @@ class ReviewWidget extends StatelessWidget {
                     ),
                     Text(
                       review.createdAt,
-                      style: poppinsRegular.copyWith(
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 3,
                           color: Theme.of(context).disabledColor),
                     )
@@ -76,9 +79,9 @@ class ReviewWidget extends StatelessWidget {
           child: Text(review.comment,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
-              style: poppinsRegular.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 4,
-              )),
+              style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                    fontSize: Dimensions.blockscreenHorizontal * 4,
+                  )),
         ),
         Divider(color: Theme.of(context).disabledColor)
       ]),

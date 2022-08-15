@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../../controller/splash_controller.dart';
 import '../../../../helper/route_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 import '../../../base/custom_image.dart';
 import '../../product_details/productDetails.dart';
 
@@ -66,9 +66,9 @@ class SuggestionCard extends StatelessWidget {
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
-              style: poppinsRegular.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3.5,
-              ),
+              style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                    fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                  ),
             ),
           ),
         ]),

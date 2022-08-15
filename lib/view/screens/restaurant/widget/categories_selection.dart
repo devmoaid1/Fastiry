@@ -1,10 +1,11 @@
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../controller/restaurant_controller.dart';
 import '../../../../data/model/response/restaurant_model.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class CategoriesSelection extends StatelessWidget {
   final RestaurantController restaurantController;
@@ -47,10 +48,10 @@ class CategoriesSelection extends StatelessWidget {
                 child: Text(
                   restaurantController.categoryList[index].name,
                   style: index == restaurantController.categoryIndex
-                      ? poppinsMedium.copyWith(
+                      ? Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.fontSizeSmall,
                           color: Theme.of(context).primaryColor)
-                      : poppinsRegular.copyWith(
+                      : Get.find<FontStyles>().poppinsRegular.copyWith(
                           fontSize: Dimensions.fontSizeSmall,
                           color: Theme.of(context).disabledColor),
                 ),

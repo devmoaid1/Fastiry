@@ -9,11 +9,11 @@ import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/item_campaign_view1.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.dart';
 
 import '../../../../controller/cart_controller.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/images.dart';
 import 'banner_view1.dart';
 import 'category_view1.dart';
@@ -30,8 +30,8 @@ class Theme1HomeScreen extends StatelessWidget {
       slivers: [
         // App Bar
         SliverAppBar(
-          toolbarHeight: Dimensions.blockscreenVertical * 10,
-          expandedHeight: Dimensions.blockscreenVertical * 12,
+          toolbarHeight: Dimensions.blockscreenVertical * 12,
+          expandedHeight: Dimensions.blockscreenVertical * 14,
           floating: true,
           elevation: 0,
           automaticallyImplyLeading: false,
@@ -50,13 +50,12 @@ class Theme1HomeScreen extends StatelessWidget {
                 ),
                 Text(
                   "deliver_to".tr,
-                  style: poppinsMedium.copyWith(
+                  style: Get.find<FontStyles>().poppinsMedium.copyWith(
                       color: Theme.of(context).dividerColor,
                       fontSize: Dimensions.blockscreenHorizontal * 3.5),
                 ),
                 Row(children: [
-                  Expanded(
-                      child: InkWell(
+                  InkWell(
                     onTap: () =>
                         Get.toNamed(RouteHelper.getAccessLocationRoute('home')),
                     child: Padding(
@@ -86,11 +85,13 @@ class Theme1HomeScreen extends StatelessWidget {
                                   width: Dimensions.screenWidth * 0.7,
                                   child: Text(
                                     locationController.getUserAddress().address,
-                                    style: poppinsRegular.copyWith(
-                                      color: Theme.of(context).primaryColor,
-                                      fontSize: Dimensions.fontSizeSmall,
-                                    ),
-                                    maxLines: 1,
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                          color: Theme.of(context).primaryColor,
+                                          fontSize: Dimensions.fontSizeSmall,
+                                        ),
+                                    maxLines: 2,
                                     overflow: TextOverflow.ellipsis,
                                   ),
                                 ),
@@ -114,8 +115,9 @@ class Theme1HomeScreen extends StatelessWidget {
                                               .cartList
                                               .length
                                               .toString(),
-                                          style: poppinsRegular.copyWith(
-                                              color: Colors.white),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(color: Colors.white),
                                         ),
                                       ),
                                       child: SvgPicture.asset(
@@ -130,7 +132,7 @@ class Theme1HomeScreen extends StatelessWidget {
                         );
                       }),
                     ),
-                  )),
+                  ),
                 ]),
               ],
             ),

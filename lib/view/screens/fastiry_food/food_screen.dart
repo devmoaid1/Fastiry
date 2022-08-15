@@ -1,15 +1,13 @@
-import 'package:badges/badges.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/cart_controller.dart';
 import '../../../controller/location_controller.dart';
 import '../../../controller/restaurant_controller.dart';
 import '../../../helper/responsive_helper.dart';
 import '../../../helper/route_helper.dart';
+import '../../../theme/font_styles.dart';
 import '../../../util/colors.dart';
 import '../../../util/dimensions.dart';
-import '../../../util/styles.dart';
 import '../../base/paginated_list_view.dart';
 import '../../base/product_view.dart';
 import '../home/home_screen.dart';
@@ -54,75 +52,58 @@ class _FoodScreenState extends State<FoodScreen> {
                   ),
                   Text(
                     "deliver_to".tr,
-                    style: poppinsRegular.copyWith(
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
                         color: Theme.of(context).dividerColor,
                         fontSize: Dimensions.blockscreenHorizontal * 3.5),
                   ),
-                  Row(children: [
-                    Expanded(
-                        child: InkWell(
-                      onTap: () => Get.toNamed(
-                          RouteHelper.getAccessLocationRoute('home')),
-                      child: Padding(
-                        padding: EdgeInsets.symmetric(
-                          vertical: Dimensions.PADDING_SIZE_SMALL,
-                          horizontal: ResponsiveHelper.isDesktop(context)
-                              ? Dimensions.PADDING_SIZE_SMALL
-                              : 0,
-                        ),
-                        child: GetBuilder<LocationController>(
-                            builder: (locationController) {
-                          return Row(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              Flexible(
-                                child: Text(
-                                  locationController.getUserAddress().address,
-                                  style: poppinsRegular.copyWith(
-                                    color: Theme.of(context).primaryColor,
-                                    fontSize: Dimensions.fontSizeSmall,
+                  Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Expanded(
+                            child: InkWell(
+                          onTap: () => Get.toNamed(
+                              RouteHelper.getAccessLocationRoute('home')),
+                          child: Padding(
+                            padding: EdgeInsets.symmetric(
+                              vertical: Dimensions.PADDING_SIZE_SMALL,
+                              horizontal: ResponsiveHelper.isDesktop(context)
+                                  ? Dimensions.PADDING_SIZE_SMALL
+                                  : 0,
+                            ),
+                            child: GetBuilder<LocationController>(
+                                builder: (locationController) {
+                              return Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      locationController
+                                          .getUserAddress()
+                                          .address,
+                                      style: Get.find<FontStyles>()
+                                          .poppinsRegular
+                                          .copyWith(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: Dimensions.fontSizeSmall,
+                                          ),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                    ),
                                   ),
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                              ),
-                              Icon(
-                                Icons.arrow_drop_down,
-                                color: Theme.of(context).disabledColor,
-                              ),
-                              Get.find<CartController>().cartList.length > 0
-                                  ? InkWell(
-                                      onTap: () => Get.toNamed(
-                                          RouteHelper.getCartRoute()),
-                                      child: Badge(
-                                        showBadge: true,
-                                        padding: EdgeInsets.all(5),
-                                        borderRadius: BorderRadius.circular(5),
-                                        badgeColor:
-                                            Theme.of(context).primaryColor,
-                                        badgeContent: Text(
-                                          Get.find<CartController>()
-                                              .cartList
-                                              .length
-                                              .toString(),
-                                          style: poppinsRegular.copyWith(
-                                              color: Colors.white),
-                                        ),
-                                        child: Icon(
-                                          Icons.shopping_cart,
-                                          color:
-                                              Theme.of(context).disabledColor,
-                                        ),
-                                      ),
-                                    )
-                                  : SizedBox()
-                            ],
-                          );
-                        }),
-                      ),
-                    )),
-                  ]),
+                                  Icon(
+                                    Icons.arrow_drop_down,
+                                    color: Theme.of(context).disabledColor,
+                                  ),
+                                ],
+                              );
+                            }),
+                          ),
+                        )),
+                      ]),
                 ],
               ),
             ),
@@ -167,10 +148,10 @@ class _FoodScreenState extends State<FoodScreen> {
                       'search_food_or_restaurant'.tr,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
-                      style: poppinsRegular.copyWith(
-                        fontSize: Dimensions.blockscreenHorizontal * 3.5,
-                        color: extraLightGrey,
-                      ),
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                            color: extraLightGrey,
+                          ),
                     )),
                   ]),
                 ),
@@ -189,7 +170,7 @@ class _FoodScreenState extends State<FoodScreen> {
                     Expanded(
                         child: Text(
                       'all_restaurants'.tr,
-                      style: poppinsMedium.copyWith(
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 4,
                           fontWeight: FontWeight.w600,
                           color: Theme.of(context).dividerColor),

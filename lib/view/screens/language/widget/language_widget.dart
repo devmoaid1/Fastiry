@@ -3,9 +3,10 @@ import 'package:efood_multivendor/data/model/response/language_model.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class LanguageWidget extends StatelessWidget {
   final LanguageModel languageModel;
@@ -52,7 +53,8 @@ class LanguageWidget extends StatelessWidget {
                 height: Dimensions.blockscreenHorizontal * 20,
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-              Text(languageModel.languageName, style: poppinsRegular),
+              Text(languageModel.languageName,
+                  style: Get.find<FontStyles>().poppinsRegular),
             ]),
           ),
           localizationController.selectedIndex == index

@@ -1,11 +1,12 @@
 import 'package:efood_multivendor/controller/product_controller.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import '../../../../data/model/response/product_model.dart';
 import '../../../../helper/price_converter.dart';
 import '../../../../helper/responsive_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class VariationCards extends StatelessWidget {
   final ProductController productController;
@@ -27,8 +28,9 @@ class VariationCards extends StatelessWidget {
               horizontal: Dimensions.blockscreenHorizontal * 2,
             ),
             child: Text('Select ${product.choiceOptions[index].title}',
-                style: poppinsMedium.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 4)),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4)),
           ),
           SizedBox(height: Dimensions.blockscreenVertical * 2),
           Padding(
@@ -81,22 +83,24 @@ class VariationCards extends StatelessWidget {
                           product.choiceOptions[index].options[i].trim(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: poppinsRegular.copyWith(
-                            color: productController.variationIndex[index] != i
-                                ? Theme.of(context).dividerColor
-                                : Colors.white,
-                          ),
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                                color:
+                                    productController.variationIndex[index] != i
+                                        ? Theme.of(context).dividerColor
+                                        : Colors.white,
+                              ),
                         ),
                         Expanded(child: SizedBox()),
                         Text(
                           '(${PriceConverter.convertPrice(((product.variations[i].price) - (product.price)))}+)',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: poppinsRegular.copyWith(
-                            color: productController.variationIndex[index] != i
-                                ? Theme.of(context).dividerColor
-                                : Colors.white,
-                          ),
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                                color:
+                                    productController.variationIndex[index] != i
+                                        ? Theme.of(context).dividerColor
+                                        : Colors.white,
+                              ),
                         ),
                       ],
                     ),

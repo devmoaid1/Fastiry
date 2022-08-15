@@ -5,9 +5,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 
 class AddressMapCard extends StatelessWidget {
   final LocationController locationController;
@@ -105,9 +105,12 @@ class AddressMapCard extends StatelessWidget {
                                   ? locationController.selectedAddress.address
                                   : locationController.getUserAddress().address,
                               maxLines: 1,
-                              style: poppinsMedium.copyWith(
-                                  fontSize:
-                                      Dimensions.blockscreenHorizontal * 3.5),
+                              style: Get.find<FontStyles>()
+                                  .poppinsMedium
+                                  .copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal *
+                                              3.5),
                               overflow: TextOverflow.ellipsis,
                             ),
                           )
@@ -122,9 +125,11 @@ class AddressMapCard extends StatelessWidget {
                             "${"address_type".tr}:",
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
-                            style: poppinsRegular.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 4,
-                            ),
+                            style:
+                                Get.find<FontStyles>().poppinsRegular.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 4,
+                                    ),
                           ),
                           SizedBox(
                             width: 3,
@@ -141,10 +146,13 @@ class AddressMapCard extends StatelessWidget {
                                         .addressType
                                         .tr,
                                 maxLines: 1,
-                                style: poppinsRegular.copyWith(
-                                    fontSize:
-                                        Dimensions.blockscreenHorizontal * 4,
-                                    color: Theme.of(context).dividerColor),
+                                style: Get.find<FontStyles>()
+                                    .poppinsRegular
+                                    .copyWith(
+                                        fontSize:
+                                            Dimensions.blockscreenHorizontal *
+                                                4,
+                                        color: Theme.of(context).dividerColor),
                                 overflow: TextOverflow.ellipsis,
                               )),
                         ],
@@ -157,7 +165,7 @@ class AddressMapCard extends StatelessWidget {
                     },
                     child: Text("change".tr,
                         maxLines: 1,
-                        style: poppinsMedium.copyWith(
+                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 3.5,
                             color: Theme.of(context).primaryColor)),
                   )

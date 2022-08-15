@@ -1,5 +1,7 @@
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class RatingBar extends StatelessWidget {
   final double rating;
@@ -43,8 +45,10 @@ class RatingBar extends StatelessWidget {
         ? _starList.add(Padding(
             padding: EdgeInsets.symmetric(horizontal: 2.0),
             child: Text('($ratingCount)',
-                style: poppinsRegular.copyWith(
-                    fontSize: size, color: Theme.of(context).disabledColor)),
+                style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                    fontSize:
+                        Get.locale.languageCode == "en" ? size * 0.8 : size,
+                    color: Theme.of(context).disabledColor)),
           ))
         : SizedBox();
 

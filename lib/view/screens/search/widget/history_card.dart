@@ -1,10 +1,11 @@
 import 'package:efood_multivendor/controller/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 
 class HistoryCard extends StatelessWidget {
   final SearchController searchController;
@@ -35,7 +36,7 @@ class HistoryCard extends StatelessWidget {
                   vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
               child: Text(
                 searchController.historyList[index],
-                style: poppinsRegular.copyWith(
+                style: Get.find<FontStyles>().poppinsRegular.copyWith(
                     fontSize: Dimensions.blockscreenHorizontal * 4,
                     color: Theme.of(context).disabledColor),
                 maxLines: 1,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class FastiryOption extends StatelessWidget {
   final void Function() onTap;
@@ -55,12 +55,12 @@ class FastiryOption extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Get.locale.languageCode != "en"
-                  ? poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
-                    )
-                  : poppinsRegular.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
-                    ),
+                  ? Get.find<FontStyles>().poppinsMedium.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                      )
+                  : Get.find<FontStyles>().poppinsRegular.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                      ),
             ),
           ),
         ]),

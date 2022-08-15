@@ -15,6 +15,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
+import '../../../theme/font_styles.dart';
+
 class VerificationScreen extends StatefulWidget {
   final String number;
   final bool fromSignUp;
@@ -107,15 +109,18 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       text: TextSpan(children: [
                         TextSpan(
                             text: 'enter_the_verification_sent_to'.tr,
-                            style: poppinsRegular.copyWith(
-                                color: lightGreyTextColor)),
+                            style: Get.find<FontStyles>()
+                                .poppinsRegular
+                                .copyWith(color: lightGreyTextColor)),
                         TextSpan(
                             text: ' $_number',
-                            style: poppinsMedium.copyWith(
-                                color: Theme.of(context)
-                                    .textTheme
-                                    .bodyText1
-                                    .color)),
+                            style: Get.find<FontStyles>()
+                                .poppinsMedium
+                                .copyWith(
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color)),
                       ])),
               Padding(
                 padding: EdgeInsets.symmetric(
@@ -127,7 +132,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   keyboardType: TextInputType.number,
                   animationType: AnimationType.slide,
                   cursorColor: Theme.of(context).primaryColor,
-                  textStyle: poppinsMedium.copyWith(
+                  textStyle: Get.find<FontStyles>().poppinsMedium.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 6,
                       color: lightGreyTextColor),
                   pinTheme: PinTheme(
@@ -155,7 +160,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   ? Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                       Text(
                         'did_not_receive_the_code'.tr,
-                        style: poppinsRegular.copyWith(
+                        style: Get.find<FontStyles>().poppinsRegular.copyWith(
                             color: lightGreyTextColor.withOpacity(0.7),
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
@@ -193,7 +198,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             : null,
                         child: Text(
                           '${'resend'.tr}${_seconds > 0 ? ' ($_seconds)' : ''}',
-                          style: poppinsMedium.copyWith(
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
                               color: Theme.of(context).primaryColor,
                               fontSize: Dimensions.blockscreenHorizontal * 4),
                         ),

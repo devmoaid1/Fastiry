@@ -1,9 +1,9 @@
 import 'package:efood_multivendor/helper/route_helper.dart';
+import 'package:efood_multivendor/theme/font_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class NotLoggedCard extends StatelessWidget {
   const NotLoggedCard({Key key}) : super(key: key);
@@ -28,15 +28,17 @@ class NotLoggedCard extends StatelessWidget {
           children: [
             Text("hey_guest".tr,
                 maxLines: 2,
-                style: poppinsMedium.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 5)),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(fontSize: Dimensions.blockscreenHorizontal * 5)),
             SizedBox(
               height: 10,
             ),
             Text("not_logged".tr,
                 maxLines: 1,
-                style: poppinsRegular.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 3)),
+                style: Get.find<FontStyles>()
+                    .poppinsRegular
+                    .copyWith(fontSize: Dimensions.blockscreenHorizontal * 3)),
             SizedBox(
               height: 10,
             ),
@@ -53,7 +55,9 @@ class NotLoggedCard extends StatelessWidget {
                     horizontal: Dimensions.blockscreenHorizontal * 4),
                 child: Text(
                   'login_menu'.tr,
-                  style: poppinsRegular.copyWith(color: Colors.white),
+                  style: Get.find<FontStyles>()
+                      .poppinsRegular
+                      .copyWith(color: Colors.white),
                 ),
               ),
             )

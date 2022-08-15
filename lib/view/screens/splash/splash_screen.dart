@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
+import 'package:efood_multivendor/data/services/connectivity_service.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/view/base/no_internet_screen.dart';
@@ -22,40 +23,42 @@ class _SplashScreenState extends State<SplashScreen> {
   StreamSubscription<ConnectivityResult> _onConnectivityChanged;
   final splashController = Get.find<SplashController>();
   final cartController = Get.find<CartController>();
-
+  final connectivityService = Get.find<ConnectivityService>();
   @override
   void initState() {
     super.initState();
 
-    bool _firstTime = true;
-    _onConnectivityChanged = Connectivity()
-        .onConnectivityChanged
-        .listen((ConnectivityResult result) {
-      if (!_firstTime) {
-        bool isNotConnected = result != ConnectivityResult.wifi &&
-            result != ConnectivityResult.mobile;
-        isNotConnected
-            ? SizedBox()
-            : ScaffoldMessenger.of(context).hideCurrentSnackBar();
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          backgroundColor: isNotConnected ? Colors.red : Colors.green,
-          duration: Duration(seconds: isNotConnected ? 6000 : 3),
-          content: Text(
-            isNotConnected ? 'no_connection'.tr : 'connected'.tr,
-            textAlign: TextAlign.center,
-          ),
-        ));
-        if (!isNotConnected) {
-          splashController.handleSplashRouting(widget.orderID);
-        }
-      }
-      _firstTime = false;
-    });
+    // bool _firstTime = true;
+    // _onConnectivityChanged = Connectivity()
+    //     .onConnectivityChanged
+    //     .listen((ConnectivityResult result) {
+    //   if (!_firstTime) {
+    //     bool isNotConnected = result != ConnectivityResult.wifi &&
+    //         result != ConnectivityResult.mobile;
+    //     isNotConnected
+    //         ? SizedBox()
+    //         : ScaffoldMessenger.of(context).hideCurrentSnackBar();
+    //     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    //       backgroundColor: isNotConnected ? Colors.red : Colors.green,
+    //       duration: Duration(seconds: isNotConnected ? 6000 : 3),
+    //       content: Text(
+    //         isNotConnected ? 'no_connection'.tr : 'connected'.tr,
+    //         textAlign: TextAlign.center,
+    //       ),
+    //     ));
+    //     if (!isNotConnected) {
+    //       splashController.handleSplashRouting(widget.orderID);
+    //     }
+    //   }
+    //   _firstTime = false;
+    // });
 
-    splashController.initSharedData();
-    cartController.getCartData();
-    cartController.getCartSubTotal();
-    splashController.handleSplashRouting(widget.orderID);
+    if (connectivityService.isConnected.isTrue) {
+      splashController.initSharedData();
+      cartController.getCartData();
+      cartController.getCartSubTotal();
+      splashController.handleSplashRouting(widget.orderID);
+    }
   }
 
   @override
@@ -71,17 +74,22 @@ class _SplashScreenState extends State<SplashScreen> {
       backgroundColor: Get.isDarkMode ? Color(0xff101010) : Colors.white,
       key: _globalKey,
       body: GetBuilder<SplashController>(builder: (splashController) {
-        return Center(
-          child: splashController.hasConnection
-              ? Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Image.asset(Images.fastiryRed,
-                        height: Dimensions.blockscreenVertical * 35),
-                  ],
-                )
-              : NoInternetScreen(child: SplashScreen(orderID: widget.orderID)),
+        return Obx(
+          () {
+            return Center(
+              child: connectivityService.isConnected.isTrue
+                  ? Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(Images.fastiryRed,
+                            height: Dimensions.blockscreenVertical * 35),
+                      ],
+                    )
+                  : NoInternetScreen(
+                      child: SplashScreen(orderID: widget.orderID)),
+            );
+          },
         );
       }),
     );

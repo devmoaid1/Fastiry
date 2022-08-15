@@ -1,7 +1,9 @@
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class CustomButton extends StatelessWidget {
   final Function onPressed;
@@ -64,14 +66,14 @@ class CustomButton extends StatelessWidget {
                       : SizedBox(),
                   Text(buttonText ?? '',
                       textAlign: TextAlign.center,
-                      style: poppinsRegular.copyWith(
-                        color: transparent
-                            ? Theme.of(context).primaryColor
-                            : Colors.white,
-                        fontSize: fontSize != null
-                            ? fontSize
-                            : Dimensions.fontSizeLarge,
-                      )),
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            color: transparent
+                                ? Theme.of(context).primaryColor
+                                : Colors.white,
+                            fontSize: fontSize != null
+                                ? fontSize
+                                : Dimensions.fontSizeLarge,
+                          )),
                 ]),
               ),
             )));

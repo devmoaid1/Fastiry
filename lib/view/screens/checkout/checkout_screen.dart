@@ -18,7 +18,6 @@ import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -34,6 +33,7 @@ import 'package:get/get.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:flutter/material.dart';
 
+import '../../../theme/font_styles.dart';
 import 'widget/address_map_card.dart';
 
 class CheckoutScreen extends StatefulWidget {
@@ -310,7 +310,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     3),
                                         // Order type
                                         Text('delivery_option'.tr,
-                                            style: poppinsMedium),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsMedium),
                                         restController.restaurant.delivery
                                             ? DeliveryOptionButton(
                                                 value: 'delivery',
@@ -343,7 +344,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                     Text('preference_time'.tr,
-                                                        style: poppinsMedium),
+                                                        style: Get.find<
+                                                                FontStyles>()
+                                                            .poppinsMedium),
                                                     SizedBox(
                                                         height: Dimensions
                                                             .PADDING_SIZE_SMALL),
@@ -438,7 +441,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                   ])
                                             : SizedBox(),
 
-                                        Text('promo'.tr, style: poppinsMedium),
+                                        Text('promo'.tr,
+                                            style: Get.find<FontStyles>()
+                                                .poppinsMedium),
                                         SizedBox(
                                           height: 5,
                                         ),
@@ -452,16 +457,21 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                   child: TextField(
                                                     controller:
                                                         _couponController,
-                                                    style: poppinsRegular.copyWith(
-                                                        height: ResponsiveHelper
-                                                                .isMobile(
-                                                                    context)
-                                                            ? null
-                                                            : 2),
+                                                    style: Get.find<
+                                                            FontStyles>()
+                                                        .poppinsRegular
+                                                        .copyWith(
+                                                            height: ResponsiveHelper
+                                                                    .isMobile(
+                                                                        context)
+                                                                ? null
+                                                                : 2),
                                                     decoration: InputDecoration(
                                                       hintText:
                                                           'enter_promo_code'.tr,
-                                                      hintStyle: poppinsRegular
+                                                      hintStyle: Get.find<
+                                                              FontStyles>()
+                                                          .poppinsRegular
                                                           .copyWith(
                                                               color: Theme.of(
                                                                       context)
@@ -580,7 +590,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                               .isLoading
                                                           ? Text(
                                                               'apply'.tr,
-                                                              style: poppinsMedium
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsMedium
                                                                   .copyWith(
                                                                       color: Colors
                                                                           .white),
@@ -613,7 +625,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                     CrossAxisAlignment.start,
                                                 children: [
                                                     Text('delivery_man_tips'.tr,
-                                                        style: poppinsMedium),
+                                                        style: Get.find<
+                                                                FontStyles>()
+                                                            .poppinsMedium),
                                                     SizedBox(
                                                         height: Dimensions
                                                             .PADDING_SIZE_SMALL),
@@ -724,7 +738,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 : 0),
 
                                         Text('choose_payment_method'.tr,
-                                            style: poppinsMedium),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsMedium),
                                         SizedBox(
                                             height:
                                                 Dimensions.PADDING_SIZE_SMALL),
@@ -783,12 +798,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('subtotal'.tr,
-                                                  style: poppinsRegular),
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular),
                                               Text(
                                                   PriceConverter.convertPrice(
                                                       _subTotal),
-                                                  style:
-                                                      poppinsRegular.copyWith(
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular
+                                                      .copyWith(
                                                           color: Theme.of(
                                                                   context)
                                                               .dividerColor)),
@@ -801,11 +818,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('discount'.tr,
-                                                  style: poppinsRegular),
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular),
                                               Text(
                                                   '(-) ${PriceConverter.convertPrice(_discount)}',
-                                                  style:
-                                                      poppinsRegular.copyWith(
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular
+                                                      .copyWith(
                                                           color: Theme.of(
                                                                   context)
                                                               .dividerColor)),
@@ -822,8 +841,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                             .spaceBetween,
                                                     children: [
                                                       Text('coupon_discount'.tr,
-                                                          style:
-                                                              poppinsRegular),
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular),
                                                       (couponController
                                                                       .coupon !=
                                                                   null &&
@@ -834,17 +854,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                           ? Text(
                                                               'free_delivery'
                                                                   .tr,
-                                                              style: poppinsRegular.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .primaryColor),
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsRegular
+                                                                  .copyWith(
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .primaryColor),
                                                             )
                                                           : Text(
                                                               '(-) ${PriceConverter.convertPrice(couponController.discount)}',
-                                                              style: poppinsRegular.copyWith(
-                                                                  color: Theme.of(
-                                                                          context)
-                                                                      .dividerColor),
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsRegular
+                                                                  .copyWith(
+                                                                      color: Theme.of(
+                                                                              context)
+                                                                          .dividerColor),
                                                             ),
                                                     ]),
                                                 SizedBox(
@@ -857,11 +883,13 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('vat_tax'.tr,
-                                                  style: poppinsRegular),
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular),
                                               Text(
                                                   '(+) ${PriceConverter.convertPrice(_tax)}',
-                                                  style:
-                                                      poppinsRegular.copyWith(
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular
+                                                      .copyWith(
                                                           color: Theme.of(
                                                                   context)
                                                               .dividerColor)),
@@ -882,10 +910,14 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                         .spaceBetween,
                                                 children: [
                                                   Text('delivery_man_tips'.tr,
-                                                      style: poppinsRegular),
+                                                      style:
+                                                          Get.find<FontStyles>()
+                                                              .poppinsRegular),
                                                   Text(
                                                       '(+) ${PriceConverter.convertPrice(orderController.tips)}',
-                                                      style: poppinsRegular),
+                                                      style:
+                                                          Get.find<FontStyles>()
+                                                              .poppinsRegular),
                                                 ],
                                               )
                                             : SizedBox.shrink(),
@@ -900,14 +932,17 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                 MainAxisAlignment.spaceBetween,
                                             children: [
                                               Text('delivery_fee'.tr,
-                                                  style: poppinsRegular),
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular),
                                               _deliveryCharge == -1
                                                   ? Text(
                                                       'calculating'.tr,
-                                                      style: poppinsRegular
-                                                          .copyWith(
-                                                              color:
-                                                                  Colors.red),
+                                                      style:
+                                                          Get.find<FontStyles>()
+                                                              .poppinsRegular
+                                                              .copyWith(
+                                                                  color: Colors
+                                                                      .red),
                                                     )
                                                   : (_deliveryCharge == 0 ||
                                                           (couponController
@@ -919,7 +954,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                                   'free_delivery'))
                                                       ? Text(
                                                           'free'.tr,
-                                                          style: poppinsRegular
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular
                                                               .copyWith(
                                                                   color: Theme.of(
                                                                           context)
@@ -927,7 +964,9 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                                         )
                                                       : Text(
                                                           '(+) ${PriceConverter.convertPrice(_deliveryCharge)}',
-                                                          style: poppinsRegular,
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular,
                                                         ),
                                             ]),
 
@@ -947,19 +986,23 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                                             children: [
                                               Text(
                                                 'total_amount'.tr,
-                                                style: poppinsMedium.copyWith(
-                                                    fontSize: Dimensions
-                                                            .blockscreenHorizontal *
-                                                        4.5),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsMedium
+                                                    .copyWith(
+                                                        fontSize: Dimensions
+                                                                .blockscreenHorizontal *
+                                                            4.5),
                                               ),
                                               Text(
                                                 PriceConverter.convertPrice(
                                                     _total),
-                                                style: poppinsMedium.copyWith(
-                                                  fontSize: Dimensions
-                                                          .blockscreenHorizontal *
-                                                      4.5,
-                                                ),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsMedium
+                                                    .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          4.5,
+                                                    ),
                                               ),
                                             ]),
                                       ]),

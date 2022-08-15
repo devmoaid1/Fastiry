@@ -8,7 +8,6 @@ import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -19,6 +18,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
 import '../../helper/price_converter.dart';
+import '../../theme/font_styles.dart';
 import 'discount_tag.dart';
 import 'discount_tag_without_image.dart';
 
@@ -82,7 +82,9 @@ class ProductWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.delete, color: Colors.white),
                       Text('remove from wishlist',
-                          style: poppinsRegular.copyWith(color: Colors.white)),
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(color: Colors.white)),
                     ],
                   ),
                 ),
@@ -168,11 +170,13 @@ class ProductWidget extends StatelessWidget {
                                       children: [
                                         Text(
                                           restaurant.name,
-                                          style: poppinsMedium.copyWith(
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                5.5,
-                                          ),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                fontSize: Dimensions
+                                                        .blockscreenHorizontal *
+                                                    5.5,
+                                              ),
                                           maxLines: 2,
                                           overflow: TextOverflow.ellipsis,
                                         ),
@@ -181,11 +185,13 @@ class ProductWidget extends StatelessWidget {
                                                 Dimensions.blockscreenVertical *
                                                     2),
                                         Text(restaurant.address,
-                                            style: poppinsRegular.copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  3.5,
-                                            )),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      3.5,
+                                                )),
                                         SizedBox(
                                             height:
                                                 Dimensions.blockscreenVertical *
@@ -216,8 +222,10 @@ class ProductWidget extends StatelessWidget {
                                                   fit: BoxFit.contain,
                                                   child: Text(
                                                     "in ${restaurant.deliveryTime} mins",
-                                                    style:
-                                                        poppinsRegular.copyWith(
+                                                    style: Get.find<
+                                                            FontStyles>()
+                                                        .poppinsRegular
+                                                        .copyWith(
                                                             color: Theme.of(
                                                                     context)
                                                                 .disabledColor),
@@ -326,11 +334,13 @@ class ProductWidget extends StatelessWidget {
                                     children: [
                                       Text(
                                         restaurant.name,
-                                        style: poppinsMedium.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   5.5,
-                                        ),
+                                            ),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -339,11 +349,13 @@ class ProductWidget extends StatelessWidget {
                                               Dimensions.blockscreenVertical *
                                                   2),
                                       Text(restaurant.address,
-                                          style: poppinsRegular.copyWith(
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                3.5,
-                                          )),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                fontSize: Dimensions
+                                                        .blockscreenHorizontal *
+                                                    3.5,
+                                              )),
                                       SizedBox(
                                           height:
                                               Dimensions.blockscreenVertical *
@@ -373,8 +385,9 @@ class ProductWidget extends StatelessWidget {
                                                 fit: BoxFit.contain,
                                                 child: Text(
                                                   "in ${restaurant.deliveryTime} mins",
-                                                  style:
-                                                      poppinsRegular.copyWith(
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular
+                                                      .copyWith(
                                                           color: Theme.of(
                                                                   context)
                                                               .disabledColor),
@@ -422,7 +435,9 @@ class ProductWidget extends StatelessWidget {
                     children: [
                       Icon(Icons.delete, color: Colors.white),
                       Text('remove from wishlist',
-                          style: poppinsRegular.copyWith(color: Colors.white)),
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(color: Colors.white)),
                     ],
                   ),
                 ),
@@ -501,11 +516,13 @@ class ProductWidget extends StatelessWidget {
                                     children: [
                                       Text(
                                         product.name,
-                                        style: poppinsMedium.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   5.5,
-                                        ),
+                                            ),
                                         maxLines: 2,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -516,11 +533,13 @@ class ProductWidget extends StatelessWidget {
                                                   2),
                                       Text(
                                         product.description,
-                                        style: poppinsRegular.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                        style: Get.find<FontStyles>()
+                                            .poppinsRegular
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   3.5,
-                                        ),
+                                            ),
                                         maxLines: 1,
                                         overflow: TextOverflow.ellipsis,
                                       ),
@@ -543,12 +562,14 @@ class ProductWidget extends StatelessWidget {
                                               product.price,
                                               discount: _discount,
                                               discountType: _discountType),
-                                          style: poppinsMedium.copyWith(
-                                              color: Theme.of(context)
-                                                  .dividerColor,
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  4),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                  color: Theme.of(context)
+                                                      .dividerColor,
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4),
                                         ),
                                         SizedBox(
                                             width: _discount > 0
@@ -559,15 +580,17 @@ class ProductWidget extends StatelessWidget {
                                             ? Text(
                                                 PriceConverter.convertPrice(
                                                     product.price),
-                                                style: poppinsRegular.copyWith(
-                                                  fontSize: Dimensions
-                                                          .blockscreenHorizontal *
-                                                      3.2,
-                                                  color: Theme.of(context)
-                                                      .disabledColor,
-                                                  decoration: TextDecoration
-                                                      .lineThrough,
-                                                ),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          3.2,
+                                                      color: Theme.of(context)
+                                                          .disabledColor,
+                                                      decoration: TextDecoration
+                                                          .lineThrough,
+                                                    ),
                                               )
                                             : SizedBox(),
                                         SizedBox(
@@ -674,11 +697,13 @@ class ProductWidget extends StatelessWidget {
                                   children: [
                                     Text(
                                       product.name,
-                                      style: poppinsMedium.copyWith(
-                                        fontSize:
-                                            Dimensions.blockscreenHorizontal *
+                                      style: Get.find<FontStyles>()
+                                          .poppinsMedium
+                                          .copyWith(
+                                            fontSize: Dimensions
+                                                    .blockscreenHorizontal *
                                                 5.5,
-                                      ),
+                                          ),
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -689,12 +714,14 @@ class ProductWidget extends StatelessWidget {
                                                 3),
                                     Text(
                                       product.description,
-                                      style: poppinsRegular.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                      style: Get.find<FontStyles>()
+                                          .poppinsRegular
+                                          .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   3.5,
-                                          color:
-                                              Theme.of(context).disabledColor),
+                                              color: Theme.of(context)
+                                                  .disabledColor),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
@@ -715,12 +742,14 @@ class ProductWidget extends StatelessWidget {
                                             product.price,
                                             discount: _discount,
                                             discountType: _discountType),
-                                        style: poppinsMedium.copyWith(
-                                            color:
-                                                Theme.of(context).dividerColor,
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                4),
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                                color: Theme.of(context)
+                                                    .dividerColor,
+                                                fontSize: Dimensions
+                                                        .blockscreenHorizontal *
+                                                    4),
                                       ),
                                       SizedBox(
                                           width: _discount > 0
@@ -731,15 +760,17 @@ class ProductWidget extends StatelessWidget {
                                           ? Text(
                                               PriceConverter.convertPrice(
                                                   product.price),
-                                              style: poppinsRegular.copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    3.2,
-                                                color: Theme.of(context)
-                                                    .disabledColor,
-                                                decoration:
-                                                    TextDecoration.lineThrough,
-                                              ),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        3.2,
+                                                    color: Theme.of(context)
+                                                        .disabledColor,
+                                                    decoration: TextDecoration
+                                                        .lineThrough,
+                                                  ),
                                             )
                                           : SizedBox(),
                                       SizedBox(

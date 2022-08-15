@@ -329,7 +329,7 @@ class _WalletScreenState extends State<WalletScreen> {
                                                         .blockscreenVertical *
                                                     14),
                                             child: Text(
-                                              "No transaction yet..",
+                                              "no_transaction".tr,
                                               style: poppinsRegular.copyWith(
                                                   color: Theme.of(context)
                                                       .disabledColor,

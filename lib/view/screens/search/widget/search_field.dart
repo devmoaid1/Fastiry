@@ -1,7 +1,9 @@
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class SearchField extends StatefulWidget {
   final TextEditingController controller;
@@ -30,7 +32,7 @@ class _SearchFieldState extends State<SearchField> {
       textInputAction: TextInputAction.search,
       decoration: InputDecoration(
         hintText: widget.hint,
-        hintStyle: poppinsRegular.copyWith(
+        hintStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
             fontSize: Dimensions.fontSizeSmall,
             color: Theme.of(context).disabledColor),
         border: OutlineInputBorder(

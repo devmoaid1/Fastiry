@@ -4,13 +4,13 @@ import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/screens/restaurant/review_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/images.dart';
 
 class RestaurantDescriptionView extends StatelessWidget {
@@ -26,7 +26,7 @@ class RestaurantDescriptionView extends StatelessWidget {
         // restaurant name
         Text(
           restaurant.name,
-          style: poppinsMedium.copyWith(
+          style: Get.find<FontStyles>().poppinsMedium.copyWith(
               fontSize: Dimensions.blockscreenHorizontal * 6,
               color: Theme.of(context).dividerColor),
           maxLines: 1,
@@ -39,7 +39,7 @@ class RestaurantDescriptionView extends StatelessWidget {
           restaurant.address ?? '',
           maxLines: 1,
           overflow: TextOverflow.ellipsis,
-          style: poppinsRegular.copyWith(
+          style: Get.find<FontStyles>().poppinsRegular.copyWith(
               fontSize: Dimensions.fontSizeSmall,
               color: Theme.of(context).disabledColor),
         ),
@@ -64,8 +64,9 @@ class RestaurantDescriptionView extends StatelessWidget {
                   )),
               child: Text(
                 "review_rate".tr,
-                style: poppinsRegular.copyWith(
-                    color: Theme.of(context).primaryColor),
+                style: Get.find<FontStyles>()
+                    .poppinsRegular
+                    .copyWith(color: Theme.of(context).primaryColor),
               ),
             )
           ],
@@ -76,14 +77,14 @@ class RestaurantDescriptionView extends StatelessWidget {
                 : 6),
         Row(mainAxisAlignment: MainAxisAlignment.center, children: [
           Text('minimum_order'.tr,
-              style: poppinsRegular.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 3,
-                color: Theme.of(context).dividerColor,
-              )),
+              style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                    fontSize: Dimensions.blockscreenHorizontal * 3,
+                    color: Theme.of(context).dividerColor,
+                  )),
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(
             PriceConverter.convertPrice(restaurant.minimumOrder),
-            style: poppinsMedium.copyWith(
+            style: Get.find<FontStyles>().poppinsMedium.copyWith(
                 fontSize: Dimensions.blockscreenHorizontal * 3,
                 color: Theme.of(context).primaryColor),
           ),
@@ -120,7 +121,7 @@ class RestaurantDescriptionView extends StatelessWidget {
               width: Dimensions.PADDING_SIZE_EXTRA_SMALL,
             ),
             Text('view_on_map'.tr,
-                style: poppinsRegular.copyWith(
+                style: Get.find<FontStyles>().poppinsRegular.copyWith(
                     fontSize: Dimensions.blockscreenHorizontal * 3,
                     color: Theme.of(context).dividerColor)),
           ]),
@@ -136,7 +137,7 @@ class RestaurantDescriptionView extends StatelessWidget {
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(
             '${restaurant.deliveryTime} ${'min'.tr}',
-            style: poppinsRegular.copyWith(
+            style: Get.find<FontStyles>().poppinsRegular.copyWith(
                 fontSize: Dimensions.fontSizeSmall,
                 color: Theme.of(context).dividerColor),
           ),
@@ -155,7 +156,7 @@ class RestaurantDescriptionView extends StatelessWidget {
                 ),
                 SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                 Text('free_delivery'.tr,
-                    style: poppinsRegular.copyWith(
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
                         fontSize: Dimensions.fontSizeSmall,
                         color: Theme.of(context).dividerColor)),
               ])

@@ -5,7 +5,6 @@ import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -16,6 +15,7 @@ import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
 import '../../../data/model/body/customer.dart';
+import '../../../theme/font_styles.dart';
 
 class ForgetPassScreen extends StatefulWidget {
   final bool fromSocialLogin;
@@ -67,8 +67,9 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                     horizontal: Dimensions.RADIUS_SMALL,
                     vertical: Dimensions.PADDING_SIZE_EXTRA_LARGE),
                 child: Text('please_enter_mobile'.tr,
-                    style: poppinsRegular.copyWith(
-                        color: Theme.of(context).dividerColor),
+                    style: Get.find<FontStyles>()
+                        .poppinsRegular
+                        .copyWith(color: Theme.of(context).dividerColor),
                     textAlign: TextAlign.center),
               ),
               SizedBox(height: Dimensions.blockscreenVertical * 5),
@@ -90,10 +91,10 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
                   showFlagMain: true,
                   countryFilter: [_countryDialCode],
                   dialogBackgroundColor: Theme.of(context).cardColor,
-                  textStyle: poppinsRegular.copyWith(
-                    fontSize: Dimensions.fontSizeLarge,
-                    color: Theme.of(context).dividerColor,
-                  ),
+                  textStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
+                        fontSize: Dimensions.fontSizeLarge,
+                        color: Theme.of(context).dividerColor,
+                      ),
                 ),
                 Expanded(
                     child: CustomTextField(

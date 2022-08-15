@@ -1,12 +1,13 @@
 import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:efood_multivendor/view/screens/home/widget/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class CategoryScreen extends StatefulWidget {
   @override
@@ -44,8 +45,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                   horizontal: Dimensions.blockscreenHorizontal * 3),
               child: Text(
                 "categories".tr,
-                style: poppinsBold.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 5),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(fontSize: Dimensions.blockscreenHorizontal * 5),
               ),
             ),
             GetBuilder<CategoryController>(builder: (catController) {

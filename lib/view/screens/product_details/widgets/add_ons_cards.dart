@@ -4,8 +4,8 @@ import 'package:get/get.dart';
 
 import '../../../../data/model/response/product_model.dart';
 import '../../../../helper/price_converter.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class AddOnsCards extends StatelessWidget {
   final ProductController productController;
@@ -17,14 +17,22 @@ class AddOnsCards extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-      Text('addons'.tr, style: poppinsMedium),
+      Padding(
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.blockscreenHorizontal * 2,
+        ),
+        child: Text('addons'.tr, style: Get.find<FontStyles>().poppinsMedium),
+      ),
       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       GridView.builder(
+        padding: EdgeInsets.symmetric(
+          horizontal: Dimensions.blockscreenHorizontal * 4,
+        ),
         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 1,
           crossAxisSpacing: 20,
           mainAxisSpacing: 10,
-          childAspectRatio: (1 / 1.1),
+          childAspectRatio: (1 / 0.25),
         ),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -40,103 +48,69 @@ class AddOnsCards extends StatelessWidget {
             },
             child: Container(
               alignment: Alignment.center,
+              padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.blockscreenHorizontal * 3),
               margin: EdgeInsets.only(
-                  bottom: productController.addOnActiveList[index] ? 2 : 20),
+                  bottom: productController.addOnActiveList[index] ? 5 : 8),
               decoration: BoxDecoration(
                 color: productController.addOnActiveList[index]
                     ? Theme.of(context).primaryColor
                     : Theme.of(context).backgroundColor,
+                border: !productController.addOnActiveList[index]
+                    ? Border.all(
+                        color: Theme.of(context).disabledColor, width: 2)
+                    : null,
                 borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                border: productController.addOnActiveList[index]
-                    ? null
-                    : Border.all(
-                        color: Theme.of(context).disabledColor, width: 2),
                 boxShadow: productController.addOnActiveList[index]
-                    ? [
-                        BoxShadow(
-                            color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                            blurRadius: 5,
-                            spreadRadius: 1)
-                      ]
+                    ? Get.isDarkMode
+                        ? null
+                        : [
+                            BoxShadow(
+                                color: Colors.grey[300],
+                                blurRadius: 5,
+                                spreadRadius: 1)
+                          ]
                     : null,
               ),
-              child: Column(children: [
-                Expanded(
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          product.addOns[index].name,
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          style: poppinsMedium.copyWith(
-                            color: productController.addOnActiveList[index]
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: Dimensions.fontSizeSmall,
-                          ),
+              child: Expanded(
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                  productController.addOnActiveList[index]
+                      ? Icon(Icons.check, color: Colors.white)
+                      : SizedBox(
+                          width: Dimensions.blockscreenHorizontal * 5,
                         ),
-                        SizedBox(height: 5),
-                        Text(
-                          product.addOns[index].price > 0
-                              ? PriceConverter.convertPrice(
-                                  product.addOns[index].price)
-                              : 'free'.tr,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: poppinsRegular.copyWith(
-                            color: productController.addOnActiveList[index]
-                                ? Colors.white
-                                : Colors.black,
-                            fontSize: Dimensions.fontSizeExtraSmall,
-                          ),
+                  SizedBox(
+                    width: Dimensions.blockscreenHorizontal,
+                  ),
+                  Text(
+                    product.addOns[index].name,
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                    textAlign: TextAlign.center,
+                    style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                          color: productController.addOnActiveList[index]
+                              ? Colors.white
+                              : Theme.of(context).disabledColor,
+                          fontSize: Dimensions.fontSizeSmall,
                         ),
-                      ]),
-                ),
-                productController.addOnActiveList[index]
-                    ? Container(
-                        height: 25,
-                        decoration: BoxDecoration(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                            color: Theme.of(context).cardColor),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: [
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () {
-                                    if (productController.addOnQtyList[index] >
-                                        1) {
-                                      productController.setAddOnQuantity(
-                                          false, index);
-                                    } else {
-                                      productController.addAddOn(false, index);
-                                    }
-                                  },
-                                  child: Center(
-                                      child: Icon(Icons.remove, size: 15)),
-                                ),
-                              ),
-                              Text(
-                                productController.addOnQtyList[index]
-                                    .toString(),
-                                style: poppinsMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeSmall),
-                              ),
-                              Expanded(
-                                child: InkWell(
-                                  onTap: () => productController
-                                      .setAddOnQuantity(true, index),
-                                  child:
-                                      Center(child: Icon(Icons.add, size: 15)),
-                                ),
-                              ),
-                            ]),
-                      )
-                    : SizedBox(),
-              ]),
+                  ),
+                  Expanded(child: SizedBox()),
+                  Text(
+                    product.addOns[index].price > 0
+                        ? "(${PriceConverter.convertPrice(product.addOns[index].price)} +)"
+                        : 'free'.tr,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                          color: productController.addOnActiveList[index]
+                              ? Colors.white
+                              : Theme.of(context).disabledColor,
+                          fontSize: Dimensions.blockscreenHorizontal * 3.3,
+                        ),
+                  ),
+                ]),
+              ),
             ),
           );
         },

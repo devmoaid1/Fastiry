@@ -11,6 +11,7 @@ import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../base/quantity_button.dart';
 
 class CartProductWidget extends StatelessWidget {
@@ -138,9 +139,11 @@ class CartProductWidget extends StatelessWidget {
                             width: Dimensions.blockscreenHorizontal * 40,
                             child: Text(
                               cart.product.name,
-                              style: poppinsMedium.copyWith(
-                                  fontSize:
-                                      Dimensions.blockscreenHorizontal * 5),
+                              style: Get.find<FontStyles>()
+                                  .poppinsMedium
+                                  .copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 5),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,
                             ),
@@ -156,9 +159,12 @@ class CartProductWidget extends StatelessWidget {
                                   cart.discountedPrice + cart.discountAmount),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
-                              style: poppinsRegular.copyWith(
-                                  fontSize:
-                                      Dimensions.blockscreenHorizontal * 4.5),
+                              style: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal *
+                                              4.5),
                             ),
                           ),
                         ),
@@ -167,6 +173,7 @@ class CartProductWidget extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.start,
                             children: [
                               QuantityButton(
+                                fromProductPage: false,
                                 onTap: () {
                                   if (cart.quantity > 1) {
                                     Get.find<CartController>()
@@ -182,11 +189,14 @@ class CartProductWidget extends StatelessWidget {
                               Padding(
                                 padding: EdgeInsets.symmetric(horizontal: 8.0),
                                 child: Text(cart.quantity.toString(),
-                                    style: poppinsMedium.copyWith(
-                                        fontSize:
-                                            Dimensions.fontSizeExtraLarge)),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsMedium
+                                        .copyWith(
+                                            fontSize:
+                                                Dimensions.fontSizeExtraLarge)),
                               ),
                               QuantityButton(
+                                fromProductPage: false,
                                 onTap: () => Get.find<CartController>()
                                     .setQuantity(true, cart),
                                 isIncrement: true,

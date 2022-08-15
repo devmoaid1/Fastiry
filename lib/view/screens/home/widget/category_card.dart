@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../../controller/splash_controller.dart';
 import '../../../../helper/route_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 import '../../../base/custom_image.dart';
 
 class CategoryCard extends StatelessWidget {
@@ -63,12 +63,12 @@ class CategoryCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Get.locale.languageCode != "en"
-                  ? poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
-                    )
-                  : poppinsRegular.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3.8,
-                    ),
+                  ? Get.find<FontStyles>().poppinsMedium.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                      )
+                  : Get.find<FontStyles>().poppinsRegular.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                      ),
             ),
           ),
         ]),

@@ -1,11 +1,12 @@
 import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/paginated_list_view.dart';
 import 'package:efood_multivendor/view/base/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class RestaurantProductSearchScreen extends StatefulWidget {
   final String storeID;
@@ -55,14 +56,15 @@ class _RestaurantProductSearchScreenState
                   Expanded(
                       child: TextField(
                     controller: _searchController,
-                    style: poppinsRegular.copyWith(
-                        fontSize: Dimensions.fontSizeLarge),
+                    style: Get.find<FontStyles>()
+                        .poppinsRegular
+                        .copyWith(fontSize: Dimensions.fontSizeLarge),
                     textInputAction: TextInputAction.search,
                     cursorColor: Theme.of(context).primaryColor,
                     textAlignVertical: TextAlignVertical.center,
                     decoration: InputDecoration(
                       hintText: 'search_item_in_store'.tr,
-                      hintStyle: poppinsRegular.copyWith(
+                      hintStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
                           fontSize: Dimensions.fontSizeLarge,
                           color: Theme.of(context).hintColor),
                       isDense: true,

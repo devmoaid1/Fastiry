@@ -5,13 +5,14 @@ import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class NewPassScreen extends StatefulWidget {
   final String resetToken;
@@ -78,16 +79,16 @@ class _NewPassScreenState extends State<NewPassScreen> {
                   horizontal: Dimensions.blockscreenHorizontal * 2,
                   vertical: Dimensions.blockscreenHorizontal * 3),
               child: Text('reset_password'.tr,
-                  style: poppinsRegular.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 8,
-                  ),
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                        fontSize: Dimensions.blockscreenHorizontal * 8,
+                      ),
                   textAlign: TextAlign.left),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                   horizontal: Dimensions.blockscreenHorizontal * 2),
               child: Text('enter_new_password'.tr,
-                  style: poppinsRegular.copyWith(
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 4,
                       color: lightGreyTextColor),
                   textAlign: TextAlign.left),

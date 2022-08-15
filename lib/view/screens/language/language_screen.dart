@@ -1,6 +1,5 @@
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/screens/language/widget/language_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:efood_multivendor/controller/localization_controller.dart';
@@ -10,6 +9,8 @@ import 'package:efood_multivendor/util/images.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class ChooseLanguageScreen extends StatelessWidget {
   final bool fromMenu;
@@ -49,8 +50,8 @@ class ChooseLanguageScreen extends StatelessWidget {
                         Padding(
                           padding: EdgeInsets.symmetric(
                               horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          child:
-                              Text('select_language'.tr, style: poppinsMedium),
+                          child: Text('select_language'.tr,
+                              style: Get.find<FontStyles>().poppinsMedium),
                         ),
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
 
@@ -68,10 +69,12 @@ class ChooseLanguageScreen extends StatelessWidget {
                         SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
 
                         Text('you_can_change_language'.tr,
-                            style: poppinsRegular.copyWith(
-                              fontSize: Dimensions.fontSizeSmall,
-                              color: lightGreyTextColor.withOpacity(0.7),
-                            )),
+                            style: Get.find<FontStyles>()
+                                .poppinsRegular
+                                .copyWith(
+                                  fontSize: Dimensions.fontSizeSmall,
+                                  color: lightGreyTextColor.withOpacity(0.7),
+                                )),
                       ]),
                 ),
               ),
@@ -88,15 +91,8 @@ class ChooseLanguageScreen extends StatelessWidget {
                     AppConstants.languages[localizationController.selectedIndex]
                         .countryCode,
                   ));
-                  // Get.rootController.refresh();
-                  // Get.rootController.restartApp();
-                  Get.offNamed(RouteHelper.getSplashRoute(null));
 
-                  // if (fromMenu) {
-                  //   Navigator.pop(context);
-                  // } else {
-                  //   Get.offNamed(RouteHelper.getOnBoardingRoute());
-                  // }
+                  Get.offNamed(RouteHelper.getSplashRoute(null));
                 } else {
                   showCustomSnackBar('select_a_language'.tr);
                 }

@@ -86,7 +86,10 @@ class AppConstants {
       '/api/v1/customer/loyalty-point/transactions';
   static const String LOYALTY_POINT_TRANSFER_URL =
       '/api/v1/customer/loyalty-point/point-transfer';
-
+  static const String termsAndConditionsUrl =
+      'https://fasteriy.com/terms-and-conditions';
+  static const String privacyAndPolicyUrl =
+      'https://fasteriy.com/privacy-policy';
   // Shared Key
   static const String THEME = 'theme';
   static const String TOKEN = 'multivendor_token';

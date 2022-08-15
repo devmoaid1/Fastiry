@@ -6,8 +6,8 @@ import '../../../../controller/auth_controller.dart';
 import '../../../../controller/wishlist_controller.dart';
 import '../../../../data/model/response/product_model.dart';
 import '../../../../helper/price_converter.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 import '../../../base/custom_snackbar.dart';
 import '../../../base/quantity_button.dart';
 import '../../../base/rating_bar.dart';
@@ -47,7 +47,7 @@ class ProductDetailsCard extends StatelessWidget {
                     Text(product.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
-                        style: poppinsMedium.copyWith(
+                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 5)),
                     GetBuilder<WishListController>(builder: (wishController) {
                       bool _isWished =
@@ -90,7 +90,7 @@ class ProductDetailsCard extends StatelessWidget {
                 Text(product.description,
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
-                    style: poppinsRegular.copyWith(
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
                         fontSize: Dimensions.blockscreenHorizontal * 4)),
                 SizedBox(
                   height: Dimensions.blockscreenVertical,
@@ -100,7 +100,7 @@ class ProductDetailsCard extends StatelessWidget {
                     Text(
                       PriceConverter.convertPrice(product.price,
                           discount: discount, discountType: discountType),
-                      style: poppinsRegular.copyWith(
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
                           color: Theme.of(context).dividerColor,
                           fontSize: Dimensions.blockscreenHorizontal * 4),
                     ),
@@ -111,13 +111,16 @@ class ProductDetailsCard extends StatelessWidget {
                     discount > 0
                         ? Text(
                             PriceConverter.convertPrice(product.price),
-                            style: poppinsRegular.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 3.2,
-                              color: Theme.of(context)
-                                  .disabledColor
-                                  .withOpacity(0.8),
-                              decoration: TextDecoration.lineThrough,
-                            ),
+                            style: Get.find<FontStyles>()
+                                .poppinsRegular
+                                .copyWith(
+                                  fontSize:
+                                      Dimensions.blockscreenHorizontal * 3.2,
+                                  color: Theme.of(context)
+                                      .disabledColor
+                                      .withOpacity(0.8),
+                                  decoration: TextDecoration.lineThrough,
+                                ),
                           )
                         : SizedBox(),
                   ],
@@ -148,6 +151,7 @@ class ProductDetailsCard extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             QuantityButton(
+                              fromProductPage: true,
                               onTap: () {
                                 if (productController.quantity > 1) {
                                   productController.setQuantity(false);
@@ -159,10 +163,13 @@ class ProductDetailsCard extends StatelessWidget {
                             Padding(
                               padding: EdgeInsets.symmetric(horizontal: 8.0),
                               child: Text(productController.quantity.toString(),
-                                  style: poppinsMedium.copyWith(
-                                      fontSize: Dimensions.fontSizeLarge)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsMedium
+                                      .copyWith(
+                                          fontSize: Dimensions.fontSizeLarge)),
                             ),
                             QuantityButton(
+                              fromProductPage: true,
                               onTap: () => productController.setQuantity(true),
                               isIncrement: true,
                             ),

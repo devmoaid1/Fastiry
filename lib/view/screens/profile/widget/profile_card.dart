@@ -1,7 +1,8 @@
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class ProfileCard extends StatelessWidget {
   final String title;
@@ -25,16 +26,16 @@ class ProfileCard extends StatelessWidget {
       ),
       child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
         Text(data,
-            style: poppinsMedium.copyWith(
-              fontSize: Dimensions.fontSizeExtraLarge,
-              color: Theme.of(context).primaryColor,
-            )),
+            style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                  fontSize: Dimensions.fontSizeExtraLarge,
+                  color: Theme.of(context).primaryColor,
+                )),
         SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
         Text(title,
-            style: poppinsRegular.copyWith(
-              fontSize: Dimensions.fontSizeSmall,
-              color: Theme.of(context).disabledColor,
-            )),
+            style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                  fontSize: Dimensions.fontSizeSmall,
+                  color: Theme.of(context).disabledColor,
+                )),
       ]),
     ));
   }

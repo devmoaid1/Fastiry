@@ -7,7 +7,6 @@ import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:efood_multivendor/view/base/quantity_button.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -15,6 +14,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/cart_controller.dart';
+import '../../theme/font_styles.dart';
 import '../../util/images.dart';
 import 'confirmation_dialog.dart';
 
@@ -211,10 +211,13 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                             Text(widget.product.name,
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
-                                style: poppinsMedium.copyWith(
-                                    color: Theme.of(context).dividerColor,
-                                    fontSize:
-                                        Dimensions.blockscreenHorizontal * 5)),
+                                style: Get.find<FontStyles>()
+                                    .poppinsMedium
+                                    .copyWith(
+                                        color: Theme.of(context).dividerColor,
+                                        fontSize:
+                                            Dimensions.blockscreenHorizontal *
+                                                5)),
                             SizedBox(
                               height: Dimensions.blockscreenVertical,
                             ),
@@ -225,10 +228,14 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                       widget.product.price,
                                       discount: _discount,
                                       discountType: _discountType),
-                                  style: poppinsMedium.copyWith(
-                                      color: Theme.of(context).disabledColor,
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 4),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsMedium
+                                      .copyWith(
+                                          color:
+                                              Theme.of(context).disabledColor,
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  4),
                                 ),
                                 SizedBox(
                                     width: _discount > 0
@@ -238,16 +245,18 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                     ? Text(
                                         PriceConverter.convertPrice(
                                             widget.product.price),
-                                        style: poppinsRegular.copyWith(
-                                          fontSize:
-                                              Dimensions.blockscreenHorizontal *
+                                        style: Get.find<FontStyles>()
+                                            .poppinsRegular
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
                                                   3.2,
-                                          color: Theme.of(context)
-                                              .disabledColor
-                                              .withOpacity(0.7),
-                                          decoration:
-                                              TextDecoration.lineThrough,
-                                        ),
+                                              color: Theme.of(context)
+                                                  .disabledColor
+                                                  .withOpacity(0.7),
+                                              decoration:
+                                                  TextDecoration.lineThrough,
+                                            ),
                                       )
                                     : SizedBox(),
                               ],
@@ -276,6 +285,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                       ]),
                                   child: Row(children: [
                                     QuantityButton(
+                                      fromProductPage: true,
                                       onTap: () {
                                         if (productController.quantity > 1) {
                                           productController.setQuantity(false);
@@ -286,10 +296,13 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                           productController.quantity != 1,
                                     ),
                                     Text(productController.quantity.toString(),
-                                        style: poppinsMedium.copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeLarge)),
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                                fontSize:
+                                                    Dimensions.fontSizeLarge)),
                                     QuantityButton(
+                                      fromProductPage: true,
                                       onTap: () =>
                                           productController.setQuantity(true),
                                       isIncrement: true,
@@ -330,7 +343,7 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             Text(widget.product.choiceOptions[index].title,
-                                style: poppinsMedium),
+                                style: Get.find<FontStyles>().poppinsMedium),
                             SizedBox(
                                 height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             GridView.builder(
@@ -384,13 +397,16 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                           .trim(),
                                       maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
-                                      style: poppinsRegular.copyWith(
-                                        color: productController
-                                                    .variationIndex[index] !=
-                                                i
-                                            ? Colors.black
-                                            : Colors.white,
-                                      ),
+                                      style: Get.find<FontStyles>()
+                                          .poppinsRegular
+                                          .copyWith(
+                                            color: productController
+                                                            .variationIndex[
+                                                        index] !=
+                                                    i
+                                                ? Colors.black
+                                                : Colors.white,
+                                          ),
                                     ),
                                   ),
                                 );
@@ -417,7 +433,8 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                     ? Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                            Text('addons'.tr, style: poppinsMedium),
+                            Text('addons'.tr,
+                                style: Get.find<FontStyles>().poppinsMedium),
                             SizedBox(
                                 height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                             GridView.builder(
@@ -489,15 +506,17 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                                 maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                                 textAlign: TextAlign.center,
-                                                style: poppinsMedium.copyWith(
-                                                  color: productController
-                                                              .addOnActiveList[
-                                                          index]
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize:
-                                                      Dimensions.fontSizeSmall,
-                                                ),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsMedium
+                                                    .copyWith(
+                                                      color: productController
+                                                                  .addOnActiveList[
+                                                              index]
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize: Dimensions
+                                                          .fontSizeSmall,
+                                                    ),
                                               ),
                                               SizedBox(height: 5),
                                               Text(
@@ -512,15 +531,17 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                                     : 'free'.tr,
                                                 maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
-                                                style: poppinsRegular.copyWith(
-                                                  color: productController
-                                                              .addOnActiveList[
-                                                          index]
-                                                      ? Colors.white
-                                                      : Colors.black,
-                                                  fontSize: Dimensions
-                                                      .fontSizeExtraSmall,
-                                                ),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                      color: productController
+                                                                  .addOnActiveList[
+                                                              index]
+                                                          ? Colors.white
+                                                          : Colors.black,
+                                                      fontSize: Dimensions
+                                                          .fontSizeExtraSmall,
+                                                    ),
                                               ),
                                             ]),
                                       ),
@@ -565,9 +586,12 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                                       productController
                                                           .addOnQtyList[index]
                                                           .toString(),
-                                                      style: poppinsMedium.copyWith(
-                                                          fontSize: Dimensions
-                                                              .fontSizeSmall),
+                                                      style: Get.find<
+                                                              FontStyles>()
+                                                          .poppinsMedium
+                                                          .copyWith(
+                                                              fontSize: Dimensions
+                                                                  .fontSizeSmall),
                                                     ),
                                                     Expanded(
                                                       child: InkWell(
@@ -613,14 +637,15 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                         ),
                         child: Column(children: [
                           Text('not_available_now'.tr,
-                              style: poppinsMedium.copyWith(
-                                color: Theme.of(context).primaryColor,
-                                fontSize: Dimensions.fontSizeLarge,
-                              )),
+                              style:
+                                  Get.find<FontStyles>().poppinsMedium.copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: Dimensions.fontSizeLarge,
+                                      )),
                           Text(
                             '${'available_will_be'.tr} ${DateConverter.convertTimeToTime(widget.product.availableTimeStarts)} '
                             '- ${DateConverter.convertTimeToTime(widget.product.availableTimeEnds)}',
-                            style: poppinsRegular,
+                            style: Get.find<FontStyles>().poppinsRegular,
                           ),
                         ]),
                       ),
@@ -676,14 +701,16 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
                                   children: [
                                     Text(
                                       "Add to bascket",
-                                      style: poppinsRegular.copyWith(
-                                          color: Colors.white),
+                                      style: Get.find<FontStyles>()
+                                          .poppinsRegular
+                                          .copyWith(color: Colors.white),
                                     ),
                                     Text(
                                       PriceConverter.convertPrice(
                                           priceWithAddons),
-                                      style: poppinsRegular.copyWith(
-                                          color: Colors.white),
+                                      style: Get.find<FontStyles>()
+                                          .poppinsRegular
+                                          .copyWith(color: Colors.white),
                                     ),
                                   ],
                                 ),
@@ -717,7 +744,8 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
           borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL)),
       content: Text(
         'item_added_to_cart'.tr,
-        style: poppinsMedium.copyWith(color: Colors.white),
+        style:
+            Get.find<FontStyles>().poppinsMedium.copyWith(color: Colors.white),
       ),
     ));
     Get.showSnackbar(GetSnackBar(
@@ -726,7 +754,9 @@ class _ProductBottomSheetState extends State<ProductBottomSheet> {
       mainButton: TextButton(
         onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
         child: Text('view_cart'.tr,
-            style: poppinsMedium.copyWith(color: Colors.white)),
+            style: Get.find<FontStyles>()
+                .poppinsMedium
+                .copyWith(color: Colors.white)),
       ),
       onTap: (_) => Get.toNamed(RouteHelper.getCartRoute()),
       duration: Duration(seconds: 4),

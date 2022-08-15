@@ -1,8 +1,9 @@
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class NoDataScreen extends StatelessWidget {
   final bool isCart;
@@ -25,7 +26,7 @@ class NoDataScreen extends StatelessWidget {
             SizedBox(height: Dimensions.blockscreenVertical * 3),
             Text(
               isCart ? 'cart_is_empty'.tr : text,
-              style: poppinsMedium.copyWith(
+              style: Get.find<FontStyles>().poppinsMedium.copyWith(
                   fontSize: Dimensions.blockscreenHorizontal * 3.5,
                   color: Theme.of(context).dividerColor),
               textAlign: TextAlign.center,

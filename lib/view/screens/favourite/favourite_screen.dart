@@ -1,11 +1,12 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/screens/favourite/widget/fav_item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class FavouriteScreen extends StatefulWidget {
   @override
@@ -40,10 +41,12 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                   indicatorWeight: 3,
                   labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: Theme.of(context).dividerColor,
-                  unselectedLabelStyle: poppinsRegular.copyWith(
-                      color: Theme.of(context).disabledColor,
-                      fontSize: Dimensions.fontSizeSmall),
-                  labelStyle: poppinsBold.copyWith(
+                  unselectedLabelStyle: Get.find<FontStyles>()
+                      .poppinsRegular
+                      .copyWith(
+                          color: Theme.of(context).disabledColor,
+                          fontSize: Dimensions.fontSizeSmall),
+                  labelStyle: Get.find<FontStyles>().poppinsBold.copyWith(
                       fontSize: Dimensions.fontSizeSmall,
                       color: Theme.of(context).primaryColor),
                   tabs: [

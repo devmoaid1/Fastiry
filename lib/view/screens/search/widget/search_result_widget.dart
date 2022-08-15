@@ -5,6 +5,8 @@ import 'package:efood_multivendor/view/screens/search/widget/item_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
+
 class SearchResultWidget extends StatefulWidget {
   final String searchText;
   SearchResultWidget({@required this.searchText});
@@ -13,7 +15,8 @@ class SearchResultWidget extends StatefulWidget {
   _SearchResultWidgetState createState() => _SearchResultWidgetState();
 }
 
-class _SearchResultWidgetState extends State<SearchResultWidget> with TickerProviderStateMixin {
+class _SearchResultWidgetState extends State<SearchResultWidget>
+    with TickerProviderStateMixin {
   TabController _tabController;
 
   @override
@@ -26,38 +29,46 @@ class _SearchResultWidgetState extends State<SearchResultWidget> with TickerProv
   @override
   Widget build(BuildContext context) {
     return Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-
       GetBuilder<SearchController>(builder: (searchController) {
         bool _isNull = true;
         int _length = 0;
-        if(searchController.isRestaurant) {
+        if (searchController.isRestaurant) {
           _isNull = searchController.searchRestList == null;
-          if(!_isNull) {
+          if (!_isNull) {
             _length = searchController.searchRestList.length;
           }
-        }else {
+        } else {
           _isNull = searchController.searchProductList == null;
-          if(!_isNull) {
+          if (!_isNull) {
             _length = searchController.searchProductList.length;
           }
         }
-        return _isNull ? SizedBox() : Center(child: SizedBox(width: Dimensions.WEB_MAX_WIDTH, child: Padding(
-          padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-          child: Row(children: [
-            Text(
-              _length.toString(),
-              style: robotoBold.copyWith(color: Theme.of(context).primaryColor, fontSize: Dimensions.fontSizeSmall),
-            ),
-            SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            Text(
-              'results_found'.tr,
-              style: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
-            ),
-          ]),
-        )));
+        return _isNull
+            ? SizedBox()
+            : Center(
+                child: SizedBox(
+                    width: Dimensions.WEB_MAX_WIDTH,
+                    child: Padding(
+                      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                      child: Row(children: [
+                        Text(
+                          _length.toString(),
+                          style: Get.find<FontStyles>().poppinsBold.copyWith(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: Dimensions.fontSizeSmall),
+                        ),
+                        SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                        Text(
+                          'results_found'.tr,
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                              color: Theme.of(context).disabledColor,
+                              fontSize: Dimensions.fontSizeSmall),
+                        ),
+                      ]),
+                    )));
       }),
-
-      Center(child: Container(
+      Center(
+          child: Container(
         width: Dimensions.WEB_MAX_WIDTH,
         color: Theme.of(context).cardColor,
         child: TabBar(
@@ -66,19 +77,24 @@ class _SearchResultWidgetState extends State<SearchResultWidget> with TickerProv
           indicatorWeight: 3,
           labelColor: Theme.of(context).primaryColor,
           unselectedLabelColor: Theme.of(context).disabledColor,
-          unselectedLabelStyle: robotoRegular.copyWith(color: Theme.of(context).disabledColor, fontSize: Dimensions.fontSizeSmall),
-          labelStyle: robotoBold.copyWith(fontSize: Dimensions.fontSizeSmall, color: Theme.of(context).primaryColor),
+          unselectedLabelStyle: robotoRegular.copyWith(
+              color: Theme.of(context).disabledColor,
+              fontSize: Dimensions.fontSizeSmall),
+          labelStyle: robotoBold.copyWith(
+              fontSize: Dimensions.fontSizeSmall,
+              color: Theme.of(context).primaryColor),
           tabs: [
             Tab(text: 'food'.tr),
             Tab(text: 'restaurants'.tr),
           ],
         ),
       )),
-
-      Expanded(child: NotificationListener(
+      Expanded(
+          child: NotificationListener(
         onNotification: (scrollNotification) {
           if (scrollNotification is ScrollEndNotification) {
-            Get.find<SearchController>().setRestaurant(_tabController.index == 1);
+            Get.find<SearchController>()
+                .setRestaurant(_tabController.index == 1);
             Get.find<SearchController>().searchData(widget.searchText);
           }
           return false;
@@ -91,7 +107,6 @@ class _SearchResultWidgetState extends State<SearchResultWidget> with TickerProv
           ],
         ),
       )),
-
     ]);
   }
 }

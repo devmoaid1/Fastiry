@@ -4,9 +4,9 @@ import 'package:get/get.dart';
 
 import '../../../../controller/user_controller.dart';
 import '../../../../helper/route_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 import 'fastiry_option.dart';
 
 class FastiryOptions extends StatelessWidget {
@@ -28,8 +28,9 @@ class FastiryOptions extends StatelessWidget {
                         Get.find<AuthController>().isLoggedIn()
                     ? "${"hey".tr},${userController.userInfoModel.fName}"
                     : "hey_guest".tr,
-                style: poppinsMedium.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 5),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(fontSize: Dimensions.blockscreenHorizontal * 5),
               ),
               SizedBox(
                 height: Dimensions.blockscreenVertical * 2,

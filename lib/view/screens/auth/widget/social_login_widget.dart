@@ -12,9 +12,10 @@
 //
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class SocialLoginWidget extends StatelessWidget {
   final String iconPath;
@@ -62,8 +63,9 @@ class SocialLoginWidget extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: Text(
                 title,
-                style:
-                    poppinsMedium.copyWith(color: this.fontColor, fontSize: 20),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(color: this.fontColor, fontSize: 20),
               ),
             )
           ],

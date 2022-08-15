@@ -1,10 +1,11 @@
 import 'package:efood_multivendor/controller/product_controller.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class PopularFoodScreen extends StatefulWidget {
   final bool isPopular;
@@ -52,8 +53,9 @@ class _PopularFoodScreenState extends State<PopularFoodScreen> {
               widget.isPopular
                   ? 'popular_foods_nearby'.tr
                   : 'best_reviewed_food'.tr,
-              style: poppinsMedium.copyWith(
-                  fontSize: Dimensions.blockscreenHorizontal * 5),
+              style: Get.find<FontStyles>()
+                  .poppinsMedium
+                  .copyWith(fontSize: Dimensions.blockscreenHorizontal * 5),
             ),
           ),
           Expanded(

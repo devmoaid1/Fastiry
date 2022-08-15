@@ -5,7 +5,6 @@ import 'package:efood_multivendor/data/model/response/zone_response_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_loader.dart';
@@ -16,6 +15,8 @@ import 'package:efood_multivendor/view/screens/location/widget/permission_dialog
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class AccessLocationScreen extends StatelessWidget {
   final bool fromSignUp;
@@ -85,8 +86,9 @@ class AccessLocationScreen extends StatelessWidget {
                     Text(
                       'find_restaurants_and_foods'.tr.toUpperCase(),
                       textAlign: TextAlign.center,
-                      style: poppinsMedium.copyWith(
-                          fontSize: Dimensions.fontSizeExtraLarge),
+                      style: Get.find<FontStyles>()
+                          .poppinsMedium
+                          .copyWith(fontSize: Dimensions.fontSizeExtraLarge),
                     ),
                     Padding(
                       padding: EdgeInsets.symmetric(
@@ -94,7 +96,7 @@ class AccessLocationScreen extends StatelessWidget {
                       child: Text(
                         'by_allowing_location_access'.tr,
                         textAlign: TextAlign.center,
-                        style: poppinsRegular.copyWith(
+                        style: Get.find<FontStyles>().poppinsRegular.copyWith(
                             fontSize: Dimensions.fontSizeSmall,
                             color: Theme.of(context)
                                 .dividerColor
@@ -186,10 +188,10 @@ class BottomButton extends StatelessWidget {
                   ),
                   Text('set_from_map'.tr,
                       textAlign: TextAlign.center,
-                      style: poppinsRegular.copyWith(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: Dimensions.fontSizeLarge,
-                      )),
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            color: Theme.of(context).primaryColor,
+                            fontSize: Dimensions.fontSizeLarge,
+                          )),
                 ]),
               ),
             ])));

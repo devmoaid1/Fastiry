@@ -3,10 +3,11 @@ import 'package:efood_multivendor/data/model/response/address_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class AddressWidget extends StatelessWidget {
   final AddressModel address;
@@ -56,7 +57,7 @@ class AddressWidget extends StatelessWidget {
                       children: [
                         Text(
                           "${address.addressType.tr} (${address.address}) ",
-                          style: poppinsMedium.copyWith(
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
                               fontSize: Dimensions.fontSizeSmall),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
@@ -64,7 +65,7 @@ class AddressWidget extends StatelessWidget {
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                         Text(
                           "${address.road} , ${address.house} , ${address.floor}",
-                          style: poppinsRegular.copyWith(
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
                             fontSize: Dimensions.fontSizeExtraSmall,
                           ),
                           maxLines: 1,
@@ -72,7 +73,7 @@ class AddressWidget extends StatelessWidget {
                         ),
                         Text(
                           "${address.contactPersonName}",
-                          style: poppinsRegular.copyWith(
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
                             fontSize: Dimensions.fontSizeExtraSmall,
                           ),
                           maxLines: 1,
@@ -82,7 +83,7 @@ class AddressWidget extends StatelessWidget {
                           children: [
                             Text(
                               "Mobile Number:",
-                              style: poppinsRegular.copyWith(
+                              style: Get.find<FontStyles>().poppinsRegular.copyWith(
                                   fontSize: Dimensions.fontSizeExtraSmall,
                                   color: Theme.of(context).disabledColor),
                               maxLines: 1,
@@ -90,7 +91,7 @@ class AddressWidget extends StatelessWidget {
                             ),
                             Text(
                               "${address.contactPersonNumber}",
-                              style: poppinsRegular.copyWith(
+                              style: Get.find<FontStyles>().poppinsRegular.copyWith(
                                   fontSize: Dimensions.fontSizeExtraSmall,
                                   color: Theme.of(context).disabledColor),
                               maxLines: 1,

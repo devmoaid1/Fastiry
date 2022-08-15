@@ -1,8 +1,9 @@
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class PaginatedListView extends StatefulWidget {
   final ScrollController scrollController;
@@ -110,9 +111,11 @@ class _PaginatedListViewState extends State<PaginatedListView> {
                               color: Theme.of(context).primaryColor,
                             ),
                             child: Text('view_more'.tr,
-                                style: poppinsMedium.copyWith(
-                                    fontSize: Dimensions.fontSizeLarge,
-                                    color: Colors.white)),
+                                style: Get.find<FontStyles>()
+                                    .poppinsMedium
+                                    .copyWith(
+                                        fontSize: Dimensions.fontSizeLarge,
+                                        color: Colors.white)),
                           ),
                         )
                       : SizedBox(),

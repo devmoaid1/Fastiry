@@ -5,7 +5,6 @@ import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
@@ -16,6 +15,7 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/image_checker.dart';
 import '../../../../util/images.dart';
 import '../../../base/discount_tag.dart';
@@ -147,19 +147,27 @@ class PopularStoreView1 extends StatelessWidget {
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Text(
-                                                          _restaurant[index]
-                                                                  .name ??
-                                                              '',
-                                                          style: poppinsMedium
-                                                              .copyWith(
-                                                                  fontSize:
-                                                                      Dimensions
-                                                                              .blockscreenHorizontal *
-                                                                          4),
-                                                          maxLines: 1,
-                                                          overflow: TextOverflow
-                                                              .ellipsis,
+                                                        Container(
+                                                          width: (Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  50) *
+                                                              0.8,
+                                                          child: Text(
+                                                            _restaurant[index]
+                                                                    .name ??
+                                                                '',
+                                                            style: Get.find<
+                                                                    FontStyles>()
+                                                                .poppinsMedium
+                                                                .copyWith(
+                                                                    fontSize:
+                                                                        Dimensions.blockscreenHorizontal *
+                                                                            4),
+                                                            maxLines: 1,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis,
+                                                          ),
                                                         ),
                                                         GetBuilder<
                                                                 WishListController>(
@@ -231,12 +239,15 @@ class PopularStoreView1 extends StatelessWidget {
                                                       _restaurant[index]
                                                               .address ??
                                                           '',
-                                                      style: poppinsMedium.copyWith(
-                                                          fontSize: Dimensions
-                                                                  .blockscreenHorizontal *
-                                                              3,
-                                                          color:
-                                                              Theme.of(context)
+                                                      style: Get.find<
+                                                              FontStyles>()
+                                                          .poppinsMedium
+                                                          .copyWith(
+                                                              fontSize: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  3,
+                                                              color: Theme.of(
+                                                                      context)
                                                                   .dividerColor
                                                                   .withOpacity(
                                                                       0.6)),
@@ -314,10 +325,14 @@ class PopularStoreShimmer extends StatelessWidget {
           decoration: BoxDecoration(
               color: Theme.of(context).cardColor,
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.grey[300], blurRadius: 10, spreadRadius: 1)
-              ]),
+              boxShadow: Get.isDarkMode
+                  ? null
+                  : [
+                      BoxShadow(
+                          color: Colors.grey[300],
+                          blurRadius: 10,
+                          spreadRadius: 1)
+                    ]),
           child: Shimmer(
             enabled: Get.find<HomeController>().isLoading &&
                 restaurantController.restaurantList == null,

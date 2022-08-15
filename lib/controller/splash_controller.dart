@@ -10,8 +10,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../helper/route_helper.dart';
+import '../theme/font_styles.dart';
 import '../util/app_constants.dart';
 import 'auth_controller.dart';
+import 'localization_controller.dart';
 import 'location_controller.dart';
 
 class SplashController extends GetxController implements GetxService {
@@ -47,6 +49,11 @@ class SplashController extends GetxController implements GetxService {
 
   bool showIntro() {
     return splashRepo.showIntro();
+  }
+
+  void intializeFontsStyle() {
+    final languageCode = Get.find<LocalizationController>().locale.languageCode;
+    Get.find<FontStyles>().setFonts(languageCode);
   }
 
   void handleSplashRouting(String orderId) {

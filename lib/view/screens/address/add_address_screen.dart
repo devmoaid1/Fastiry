@@ -6,7 +6,6 @@ import 'package:efood_multivendor/data/model/response/address_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -18,6 +17,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 
+import '../../../theme/font_styles.dart';
 import '../../base/custom_text_field.dart';
 
 class AddAddressScreen extends StatefulWidget {
@@ -267,18 +267,24 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                   Center(
                                       child: Text(
                                     'add_the_location_correctly'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        color: Theme.of(context).disabledColor,
-                                        fontSize:
-                                            Dimensions.fontSizeExtraSmall),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            color:
+                                                Theme.of(context).disabledColor,
+                                            fontSize:
+                                                Dimensions.fontSizeExtraSmall),
                                   )),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_LARGE),
                                   Text(
                                     'label_as'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
@@ -342,16 +348,18 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                               Text(
                                                 locationController
                                                     .addressTypeList[index].tr,
-                                                style: poppinsRegular.copyWith(
-                                                    color: locationController
-                                                                .addressTypeIndex ==
-                                                            index
-                                                        ? Theme.of(context)
-                                                            .textTheme
-                                                            .bodyText1
-                                                            .color
-                                                        : Theme.of(context)
-                                                            .disabledColor),
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                        color: locationController
+                                                                    .addressTypeIndex ==
+                                                                index
+                                                            ? Theme.of(context)
+                                                                .textTheme
+                                                                .bodyText1
+                                                                .color
+                                                            : Theme.of(context)
+                                                                .disabledColor),
                                               ),
                                             ]),
                                           ),
@@ -361,9 +369,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       height: Dimensions.PADDING_SIZE_LARGE),
                                   Text(
                                     'delivery_address'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
@@ -383,9 +394,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       height: Dimensions.PADDING_SIZE_LARGE),
                                   Text(
                                     'contact_person_name'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
@@ -404,9 +418,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       height: Dimensions.PADDING_SIZE_LARGE),
                                   Text(
                                     'contact_person_number'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
@@ -424,9 +441,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                       height: Dimensions.PADDING_SIZE_LARGE),
                                   Text(
                                     'street_number'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),
@@ -448,9 +468,12 @@ class _AddAddressScreenState extends State<AddAddressScreen> {
                                         'floor'.tr +
                                         ' ' +
                                         'number'.tr,
-                                    style: poppinsRegular.copyWith(
-                                        fontSize: Dimensions.fontSizeSmall,
-                                        color: Theme.of(context).disabledColor),
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions.fontSizeSmall,
+                                            color: Theme.of(context)
+                                                .disabledColor),
                                   ),
                                   SizedBox(
                                       height: Dimensions.PADDING_SIZE_SMALL),

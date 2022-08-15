@@ -5,7 +5,6 @@ import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
@@ -13,6 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/image_checker.dart';
 import '../../../base/discount_tag.dart';
 import '../../product_details/productDetails.dart';
@@ -140,10 +140,13 @@ class PopularItemView1 extends StatelessWidget {
                                                 children: [
                                                   Text(
                                                     _productList[index].name,
-                                                    style: poppinsMedium.copyWith(
-                                                        fontSize: Dimensions
-                                                                .blockscreenHorizontal *
-                                                            3),
+                                                    style: Get.find<
+                                                            FontStyles>()
+                                                        .poppinsMedium
+                                                        .copyWith(
+                                                            fontSize: Dimensions
+                                                                    .blockscreenHorizontal *
+                                                                3),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,
@@ -151,11 +154,15 @@ class PopularItemView1 extends StatelessWidget {
                                                   Text(
                                                     _productList[index]
                                                         .restaurantName,
-                                                    style: poppinsMedium.copyWith(
-                                                        fontSize: Dimensions
-                                                            .fontSizeExtraSmall,
-                                                        color: Theme.of(context)
-                                                            .disabledColor),
+                                                    style: Get.find<
+                                                            FontStyles>()
+                                                        .poppinsMedium
+                                                        .copyWith(
+                                                            fontSize: Dimensions
+                                                                .fontSizeExtraSmall,
+                                                            color: Theme.of(
+                                                                    context)
+                                                                .disabledColor),
                                                     maxLines: 1,
                                                     overflow:
                                                         TextOverflow.ellipsis,

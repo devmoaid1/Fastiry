@@ -2,9 +2,11 @@
 
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class CustomTextField extends StatefulWidget {
   final String hintText;
@@ -62,7 +64,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
           controller: widget.controller,
           focusNode: widget.focusNode,
           textAlign: widget.textAlign,
-          style: poppinsRegular.copyWith(
+          style: Get.find<FontStyles>().poppinsRegular.copyWith(
               fontSize: Dimensions.fontSizeLarge, color: widget.textColor),
           textInputAction: widget.inputAction,
           keyboardType:
@@ -90,7 +92,7 @@ class _CustomTextFieldState extends State<CustomTextField> {
             isDense: true,
             hintText: widget.hintText,
             fillColor: Theme.of(context).cardColor,
-            hintStyle: poppinsRegular.copyWith(
+            hintStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
                 fontSize: Dimensions.fontSizeDefault,
                 color: Theme.of(context).hintColor),
             filled: false,

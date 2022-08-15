@@ -7,9 +7,11 @@ class QuantityButton extends StatelessWidget {
   final bool isIncrement;
   final bool canDecrement;
   final Function onTap;
+  final bool fromProductPage;
   QuantityButton(
       {@required this.isIncrement,
       @required this.onTap,
+      @required this.fromProductPage,
       this.canDecrement = true});
 
   @override
@@ -24,12 +26,18 @@ class QuantityButton extends StatelessWidget {
                 size: 27, color: Theme.of(context).primaryColor
                 // : Theme.of(context).primaryColor.withOpacity(0.4),
                 )
-            : SvgPicture.asset(
-                Images.trashIcon,
-                color: Theme.of(context).primaryColor,
-                width: 20,
-                height: 20,
-              ),
+            : !fromProductPage
+                ? SvgPicture.asset(
+                    Images.trashIcon,
+                    color: Theme.of(context).primaryColor,
+                    width: 20,
+                    height: 20,
+                  )
+                : Icon(Icons.remove,
+                    size: 27,
+                    color: Theme.of(context).primaryColor.withOpacity(0.4)
+                    // : Theme.of(context).primaryColor.withOpacity(0.4),
+                    ),
       ),
     );
   }

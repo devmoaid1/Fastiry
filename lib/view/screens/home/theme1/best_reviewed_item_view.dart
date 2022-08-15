@@ -6,7 +6,6 @@ import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/discount_tag.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
@@ -16,6 +15,7 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/image_checker.dart';
 import '../../product_details/productDetails.dart';
 
@@ -208,8 +208,9 @@ class PriceRow extends StatelessWidget {
                     discountType:
                         productController.getDiscountType(_productList[index]),
                   ),
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3),
+                  style: Get.find<FontStyles>()
+                      .poppinsMedium
+                      .copyWith(fontSize: Dimensions.blockscreenHorizontal * 3),
                 ),
                 SizedBox(
                     width: _productList[index].discount > 0
@@ -219,12 +220,13 @@ class PriceRow extends StatelessWidget {
                     ? Text(
                         PriceConverter.convertPrice(productController
                             .getStartingPrice(_productList[index])),
-                        style: poppinsRegular.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 3,
-                          color:
-                              Theme.of(context).dividerColor.withOpacity(0.6),
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                        style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 3,
+                              color: Theme.of(context)
+                                  .dividerColor
+                                  .withOpacity(0.6),
+                              decoration: TextDecoration.lineThrough,
+                            ),
                       )
                     : SizedBox()
               ],
@@ -276,7 +278,7 @@ class FoodDetailsRow extends StatelessWidget {
                     child: Text(
                       _productList[index].name ?? '',
                       textAlign: TextAlign.center,
-                      style: poppinsMedium.copyWith(
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 4),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
@@ -290,7 +292,7 @@ class FoodDetailsRow extends StatelessWidget {
                     child: Text(
                       _productList[index].restaurantName ?? '',
                       textAlign: TextAlign.center,
-                      style: poppinsMedium.copyWith(
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 3,
                           color:
                               Theme.of(context).dividerColor.withOpacity(0.6)),
@@ -307,7 +309,7 @@ class FoodDetailsRow extends StatelessWidget {
           Icon(Icons.star, color: Colors.orangeAccent[200], size: 15),
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(_productList[index].avgRating.toStringAsFixed(1),
-              style: poppinsRegular),
+              style: Get.find<FontStyles>().poppinsRegular),
         ])
       ],
     );

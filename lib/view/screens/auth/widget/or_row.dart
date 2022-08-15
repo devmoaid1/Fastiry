@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class OrRow extends StatelessWidget {
   const OrRow({Key key}) : super(key: key);
@@ -20,7 +21,7 @@ class OrRow extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 10.0),
           child: Text(
             "OR",
-            style: poppinsRegular,
+            style: Get.find<FontStyles>().poppinsRegular,
           ),
         ),
         Expanded(

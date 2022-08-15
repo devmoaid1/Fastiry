@@ -3,8 +3,8 @@ import 'package:get/get.dart';
 
 import '../../../../data/model/response/product_model.dart';
 import '../../../../helper/date_converter.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class ProductNotAvailableCard extends StatelessWidget {
   final Product product;
@@ -23,14 +23,14 @@ class ProductNotAvailableCard extends StatelessWidget {
       ),
       child: Column(children: [
         Text('not_available_now'.tr,
-            style: poppinsMedium.copyWith(
-              color: Theme.of(context).primaryColor,
-              fontSize: Dimensions.fontSizeLarge,
-            )),
+            style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: Dimensions.fontSizeLarge,
+                )),
         Text(
           '${'available_will_be'.tr} ${DateConverter.convertTimeToTime(product.availableTimeStarts)} '
           '- ${DateConverter.convertTimeToTime(product.availableTimeEnds)}',
-          style: poppinsRegular,
+          style: Get.find<FontStyles>().poppinsRegular,
         ),
       ]),
     );

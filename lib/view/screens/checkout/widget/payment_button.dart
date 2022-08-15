@@ -1,8 +1,9 @@
 import 'package:efood_multivendor/controller/order_controller.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class PaymentButton extends StatelessWidget {
   final String icon;
@@ -51,12 +52,13 @@ class PaymentButton extends StatelessWidget {
               ),
               title: Text(
                 title,
-                style:
-                    poppinsMedium.copyWith(fontSize: Dimensions.fontSizeSmall),
+                style: Get.find<FontStyles>()
+                    .poppinsMedium
+                    .copyWith(fontSize: Dimensions.fontSizeSmall),
               ),
               subtitle: Text(
                 subtitle,
-                style: poppinsRegular.copyWith(
+                style: Get.find<FontStyles>().poppinsRegular.copyWith(
                     fontSize: Dimensions.fontSizeExtraSmall,
                     color: Theme.of(context).disabledColor),
                 maxLines: 1,

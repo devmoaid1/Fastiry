@@ -21,9 +21,22 @@ class CartController extends GetxController implements GetxService {
   }
 
   void addToCart(CartModel cartModel, int index) {
+    List<CartModel> cartListCopy = List.from(_cartList);
+    bool isProductExistinCart = false;
     if (index != null && index != -1) {
       _cartList.replaceRange(index, index + 1, [cartModel]);
     } else {
+      for (var cartItem in _cartList) {
+        if (cartModel.product.id == cartItem.product.id) {
+          cartModel.quantity += cartItem.quantity;
+          isProductExistinCart = true;
+        }
+      }
+
+      if (isProductExistinCart) {
+        _cartList.removeWhere(
+            (element) => element.product.id == cartModel.product.id);
+      }
       _cartList.add(cartModel);
     }
     cartRepo.addToCartList(_cartList);
@@ -109,12 +122,14 @@ class CartController extends GetxController implements GetxService {
     update();
   }
 
-  void getCartSubTotal() {
+  double getCartSubTotal() {
     _cartSubTotal = 0;
     for (var cartProduct in _cartList) {
       _cartSubTotal += (cartProduct.quantity * cartProduct.price);
     }
 
     update();
+
+    return _cartSubTotal;
   }
 }

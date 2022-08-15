@@ -6,9 +6,9 @@ import '../../../../controller/product_controller.dart';
 import '../../../../data/model/response/cart_model.dart';
 import '../../../../helper/price_converter.dart';
 import '../../../../helper/route_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
-import '../../../../util/styles.dart';
 import '../../../base/confirmation_dialog.dart';
 
 class AddToBascketBottomBar extends StatelessWidget {
@@ -80,11 +80,15 @@ class AddToBascketBottomBar extends StatelessWidget {
                     children: [
                       Text(
                         "add_to_bascket".tr,
-                        style: poppinsRegular.copyWith(color: Colors.white),
+                        style: Get.find<FontStyles>()
+                            .poppinsRegular
+                            .copyWith(color: Colors.white),
                       ),
                       Text(
                         PriceConverter.convertPrice(totalPrice),
-                        style: poppinsRegular.copyWith(color: Colors.white),
+                        style: Get.find<FontStyles>()
+                            .poppinsRegular
+                            .copyWith(color: Colors.white),
                       ),
                     ],
                   ),
@@ -103,7 +107,9 @@ void _showCartSnackBar() {
     mainButton: TextButton(
       onPressed: () => Get.toNamed(RouteHelper.getCartRoute()),
       child: Text('view_cart'.tr,
-          style: poppinsMedium.copyWith(color: Colors.white)),
+          style: Get.find<FontStyles>()
+              .poppinsMedium
+              .copyWith(color: Colors.white)),
     ),
     onTap: (_) => Get.toNamed(RouteHelper.getCartRoute()),
     duration: Duration(seconds: 4),

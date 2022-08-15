@@ -1,9 +1,10 @@
 import 'package:efood_multivendor/controller/order_controller.dart';
 import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class DeliveryOptionButton extends StatelessWidget {
   final String value;
@@ -33,11 +34,11 @@ class DeliveryOptionButton extends StatelessWidget {
                 activeColor: Theme.of(context).primaryColor,
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Text(title, style: poppinsMedium),
+              Text(title, style: Get.find<FontStyles>().poppinsMedium),
               SizedBox(width: 5),
               Text(
                 '(${(value == 'take_away' || isFree) ? 'free'.tr : charge != -1 ? PriceConverter.convertPrice(charge) : 'calculating'.tr})',
-                style: poppinsRegular,
+                style: Get.find<FontStyles>().poppinsRegular,
               ),
             ],
           ),

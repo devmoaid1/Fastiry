@@ -3,6 +3,7 @@ import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
+import 'package:efood_multivendor/theme/font_styles.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/product_widget.dart';
@@ -131,8 +132,9 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                             hintText: 'Search...',
                             border: InputBorder.none,
                           ),
-                          style: poppinsRegular.copyWith(
-                              fontSize: Dimensions.fontSizeLarge),
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(fontSize: Dimensions.fontSizeLarge),
                           onSubmitted: (String query) =>
                               categoryController.searchData(
                             query,
@@ -147,10 +149,11 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                           ),
                         )
                       : Text(widget.categoryName,
-                          style: poppinsRegular.copyWith(
-                            fontSize: Dimensions.fontSizeLarge,
-                            color: Theme.of(context).textTheme.bodyText1.color,
-                          )),
+                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                                fontSize: Dimensions.fontSizeLarge,
+                                color:
+                                    Theme.of(context).textTheme.bodyText1.color,
+                              )),
                   centerTitle: true,
                   leading: IconButton(
                     icon: Icon(Icons.arrow_back_ios),
