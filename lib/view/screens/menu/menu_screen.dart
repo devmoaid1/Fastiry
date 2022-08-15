@@ -27,7 +27,7 @@ class MenuScreen extends StatelessWidget {
       MenuModel(
           icon: Images.location,
           title: 'my_address'.tr,
-          route: RouteHelper.getAddressRoute()),
+          route: RouteHelper.getAddressRoute('address')),
       MenuModel(
           icon: Images.language,
           title: 'language'.tr,

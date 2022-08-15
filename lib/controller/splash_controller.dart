@@ -77,11 +77,10 @@ class SplashController extends GetxController implements GetxService {
               checkUserAddress(locationController);
             } else {
               if (showIntro()) {
-                if (AppConstants.languages.length > 1) {
-                  Get.offNamed(RouteHelper.getLanguageRoute('splash'));
-                } else {
-                  Get.offNamed(RouteHelper.getOnBoardingRoute());
-                }
+                // if (AppConstants.languages.length > 1) {
+                //   Get.offNamed(RouteHelper.getLanguageRoute('splash'));
+                // } else {
+                Get.offNamed(RouteHelper.getOnBoardingRoute());
               } else {
                 // change to access location if not first time
                 checkUserAddress(locationController);

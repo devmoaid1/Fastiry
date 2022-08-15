@@ -164,7 +164,7 @@ class RouteHelper {
     return '$map?address=$_data&page=$page';
   }
 
-  static String getAddressRoute() => '$address';
+  static String getAddressRoute(String page) => '$address?page=$page';
   static String getOrderSuccessRoute(
           String orderID, String status, double amount) =>
       '$orderSuccess?id=$orderID&status=$status&amount=$amount';
@@ -367,7 +367,13 @@ class RouteHelper {
               fromRestaurant: Get.parameters['page'] == 'restaurant',
               address: _data));
         }),
-    GetPage(name: address, page: () => getRoute(AddressScreen())),
+    GetPage(
+        name: address,
+        page: () {
+          return getRoute(AddressScreen(
+            fromCheckout: Get.parameters['page'] == "checkout",
+          ));
+        }),
     GetPage(
         name: orderSuccess,
         page: () => getRoute(OrderSuccessfulScreen(

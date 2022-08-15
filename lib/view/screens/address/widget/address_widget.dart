@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/data/model/response/address_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
@@ -14,12 +15,17 @@ class AddressWidget extends StatelessWidget {
   final Function onRemovePressed;
   final Function onEditPressed;
   final Function onTap;
+  final int index;
+  final LocationController locationController;
+
   AddressWidget(
       {@required this.address,
       @required this.fromAddress,
       this.onRemovePressed,
       this.onEditPressed,
       this.onTap,
+      this.index = 0,
+      this.locationController,
       this.fromCheckout = false});
 
   @override
@@ -40,8 +46,8 @@ class AddressWidget extends StatelessWidget {
               child: Row(children: [
                 Image.asset(
                   Images.pinIcon,
-                  width: 25,
-                  height: 25,
+                  width: Dimensions.blockscreenVertical * 5,
+                  height: Dimensions.blockscreenVertical * 5,
                 ),
                 SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
                 Expanded(
@@ -52,7 +58,7 @@ class AddressWidget extends StatelessWidget {
                           "${address.addressType.tr} (${address.address}) ",
                           style: poppinsMedium.copyWith(
                               fontSize: Dimensions.fontSizeSmall),
-                          maxLines: 2,
+                          maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
                         SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -119,7 +125,14 @@ class AddressWidget extends StatelessWidget {
                           size: 23,
                         ),
                       )
-                    : SizedBox(),
+                    : fromCheckout &&
+                            locationController.selectedAddressIndex == index
+                        ? Icon(
+                            Icons.check_circle,
+                            color: Theme.of(context).primaryColor,
+                            size: Dimensions.blockscreenVertical * 4.5,
+                          )
+                        : SizedBox(),
               ]),
             ),
           ),

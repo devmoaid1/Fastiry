@@ -15,6 +15,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class AddressScreen extends StatefulWidget {
+  final bool fromCheckout;
+
+  AddressScreen({Key key, this.fromCheckout = false}) : super(key: key);
+
   @override
   State<AddressScreen> createState() => _AddressScreenState();
 }
@@ -24,12 +28,20 @@ class _AddressScreenState extends State<AddressScreen> {
 
   @override
   void initState() {
-    super.initState();
-
     _isLoggedIn = Get.find<AuthController>().isLoggedIn();
     if (_isLoggedIn) {
       Get.find<LocationController>().getAddressList();
     }
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.fromCheckout &&
+          Get.find<LocationController>().addressList.isNotEmpty) {
+        final addressList = Get.find<LocationController>().addressList;
+        Get.find<LocationController>().changeAddress(addressList.first);
+      }
+      // Add Your Code here.
+    });
+    super.initState();
   }
 
   @override
@@ -38,7 +50,8 @@ class _AddressScreenState extends State<AddressScreen> {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(title: 'my_address'.tr),
       floatingActionButton: FloatingActionButton(
-        child: Icon(Icons.add, color: Theme.of(context).cardColor),
+        elevation: Get.isDarkMode ? 0 : 1,
+        child: Icon(Icons.add, color: Colors.white),
         backgroundColor: Theme.of(context).primaryColor,
         onPressed: () => Get.toNamed(RouteHelper.getAddAddressRoute(false)),
       ),
@@ -69,12 +82,22 @@ class _AddressScreenState extends State<AddressScreen> {
                                   return AddressWidget(
                                     address:
                                         locationController.addressList[index],
-                                    fromAddress: true,
+                                    fromAddress:
+                                        widget.fromCheckout ? false : true,
+                                    locationController: locationController,
+                                    index: index,
+                                    fromCheckout: widget.fromCheckout,
                                     onTap: () {
-                                      Get.toNamed(RouteHelper.getMapRoute(
-                                        locationController.addressList[index],
-                                        'address',
-                                      ));
+                                      if (widget.fromCheckout) {
+                                        locationController.changeAddress(
+                                            locationController
+                                                .addressList[index]);
+                                      } else {
+                                        Get.toNamed(RouteHelper.getMapRoute(
+                                          locationController.addressList[index],
+                                          'address',
+                                        ));
+                                      }
                                     },
                                     onEditPressed: () {
                                       Get.toNamed(

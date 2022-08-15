@@ -52,13 +52,11 @@ class AddressMapCard extends StatelessWidget {
                                 zoom: 17,
                                 target: LatLng(
                                     double.parse(locationController
-                                            .getUserAddress()
-                                            .latitude ??
-                                        0),
+                                            .selectedAddress.latitude ??
+                                        ' 0'),
                                     double.parse(locationController
-                                            .getUserAddress()
-                                            .longitude ??
-                                        0))),
+                                            .selectedAddress.longitude ??
+                                        '0'))),
                             true);
                       },
                       indoorViewEnabled: true,
@@ -103,8 +101,9 @@ class AddressMapCard extends StatelessWidget {
                             constraints: BoxConstraints(
                                 maxWidth: Dimensions.screenWidth * 0.5),
                             child: Text(
-                              locationController.getUserAddress().address ??
-                                  "not found",
+                              locationController.selectedAddress != null
+                                  ? locationController.selectedAddress.address
+                                  : locationController.getUserAddress().address,
                               maxLines: 1,
                               style: poppinsMedium.copyWith(
                                   fontSize:
@@ -134,10 +133,13 @@ class AddressMapCard extends StatelessWidget {
                               constraints: BoxConstraints(
                                   maxWidth: Dimensions.screenWidth * 0.5),
                               child: Text(
-                                locationController
+                                locationController.selectedAddress != null
+                                    ? locationController
+                                        .selectedAddress.addressType.tr
+                                    : locationController
                                         .getUserAddress()
-                                        .addressType ??
-                                    "not found",
+                                        .addressType
+                                        .tr,
                                 maxLines: 1,
                                 style: poppinsRegular.copyWith(
                                     fontSize:
@@ -151,22 +153,13 @@ class AddressMapCard extends StatelessWidget {
                   ),
                   InkWell(
                     onTap: () {
-                      // Get.toNamed(RouteHelper.getAddAddressRoute(true),
-                      //     arguments: AddAddressScreen(
-                      //       fromCheckout: true,
-                      //       address: locationController.getUserAddress(),
-                      //     ));
-
-                      Get.toNamed(RouteHelper.getAddressRoute());
+                      Get.toNamed(RouteHelper.getAddressRoute('checkout'));
                     },
-                    child: Container(
-                      width: Dimensions.screenWidth * 0.12,
-                      child: Text("change".tr,
-                          maxLines: 1,
-                          style: poppinsMedium.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 3,
-                              color: Theme.of(context).primaryColor)),
-                    ),
+                    child: Text("change".tr,
+                        maxLines: 1,
+                        style: poppinsMedium.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                            color: Theme.of(context).primaryColor)),
                   )
                 ],
               ),

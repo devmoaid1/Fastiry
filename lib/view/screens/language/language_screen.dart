@@ -88,11 +88,15 @@ class ChooseLanguageScreen extends StatelessWidget {
                     AppConstants.languages[localizationController.selectedIndex]
                         .countryCode,
                   ));
-                  if (fromMenu) {
-                    Navigator.pop(context);
-                  } else {
-                    Get.offNamed(RouteHelper.getOnBoardingRoute());
-                  }
+                  // Get.rootController.refresh();
+                  // Get.rootController.restartApp();
+                  Get.offNamed(RouteHelper.getSplashRoute(null));
+
+                  // if (fromMenu) {
+                  //   Navigator.pop(context);
+                  // } else {
+                  //   Get.offNamed(RouteHelper.getOnBoardingRoute());
+                  // }
                 } else {
                   showCustomSnackBar('select_a_language'.tr);
                 }

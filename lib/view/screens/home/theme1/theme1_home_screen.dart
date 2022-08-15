@@ -72,38 +72,33 @@ class Theme1HomeScreen extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.center,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            Flexible(
-                              flex: 3,
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    Images.pin_marker,
-                                    color: Theme.of(context).primaryColor,
-                                    height:
-                                        Dimensions.blockscreenHorizontal * 5,
-                                  ),
-                                  SizedBox(
-                                      width:
-                                          Dimensions.blockscreenHorizontal * 2),
-                                  Flexible(
-                                    child: Text(
-                                      locationController
-                                          .getUserAddress()
-                                          .address,
-                                      style: poppinsRegular.copyWith(
-                                        color: Theme.of(context).primaryColor,
-                                        fontSize: Dimensions.fontSizeSmall,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
+                            Row(
+                              children: [
+                                Image.asset(
+                                  Images.pin_marker,
+                                  color: Theme.of(context).primaryColor,
+                                  height: Dimensions.blockscreenHorizontal * 5,
+                                ),
+                                SizedBox(
+                                    width:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                Container(
+                                  width: Dimensions.screenWidth * 0.7,
+                                  child: Text(
+                                    locationController.getUserAddress().address,
+                                    style: poppinsRegular.copyWith(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: Dimensions.fontSizeSmall,
                                     ),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.ellipsis,
                                   ),
-                                  Icon(
-                                    Icons.arrow_drop_down,
-                                    color: Theme.of(context).disabledColor,
-                                  ),
-                                ],
-                              ),
+                                ),
+                                Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Theme.of(context).disabledColor,
+                                ),
+                              ],
                             ),
                             Get.find<CartController>().cartList.length > 0
                                 ? InkWell(

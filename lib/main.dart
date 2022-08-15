@@ -84,6 +84,7 @@ class MyApp extends StatelessWidget {
           return (GetPlatform.isWeb && splashController.configModel == null)
               ? SizedBox()
               : GetMaterialApp(
+                  key: UniqueKey(),
                   title: AppConstants.APP_NAME,
                   debugShowCheckedModeBanner: false,
                   builder: DevicePreview.appBuilder,
