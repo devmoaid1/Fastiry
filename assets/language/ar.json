@@ -16,6 +16,7 @@
   "guest_login": "استمرار كزائر",
   "promo":"الرمز الترويجي",
   "new_user": "مستخدم جديد؟",
+  "fetching_data":"جاري جلب البيانات",
   "no_transaction":"لا يوجد معاملات بعد ",
   "already_have_account":"لديك حساب بالفعل؟",
   "save": "حفظ",

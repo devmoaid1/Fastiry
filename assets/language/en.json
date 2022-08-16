@@ -161,6 +161,7 @@
   "sorry": "Sorry!",
   "cart_is_empty": "Your cart is empty",
   "no_transaction":"No Transaction Yet",
+  "fetching_data":"Fetching Data",
   "no_data_found": "No data found",
   "you_are_not_logged_in": "You are not logged in",
   "login_to_continue": "Login to Continue",

@@ -18,6 +18,8 @@ import 'package:efood_multivendor/view/screens/home/web_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../base/no_internet_screen.dart';
+
 class HomeScreen extends StatefulWidget {
   static Future<void> loadData(bool reload) async {
     Get.find<BannerController>().getBannerList(reload);
@@ -71,27 +73,26 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Obx(() {
-      if (connectivityService.isConnected.isFalse) {
-        return Center(
-          child: Text("no internet"),
-        );
-      }
-
       return Scaffold(
         appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
         backgroundColor: Theme.of(context).backgroundColor,
         body: SafeArea(
           child: RefreshIndicator(
-              onRefresh: () async {
-                await homeController.refresh();
-              },
-              child: ResponsiveHelper.isDesktop(context)
-                  ? WebHomeScreen(
-                      scrollController: _scrollController,
-                    )
-                  : Theme1HomeScreen(
-                      scrollController: _scrollController,
-                    )),
+            onRefresh: () async {
+              await homeController.refresh();
+            },
+            child: connectivityService.isConnected.isTrue
+                ? ResponsiveHelper.isDesktop(context)
+                    ? WebHomeScreen(
+                        scrollController: _scrollController,
+                      )
+                    : Theme1HomeScreen(
+                        scrollController: _scrollController,
+                      )
+                : NoInternetScreen(
+                    child: HomeScreen(),
+                  ),
+          ),
         ),
       );
     });

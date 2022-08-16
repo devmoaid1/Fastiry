@@ -48,7 +48,7 @@ class Images {
   static const String user_marker = 'assets/image/user_marker.png';
   static const String restaurant_cover = 'assets/image/restaurant_cover.png';
   static const String maintenance = 'assets/image/maintenance.png';
-  static const String no_internet = 'assets/image/no_internet.png';
+  static const String no_internet = 'assets/image/no_wifi.svg';
   static const String google = 'assets/image/google.png';
   static const String facebook = 'assets/image/facebook.png';
   static const String restaurant_join = 'assets/image/restaurant_join.png';
