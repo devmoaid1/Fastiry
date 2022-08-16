@@ -7,17 +7,21 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  badges: ^2.0.3
   cached_network_image: ^3.2.1
   carousel_slider: ^4.0.0
   connectivity_plus: ^2.3.0
   country_code_picker: ^2.0.2
   crypto: ^3.0.2
+  device_preview: ^1.1.0
   dotted_border: ^2.0.0+2
+  extended_image: ^6.2.1
   firebase_auth: ^3.4.2
   firebase_core: ^1.19.2
   firebase_messaging: ^12.0.0
   flutter:
     sdk: flutter
+  flutter_facebook_auth: ^4.4.1
   flutter_inappwebview: ^5.4.3+7
   flutter_local_notifications: ^9.5.3+1
   flutter_localizations:
@@ -38,6 +42,7 @@ dependencies:
   photo_view: ^0.14.0
   pin_code_fields: ^7.3.0
   pointer_interceptor: ^0.9.0+1
+  provider: ^6.0.3
   share_plus: ^4.0.4
   shared_preferences: ^2.0.15
   shimmer_animation: ^2.1.0+1
@@ -45,7 +50,6 @@ dependencies:
   universal_ui: ^0.0.8
   url_launcher: ^6.0.17
   url_strategy: ^0.2.0
-  device_preview: ^1.1.0
 
 dev_dependencies:
   flutter_test:
@@ -89,4 +93,14 @@ flutter:
         - asset: assets/font/Poppins-Bold.ttf
           weight: 700
         - asset: assets/font/Poppins-Black.ttf
+          weight: 900
+    - family: Tajawal
+      fonts:
+        - asset: assets/font/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/font/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/font/Tajawal-Bold.ttf
+          weight: 700
+        - asset: assets/font/Tajawal-Black.ttf
           weight: 900

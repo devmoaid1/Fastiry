@@ -48,7 +48,7 @@ class Images {
   static const String user_marker = 'assets/image/user_marker.png';
   static const String restaurant_cover = 'assets/image/restaurant_cover.png';
   static const String maintenance = 'assets/image/maintenance.png';
-  static const String no_internet = 'assets/image/no_internet.png';
+  static const String no_internet = 'assets/image/no_wifi.svg';
   static const String google = 'assets/image/google.png';
   static const String facebook = 'assets/image/facebook.png';
   static const String restaurant_join = 'assets/image/restaurant_join.png';
@@ -76,6 +76,7 @@ class Images {
   static const String breakFastImage = 'assets/image/breakfast.jpg';
   static const String priceTagIcon = 'assets/image/price-tag.svg';
   static const String homeIcon = 'assets/image/home.svg';
+  static const String cartIcon = 'assets/image/cart.svg';
   static const String ordersIcon = 'assets/image/orders.svg';
   static const String favouritesIcon = 'assets/image/love.svg';
   static const String menuIcon = 'assets/image/menu.svg';
@@ -92,4 +93,14 @@ class Images {
   static const String readOnly = 'assets/image/read-only.png';
   static const String walletIcon = 'assets/image/wallet.svg';
   static const String clockIcon = 'assets/image/clock.svg';
+  static const String locationIconSvg = 'assets/image/location.svg';
+  static const String scooterIconSvg = 'assets/image/scooter.svg';
+  static const String plusIconSvg = 'assets/image/plus.svg';
+  static const String minusIconSvg = 'assets/image/minus.svg';
+  static const String trashIcon = 'assets/image/trash.svg';
+  static const String historyIcon = 'assets/image/history.svg';
+  static const String profilePlaceholder = 'assets/image/profile_tag.png';
+  static const String fastiryFoodImage = 'assets/image/food.jpg';
+  static const String fastiryMartImage = 'assets/image/mart.jpg';
+  static const String pin_marker = 'assets/image/location_marker2.png';
 }

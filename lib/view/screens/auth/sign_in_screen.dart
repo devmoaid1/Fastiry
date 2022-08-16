@@ -9,7 +9,6 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/custom_text_field.dart';
@@ -19,6 +18,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
+import '../../../theme/font_styles.dart';
 import 'widget/or_row.dart';
 import 'widget/social_login_widget.dart';
 
@@ -106,9 +106,8 @@ class _SignInScreenState extends State<SignInScreen> {
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
 
                       Text('sign_in'.tr,
-                          style: poppinsRegular.copyWith(
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
                               fontSize: Dimensions.blockscreenHorizontal * 7,
-                              fontWeight: FontWeight.w500,
                               color: Theme.of(context).dividerColor)),
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
                       Column(children: [
@@ -151,11 +150,14 @@ class _SignInScreenState extends State<SignInScreen> {
                             showFlagMain: true,
                             flagWidth: 30,
                             dialogBackgroundColor: Theme.of(context).cardColor,
-                            textStyle: poppinsRegular.copyWith(
-                              fontSize: Dimensions.fontSizeLarge,
-                              color:
-                                  Theme.of(context).textTheme.bodyText1.color,
-                            ),
+                            textStyle:
+                                Get.find<FontStyles>().poppinsRegular.copyWith(
+                                      fontSize: Dimensions.fontSizeLarge,
+                                      color: Theme.of(context)
+                                          .textTheme
+                                          .bodyText1
+                                          .color,
+                                    ),
                           ),
                           Expanded(
                               flex: 1,
@@ -199,8 +201,9 @@ class _SignInScreenState extends State<SignInScreen> {
                         ),
                         title: Text(
                           'remember_me'.tr,
-                          style: poppinsRegular.copyWith(
-                              color: Theme.of(context).dividerColor),
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(color: Theme.of(context).dividerColor),
                         ),
                         contentPadding: EdgeInsets.zero,
                         dense: true,
@@ -226,7 +229,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Get.toNamed(RouteHelper.getSignUpRoute()),
                               child: Text(
                                 '${'new_user'.tr}',
-                                style: poppinsRegular,
+                                style: Get.find<FontStyles>().poppinsRegular,
                               ),
                             ),
                             TextButton(
@@ -235,7 +238,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                       false, null, '', null)),
                               child: Text(
                                 '${'forgot_password'.tr}',
-                                style: poppinsRegular,
+                                style: Get.find<FontStyles>().poppinsRegular,
                               ),
                             ),
                           ]),
@@ -260,8 +263,7 @@ class _SignInScreenState extends State<SignInScreen> {
                           iconPath: Images.facebookIcon,
                           title: "facebook_login".tr,
                           onTap: () {
-                            Get.toNamed(RouteHelper.getVerificationRoute(
-                                '01033266366', 'asasasasas', 'sign-up', ''));
+                            authController.facebookSignIn();
                           }),
                     ]);
               }),

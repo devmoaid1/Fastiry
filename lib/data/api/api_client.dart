@@ -20,7 +20,7 @@ class ApiClient extends GetxService {
   final SharedPreferences sharedPreferences;
   static final String noInternetMessage =
       'Connection to API server failed due to internet connection';
-  final int timeoutInSeconds = 10;
+  final int timeoutInSeconds = 30;
 
   String token;
   Map<String, String> _mainHeaders;
@@ -30,8 +30,18 @@ class ApiClient extends GetxService {
     debugPrint('Token: $token');
     AddressModel _addressModel;
     try {
-      _addressModel = AddressModel.fromJson(
-          jsonDecode(sharedPreferences.getString(AppConstants.USER_ADDRESS)));
+      final addressString =
+          sharedPreferences.getString(AppConstants.USER_ADDRESS);
+
+      if (addressString != null) {
+        _addressModel = AddressModel.fromJson(jsonDecode(addressString));
+      }
+
+      updateHeader(
+        token,
+        _addressModel == null ? null : _addressModel.zoneIds,
+        sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
+      );
       print('-------------');
       print(_addressModel.toJson());
     } catch (e) {}
@@ -78,7 +88,7 @@ class ApiClient extends GetxService {
         Uri.parse(appBaseUrl + uri),
         body: jsonEncode(body),
         headers: headers ?? _mainHeaders,
-      ).timeout(Duration(seconds: timeoutInSeconds));
+      );
       return handleResponse(_response, uri);
     } catch (e) {
       return Response(statusCode: 0, statusText: e.toString());

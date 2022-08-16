@@ -1,8 +1,8 @@
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../../helper/route_helper.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
 
@@ -43,8 +43,9 @@ class GuestButton extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: Text(
                 "guest_login".tr,
-                style:
-                    poppinsRegular.copyWith(color: Colors.black, fontSize: 18),
+                style: Get.find<FontStyles>()
+                    .poppinsRegular
+                    .copyWith(color: Colors.black, fontSize: 18),
               ),
             )
           ],

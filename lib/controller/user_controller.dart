@@ -52,11 +52,13 @@ class UserController extends GetxController implements GetxService {
     return _responseModel;
   }*/
 
-  Future<ResponseModel> updateUserInfo(UserInfoModel updateUserModel, String token) async {
+  Future<ResponseModel> updateUserInfo(
+      UserInfoModel updateUserModel, String token) async {
     _isLoading = true;
     update();
     ResponseModel _responseModel;
-    Response response = await userRepo.updateProfile(updateUserModel, _pickedFile, token);
+    Response response =
+        await userRepo.updateProfile(updateUserModel, _pickedFile, token);
     _isLoading = false;
     if (response.statusCode == 200) {
       _userInfoModel = updateUserModel;
@@ -96,5 +98,4 @@ class UserController extends GetxController implements GetxService {
   void initData() {
     _pickedFile = null;
   }
-
 }

@@ -1,7 +1,7 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
+import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -10,6 +10,7 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../controller/cart_controller.dart';
 import '../../../controller/wishlist_controller.dart';
 import '../../../helper/route_helper.dart';
+import '../../../theme/font_styles.dart';
 import '../../base/confirmation_dialog.dart';
 import './widget/menu_item.dart';
 import '../../../util/images.dart';
@@ -52,14 +53,13 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
             children: [
               ListTile(
                 leading: CircleAvatar(
-                  radius: 25,
                   backgroundColor: Colors.grey[300],
                   child: Center(
                     child: Text(
                       (isLogged && userContoller.userInfoModel != null)
                           ? userContoller.userInfoModel.fName.substring(0, 1)
                           : 'G',
-                      style: poppinsMedium.copyWith(
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 5),
                     ),
                   ),
@@ -70,8 +70,10 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                           " " +
                           userContoller.userInfoModel.lName
                       : "guest".tr,
-                  style: poppinsRegular.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 4),
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                      fontSize: Get.locale.languageCode == "en"
+                          ? Dimensions.blockscreenHorizontal * 4
+                          : Dimensions.blockscreenHorizontal * 5),
                 ),
                 trailing: InkWell(
                   onTap: () {
@@ -106,9 +108,9 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                 iconPath: Images.privacyIcon,
                 label: 'privacy_policy'.tr,
                 onTap: () async {
-                  final route = RouteHelper.getHtmlRoute('privacy-policy');
-                  if (await canLaunchUrl(Uri.parse(route))) {
-                    launchUrl(Uri.parse(route));
+                  if (await canLaunchUrl(
+                      Uri.parse(AppConstants.privacyAndPolicyUrl))) {
+                    launchUrl(Uri.parse(AppConstants.privacyAndPolicyUrl));
                   }
                 },
               ),
@@ -117,9 +119,9 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                 iconPath: Images.termsIcon,
                 label: 'terms_conditions'.tr,
                 onTap: () async {
-                  final route = RouteHelper.getHtmlRoute('terms-and-condition');
-                  if (await canLaunchUrl(Uri.parse(route))) {
-                    launchUrl(Uri.parse(route));
+                  if (await canLaunchUrl(
+                      Uri.parse(AppConstants.termsAndConditionsUrl))) {
+                    launchUrl(Uri.parse(AppConstants.termsAndConditionsUrl));
                   }
                 },
               ),

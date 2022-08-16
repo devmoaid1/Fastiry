@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
 
+import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
-import '../../../../util/styles.dart';
 
 class MenuSelection extends StatelessWidget {
   final String iconPath;
@@ -23,7 +24,7 @@ class MenuSelection extends StatelessWidget {
       ),
       title: Text(
         label,
-        style: poppinsRegular.copyWith(
+        style: Get.find<FontStyles>().poppinsRegular.copyWith(
             fontSize: Dimensions.blockscreenHorizontal * 4,
             color: Theme.of(context).dividerColor),
       ),

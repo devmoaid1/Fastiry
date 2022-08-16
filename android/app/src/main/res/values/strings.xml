@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">StackFood</string>
-    <string name="facebook_app_id">452131619626499</string>
-    <string name="fb_login_protocol_scheme">fb452131619626499</string>
+    <string name="app_name">fasteriy</string>
+    <string name="facebook_app_id">366262415676510</string>
+    <string name="fb_login_protocol_scheme">fb366262415676510</string>
+    <string name="facebook_client_token">213bf82ccc07310d0f8b5f61e4349d35</string>
 </resources>

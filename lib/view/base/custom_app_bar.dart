@@ -1,11 +1,11 @@
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/cart_widget.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../theme/font_styles.dart';
 import '../../util/images.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -60,7 +60,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     ],
                   )
                 : Text(title,
-                    style: poppinsRegular.copyWith(
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
                         fontSize: Dimensions.fontSizeLarge,
                         color: Theme.of(context).dividerColor)),
             centerTitle: true,

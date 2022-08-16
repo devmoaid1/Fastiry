@@ -14,17 +14,24 @@ class UserRepo {
     return await apiClient.getData(AppConstants.CUSTOMER_INFO_URI);
   }
 
-  Future<Response> updateProfile(UserInfoModel userInfoModel, XFile data, String token) async {
+  Future<Response> updateProfile(
+      UserInfoModel userInfoModel, XFile data, String token) async {
     Map<String, String> _body = Map();
     _body.addAll(<String, String>{
-      'f_name': userInfoModel.fName, 'l_name': userInfoModel.lName, 'email': userInfoModel.email
+      'f_name': userInfoModel.fName,
+      'l_name': userInfoModel.lName,
+      'email': userInfoModel.email
     });
-    return await apiClient.postMultipartData(AppConstants.UPDATE_PROFILE_URI, _body, [MultipartBody('image', data)]);
+    return await apiClient.postMultipartData(
+        AppConstants.UPDATE_PROFILE_URI, _body, [MultipartBody('image', data)]);
   }
 
   Future<Response> changePassword(UserInfoModel userInfoModel) async {
-    return await apiClient.postData(AppConstants.UPDATE_PROFILE_URI, {'f_name': userInfoModel.fName, 'l_name': userInfoModel.lName,
-      'email': userInfoModel.email, 'password': userInfoModel.password});
+    return await apiClient.postData(AppConstants.UPDATE_PROFILE_URI, {
+      'f_name': userInfoModel.fName,
+      'l_name': userInfoModel.lName,
+      'email': userInfoModel.email,
+      'password': userInfoModel.password
+    });
   }
-
 }

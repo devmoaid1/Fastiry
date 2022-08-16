@@ -1,8 +1,9 @@
+import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:flutter/material.dart';
 
 ThemeData light = ThemeData(
-  fontFamily: 'Poppins',
+  fontFamily: AppConstants.poppins,
   primaryColor: Color(0xFFCC293D),
   secondaryHeaderColor: Color(0xFF1ED7AA),
   disabledColor: lightGreyTextColor.withOpacity(0.7),

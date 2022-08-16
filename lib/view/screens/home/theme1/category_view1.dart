@@ -2,9 +2,8 @@ import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
+import 'package:efood_multivendor/view/screens/home/widget/category_card.dart';
 import 'package:efood_multivendor/view/screens/home/widget/category_pop_up.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
@@ -35,7 +34,7 @@ class CategoryView1 extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: Dimensions.blockscreenVertical * 22,
+                        height: Dimensions.blockscreenVertical * 30,
                         child: categoryController.categoryList != null
                             ? ListView.builder(
                                 controller: _scrollController,
@@ -50,87 +49,9 @@ class CategoryView1 extends StatelessWidget {
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  return InkWell(
-                                    onTap: () => Get.toNamed(
-                                        RouteHelper.getCategoryProductRoute(
-                                      categoryController.categoryList[index].id,
-                                      categoryController
-                                          .categoryList[index].name,
-                                    )),
-                                    child: Container(
-                                      margin: EdgeInsets.only(
-                                          right:
-                                              Dimensions.blockscreenHorizontal *
-                                                  5),
-                                      height:
-                                          Dimensions.blockscreenVertical * 15,
-                                      width:
-                                          Dimensions.blockscreenHorizontal * 35,
-                                      child: Column(children: [
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            boxShadow: [
-                                              !Get.isDarkMode
-                                                  ? BoxShadow(
-                                                      color: Colors.grey[200],
-                                                      spreadRadius: 0.4,
-                                                      blurRadius: 7)
-                                                  : BoxShadow(
-                                                      color: Theme.of(context)
-                                                          .backgroundColor)
-                                            ],
-                                          ),
-                                          child: ClipRRect(
-                                            clipBehavior: Clip.antiAlias,
-                                            borderRadius: BorderRadius.circular(
-                                                Dimensions.RADIUS_SMALL),
-                                            child: Image.asset(
-                                              Images.breakFastImage,
-                                              height: Dimensions
-                                                      .blockscreenVertical *
-                                                  15,
-                                              width: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  35,
-                                            ),
-                                            // child: CustomImage(
-                                            //   height: Dimensions
-                                            //           .blockscreenVertical *
-                                            //       15,
-                                            //   width: Dimensions
-                                            //           .blockscreenHorizontal *
-                                            //       35,
-                                            //   placeholder:
-                                            //       Images.breakFastImage,
-                                            //   image: "",
-                                            //   // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
-                                            //   fit: BoxFit.fill,
-                                            // ),
-                                          ),
-                                        ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            vertical:
-                                                Dimensions.blockscreenVertical *
-                                                    1.5,
-                                          ),
-                                          child: Text(
-                                            categoryController
-                                                .categoryList[index].name,
-                                            maxLines: 1,
-                                            overflow: TextOverflow.ellipsis,
-                                            textAlign: TextAlign.center,
-                                            style: poppinsRegular.copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    3.5,
-                                                color: Theme.of(context)
-                                                    .dividerColor),
-                                          ),
-                                        ),
-                                      ]),
-                                    ),
-                                  );
+                                  return CategoryCard(
+                                      category: categoryController
+                                          .categoryList[index]);
                                 },
                               )
                             : CategoryShimmer(
@@ -203,23 +124,23 @@ class CategoryShimmer extends StatelessWidget {
         itemBuilder: (context, index) {
           return Padding(
             padding: EdgeInsets.symmetric(horizontal: 1),
-            child: SizedBox(
-              child: Container(
-                margin: EdgeInsets.only(
-                  left: index == 0 ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                  right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                ),
-                child: Shimmer(
-                  duration: Duration(seconds: 2),
-                  enabled: Get.find<HomeController>().isLoading,
-                  child: Container(
-                    height: Dimensions.blockscreenVertical * 22,
-                    width: Dimensions.blockscreenHorizontal * 35,
-                    decoration: BoxDecoration(
-                      color: Colors.grey[300],
-                      borderRadius:
-                          BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                    ),
+            child: Container(
+              color: Theme.of(context).cardColor,
+              margin: EdgeInsets.only(
+                left: index == 0 ? 0 : Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                right: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+              ),
+              child: Shimmer(
+                duration: Duration(seconds: 2),
+                enabled: Get.find<HomeController>().isLoading &&
+                    categoryController.categoryList == null,
+                child: Container(
+                  height: Dimensions.blockscreenVertical * 22,
+                  width: Dimensions.blockscreenHorizontal * 35,
+                  decoration: BoxDecoration(
+                    color: Colors.grey[300],
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
                   ),
                 ),
               ),
@@ -237,13 +158,14 @@ class CategoryAllShimmer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
+    return Container(
+      color: Theme.of(context).cardColor,
       height: 75,
       child: Padding(
         padding: EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL),
         child: Shimmer(
           duration: Duration(seconds: 2),
-          enabled: categoryController.categoryList == null,
+          enabled: Get.find<HomeController>().isLoading,
           child: Column(children: [
             Container(
               height: 50,

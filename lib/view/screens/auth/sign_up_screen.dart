@@ -21,6 +21,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:phone_number/phone_number.dart';
 
+import '../../../theme/font_styles.dart';
 import '../../base/custom_app_bar.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -86,7 +87,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     // Center(child: Image.asset(Images.logo_name, width: 100)),
                     SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
                     Text('Create Account'.tr,
-                        style: poppinsRegular.copyWith(fontSize: 30)),
+                        style: Get.find<FontStyles>()
+                            .poppinsRegular
+                            .copyWith(fontSize: 30)),
                     SizedBox(height: 20),
                     Column(children: [
                       CustomTextField(
@@ -216,7 +219,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         Text(
                           "already_have_account".tr,
-                          style: poppinsRegular,
+                          style: Get.find<FontStyles>().poppinsRegular,
                         ),
                         SizedBox(
                           width: 5,
@@ -225,8 +228,10 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onTap: () => Get.offNamed(RouteHelper.signIn),
                             child: Text(
                               "sign_in".tr,
-                              style: poppinsMedium.copyWith(
-                                  color: Theme.of(context).primaryColor),
+                              style: Get.find<FontStyles>()
+                                  .poppinsMedium
+                                  .copyWith(
+                                      color: Theme.of(context).primaryColor),
                             ))
                       ],
                     ),

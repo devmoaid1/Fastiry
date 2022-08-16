@@ -53,8 +53,6 @@ class ProductView extends StatelessWidget {
       }
     }
 
-    print(Dimensions.screeHeight);
-
     return Column(children: [
       type != null
           ? VegFilterWidget(type: type, onSelected: onVegFilterTap)
@@ -69,8 +67,10 @@ class ProductView extends StatelessWidget {
                     childAspectRatio: ResponsiveHelper.isDesktop(context)
                         ? 4
                         : Dimensions.screenWidth < 411
-                            ? Dimensions.blockscreenHorizontal * 0.5
-                            : 16 / 6.5, //60
+                            ? Dimensions.blockscreenHorizontal * 0.4
+                            : showTheme1Restaurant
+                                ? 16 / 9
+                                : 16 / 8, //60
                     crossAxisCount: ResponsiveHelper.isMobile(context) ? 1 : 2,
                   ),
                   physics: isScrollable
@@ -97,12 +97,14 @@ class ProductView extends StatelessWidget {
                           );
                   },
                 )
-              : NoDataScreen(
-                  text: noDataText != null
-                      ? noDataText
-                      : isRestaurant
-                          ? 'no_restaurant_available'.tr
-                          : 'no_food_available'.tr,
+              : Center(
+                  child: NoDataScreen(
+                    text: noDataText != null
+                        ? noDataText
+                        : isRestaurant
+                            ? 'no_restaurant_available'.tr
+                            : 'no_food_available'.tr,
+                  ),
                 )
           : GridView.builder(
               key: UniqueKey(),

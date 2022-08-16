@@ -4,11 +4,12 @@ import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class OnBoardingScreen extends StatelessWidget {
   final PageController _pageController = PageController();
@@ -49,8 +50,10 @@ class OnBoardingScreen extends StatelessWidget {
                                     Text(
                                       onBoardingController
                                           .onBoardingList[index].title,
-                                      style: poppinsMedium.copyWith(
-                                          fontSize: context.height * 0.022),
+                                      style: Get.find<FontStyles>()
+                                          .poppinsMedium
+                                          .copyWith(
+                                              fontSize: context.height * 0.022),
                                       textAlign: TextAlign.center,
                                     ),
                                     SizedBox(height: context.height * 0.025),
@@ -61,10 +64,13 @@ class OnBoardingScreen extends StatelessWidget {
                                       child: Text(
                                         onBoardingController
                                             .onBoardingList[index].description,
-                                        style: robotoRegular.copyWith(
-                                            fontSize: context.height * 0.015,
-                                            color: lightGreyTextColor
-                                                .withOpacity(0.7)),
+                                        style: Get.find<FontStyles>()
+                                            .poppinsRegular
+                                            .copyWith(
+                                                fontSize:
+                                                    context.height * 0.015,
+                                                color: lightGreyTextColor
+                                                    .withOpacity(0.7)),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),

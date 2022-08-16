@@ -3,13 +3,10 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/discount_tag.dart';
-import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:flutter/material.dart';
@@ -18,7 +15,9 @@ import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
 import '../../../../controller/home_controller.dart';
+import '../../../../theme/font_styles.dart';
 import '../../../../util/image_checker.dart';
+import '../../product_details/productDetails.dart';
 
 class BestReviewedItemView extends StatelessWidget {
   @override
@@ -59,20 +58,13 @@ class BestReviewedItemView extends StatelessWidget {
                                   bottom: 5),
                               child: InkWell(
                                 onTap: () {
-                                  ResponsiveHelper.isMobile(context)
-                                      ? Get.bottomSheet(
-                                          ProductBottomSheet(
-                                              product: _productList[index],
-                                              isCampaign: false),
-                                          backgroundColor: Colors.transparent,
-                                          isScrollControlled: true,
-                                        )
-                                      : Get.dialog(
-                                          Dialog(
-                                              child: ProductBottomSheet(
-                                                  product:
-                                                      _productList[index])),
-                                        );
+                                  Get.toNamed(
+                                      RouteHelper.getProductDetailsRoute(
+                                          _productList[index].id),
+                                      arguments: ProductDetailsScreen(
+                                        product: _productList[index],
+                                        isCampaign: false,
+                                      ));
                                 },
                                 child: Container(
                                   height: Dimensions.blockscreenVertical * 13,
@@ -103,7 +95,6 @@ class BestReviewedItemView extends StatelessWidget {
                                             borderRadius: BorderRadius.vertical(
                                                 top: Radius.circular(
                                                     Dimensions.RADIUS_SMALL)),
-
                                             child: checkImage(
                                                 '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
                                                 Dimensions
@@ -112,17 +103,6 @@ class BestReviewedItemView extends StatelessWidget {
                                                 Dimensions.blockscreenVertical *
                                                     13,
                                                 BoxFit.fill),
-                                            // child: CustomImage(
-                                            //   image:
-                                            //       '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${_productList[index].image}',
-                                            //   height: Dimensions
-                                            //           .blockscreenVertical *
-                                            //       13,
-                                            //   width: Dimensions
-                                            //           .blockscreenHorizontal *
-                                            //       50,
-                                            //   fit: BoxFit.fill,
-                                            // ),
                                           ),
                                           productController.isAvailable(
                                                   _productList[index])
@@ -228,8 +208,9 @@ class PriceRow extends StatelessWidget {
                     discountType:
                         productController.getDiscountType(_productList[index]),
                   ),
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3),
+                  style: Get.find<FontStyles>()
+                      .poppinsMedium
+                      .copyWith(fontSize: Dimensions.blockscreenHorizontal * 3),
                 ),
                 SizedBox(
                     width: _productList[index].discount > 0
@@ -239,12 +220,13 @@ class PriceRow extends StatelessWidget {
                     ? Text(
                         PriceConverter.convertPrice(productController
                             .getStartingPrice(_productList[index])),
-                        style: poppinsRegular.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 3,
-                          color:
-                              Theme.of(context).dividerColor.withOpacity(0.6),
-                          decoration: TextDecoration.lineThrough,
-                        ),
+                        style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 3,
+                              color: Theme.of(context)
+                                  .dividerColor
+                                  .withOpacity(0.6),
+                              decoration: TextDecoration.lineThrough,
+                            ),
                       )
                     : SizedBox()
               ],
@@ -289,22 +271,35 @@ class FoodDetailsRow extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(
-                  _productList[index].name ?? '',
-                  textAlign: TextAlign.center,
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 4),
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
+                Container(
+                  constraints: BoxConstraints(maxWidth: 100),
+                  child: FittedBox(
+                    fit: BoxFit.fill,
+                    child: Text(
+                      _productList[index].name ?? '',
+                      textAlign: TextAlign.center,
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 4),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
-                Text(
-                  _productList[index].restaurantName ?? '',
-                  textAlign: TextAlign.center,
-                  style: poppinsMedium.copyWith(
-                      fontSize: Dimensions.blockscreenHorizontal * 3,
-                      color: Theme.of(context).dividerColor.withOpacity(0.6)),
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
+                FittedBox(
+                  fit: BoxFit.fill,
+                  child: Container(
+                    constraints: BoxConstraints(maxWidth: 100),
+                    child: Text(
+                      _productList[index].restaurantName ?? '',
+                      textAlign: TextAlign.center,
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 3,
+                          color:
+                              Theme.of(context).dividerColor.withOpacity(0.6)),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                  ),
                 ),
               ],
             ),
@@ -314,7 +309,7 @@ class FoodDetailsRow extends StatelessWidget {
           Icon(Icons.star, color: Colors.orangeAccent[200], size: 15),
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(_productList[index].avgRating.toStringAsFixed(1),
-              style: poppinsRegular),
+              style: Get.find<FontStyles>().poppinsRegular),
         ])
       ],
     );
@@ -338,7 +333,7 @@ class BestReviewedItemShimmer extends StatelessWidget {
           padding:
               EdgeInsets.only(right: Dimensions.PADDING_SIZE_SMALL, bottom: 5),
           child: Container(
-            height: 220,
+            height: Dimensions.blockscreenVertical * 34,
             width: 180,
             padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
             decoration: BoxDecoration(
@@ -355,41 +350,20 @@ class BestReviewedItemShimmer extends StatelessWidget {
             ),
             child: Shimmer(
               duration: Duration(seconds: 2),
-              enabled: Get.find<HomeController>().isLoading,
+              enabled: Get.find<HomeController>().isLoading &&
+                  productController.popularProductList == null,
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Stack(children: [
                       Container(
-                        height: 125,
+                        height: Dimensions.blockscreenVertical * 13,
                         width: 170,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.vertical(
                               top: Radius.circular(Dimensions.RADIUS_SMALL)),
                           color: Colors.grey[300],
-                        ),
-                      ),
-                      Positioned(
-                        top: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                        left: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                              vertical: 2,
-                              horizontal: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                          decoration: BoxDecoration(
-                            color: Theme.of(context).cardColor.withOpacity(0.8),
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                          ),
-                          child: Row(children: [
-                            Icon(Icons.star,
-                                color: Theme.of(context).primaryColor,
-                                size: 15),
-                            SizedBox(
-                                width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                            Text('0.0', style: robotoRegular),
-                          ]),
                         ),
                       ),
                     ]),

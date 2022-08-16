@@ -1,0 +1,79 @@
+import 'package:efood_multivendor/controller/cart_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../../../../helper/route_helper.dart';
+import '../../../../helper/price_converter.dart';
+import '../../../../theme/font_styles.dart';
+import '../../../../util/dimensions.dart';
+
+class RestaurantBottomBar extends StatelessWidget {
+  const RestaurantBottomBar({Key key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return GetBuilder<CartController>(builder: (cartController) {
+      return Container(
+        padding: EdgeInsets.symmetric(
+            vertical: Dimensions.blockscreenVertical * 2,
+            horizontal: Dimensions.blockscreenHorizontal * 3),
+        decoration:
+            BoxDecoration(color: Theme.of(context).cardColor, boxShadow: [
+          !Get.isDarkMode
+              ? BoxShadow(
+                  blurRadius: 7, spreadRadius: 0.4, color: Colors.grey[300])
+              : BoxShadow(color: Theme.of(context).backgroundColor)
+        ]),
+        child: InkWell(
+          onTap: () {
+            Get.toNamed(RouteHelper.getCartRoute());
+          },
+          child: Container(
+            padding: EdgeInsets.symmetric(
+                vertical: Dimensions.blockscreenVertical * 2,
+                horizontal: Dimensions.blockscreenHorizontal * 2),
+            decoration: BoxDecoration(
+                color: Theme.of(context).primaryColor,
+                borderRadius: BorderRadius.circular(8)),
+            child: Row(children: [
+              Container(
+                padding: EdgeInsets.symmetric(horizontal: 10, vertical: 7),
+                decoration: BoxDecoration(
+                    color: Colors.white.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(8)),
+                child: Text(
+                  cartController.cartList.length.toString(),
+                  style: Get.find<FontStyles>()
+                      .poppinsRegular
+                      .copyWith(color: Colors.white),
+                ),
+              ),
+              SizedBox(
+                width: 8,
+              ),
+              Expanded(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "view_bascket".tr,
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                          color: Colors.white,
+                          fontSize: Dimensions.blockscreenHorizontal * 4),
+                    ),
+                    Text(
+                      PriceConverter.convertPrice(cartController.cartSubTotal),
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                          color: Colors.white,
+                          fontSize: Dimensions.blockscreenHorizontal * 4),
+                    ),
+                  ],
+                ),
+              )
+            ]),
+          ),
+        ),
+      );
+    });
+  }
+}

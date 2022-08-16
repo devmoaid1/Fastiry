@@ -9,6 +9,7 @@ class AppConstants {
   static const String CATEGORY_URI = '/api/v1/categories';
   static const String BANNER_URI = '/api/v1/banners';
   static const String RESTAURANT_PRODUCT_URI = '/api/v1/products/latest';
+  static const String getUserUri = '/api/v1/auth/get-user?email=';
   static const String POPULAR_PRODUCT_URI = '/api/v1/products/popular';
   static const String REVIEWED_PRODUCT_URI = '/api/v1/products/most-reviewed';
   static const String SEARCH_PRODUCT_URI = '/api/v1/products/details/';
@@ -85,8 +86,12 @@ class AppConstants {
       '/api/v1/customer/loyalty-point/transactions';
   static const String LOYALTY_POINT_TRANSFER_URL =
       '/api/v1/customer/loyalty-point/point-transfer';
-
+  static const String termsAndConditionsUrl =
+      'https://fasteriy.com/terms-and-conditions';
+  static const String privacyAndPolicyUrl =
+      'https://fasteriy.com/privacy-policy';
   // Shared Key
+
   static const String THEME = 'theme';
   static const String TOKEN = 'multivendor_token';
   static const String COUNTRY_CODE = 'country_code';
@@ -107,6 +112,11 @@ class AppConstants {
 
   // Delivery Tips
   static List<int> tips = [0, 5, 10, 15, 20, 30, 50];
+
+  //fonts
+
+  static const String poppins = 'Poppins';
+  static const String tajawal = 'Tajawal';
 
   static List<LanguageModel> languages = [
     LanguageModel(

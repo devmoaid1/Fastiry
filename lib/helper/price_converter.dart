@@ -15,8 +15,8 @@ class PriceConverter {
         Get.find<SplashController>().configModel.currencySymbolDirection ==
             'right';
     return '${_isRightSide ? '' : 'جم' + ' '}'
-        '${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}'
-        '${_isRightSide ? ' ' + 'EGP' : ''}';
+        '${_isRightSide ? ' ' + 'EGP' : ''} '
+        '${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}';
   }
 
   static double convertWithDiscount(

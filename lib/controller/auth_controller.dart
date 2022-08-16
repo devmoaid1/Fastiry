@@ -6,6 +6,7 @@ import 'package:efood_multivendor/data/model/body/signup_body.dart';
 import 'package:efood_multivendor/data/model/body/social_customer.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/data/model/response/response_model.dart';
+import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
 import 'package:efood_multivendor/data/repository/auth_repo.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -98,32 +99,45 @@ class AuthController extends GetxController implements GetxService {
     update();
   }
 
+  Future<UserInfoModel> getUserByEmail(String email) async {
+    UserInfoModel user = UserInfoModel();
+    await authRepo.getUserByEmail(email).then((response) {
+      if (response.bodyString.startsWith('{"user"')) {
+        user = UserInfoModel.fromJson(response.body['user']);
+      }
+    });
+
+    return user;
+  }
+
+  Future<void> facebookSignIn() async {
+    try {
+      final result = await authRepo.signInWithFacebook();
+      print(result.user.email);
+    } catch (err) {
+      showCustomSnackBar(err);
+    }
+  }
+
   Future<void> googleSignIn() async {
     try {
+      bool isSocialExist = false;
       final result = await authRepo.signInWithGoogle();
       final token = result.token;
       final user = result.userCredential.user;
-      final isSocialExist =
-          isSocialUserExist(); // check is there a table in local storage
-      final List<SocialCustomer> socialCustomers =
-          getCurrentSocialCustomer(); //get list of social accounts
+      final socialUser = await getUserByEmail(user.email);
+      // check is there a existing customer registered
 
-      bool isCustomerExist = false;
+      if (socialUser.email != null) {
+        isSocialExist = true;
+      }
 
-      if (isSocialExist) {
-        for (var customer in socialCustomers) {
-          if (customer.email == user.email) {
-            isCustomerExist = true;
-          }
-        }
-      } // check if there social customer in local database
-
-      if (!isCustomerExist || !isSocialExist) {
+      if (!isSocialExist) {
         //new user go to phone verification
         handleNewSocialUser(token, user);
       } else {
         //existing user login and go to location page
-        handleSocialLogin(user, socialCustomers);
+        handleSocialLogin(socialUser);
       }
 
       _isLoading = false;
@@ -155,24 +169,16 @@ class AuthController extends GetxController implements GetxService {
             phone: user.phoneNumber)));
   }
 
-  void handleSocialLogin(User user, List<SocialCustomer> socialCustomers) {
-    SocialCustomer socialCustomer = SocialCustomer();
-
-    for (var customer in socialCustomers) {
-      if (customer.email == user.email) {
-        socialCustomer = customer;
-      }
-    }
-    login(socialCustomer.phone.trim(), socialCustomer.password.trim())
-        .then((status) {
+  void handleSocialLogin(UserInfoModel user) {
+    login(user.phone.trim(), user.email.trim()).then((status) {
       if (status.isSuccess) {
         String _token = status.message.substring(1, status.message.length);
         if (Get.find<SplashController>().configModel.customerVerification &&
             int.parse(status.message[0]) == 0) {
-          List<int> _encoded = utf8.encode(socialCustomer.password);
+          List<int> _encoded = utf8.encode(user.password);
           String _data = base64Encode(_encoded);
           Get.toNamed(RouteHelper.getVerificationRoute(
-              socialCustomer.phone, _token, RouteHelper.signUp, _data));
+              user.phone, _token, RouteHelper.signUp, _data));
         } else {
           Get.toNamed(RouteHelper.getAccessLocationRoute('sign-in'));
         }
@@ -188,7 +194,7 @@ class AuthController extends GetxController implements GetxService {
         email: body.email,
         fName: user.firstName,
         lName: user.lastName,
-        password: body.uniqueId,
+        password: body.email,
         phone: body.phone,
         refCode: ''); // create sign up body to register social user
 

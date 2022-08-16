@@ -10,13 +10,14 @@ import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/not_available_widget.dart';
 import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class RestaurantWidget extends StatelessWidget {
   final Restaurant restaurant;
@@ -65,13 +66,6 @@ class RestaurantWidget extends StatelessWidget {
                       width: Dimensions.screenWidth,
                       height: Dimensions.blockscreenVertical * 15,
                     ),
-              // child: CustomImage(
-              //   image:
-              //       '${_baseUrls.restaurantCoverPhotoUrl}/${restaurant.coverPhoto}',
-              //   height: Dimensions.blockscreenVertical * 15,
-              //   width: Dimensions.screenWidth,
-              //   fit: BoxFit.fill,
-              // )
             ),
             Get.find<RestaurantController>().isOpenNow(restaurant)
                 ? SizedBox()
@@ -89,19 +83,22 @@ class RestaurantWidget extends StatelessWidget {
                     children: [
                       Text(
                         restaurant.name,
-                        style: poppinsMedium.copyWith(
-                            fontSize: Dimensions.fontSizeSmall),
+                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 4),
                         maxLines: _desktop ? 2 : 1,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      SizedBox(height: 2),
+                      SizedBox(height: 3),
                       (restaurant.address != null)
                           ? Text(
                               restaurant.address ?? '',
-                              style: robotoRegular.copyWith(
-                                fontSize: Dimensions.fontSizeExtraSmall,
-                                color: Theme.of(context).disabledColor,
-                              ),
+                              style: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(
+                                    fontSize:
+                                        Dimensions.blockscreenHorizontal * 3,
+                                    color: Theme.of(context).dividerColor,
+                                  ),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             )

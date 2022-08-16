@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:efood_multivendor/controller/cart_controller.dart';
+import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/api/api_client.dart';
@@ -9,15 +11,17 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../helper/route_helper.dart';
+import '../theme/font_styles.dart';
 import '../util/app_constants.dart';
 import 'auth_controller.dart';
+import 'localization_controller.dart';
 import 'location_controller.dart';
 
 class SplashController extends GetxController implements GetxService {
   final SplashRepo splashRepo;
   SplashController({@required this.splashRepo});
-
-  ConfigModel _configModel;
+  final cartController = Get.find<CartController>();
+  ConfigModel _configModel = ConfigModel();
   bool _firstTimeConnectionCheck = true;
   bool _hasConnection = true;
 
@@ -25,6 +29,12 @@ class SplashController extends GetxController implements GetxService {
   DateTime get currentTime => DateTime.now();
   bool get firstTimeConnectionCheck => _firstTimeConnectionCheck;
   bool get hasConnection => _hasConnection;
+
+  Future<void> navigatorScreenRouting() async {
+    Timer(Duration(seconds: 2), () {
+      Get.offNamed(RouteHelper.getNavigatorRoute());
+    });
+  }
 
   Future<bool> getConfigData() async {
     _hasConnection = true;
@@ -48,10 +58,16 @@ class SplashController extends GetxController implements GetxService {
     return splashRepo.showIntro();
   }
 
+  void intializeFontsStyle() {
+    final languageCode = Get.find<LocalizationController>().locale.languageCode;
+    Get.find<FontStyles>().setFonts(languageCode);
+  }
+
   void handleSplashRouting(String orderId) {
     final authController = Get.find<AuthController>();
     final wishListController = Get.find<WishListController>();
     final locationController = Get.find<LocationController>();
+    final userController = Get.find<UserController>();
 
     getConfigData().then((isSuccess) {
       if (isSuccess) {
@@ -71,14 +87,14 @@ class SplashController extends GetxController implements GetxService {
             if (authController.isLoggedIn()) {
               authController.updateToken();
               await wishListController.getWishList();
+              await userController.getUserInfo();
               checkUserAddress(locationController);
             } else {
               if (showIntro()) {
-                if (AppConstants.languages.length > 1) {
-                  Get.offNamed(RouteHelper.getLanguageRoute('splash'));
-                } else {
-                  Get.offNamed(RouteHelper.getOnBoardingRoute());
-                }
+                // if (AppConstants.languages.length > 1) {
+                //   Get.offNamed(RouteHelper.getLanguageRoute('splash'));
+                // } else {
+                Get.offNamed(RouteHelper.getOnBoardingRoute());
               } else {
                 // change to access location if not first time
                 checkUserAddress(locationController);

@@ -14,6 +14,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
+import '../../../theme/font_styles.dart';
+
 class CouponScreen extends StatefulWidget {
   @override
   State<CouponScreen> createState() => _CouponScreenState();
@@ -128,7 +130,9 @@ class _CouponScreenState extends State<CouponScreen> {
                                                       children: [
                                                         Text(
                                                           '${couponController.couponList[index].code} (${couponController.couponList[index].title})',
-                                                          style: poppinsRegular
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular
                                                               .copyWith(
                                                                   color: Theme.of(
                                                                           context)

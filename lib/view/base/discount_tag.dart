@@ -2,9 +2,10 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../theme/font_styles.dart';
 
 class DiscountTag extends StatelessWidget {
   final double discount;
@@ -44,14 +45,14 @@ class DiscountTag extends StatelessWidget {
                   discount > 0
                       ? '$discount${discountType == 'percent' ? '%' : Get.find<SplashController>().configModel.currencySymbol} ${'off'.tr}'
                       : 'free_delivery'.tr,
-                  style: poppinsMedium.copyWith(
-                    color: Colors.white,
-                    fontSize: fontSize != null
-                        ? fontSize
-                        : ResponsiveHelper.isMobile(context)
-                            ? 10
-                            : 12,
-                  ),
+                  style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                        color: Colors.white,
+                        fontSize: fontSize != null
+                            ? fontSize
+                            : ResponsiveHelper.isMobile(context)
+                                ? 10
+                                : 12,
+                      ),
                   textAlign: TextAlign.center,
                 ),
               ],

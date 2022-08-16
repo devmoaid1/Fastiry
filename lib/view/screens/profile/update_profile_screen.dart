@@ -5,7 +5,6 @@ import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -14,6 +13,8 @@ import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class UpdateProfileScreen extends StatefulWidget {
   @override
@@ -79,22 +80,29 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                               children: [
                                 Text(
                                   'profile'.tr,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 6,
-                                      color: Theme.of(context).dividerColor),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  6,
+                                          color:
+                                              Theme.of(context).dividerColor),
                                 ),
                                 SizedBox(
                                   height: Dimensions.blockscreenVertical * 5,
                                 ),
                                 Text(
                                   'first_name'.tr,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 4,
-                                      color: Theme.of(context)
-                                          .disabledColor
-                                          .withOpacity(0.6)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  4,
+                                          color: Theme.of(context)
+                                              .disabledColor
+                                              .withOpacity(0.6)),
                                 ),
                                 CustomTextField(
                                   hintText: 'first_name'.tr,
@@ -108,12 +116,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                                 Text(
                                   'last_name'.tr,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 4,
-                                      color: Theme.of(context)
-                                          .disabledColor
-                                          .withOpacity(0.6)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  4,
+                                          color: Theme.of(context)
+                                              .disabledColor
+                                              .withOpacity(0.6)),
                                 ),
                                 CustomTextField(
                                   hintText: 'last_name'.tr,
@@ -127,12 +138,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                                 Text(
                                   'email'.tr,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 4,
-                                      color: Theme.of(context)
-                                          .disabledColor
-                                          .withOpacity(0.6)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  4,
+                                          color: Theme.of(context)
+                                              .disabledColor
+                                              .withOpacity(0.6)),
                                 ),
                                 CustomTextField(
                                   hintText: 'email'.tr,
@@ -145,12 +159,15 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                                 SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
                                 Text(
                                   'phone'.tr,
-                                  style: poppinsRegular.copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 4,
-                                      color: Theme.of(context)
-                                          .disabledColor
-                                          .withOpacity(0.6)),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
+                                                  4,
+                                          color: Theme.of(context)
+                                              .disabledColor
+                                              .withOpacity(0.6)),
                                 ),
                                 CustomTextField(
                                     hintText: 'phone'.tr,

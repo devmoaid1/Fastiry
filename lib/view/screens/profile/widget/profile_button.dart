@@ -1,8 +1,10 @@
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:get/get.dart';
+
+import '../../../../theme/font_styles.dart';
 
 class ProfileButton extends StatelessWidget {
   final String iconPath;
@@ -39,8 +41,9 @@ class ProfileButton extends StatelessWidget {
             SizedBox(width: Dimensions.blockscreenHorizontal * 4),
             Expanded(
                 child: Text(title,
-                    style: poppinsRegular.copyWith(
-                        color: Theme.of(context).dividerColor))),
+                    style: Get.find<FontStyles>()
+                        .poppinsRegular
+                        .copyWith(color: Theme.of(context).dividerColor))),
             isButtonActive != null
                 ? CupertinoSwitch(
                     value: isButtonActive,
