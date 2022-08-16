@@ -1,14 +1,11 @@
-import 'dart:async';
-
-import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/data/services/connectivity_service.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/no_internet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../controller/cart_controller.dart';
+import '../../../util/services_instances.dart';
 
 class SplashScreen extends StatefulWidget {
   final String orderID;
@@ -20,13 +17,19 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   GlobalKey<ScaffoldState> _globalKey = GlobalKey();
-  StreamSubscription<ConnectivityResult> _onConnectivityChanged;
+
   final splashController = Get.find<SplashController>();
   final cartController = Get.find<CartController>();
-  final connectivityService = Get.find<ConnectivityService>();
   @override
   void initState() {
     super.initState();
+
+    splashController.intializeFontsStyle();
+    connectivityController.initConnectionStream();
+    splashController.initSharedData();
+    cartController.getCartData();
+    cartController.getCartSubTotal();
+    splashController.navigatorScreenRouting();
 
     // bool _firstTime = true;
     // _onConnectivityChanged = Connectivity()
@@ -52,46 +55,26 @@ class _SplashScreenState extends State<SplashScreen> {
     //   }
     //   _firstTime = false;
     // });
-
-    if (connectivityService.isConnected.isTrue) {
-      splashController.initSharedData();
-      cartController.getCartData();
-      cartController.getCartSubTotal();
-      splashController.handleSplashRouting(widget.orderID);
-    }
   }
 
   @override
   void dispose() {
     super.dispose();
-
-    _onConnectivityChanged.cancel();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Get.isDarkMode ? Color(0xff101010) : Colors.white,
-      key: _globalKey,
-      body: GetBuilder<SplashController>(builder: (splashController) {
-        return Obx(
-          () {
-            return Center(
-              child: connectivityService.isConnected.isTrue
-                  ? Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(Images.fastiryRed,
-                            height: Dimensions.blockscreenVertical * 35),
-                      ],
-                    )
-                  : NoInternetScreen(
-                      child: SplashScreen(orderID: widget.orderID)),
-            );
-          },
-        );
-      }),
-    );
+        backgroundColor: Get.isDarkMode ? Color(0xff101010) : Colors.white,
+        key: _globalKey,
+        body: Center(
+            child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset(Images.fastiryRed,
+                height: Dimensions.blockscreenVertical * 35),
+          ],
+        )));
   }
 }

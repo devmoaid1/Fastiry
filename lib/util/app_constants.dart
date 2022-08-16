@@ -91,6 +91,7 @@ class AppConstants {
   static const String privacyAndPolicyUrl =
       'https://fasteriy.com/privacy-policy';
   // Shared Key
+
   static const String THEME = 'theme';
   static const String TOKEN = 'multivendor_token';
   static const String COUNTRY_CODE = 'country_code';

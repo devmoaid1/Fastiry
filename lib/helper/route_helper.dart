@@ -1,14 +1,11 @@
 import 'dart:convert';
 
-import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/data/model/response/address_model.dart';
 import 'package:efood_multivendor/data/model/response/basic_campaign_model.dart';
 import 'package:efood_multivendor/data/model/response/order_model.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/util/html_type.dart';
 import 'package:efood_multivendor/view/base/image_viewer_screen.dart';
 import 'package:efood_multivendor/view/base/not_found.dart';
@@ -55,16 +52,17 @@ import 'package:efood_multivendor/view/screens/support/support_screen.dart';
 import 'package:efood_multivendor/view/screens/update/update_screen.dart';
 import 'package:efood_multivendor/view/screens/wallet/wallet_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../data/model/body/customer.dart';
 import '../view/screens/fastiry mart/mart_screen.dart';
+import '../view/screens/navigator_screen/navigator_screen.dart';
 import '../view/screens/product_details/productDetails.dart';
 
 class RouteHelper {
   static const String initial = '/';
   static const String splash = '/splash';
+  static const String navigatorScreen = '/navigator';
   static const String language = '/language';
   static const String onBoarding = '/on-boarding';
   static const String signIn = '/sign-in';
@@ -113,6 +111,7 @@ class RouteHelper {
   static const String socialPhone = '/social-phone';
 
   static String getInitialRoute() => '$initial';
+  static String getNavigatorRoute() => '$navigatorScreen';
   static String getFastiryFoodRoute() => '$fastiryFood';
   static String getFastiryMartRoute() => '$fastiryMart';
   static String getSplashRoute(int orderID) => '$splash?id=$orderID';
@@ -218,9 +217,10 @@ class RouteHelper {
   static String getReferAndEarnRoute() => '$referAndEarn';
 
   static List<GetPage> routes = [
-    GetPage(name: initial, page: () => getRoute(DashboardScreen(pageIndex: 0))),
-    GetPage(name: fastiryFood, page: () => getRoute(FoodScreen())),
-    GetPage(name: fastiryMart, page: () => getRoute(MartScreen())),
+    GetPage(name: initial, page: () => DashboardScreen(pageIndex: 0)),
+    GetPage(name: navigatorScreen, page: () => NavigatorScreen()),
+    GetPage(name: fastiryFood, page: () => FoodScreen()),
+    GetPage(name: fastiryMart, page: () => MartScreen()),
     GetPage(
         name: socialPhone,
         page: () {
@@ -287,7 +287,7 @@ class RouteHelper {
     GetPage(name: interest, page: () => InterestScreen()),
     GetPage(
         name: main,
-        page: () => getRoute(DashboardScreen(
+        page: () => DashboardScreen(
               pageIndex: Get.parameters['page'] == 'home'
                   ? 0
                   : Get.parameters['page'] == 'favourite'
@@ -299,7 +299,7 @@ class RouteHelper {
                               : Get.parameters['page'] == 'menu'
                                   ? 4
                                   : 0,
-            ))),
+            )),
     GetPage(
         name: forgotPassword,
         page: () {
@@ -326,36 +326,36 @@ class RouteHelper {
               number: Get.parameters['phone'],
               fromPasswordChange: Get.parameters['page'] == 'password-change',
             )),
-    GetPage(name: search, page: () => getRoute(SearchScreen())),
+    GetPage(name: search, page: () => SearchScreen()),
     GetPage(
         name: restaurant,
         page: () {
-          return getRoute(Get.arguments != null
+          return Get.arguments != null
               ? Get.arguments
               : RestaurantScreen(
-                  restaurant: Restaurant(id: int.parse(Get.parameters['id']))));
+                  restaurant: Restaurant(id: int.parse(Get.parameters['id'])));
         }),
     GetPage(
         name: productDetails,
         page: () {
-          return getRoute(Get.arguments != null
+          return Get.arguments != null
               ? Get.arguments
               : ProductDetailsScreen(
-                  product: Product(id: int.parse(Get.parameters['id']))));
+                  product: Product(id: int.parse(Get.parameters['id'])));
         }),
     GetPage(
         name: orderDetails,
         page: () {
-          return getRoute(Get.arguments != null
+          return Get.arguments != null
               ? Get.arguments
               : OrderDetailsScreen(
                   orderId: int.parse(Get.parameters['id'] ?? '0'),
-                  orderModel: null));
+                  orderModel: null);
         }),
-    GetPage(name: profile, page: () => getRoute(ProfileScreen())),
-    GetPage(name: updateProfile, page: () => getRoute(UpdateProfileScreen())),
-    GetPage(name: coupon, page: () => getRoute(CouponScreen())),
-    GetPage(name: notification, page: () => getRoute(NotificationScreen())),
+    GetPage(name: profile, page: () => ProfileScreen()),
+    GetPage(name: updateProfile, page: () => UpdateProfileScreen()),
+    GetPage(name: coupon, page: () => CouponScreen()),
+    GetPage(name: notification, page: () => NotificationScreen()),
     GetPage(
         name: map,
         page: () {
@@ -363,57 +363,56 @@ class RouteHelper {
               base64Decode(Get.parameters['address'].replaceAll(' ', '+'));
           AddressModel _data =
               AddressModel.fromJson(jsonDecode(utf8.decode(_decode)));
-          return getRoute(MapScreen(
+          return MapScreen(
               fromRestaurant: Get.parameters['page'] == 'restaurant',
-              address: _data));
+              address: _data);
         }),
     GetPage(
         name: address,
         page: () {
-          return getRoute(AddressScreen(
+          return AddressScreen(
             fromCheckout: Get.parameters['page'] == "checkout",
-          ));
+          );
         }),
     GetPage(
         name: orderSuccess,
-        page: () => getRoute(OrderSuccessfulScreen(
+        page: () => OrderSuccessfulScreen(
               orderID: Get.parameters['id'],
               status: Get.parameters['status'].contains('success') ? 1 : 0,
               totalAmount: null,
-            ))),
+            )),
     GetPage(
         name: payment,
-        page: () => getRoute(PaymentScreen(
+        page: () => PaymentScreen(
                 orderModel: OrderModel(
               id: int.parse(Get.parameters['id']),
               userId: int.parse(Get.parameters['user']),
               orderAmount: double.parse(Get.parameters['amount']),
-            )))),
+            ))),
     GetPage(
         name: checkout,
         page: () {
           CheckoutScreen _checkoutScreen = Get.arguments;
           bool _fromCart = Get.parameters['page'] == 'cart';
-          return getRoute(_checkoutScreen != null
+          return _checkoutScreen != null
               ? _checkoutScreen
               : !_fromCart
                   ? NotFound()
                   : CheckoutScreen(
                       cartList: null,
                       fromCart: Get.parameters['page'] == 'cart',
-                    ));
+                    );
         }),
     GetPage(
         name: orderTracking,
-        page: () =>
-            getRoute(OrderTrackingScreen(orderID: Get.parameters['id']))),
+        page: () => OrderTrackingScreen(orderID: Get.parameters['id'])),
     GetPage(
         name: basicCampaign,
         page: () {
           BasicCampaignModel _data = BasicCampaignModel.fromJson(jsonDecode(
               utf8.decode(
                   base64Decode(Get.parameters['data'].replaceAll(' ', '+')))));
-          return getRoute(CampaignScreen(campaign: _data));
+          return CampaignScreen(campaign: _data);
         }),
     GetPage(
         name: html,
@@ -424,86 +423,87 @@ class RouteHelper {
                       ? HtmlType.PRIVACY_POLICY
                       : HtmlType.ABOUT_US,
             )),
-    GetPage(name: categories, page: () => getRoute(CategoryScreen())),
+    GetPage(name: categories, page: () => CategoryScreen()),
     GetPage(
         name: categoryProduct,
         page: () {
           List<int> _decode =
               base64Decode(Get.parameters['name'].replaceAll(' ', '+'));
           String _data = utf8.decode(_decode);
-          return getRoute(CategoryProductScreen(
-              categoryID: Get.parameters['id'], categoryName: _data));
+          return CategoryProductScreen(
+              categoryID: Get.parameters['id'], categoryName: _data);
         }),
     GetPage(
         name: popularFoods,
-        page: () => getRoute(
-            PopularFoodScreen(isPopular: Get.parameters['page'] == 'popular'))),
-    GetPage(name: itemCampaign, page: () => getRoute(ItemCampaignScreen())),
-    GetPage(name: support, page: () => getRoute(SupportScreen())),
+        page: () =>
+            PopularFoodScreen(isPopular: Get.parameters['page'] == 'popular')),
+    GetPage(name: itemCampaign, page: () => ItemCampaignScreen()),
+    GetPage(name: support, page: () => SupportScreen()),
     GetPage(
         name: update,
         page: () => UpdateScreen(isUpdate: Get.parameters['update'] == 'true')),
-    GetPage(name: cart, page: () => getRoute(CartScreen(fromNav: false))),
+    GetPage(name: cart, page: () => CartScreen(fromNav: false)),
     GetPage(
         name: addAddress,
-        page: () => getRoute(AddAddressScreen(
-            fromCheckout: Get.parameters['page'] == 'checkout'))),
+        page: () => AddAddressScreen(
+            fromCheckout: Get.parameters['page'] == 'checkout')),
     GetPage(
         name: editAddress,
-        page: () => getRoute(AddAddressScreen(
+        page: () => AddAddressScreen(
               fromCheckout: false,
               address: AddressModel.fromJson(jsonDecode(utf8.decode(base64Url
                   .decode(Get.parameters['data'].replaceAll(' ', '+'))))),
-            ))),
+            )),
     GetPage(
         name: rateReview,
-        page: () =>
-            getRoute(Get.arguments != null ? Get.arguments : NotFound())),
+        page: () => Get.arguments != null ? Get.arguments : NotFound()),
     GetPage(
         name: restaurantReview,
-        page: () => getRoute(ReviewScreen(
+        page: () => ReviewScreen(
               restaurantID: Get.parameters['id'],
               restaurantName: Get.parameters['restaurantName'],
-            ))),
+            )),
     GetPage(
         name: allRestaurants,
-        page: () => getRoute(AllRestaurantScreen(
-            isPopular: Get.parameters['page'] == 'popular'))),
+        page: () => AllRestaurantScreen(
+            isPopular: Get.parameters['page'] == 'popular')),
     GetPage(
         name: wallet,
-        page: () => getRoute(
-            WalletScreen(fromWallet: Get.parameters['page'] == 'wallet'))),
+        page: () =>
+            WalletScreen(fromWallet: Get.parameters['page'] == 'wallet')),
     GetPage(
         name: searchRestaurantItem,
-        page: () => getRoute(
-            RestaurantProductSearchScreen(storeID: Get.parameters['id']))),
+        page: () =>
+            RestaurantProductSearchScreen(storeID: Get.parameters['id'])),
     GetPage(
         name: productImages,
-        page: () => getRoute(ImageViewerScreen(
+        page: () => ImageViewerScreen(
               product: Product.fromJson(jsonDecode(utf8.decode(base64Url
                   .decode(Get.parameters['item'].replaceAll(' ', '+'))))),
-            ))),
-    GetPage(name: referAndEarn, page: () => getRoute(ReferAndEarnScreen())),
+            )),
+    GetPage(name: referAndEarn, page: () => ReferAndEarnScreen()),
   ];
 
-  static getRoute(Widget navigateTo) {
-    int _minimumVersion = 0;
-    if (GetPlatform.isAndroid) {
-      _minimumVersion =
-          Get.find<SplashController>().configModel.appMinimumVersionAndroid;
-    } else if (GetPlatform.isIOS) {
-      _minimumVersion =
-          Get.find<SplashController>().configModel.appMinimumVersionIos;
-    }
-    return AppConstants.APP_VERSION < _minimumVersion
-        ? UpdateScreen(isUpdate: true)
-        : Get.find<SplashController>().configModel.maintenanceMode
-            ? UpdateScreen(isUpdate: false)
-            : Get.find<LocationController>().getUserAddress() != null
-                ? navigateTo
-                : AccessLocationScreen(
-                    fromSignUp: false,
-                    fromHome: false,
-                    route: Get.currentRoute);
-  }
+  // static getRoute(Widget navigateTo) {
+  //   int _minimumVersion = 0;
+  //   if (GetPlatform.isAndroid) {
+  //     _minimumVersion =
+  //         Get.find<SplashController>().configModel.appMinimumVersionAndroid ??
+  //             1;
+  //   } else if (GetPlatform.isIOS) {
+  //     _minimumVersion =
+  //         Get.find<SplashController>().configModel.appMinimumVersionIos ?? 1;
+  //   }
+
+  //   return AppConstants.APP_VERSION < _minimumVersion
+  //       ? UpdateScreen(isUpdate: true)
+  //       : Get.find<SplashController>().configModel.maintenanceMode ?? false
+  //           ? UpdateScreen(isUpdate: false)
+  //           : Get.find<LocationController>().getUserAddress() != null
+  //               ? navigateTo
+  //               : AccessLocationScreen(
+  //                   fromSignUp: false,
+  //                   fromHome: false,
+  //                   route: Get.currentRoute);
+  // }
 }

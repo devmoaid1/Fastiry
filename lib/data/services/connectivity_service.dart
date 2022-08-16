@@ -13,6 +13,15 @@ class ConnectivityService extends GetxController implements GetxService {
   ConnectivityResult get connectionStatus => _connectionStatus;
   Stream get connectivityStream => Connectivity().onConnectivityChanged;
 
+  ConnectivityService() {
+    getInitialConnectionStatus();
+  }
+
+  Future<void> getInitialConnectionStatus() async {
+    final result = await Connectivity().checkConnectivity();
+    handleStatus(result);
+  }
+
   void handleStatus(ConnectivityResult result) async {
     _connectionStatus = result;
 

@@ -1,20 +1,19 @@
 import 'dart:async';
 
-import 'package:efood_multivendor/data/services/connectivity_service.dart';
 import 'package:get/get.dart';
 
-class ConectivityController extends GetxController implements GetxService {
-  final connectivityService = Get.find<ConnectivityService>();
+import '../util/services_instances.dart';
 
+class ConectivityController extends GetxController implements GetxService {
   StreamSubscription _conectivitySubscription;
 
   @override
   void onInit() {
-    // TODO: implement onInit
-    super.onInit();
     initConnectionStream();
+    super.onInit();
   }
 
+  bool isFirstTime = true;
   void initConnectionStream() {
     _conectivitySubscription =
         connectivityService.connectivityStream.listen((status) {

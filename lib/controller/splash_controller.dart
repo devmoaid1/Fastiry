@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/api/api_checker.dart';
@@ -19,8 +20,8 @@ import 'location_controller.dart';
 class SplashController extends GetxController implements GetxService {
   final SplashRepo splashRepo;
   SplashController({@required this.splashRepo});
-
-  ConfigModel _configModel;
+  final cartController = Get.find<CartController>();
+  ConfigModel _configModel = ConfigModel();
   bool _firstTimeConnectionCheck = true;
   bool _hasConnection = true;
 
@@ -28,6 +29,12 @@ class SplashController extends GetxController implements GetxService {
   DateTime get currentTime => DateTime.now();
   bool get firstTimeConnectionCheck => _firstTimeConnectionCheck;
   bool get hasConnection => _hasConnection;
+
+  Future<void> navigatorScreenRouting() async {
+    Timer(Duration(seconds: 2), () {
+      Get.offNamed(RouteHelper.getNavigatorRoute());
+    });
+  }
 
   Future<bool> getConfigData() async {
     _hasConnection = true;
