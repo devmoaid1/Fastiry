@@ -30,15 +30,24 @@ class ProductImage extends StatelessWidget {
         child: InkWell(
             onTap: () => Get.back(),
             child: Padding(
-              padding: EdgeInsets.only(
-                  top: Dimensions.blockscreenHorizontal * 2,
-                  left: Dimensions.blockscreenHorizontal * 3,
-                  right: Get.locale.languageCode != "en"
-                      ? Dimensions.blockscreenHorizontal * 3
-                      : 0),
-              child: Icon(Icons.arrow_back_ios,
-                  color: Theme.of(context).disabledColor),
-            )),
+                padding: EdgeInsets.only(
+                    top: Dimensions.blockscreenHorizontal * 2,
+                    left: Dimensions.blockscreenHorizontal * 3,
+                    right: Get.locale.languageCode != "en"
+                        ? Dimensions.blockscreenHorizontal * 3
+                        : 0),
+                child: Container(
+                  height: Dimensions.blockscreenHorizontal * 10,
+                  width: Dimensions.blockscreenHorizontal * 10,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: Get.isDarkMode
+                          ? Theme.of(context).backgroundColor
+                          : Colors.grey[200]),
+                  alignment: Alignment.center,
+                  child: Icon(Icons.chevron_left,
+                      size: 30, color: Theme.of(context).dividerColor),
+                ))),
       ),
     ]);
   }

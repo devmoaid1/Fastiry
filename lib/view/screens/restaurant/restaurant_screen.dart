@@ -157,8 +157,8 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                   Theme.of(context).backgroundColor,
                               leading: IconButton(
                                 icon: Container(
-                                  height: Dimensions.blockscreenHorizontal * 10,
-                                  width: Dimensions.blockscreenHorizontal * 10,
+                                  height: Dimensions.blockscreenHorizontal * 12,
+                                  width: Dimensions.blockscreenHorizontal * 12,
                                   decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       color: Get.isDarkMode
@@ -166,6 +166,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                           : Colors.grey[200]),
                                   alignment: Alignment.center,
                                   child: Icon(Icons.chevron_left,
+                                      size: 30,
                                       color: Theme.of(context).dividerColor),
                                 ),
                                 onPressed: () => Get.back(),
@@ -182,9 +183,9 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                           _restaurant.id)),
                                   icon: Container(
                                     height:
-                                        Dimensions.blockscreenHorizontal * 10,
+                                        Dimensions.blockscreenHorizontal * 12,
                                     width:
-                                        Dimensions.blockscreenHorizontal * 10,
+                                        Dimensions.blockscreenHorizontal * 12,
                                     decoration: BoxDecoration(
                                         shape: BoxShape.circle,
                                         color: Get.isDarkMode
@@ -192,6 +193,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                             : Colors.grey[200]),
                                     alignment: Alignment.center,
                                     child: Icon(Icons.search,
+                                        size: 30,
                                         color: Theme.of(context).dividerColor),
                                   ),
                                 )

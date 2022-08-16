@@ -82,7 +82,7 @@ class Theme1HomeScreen extends StatelessWidget {
                                     width:
                                         Dimensions.blockscreenHorizontal * 2),
                                 Container(
-                                  width: Dimensions.screenWidth * 0.7,
+                                  width: Dimensions.screenWidth * 0.65,
                                   child: Text(
                                     locationController.getUserAddress().address,
                                     style: Get.find<FontStyles>()

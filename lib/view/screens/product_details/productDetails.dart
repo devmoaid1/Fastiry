@@ -12,6 +12,7 @@ import '../../../helper/price_converter.dart';
 import '../../../helper/responsive_helper.dart';
 import '../../../util/dimensions.dart';
 import 'widgets/add_ons_cards.dart';
+import 'widgets/not_available.dart';
 import 'widgets/variation_cards.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
@@ -176,13 +177,9 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                           SizedBox(height: Dimensions.blockscreenVertical),
 
                           // //Add to cart Button
-                          // _isAvailable
-                          //     ? SizedBox()
-                          //     : ProductNotAvailableCard(product: widget.product)
-
-                          // (!widget.product.scheduleOrder && !_isAvailable)
-                          //     ? SizedBox()
-                          //     :
+                          _isAvailable
+                              ? SizedBox()
+                              : ProductNotAvailableCard(product: widget.product)
 
                           //
                         ]),

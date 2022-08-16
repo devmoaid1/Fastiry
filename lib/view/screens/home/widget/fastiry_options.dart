@@ -16,7 +16,7 @@ class FastiryOptions extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<UserController>(builder: (userController) {
       return Container(
-        height: Dimensions.blockscreenHorizontal * 53,
+        height: Dimensions.blockscreenHorizontal * 55,
         child: Padding(
           padding: EdgeInsets.symmetric(
               horizontal: Dimensions.blockscreenHorizontal * 3, vertical: 10),

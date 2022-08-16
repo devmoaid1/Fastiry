@@ -151,7 +151,7 @@ class PopularStoreView1 extends StatelessWidget {
                                                           width: (Dimensions
                                                                       .blockscreenHorizontal *
                                                                   50) *
-                                                              0.8,
+                                                              0.6,
                                                           child: Text(
                                                             _restaurant[index]
                                                                     .name ??

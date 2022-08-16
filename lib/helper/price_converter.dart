@@ -14,9 +14,14 @@ class PriceConverter {
     bool _isRightSide =
         Get.find<SplashController>().configModel.currencySymbolDirection ==
             'right';
-    return '${_isRightSide ? '' : 'جم' + ' '}'
-        '${_isRightSide ? ' ' + 'EGP' : ''} '
-        '${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}';
+
+    bool isEnglish = Get.locale.languageCode == "en";
+
+    if (!isEnglish) {
+      return "${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')} جم";
+    } else if (isEnglish) {
+      return 'EGP ${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}  ';
+    }
   }
 
   static double convertWithDiscount(
