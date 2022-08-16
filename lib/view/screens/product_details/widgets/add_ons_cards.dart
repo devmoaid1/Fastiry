@@ -21,7 +21,10 @@ class AddOnsCards extends StatelessWidget {
         padding: EdgeInsets.symmetric(
           horizontal: Dimensions.blockscreenHorizontal * 2,
         ),
-        child: Text('addons'.tr, style: Get.find<FontStyles>().poppinsMedium),
+        child: Text('addons'.tr,
+            style: Get.find<FontStyles>()
+                .poppinsMedium
+                .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4)),
       ),
       SizedBox(height: Dimensions.PADDING_SIZE_EXTRA_SMALL),
       GridView.builder(
@@ -32,7 +35,7 @@ class AddOnsCards extends StatelessWidget {
           crossAxisCount: 1,
           crossAxisSpacing: 20,
           mainAxisSpacing: 10,
-          childAspectRatio: (1 / 0.25),
+          childAspectRatio: 16 / 3,
         ),
         shrinkWrap: true,
         physics: NeverScrollableScrollPhysics(),
@@ -72,45 +75,41 @@ class AddOnsCards extends StatelessWidget {
                           ]
                     : null,
               ),
-              child: Expanded(
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.start, children: [
-                  productController.addOnActiveList[index]
-                      ? Icon(Icons.check, color: Colors.white)
-                      : SizedBox(
-                          width: Dimensions.blockscreenHorizontal * 5,
-                        ),
-                  SizedBox(
-                    width: Dimensions.blockscreenHorizontal,
-                  ),
-                  Text(
-                    product.addOns[index].name,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                          color: productController.addOnActiveList[index]
-                              ? Colors.white
-                              : Theme.of(context).disabledColor,
-                          fontSize: Dimensions.fontSizeSmall,
-                        ),
-                  ),
-                  Expanded(child: SizedBox()),
-                  Text(
-                    product.addOns[index].price > 0
-                        ? "(${PriceConverter.convertPrice(product.addOns[index].price)} +)"
-                        : 'free'.tr,
-                    maxLines: 1,
-                    overflow: TextOverflow.ellipsis,
-                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                          color: productController.addOnActiveList[index]
-                              ? Colors.white
-                              : Theme.of(context).disabledColor,
-                          fontSize: Dimensions.blockscreenHorizontal * 3.3,
-                        ),
-                  ),
-                ]),
-              ),
+              child: Row(mainAxisAlignment: MainAxisAlignment.start, children: [
+                productController.addOnActiveList[index]
+                    ? Icon(Icons.check, color: Colors.white)
+                    : SizedBox(
+                        width: Dimensions.blockscreenHorizontal * 5,
+                      ),
+                SizedBox(
+                  width: Dimensions.blockscreenHorizontal,
+                ),
+                Text(
+                  product.addOns[index].name,
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                  textAlign: TextAlign.center,
+                  style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                        color: productController.addOnActiveList[index]
+                            ? Colors.white
+                            : Theme.of(context).dividerColor,
+                      ),
+                ),
+                Expanded(child: SizedBox()),
+                Text(
+                  product.addOns[index].price > 0
+                      ? "(${PriceConverter.convertPrice(product.addOns[index].price)} +)"
+                      : 'free'.tr,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                        color: productController.addOnActiveList[index]
+                            ? Colors.white
+                            : Theme.of(context).disabledColor,
+                        fontSize: Dimensions.blockscreenHorizontal * 3.3,
+                      ),
+                ),
+              ]),
             ),
           );
         },

@@ -27,7 +27,7 @@ class VariationCards extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: Dimensions.blockscreenHorizontal * 2,
             ),
-            child: Text('Select ${product.choiceOptions[index].title}',
+            child: Text('${"select".tr} ${product.choiceOptions[index].title}',
                 style: Get.find<FontStyles>()
                     .poppinsMedium
                     .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4)),

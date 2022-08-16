@@ -1,4 +1,4 @@
-package com.apmo.fasteriy
+package com.fasteriy.fasteriynew
 
 import io.flutter.embedding.android.FlutterActivity
 

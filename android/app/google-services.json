@@ -14,6 +14,43 @@
       },
       "oauth_client": [
         {
+          "client_id": "376361342662-644nf279l82mhrjke1f7ovodut4g6ee0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.apmo.fasteriy",
+            "certificate_hash": "0da5074ea57e059b9dfe7fc3e039f1aafad16974"
+          }
+        },
+        {
+          "client_id": "376361342662-uvkteqldqaguk0315tuetoi5nr4lc6lb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAr09vJINNXz7k8gWvc74RtR5zUd2ZZT0E"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "376361342662-uvkteqldqaguk0315tuetoi5nr4lc6lb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:376361342662:android:dce4e214ad25f4ffc5a9c7",
+        "android_client_info": {
+          "package_name": "com.fasteriy.fasteriynew"
+        }
+      },
+      "oauth_client": [
+        {
           "client_id": "376361342662-uvkteqldqaguk0315tuetoi5nr4lc6lb.apps.googleusercontent.com",
           "client_type": 3
         }

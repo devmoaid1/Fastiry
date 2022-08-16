@@ -19,7 +19,7 @@ class ProductImage extends StatelessWidget {
           image:
               '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${product.image}',
           width: double.infinity,
-          height: Dimensions.screeHeight * 0.25,
+          height: Dimensions.screeHeight * 0.28,
           fit: BoxFit.fill,
         ),
       ),
