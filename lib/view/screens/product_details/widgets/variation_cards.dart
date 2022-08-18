@@ -58,21 +58,21 @@ class VariationCards extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.blockscreenHorizontal * 3),
                     decoration: BoxDecoration(
-                      color: productController.variationIndex[index] != i
-                          ? Theme.of(context).backgroundColor
-                          : Theme.of(context).primaryColor,
+                      color: Theme.of(context).backgroundColor,
                       borderRadius:
                           BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                      border: productController.variationIndex[index] != i
-                          ? Border.all(
-                              color: Theme.of(context).disabledColor, width: 2)
-                          : null,
+                      border: Border.all(
+                          color: productController.variationIndex[index] != i
+                              ? Theme.of(context).disabledColor
+                              : Theme.of(context).primaryColor,
+                          width: 2),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         productController.variationIndex[index] == i
-                            ? Icon(Icons.check, color: Colors.white)
+                            ? Icon(Icons.check,
+                                color: Theme.of(context).primaryColor)
                             : SizedBox(
                                 width: Dimensions.blockscreenHorizontal * 5,
                               ),
@@ -83,12 +83,9 @@ class VariationCards extends StatelessWidget {
                           product.choiceOptions[index].options[i].trim(),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                color:
-                                    productController.variationIndex[index] != i
-                                        ? Theme.of(context).dividerColor
-                                        : Colors.white,
-                              ),
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(color: Theme.of(context).dividerColor),
                         ),
                         Expanded(child: SizedBox()),
                         Text(
@@ -96,10 +93,7 @@ class VariationCards extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                color:
-                                    productController.variationIndex[index] != i
-                                        ? Theme.of(context).dividerColor
-                                        : Colors.white,
+                                color: Theme.of(context).dividerColor,
                               ),
                         ),
                       ],

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">fasteriy</string>
-    <string name="facebook_app_id">388525686767415</string>
-    <string name="fb_login_protocol_scheme">fb388525686767415</string>
-    <string name="facebook_client_token">af5cb0a7a16d627fb555c856fd054eee</string>
+    <string name="app_name">Fastiry</string>
+    <string name="facebook_app_id">1041195319931440</string>
+    <string name="fb_login_protocol_scheme">fb1041195319931440</string>
+    <string name="facebook_client_token">bfee3640841d0ba0da3f0db7784a698a</string>
 </resources>

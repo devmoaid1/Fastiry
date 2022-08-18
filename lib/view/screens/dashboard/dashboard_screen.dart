@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
+import 'package:efood_multivendor/view/base/internet_connection_wrapper.dart';
 import 'package:efood_multivendor/view/screens/dashboard/dashboard_controller.dart';
 import 'package:efood_multivendor/view/screens/dashboard/widget/bottom_nav_item.dart';
 import 'package:efood_multivendor/view/screens/favourite/favourite_screen.dart';
@@ -38,10 +39,10 @@ class _DashboardScreenState extends State<DashboardScreen> {
         PageController(initialPage: dashBoardController.currentIndex);
 
     _screens = [
-      HomeScreen(),
-      FavouriteScreen(),
-      OrderScreen(),
-      MenuScreenNew(),
+      InternetConnectionWrapper(screen: HomeScreen()),
+      InternetConnectionWrapper(screen: FavouriteScreen()),
+      InternetConnectionWrapper(screen: OrderScreen()),
+      InternetConnectionWrapper(screen: MenuScreenNew()),
     ];
 
     Future.delayed(Duration(seconds: 1), () {

@@ -11,14 +11,11 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/data/model/response/config_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/services_instances.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/theme1_home_screen.dart';
 import 'package:efood_multivendor/view/screens/home/web_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
-import '../../base/no_internet_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   static Future<void> loadData(bool reload) async {
@@ -60,7 +57,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // init();
-    if (connectivityService.isConnected.isTrue) {
+    if (homeController.isFirstTimeLoad) {
       homeController.loadData(false);
     }
     cartController.update();
@@ -72,30 +69,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Obx(() {
-      return Scaffold(
-        appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
-        backgroundColor: Theme.of(context).backgroundColor,
-        body: SafeArea(
-          child: RefreshIndicator(
+    return Scaffold(
+      appBar: ResponsiveHelper.isDesktop(context) ? WebMenuBar() : null,
+      backgroundColor: Theme.of(context).backgroundColor,
+      body: SafeArea(
+        child: RefreshIndicator(
             onRefresh: () async {
               await homeController.refresh();
             },
-            child: connectivityService.isConnected.isTrue
-                ? ResponsiveHelper.isDesktop(context)
-                    ? WebHomeScreen(
-                        scrollController: _scrollController,
-                      )
-                    : Theme1HomeScreen(
-                        scrollController: _scrollController,
-                      )
-                : NoInternetScreen(
-                    child: HomeScreen(),
-                  ),
-          ),
-        ),
-      );
-    });
+            child: ResponsiveHelper.isDesktop(context)
+                ? WebHomeScreen(
+                    scrollController: _scrollController,
+                  )
+                : Theme1HomeScreen(
+                    scrollController: _scrollController,
+                  )),
+      ),
+    );
   }
 }
 

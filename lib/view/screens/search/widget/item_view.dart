@@ -11,11 +11,17 @@ class ItemView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       body: GetBuilder<SearchController>(builder: (searchController) {
         return SingleChildScrollView(
-          child: Center(child: SizedBox(width: Dimensions.WEB_MAX_WIDTH, child: ProductView(
-            isRestaurant: isRestaurant, products: searchController.searchProductList, restaurants: searchController.searchRestList,
-          ))),
+          child: Center(
+              child: SizedBox(
+                  width: Dimensions.WEB_MAX_WIDTH,
+                  child: ProductView(
+                    isRestaurant: isRestaurant,
+                    products: searchController.searchProductList,
+                    restaurants: searchController.searchRestList,
+                  ))),
         );
       }),
     );

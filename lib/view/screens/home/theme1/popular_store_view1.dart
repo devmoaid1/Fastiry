@@ -46,7 +46,7 @@ class PopularStoreView1 extends StatelessWidget {
                   ),
                 ),
                 SizedBox(
-                  height: Dimensions.blockscreenVertical * 32,
+                  height: Dimensions.blockscreenVertical * 35,
                   child: _restaurant != null
                       ? ListView.builder(
                           controller: ScrollController(),

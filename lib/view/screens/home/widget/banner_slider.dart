@@ -11,6 +11,7 @@ import '../../../../helper/responsive_helper.dart';
 import '../../../../helper/route_helper.dart';
 import '../../../../util/dimensions.dart';
 import '../../../../util/images.dart';
+import '../../../base/custom_image.dart';
 import '../../../base/product_bottom_sheet.dart';
 import '../../restaurant/restaurant_screen.dart';
 
@@ -69,14 +70,10 @@ class BannerSlider extends StatelessWidget {
                       BorderRadius.circular(Dimensions.RADIUS_DEFAULT),
                   child:
                       GetBuilder<SplashController>(builder: (splashController) {
-                    //     return CustomImage(
-                    //   image:
-                    //       '$_baseUrl/${bannerController.bannerImageList[index]}',
-                    //   placeholder: Images.breakFastImage,
-                    //   fit: BoxFit.fill,
-                    // );
-                    return Image.asset(
-                      Images.breakFastImage,
+                    return CustomImage(
+                      image:
+                          '$_baseUrl/${bannerController.bannerImageList[index]}',
+                      placeholder: Images.breakFastImage,
                       fit: BoxFit.fill,
                     );
                   }),

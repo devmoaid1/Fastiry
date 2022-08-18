@@ -8,6 +8,7 @@ import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/util/html_type.dart';
 import 'package:efood_multivendor/view/base/image_viewer_screen.dart';
+import 'package:efood_multivendor/view/base/internet_connection_wrapper.dart';
 import 'package:efood_multivendor/view/base/not_found.dart';
 import 'package:efood_multivendor/view/screens/address/add_address_screen.dart';
 import 'package:efood_multivendor/view/screens/address/address_screen.dart';
@@ -218,7 +219,9 @@ class RouteHelper {
 
   static List<GetPage> routes = [
     GetPage(name: initial, page: () => DashboardScreen(pageIndex: 0)),
-    GetPage(name: navigatorScreen, page: () => NavigatorScreen()),
+    GetPage(
+        name: navigatorScreen,
+        page: () => InternetConnectionWrapper(screen: NavigatorScreen())),
     GetPage(name: fastiryFood, page: () => FoodScreen()),
     GetPage(name: fastiryMart, page: () => MartScreen()),
     GetPage(
