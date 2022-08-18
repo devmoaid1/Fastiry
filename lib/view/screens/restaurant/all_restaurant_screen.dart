@@ -21,13 +21,15 @@ class _AllRestaurantScreenState extends State<AllRestaurantScreen> {
   void initState() {
     super.initState();
 
-    if (widget.isPopular) {
-      Get.find<RestaurantController>()
-          .getPopularRestaurantList(false, 'all', false);
-    } else {
-      Get.find<RestaurantController>()
-          .getLatestRestaurantList(false, 'all', false);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.isPopular) {
+        Get.find<RestaurantController>()
+            .getPopularRestaurantList(false, 'all', false);
+      } else {
+        Get.find<RestaurantController>()
+            .getLatestRestaurantList(false, 'all', false);
+      }
+    });
   }
 
   @override

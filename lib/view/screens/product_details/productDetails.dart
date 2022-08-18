@@ -166,7 +166,22 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               product: widget.product),
 
                           SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
+                          widget.product.addOns.length > 0
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
+                                  child: Divider(
+                                    height: 20,
+                                    thickness: 6,
+                                    color: Get.isDarkMode
+                                        ? Theme.of(context)
+                                            .disabledColor
+                                            .withOpacity(0.3)
+                                        : Colors.grey[200],
+                                  ),
+                                )
+                              : SizedBox(),
                           // // Addons
                           widget.product.addOns.length > 0
                               ? AddOnsCards(

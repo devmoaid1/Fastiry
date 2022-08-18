@@ -18,7 +18,7 @@ class PriceConverter {
     bool isEnglish = Get.locale.languageCode == "en";
 
     if (!isEnglish) {
-      return "${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')} جم";
+      return "${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')} ج.م";
     } else if (isEnglish) {
       return 'EGP ${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}  ';
     }

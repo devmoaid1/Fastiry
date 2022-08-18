@@ -222,15 +222,21 @@ class RouteHelper {
     GetPage(
         name: navigatorScreen,
         page: () => InternetConnectionWrapper(screen: NavigatorScreen())),
-    GetPage(name: fastiryFood, page: () => FoodScreen()),
-    GetPage(name: fastiryMart, page: () => MartScreen()),
+    GetPage(
+        name: fastiryFood,
+        page: () => InternetConnectionWrapper(screen: FoodScreen())),
+    GetPage(
+        name: fastiryMart,
+        page: () => InternetConnectionWrapper(screen: MartScreen())),
     GetPage(
         name: socialPhone,
         page: () {
           User user = Get.arguments;
-          return SocialPhoneScreen(
-            user: user,
-            token: Get.parameters['token'],
+          return InternetConnectionWrapper(
+            screen: SocialPhoneScreen(
+              user: user,
+              token: Get.parameters['token'],
+            ),
           );
         }),
     GetPage(
@@ -240,36 +246,47 @@ class RouteHelper {
                 Get.parameters['id'] == 'null' ? null : Get.parameters['id'])),
     GetPage(
         name: language,
-        page: () =>
-            ChooseLanguageScreen(fromMenu: Get.parameters['page'] == 'menu')),
-    GetPage(name: onBoarding, page: () => OnBoardingScreen()),
+        page: () => InternetConnectionWrapper(
+            screen: ChooseLanguageScreen(
+                fromMenu: Get.parameters['page'] == 'menu'))),
+    GetPage(
+        name: onBoarding,
+        page: () => InternetConnectionWrapper(screen: OnBoardingScreen())),
     GetPage(
         name: signIn,
-        page: () => SignInScreen(
-              exitFromApp: Get.parameters['page'] == signUp ||
-                  Get.parameters['page'] == splash ||
-                  Get.parameters['page'] == onBoarding,
+        page: () => InternetConnectionWrapper(
+              screen: SignInScreen(
+                exitFromApp: Get.parameters['page'] == signUp ||
+                    Get.parameters['page'] == splash ||
+                    Get.parameters['page'] == onBoarding,
+              ),
             )),
-    GetPage(name: signUp, page: () => SignUpScreen()),
+    GetPage(
+        name: signUp,
+        page: () => InternetConnectionWrapper(screen: SignUpScreen())),
     GetPage(
         name: verification,
         page: () {
           List<int> _decode =
               base64Decode(Get.parameters['pass'].replaceAll(' ', '+'));
           String _data = utf8.decode(_decode);
-          return VerificationScreen(
-            number: Get.parameters['number'],
-            fromSignUp: Get.parameters['page'] == signUp,
-            token: Get.parameters['token'],
-            password: _data,
+          return InternetConnectionWrapper(
+            screen: VerificationScreen(
+              number: Get.parameters['number'],
+              fromSignUp: Get.parameters['page'] == signUp,
+              token: Get.parameters['token'],
+              password: _data,
+            ),
           );
         }),
     GetPage(
         name: accessLocation,
-        page: () => AccessLocationScreen(
-              fromSignUp: Get.parameters['page'] == signUp,
-              fromHome: Get.parameters['page'] == 'home',
-              route: null,
+        page: () => InternetConnectionWrapper(
+              screen: AccessLocationScreen(
+                fromSignUp: Get.parameters['page'] == signUp,
+                fromHome: Get.parameters['page'] == 'home',
+                route: null,
+              ),
             )),
     GetPage(
         name: pickMap,
@@ -280,14 +297,18 @@ class RouteHelper {
               ? NotFound()
               : _pickMapScreen != null
                   ? _pickMapScreen
-                  : PickMapScreen(
-                      fromSignUp: Get.parameters['page'] == signUp,
-                      fromAddAddress: _fromAddress,
-                      route: Get.parameters['page'],
-                      canRoute: Get.parameters['route'] == 'true',
+                  : InternetConnectionWrapper(
+                      screen: PickMapScreen(
+                        fromSignUp: Get.parameters['page'] == signUp,
+                        fromAddAddress: _fromAddress,
+                        route: Get.parameters['page'],
+                        canRoute: Get.parameters['route'] == 'true',
+                      ),
                     );
         }),
-    GetPage(name: interest, page: () => InterestScreen()),
+    GetPage(
+        name: interest,
+        page: () => InternetConnectionWrapper(screen: InterestScreen())),
     GetPage(
         name: main,
         page: () => DashboardScreen(
@@ -315,50 +336,71 @@ class RouteHelper {
             _data = SocialLogInBody.fromJson(jsonDecode(utf8.decode(_decode)));
             _customer = Customer.fromJson(jsonDecode(Get.parameters['user']));
           }
-          return ForgetPassScreen(
-            fromSocialLogin: Get.parameters['page'] == 'social-login',
-            socialLogInBody: _data,
-            token: Get.parameters['token'],
-            customer: _customer,
+          return InternetConnectionWrapper(
+            screen: ForgetPassScreen(
+              fromSocialLogin: Get.parameters['page'] == 'social-login',
+              socialLogInBody: _data,
+              token: Get.parameters['token'],
+              customer: _customer,
+            ),
           );
         }),
     GetPage(
         name: resetPassword,
-        page: () => NewPassScreen(
-              resetToken: Get.parameters['token'],
-              number: Get.parameters['phone'],
-              fromPasswordChange: Get.parameters['page'] == 'password-change',
+        page: () => InternetConnectionWrapper(
+              screen: NewPassScreen(
+                resetToken: Get.parameters['token'],
+                number: Get.parameters['phone'],
+                fromPasswordChange: Get.parameters['page'] == 'password-change',
+              ),
             )),
-    GetPage(name: search, page: () => SearchScreen()),
+    GetPage(
+        name: search,
+        page: () => InternetConnectionWrapper(screen: SearchScreen())),
     GetPage(
         name: restaurant,
         page: () {
           return Get.arguments != null
               ? Get.arguments
-              : RestaurantScreen(
-                  restaurant: Restaurant(id: int.parse(Get.parameters['id'])));
+              : InternetConnectionWrapper(
+                  screen: RestaurantScreen(
+                      restaurant:
+                          Restaurant(id: int.parse(Get.parameters['id']))),
+                );
         }),
     GetPage(
         name: productDetails,
         page: () {
           return Get.arguments != null
               ? Get.arguments
-              : ProductDetailsScreen(
-                  product: Product(id: int.parse(Get.parameters['id'])));
+              : InternetConnectionWrapper(
+                  screen: ProductDetailsScreen(
+                      product: Product(id: int.parse(Get.parameters['id']))),
+                );
         }),
     GetPage(
         name: orderDetails,
         page: () {
           return Get.arguments != null
               ? Get.arguments
-              : OrderDetailsScreen(
-                  orderId: int.parse(Get.parameters['id'] ?? '0'),
-                  orderModel: null);
+              : InternetConnectionWrapper(
+                  screen: OrderDetailsScreen(
+                      orderId: int.parse(Get.parameters['id'] ?? '0'),
+                      orderModel: null),
+                );
         }),
-    GetPage(name: profile, page: () => ProfileScreen()),
-    GetPage(name: updateProfile, page: () => UpdateProfileScreen()),
-    GetPage(name: coupon, page: () => CouponScreen()),
-    GetPage(name: notification, page: () => NotificationScreen()),
+    GetPage(
+        name: profile,
+        page: () => InternetConnectionWrapper(screen: ProfileScreen())),
+    GetPage(
+        name: updateProfile,
+        page: () => InternetConnectionWrapper(screen: UpdateProfileScreen())),
+    GetPage(
+        name: coupon,
+        page: () => InternetConnectionWrapper(screen: CouponScreen())),
+    GetPage(
+        name: notification,
+        page: () => InternetConnectionWrapper(screen: NotificationScreen())),
     GetPage(
         name: map,
         page: () {
@@ -366,32 +408,40 @@ class RouteHelper {
               base64Decode(Get.parameters['address'].replaceAll(' ', '+'));
           AddressModel _data =
               AddressModel.fromJson(jsonDecode(utf8.decode(_decode)));
-          return MapScreen(
-              fromRestaurant: Get.parameters['page'] == 'restaurant',
-              address: _data);
+          return InternetConnectionWrapper(
+            screen: MapScreen(
+                fromRestaurant: Get.parameters['page'] == 'restaurant',
+                address: _data),
+          );
         }),
     GetPage(
         name: address,
         page: () {
-          return AddressScreen(
-            fromCheckout: Get.parameters['page'] == "checkout",
+          return InternetConnectionWrapper(
+            screen: AddressScreen(
+              fromCheckout: Get.parameters['page'] == "checkout",
+            ),
           );
         }),
     GetPage(
         name: orderSuccess,
-        page: () => OrderSuccessfulScreen(
-              orderID: Get.parameters['id'],
-              status: Get.parameters['status'].contains('success') ? 1 : 0,
-              totalAmount: null,
+        page: () => InternetConnectionWrapper(
+              screen: OrderSuccessfulScreen(
+                orderID: Get.parameters['id'],
+                status: Get.parameters['status'].contains('success') ? 1 : 0,
+                totalAmount: null,
+              ),
             )),
     GetPage(
         name: payment,
-        page: () => PaymentScreen(
-                orderModel: OrderModel(
-              id: int.parse(Get.parameters['id']),
-              userId: int.parse(Get.parameters['user']),
-              orderAmount: double.parse(Get.parameters['amount']),
-            ))),
+        page: () => InternetConnectionWrapper(
+              screen: PaymentScreen(
+                  orderModel: OrderModel(
+                id: int.parse(Get.parameters['id']),
+                userId: int.parse(Get.parameters['user']),
+                orderAmount: double.parse(Get.parameters['amount']),
+              )),
+            )),
     GetPage(
         name: checkout,
         page: () {
@@ -401,21 +451,25 @@ class RouteHelper {
               ? _checkoutScreen
               : !_fromCart
                   ? NotFound()
-                  : CheckoutScreen(
-                      cartList: null,
-                      fromCart: Get.parameters['page'] == 'cart',
+                  : InternetConnectionWrapper(
+                      screen: CheckoutScreen(
+                        cartList: null,
+                        fromCart: Get.parameters['page'] == 'cart',
+                      ),
                     );
         }),
     GetPage(
         name: orderTracking,
-        page: () => OrderTrackingScreen(orderID: Get.parameters['id'])),
+        page: () => InternetConnectionWrapper(
+            screen: OrderTrackingScreen(orderID: Get.parameters['id']))),
     GetPage(
         name: basicCampaign,
         page: () {
           BasicCampaignModel _data = BasicCampaignModel.fromJson(jsonDecode(
               utf8.decode(
                   base64Decode(Get.parameters['data'].replaceAll(' ', '+')))));
-          return CampaignScreen(campaign: _data);
+          return InternetConnectionWrapper(
+              screen: CampaignScreen(campaign: _data));
         }),
     GetPage(
         name: html,
@@ -426,65 +480,93 @@ class RouteHelper {
                       ? HtmlType.PRIVACY_POLICY
                       : HtmlType.ABOUT_US,
             )),
-    GetPage(name: categories, page: () => CategoryScreen()),
+    GetPage(
+        name: categories,
+        page: () => InternetConnectionWrapper(screen: CategoryScreen())),
     GetPage(
         name: categoryProduct,
         page: () {
           List<int> _decode =
               base64Decode(Get.parameters['name'].replaceAll(' ', '+'));
           String _data = utf8.decode(_decode);
-          return CategoryProductScreen(
-              categoryID: Get.parameters['id'], categoryName: _data);
+          return InternetConnectionWrapper(
+            screen: CategoryProductScreen(
+                categoryID: Get.parameters['id'], categoryName: _data),
+          );
         }),
     GetPage(
         name: popularFoods,
-        page: () =>
-            PopularFoodScreen(isPopular: Get.parameters['page'] == 'popular')),
-    GetPage(name: itemCampaign, page: () => ItemCampaignScreen()),
-    GetPage(name: support, page: () => SupportScreen()),
+        page: () => InternetConnectionWrapper(
+            screen: PopularFoodScreen(
+                isPopular: Get.parameters['page'] == 'popular'))),
+    GetPage(
+        name: itemCampaign,
+        page: () => InternetConnectionWrapper(screen: ItemCampaignScreen())),
+    GetPage(
+        name: support,
+        page: () => InternetConnectionWrapper(screen: SupportScreen())),
     GetPage(
         name: update,
-        page: () => UpdateScreen(isUpdate: Get.parameters['update'] == 'true')),
-    GetPage(name: cart, page: () => CartScreen(fromNav: false)),
+        page: () => InternetConnectionWrapper(
+            screen:
+                UpdateScreen(isUpdate: Get.parameters['update'] == 'true'))),
+    GetPage(
+        name: cart,
+        page: () =>
+            InternetConnectionWrapper(screen: CartScreen(fromNav: false))),
     GetPage(
         name: addAddress,
-        page: () => AddAddressScreen(
-            fromCheckout: Get.parameters['page'] == 'checkout')),
+        page: () => InternetConnectionWrapper(
+              screen: AddAddressScreen(
+                  fromCheckout: Get.parameters['page'] == 'checkout'),
+            )),
     GetPage(
         name: editAddress,
-        page: () => AddAddressScreen(
-              fromCheckout: false,
-              address: AddressModel.fromJson(jsonDecode(utf8.decode(base64Url
-                  .decode(Get.parameters['data'].replaceAll(' ', '+'))))),
+        page: () => InternetConnectionWrapper(
+              screen: AddAddressScreen(
+                fromCheckout: false,
+                address: AddressModel.fromJson(jsonDecode(utf8.decode(base64Url
+                    .decode(Get.parameters['data'].replaceAll(' ', '+'))))),
+              ),
             )),
     GetPage(
         name: rateReview,
         page: () => Get.arguments != null ? Get.arguments : NotFound()),
     GetPage(
         name: restaurantReview,
-        page: () => ReviewScreen(
-              restaurantID: Get.parameters['id'],
-              restaurantName: Get.parameters['restaurantName'],
+        page: () => InternetConnectionWrapper(
+              screen: ReviewScreen(
+                restaurantID: Get.parameters['id'],
+                restaurantName: Get.parameters['restaurantName'],
+              ),
             )),
     GetPage(
         name: allRestaurants,
-        page: () => AllRestaurantScreen(
-            isPopular: Get.parameters['page'] == 'popular')),
+        page: () => InternetConnectionWrapper(
+              screen: AllRestaurantScreen(
+                  isPopular: Get.parameters['page'] == 'popular'),
+            )),
     GetPage(
         name: wallet,
-        page: () =>
-            WalletScreen(fromWallet: Get.parameters['page'] == 'wallet')),
+        page: () => InternetConnectionWrapper(
+            screen:
+                WalletScreen(fromWallet: Get.parameters['page'] == 'wallet'))),
     GetPage(
         name: searchRestaurantItem,
-        page: () =>
-            RestaurantProductSearchScreen(storeID: Get.parameters['id'])),
+        page: () => InternetConnectionWrapper(
+            screen:
+                RestaurantProductSearchScreen(storeID: Get.parameters['id']))),
     GetPage(
         name: productImages,
-        page: () => ImageViewerScreen(
-              product: Product.fromJson(jsonDecode(utf8.decode(base64Url
-                  .decode(Get.parameters['item'].replaceAll(' ', '+'))))),
+        page: () => InternetConnectionWrapper(
+              screen: ImageViewerScreen(
+                product: Product.fromJson(jsonDecode(utf8.decode(base64Url
+                    .decode(Get.parameters['item'].replaceAll(' ', '+'))))),
+              ),
             )),
-    GetPage(name: referAndEarn, page: () => ReferAndEarnScreen()),
+    GetPage(
+        name: referAndEarn,
+        page: () => InternetConnectionWrapper(screen: ReferAndEarnScreen())),
   ];
 
   // static getRoute(Widget navigateTo) {

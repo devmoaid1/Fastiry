@@ -134,9 +134,9 @@ class RestaurantController extends GetxController implements GetxService {
       } else {
         ApiChecker.checkApi(response);
       }
-      _isLoading = false;
-      update();
     }
+    _isLoading = false;
+    update();
   }
 
   Future<void> getLatestRestaurantList(
@@ -158,9 +158,9 @@ class RestaurantController extends GetxController implements GetxService {
       } else {
         ApiChecker.checkApi(response);
       }
-      _isLoading = false;
-      update();
     }
+    _isLoading = false;
+    update();
   }
 
   void setCategoryList() {

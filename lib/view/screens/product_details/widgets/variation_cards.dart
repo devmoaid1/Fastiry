@@ -27,7 +27,8 @@ class VariationCards extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: Dimensions.blockscreenHorizontal * 2,
             ),
-            child: Text('${"select".tr} ${product.choiceOptions[index].title}',
+            child: Text(
+                '${"select".tr} ${product.choiceOptions[index].title.tr}',
                 style: Get.find<FontStyles>()
                     .poppinsMedium
                     .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4)),
@@ -80,20 +81,19 @@ class VariationCards extends StatelessWidget {
                           width: Dimensions.blockscreenHorizontal,
                         ),
                         Text(
-                          product.choiceOptions[index].options[i].trim(),
+                          product.choiceOptions[index].options[i].trim().tr,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Get.find<FontStyles>()
-                              .poppinsRegular
-                              .copyWith(color: Theme.of(context).dividerColor),
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 4),
                         ),
                         Expanded(child: SizedBox()),
                         Text(
-                          '(${PriceConverter.convertPrice(((product.variations[i].price) - (product.price)))}+)',
+                          '(${PriceConverter.convertPrice(product.variations[i].price)})',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                color: Theme.of(context).dividerColor,
+                                color: Theme.of(context).disabledColor,
                               ),
                         ),
                       ],

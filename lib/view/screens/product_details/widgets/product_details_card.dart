@@ -170,7 +170,7 @@ class ProductDetailsCard extends StatelessWidget {
                   ),
                   child: Divider(
                     height: 20,
-                    thickness: 3,
+                    thickness: 6,
                     color: Get.isDarkMode
                         ? Theme.of(context).disabledColor.withOpacity(0.3)
                         : Colors.grey[200],

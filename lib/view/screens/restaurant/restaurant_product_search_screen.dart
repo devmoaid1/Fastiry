@@ -86,7 +86,7 @@ class _RestaurantProductSearchScreenState
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search,
-                            color: Theme.of(context).hintColor, size: 25),
+                            color: Theme.of(context).dividerColor, size: 25),
                         onPressed: () => Get.find<RestaurantController>()
                             .getStoreSearchItemList(
                           _searchController.text.trim(),

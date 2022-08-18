@@ -368,9 +368,19 @@ class ProductWidget extends StatelessWidget {
                                           height:
                                               Dimensions.blockscreenVertical),
                                       Row(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
                                         children: [
                                           SvgPicture.asset(
                                             Images.clockIcon,
+                                            width: Dimensions
+                                                    .blockscreenHorizontal *
+                                                4.5,
+                                            height: Dimensions
+                                                    .blockscreenHorizontal *
+                                                4.5,
                                             color:
                                                 Theme.of(context).dividerColor,
                                           ),
@@ -384,7 +394,7 @@ class ProductWidget extends StatelessWidget {
                                             child: FittedBox(
                                                 fit: BoxFit.contain,
                                                 child: Text(
-                                                  "in ${restaurant.deliveryTime} mins",
+                                                  "${restaurant.deliveryTime} ${"min".tr}",
                                                   style: Get.find<FontStyles>()
                                                       .poppinsRegular
                                                       .copyWith(
@@ -395,6 +405,9 @@ class ProductWidget extends StatelessWidget {
                                           )
                                         ],
                                       ),
+                                      SizedBox(
+                                          height:
+                                              Dimensions.blockscreenVertical),
                                       DiscountTag(
                                         discount: _discount,
                                         discountType: _discountType,

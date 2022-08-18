@@ -39,7 +39,9 @@ class DiscountTag extends StatelessWidget {
             child: Row(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Icon(Icons.percent, color: Colors.white, size: 15),
+                Icon(Icons.percent,
+                    color: Colors.white,
+                    size: Dimensions.blockscreenHorizontal * 3.5),
                 SizedBox(width: 5),
                 Text(
                   discount > 0
@@ -50,7 +52,7 @@ class DiscountTag extends StatelessWidget {
                         fontSize: fontSize != null
                             ? fontSize
                             : ResponsiveHelper.isMobile(context)
-                                ? 10
+                                ? Dimensions.blockscreenHorizontal * 3
                                 : 12,
                       ),
                   textAlign: TextAlign.center,
