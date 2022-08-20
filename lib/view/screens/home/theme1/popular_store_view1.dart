@@ -3,6 +3,7 @@ import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
+import 'package:efood_multivendor/helper/price_converter.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
@@ -11,6 +12,7 @@ import 'package:efood_multivendor/view/base/rating_bar.dart';
 import 'package:efood_multivendor/view/base/title_widget.dart';
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 import 'package:get/get.dart';
 
@@ -27,11 +29,11 @@ class PopularStoreView1 extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<RestaurantController>(builder: (restaurantController) {
-      List<Restaurant> _restaurant = isPopular
+      List<Restaurant> _restaurants = isPopular
           ? restaurantController.popularRestaurantList
           : restaurantController.latestRestaurantList;
 
-      return (_restaurant != null && _restaurant.length == 0)
+      return (_restaurants != null && _restaurants.length == 0)
           ? SizedBox()
           : Column(
               children: [
@@ -39,24 +41,27 @@ class PopularStoreView1 extends StatelessWidget {
                   padding: EdgeInsets.fromLTRB(10, isPopular ? 15 : 15, 10, 10),
                   child: TitleWidget(
                     title: isPopular
-                        ? 'popular_restaurants'.tr
+                        ? 'popular_restaurantss'.tr
                         : '${'new_on'.tr} ${"fasteriy".tr}',
                     onTap: () => Get.toNamed(RouteHelper.getAllRestaurantRoute(
                         isPopular ? 'popular' : 'latest')),
                   ),
                 ),
                 SizedBox(
-                  height: Dimensions.blockscreenVertical * 35,
-                  child: _restaurant != null
+                  height: Dimensions.screeHeight * 0.35,
+                  child: _restaurants != null
                       ? ListView.builder(
                           controller: ScrollController(),
                           physics: BouncingScrollPhysics(),
                           scrollDirection: Axis.horizontal,
                           padding: EdgeInsets.only(
                               left: Dimensions.PADDING_SIZE_SMALL),
-                          itemCount:
-                              _restaurant.length > 10 ? 10 : _restaurant.length,
+                          itemCount: _restaurants.length > 10
+                              ? 10
+                              : _restaurants.length,
                           itemBuilder: (context, index) {
+                            var restaurant = _restaurants[index];
+
                             return Padding(
                               padding: EdgeInsets.only(
                                   right: Dimensions.PADDING_SIZE_SMALL,
@@ -65,13 +70,13 @@ class PopularStoreView1 extends StatelessWidget {
                                 onTap: () {
                                   Get.toNamed(
                                     RouteHelper.getRestaurantRoute(
-                                        _restaurant[index].id),
+                                        restaurant.id),
                                     arguments: RestaurantScreen(
-                                        restaurant: _restaurant[index]),
+                                        restaurant: restaurant),
                                   );
                                 },
                                 child: Container(
-                                  width: Dimensions.blockscreenHorizontal * 50,
+                                  width: Dimensions.screenWidth * 0.6,
                                   decoration: BoxDecoration(
                                     color: Theme.of(context).cardColor,
                                     borderRadius: BorderRadius.circular(
@@ -93,201 +98,256 @@ class PopularStoreView1 extends StatelessWidget {
                                       mainAxisAlignment:
                                           MainAxisAlignment.center,
                                       children: [
+                                        // restaurant Image
                                         Stack(children: [
                                           ClipRRect(
-                                            borderRadius: BorderRadius.vertical(
-                                                top: Radius.circular(
-                                                    Dimensions.RADIUS_SMALL)),
-                                            child: _restaurant[index]
-                                                    .coverPhoto
-                                                    .isNotEmpty
-                                                ? checkImage(
-                                                    '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
-                                                    '/${_restaurant[index].coverPhoto}',
-                                                    Dimensions
-                                                            .blockscreenHorizontal *
-                                                        50,
-                                                    Dimensions
-                                                            .blockscreenVertical *
-                                                        13,
-                                                    BoxFit.fill)
-                                                : Image.asset(
-                                                    Images.placeholder,
-                                                    fit: BoxFit.fill,
-                                                    width: Dimensions
-                                                            .blockscreenHorizontal *
-                                                        50,
-                                                    height: Dimensions
-                                                            .blockscreenVertical *
-                                                        13,
-                                                  ),
-                                          ),
+                                              borderRadius:
+                                                  BorderRadius.vertical(
+                                                      top: Radius.circular(
+                                                          Dimensions
+                                                              .RADIUS_SMALL)),
+                                              child: checkImage(
+                                                  '${Get.find<SplashController>().configModel.baseUrls.restaurantCoverPhotoUrl}'
+                                                  '/${restaurant.coverPhoto}',
+                                                  Dimensions.screenWidth * 0.6,
+                                                  (Dimensions.screeHeight *
+                                                          0.35) *
+                                                      0.43,
+                                                  BoxFit.fill)),
                                           restaurantController
-                                                  .isOpenNow(_restaurant[index])
+                                                  .isOpenNow(restaurant)
                                               ? SizedBox()
                                               : NotAvailableWidget(
                                                   isRestaurant: true),
                                         ]),
+
+                                        //restaurant details
                                         Expanded(
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: Dimensions
-                                                      .PADDING_SIZE_EXTRA_SMALL,
-                                                  vertical: Dimensions
-                                                          .blockscreenVertical *
-                                                      2),
-                                              child: Column(
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  mainAxisAlignment:
-                                                      MainAxisAlignment.start,
-                                                  children: [
-                                                    Row(
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                                horizontal: Dimensions
+                                                    .PADDING_SIZE_EXTRA_SMALL,
+                                                vertical: Dimensions
+                                                        .blockscreenVertical *
+                                                    1),
+                                            child: Column(
+                                                crossAxisAlignment:
+                                                    CrossAxisAlignment.start,
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Row(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceBetween,
+                                                    children: [
+                                                      Container(
+                                                        width: (Dimensions
+                                                                    .blockscreenHorizontal *
+                                                                50) *
+                                                            0.6,
+                                                        child: Text(
+                                                          restaurant.name ?? '',
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsMedium
+                                                              .copyWith(
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                              .blockscreenHorizontal *
+                                                                          4),
+                                                          maxLines: 1,
+                                                          overflow: TextOverflow
+                                                              .ellipsis,
+                                                        ),
+                                                      ),
+                                                      GetBuilder<
+                                                              WishListController>(
+                                                          builder:
+                                                              (wishController) {
+                                                        bool _isWished =
+                                                            wishController
+                                                                .wishRestIdList
+                                                                .contains(
+                                                                    restaurant
+                                                                        .id);
+                                                        return InkWell(
+                                                          onTap: () {
+                                                            if (Get.find<
+                                                                    AuthController>()
+                                                                .isLoggedIn()) {
+                                                              _isWished
+                                                                  ? wishController
+                                                                      .removeFromWishList(
+                                                                          restaurant
+                                                                              .id,
+                                                                          true)
+                                                                  : wishController
+                                                                      .addToWishList(
+                                                                          null,
+                                                                          restaurant,
+                                                                          true);
+                                                            } else {
+                                                              showCustomSnackBar(
+                                                                  'you_are_not_logged_in'
+                                                                      .tr);
+                                                            }
+                                                          },
+                                                          child: Container(
+                                                            padding: EdgeInsets
+                                                                .all(Dimensions
+                                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                                            decoration:
+                                                                BoxDecoration(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .cardColor,
+                                                              borderRadius:
+                                                                  BorderRadius.circular(
+                                                                      Dimensions
+                                                                          .RADIUS_SMALL),
+                                                            ),
+                                                            child: Icon(
+                                                              _isWished
+                                                                  ? Icons
+                                                                      .favorite
+                                                                  : Icons
+                                                                      .favorite_border,
+                                                              size: 17,
+                                                              color: _isWished
+                                                                  ? Theme.of(
+                                                                          context)
+                                                                      .primaryColor
+                                                                  : Theme.of(
+                                                                          context)
+                                                                      .disabledColor,
+                                                            ),
+                                                          ),
+                                                        );
+                                                      }),
+                                                    ],
+                                                  ),
+                                                  SizedBox(
+                                                    height: Dimensions
+                                                        .blockscreenVertical,
+                                                  ),
+                                                  RatingBar(
+                                                    rating:
+                                                        restaurant.avgRating,
+                                                    ratingCount:
+                                                        restaurant.ratingCount,
+                                                    size: 13,
+                                                  ),
+                                                  SizedBox(
+                                                    height: Dimensions
+                                                        .blockscreenVertical,
+                                                  ),
+                                                  Row(
                                                       mainAxisAlignment:
                                                           MainAxisAlignment
                                                               .spaceBetween,
                                                       children: [
-                                                        Container(
-                                                          width: (Dimensions
-                                                                      .blockscreenHorizontal *
-                                                                  50) *
-                                                              0.6,
-                                                          child: Text(
-                                                            _restaurant[index]
-                                                                    .name ??
-                                                                '',
-                                                            style: Get.find<
-                                                                    FontStyles>()
-                                                                .poppinsMedium
-                                                                .copyWith(
-                                                                    fontSize:
-                                                                        Dimensions.blockscreenHorizontal *
-                                                                            4),
-                                                            maxLines: 1,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis,
-                                                          ),
-                                                        ),
-                                                        GetBuilder<
-                                                                WishListController>(
-                                                            builder:
-                                                                (wishController) {
-                                                          bool _isWished =
-                                                              wishController
-                                                                  .wishRestIdList
-                                                                  .contains(
-                                                                      _restaurant[
-                                                                              index]
-                                                                          .id);
-                                                          return InkWell(
-                                                            onTap: () {
-                                                              if (Get.find<
-                                                                      AuthController>()
-                                                                  .isLoggedIn()) {
-                                                                _isWished
-                                                                    ? wishController.removeFromWishList(
-                                                                        _restaurant[index]
-                                                                            .id,
-                                                                        true)
-                                                                    : wishController.addToWishList(
-                                                                        null,
-                                                                        _restaurant[
-                                                                            index],
-                                                                        true);
-                                                              } else {
-                                                                showCustomSnackBar(
-                                                                    'you_are_not_logged_in'
-                                                                        .tr);
-                                                              }
-                                                            },
-                                                            child: Container(
-                                                              padding: EdgeInsets
-                                                                  .all(Dimensions
-                                                                      .PADDING_SIZE_EXTRA_SMALL),
-                                                              decoration:
-                                                                  BoxDecoration(
-                                                                color: Theme.of(
-                                                                        context)
-                                                                    .cardColor,
-                                                                borderRadius:
-                                                                    BorderRadius.circular(
-                                                                        Dimensions
-                                                                            .RADIUS_SMALL),
-                                                              ),
-                                                              child: Icon(
-                                                                _isWished
-                                                                    ? Icons
-                                                                        .favorite
-                                                                    : Icons
-                                                                        .favorite_border,
-                                                                size: 17,
-                                                                color: _isWished
-                                                                    ? Theme.of(
-                                                                            context)
-                                                                        .primaryColor
-                                                                    : Theme.of(
-                                                                            context)
-                                                                        .disabledColor,
-                                                              ),
-                                                            ),
-                                                          );
-                                                        }),
-                                                      ],
-                                                    ),
-                                                    Text(
-                                                      _restaurant[index]
-                                                              .address ??
-                                                          '',
-                                                      style: Get.find<
-                                                              FontStyles>()
-                                                          .poppinsMedium
-                                                          .copyWith(
-                                                              fontSize: Dimensions
-                                                                      .blockscreenHorizontal *
-                                                                  3,
+                                                        Row(
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                              Images.clockIcon,
                                                               color: Theme.of(
                                                                       context)
-                                                                  .dividerColor
-                                                                  .withOpacity(
-                                                                      0.6)),
-                                                      maxLines: 1,
-                                                      overflow:
-                                                          TextOverflow.ellipsis,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Dimensions
-                                                          .blockscreenVertical,
-                                                    ),
-                                                    RatingBar(
-                                                      rating: _restaurant[index]
-                                                          .avgRating,
-                                                      ratingCount:
-                                                          _restaurant[index]
-                                                              .ratingCount,
-                                                      size: 13,
-                                                    ),
-                                                    SizedBox(
-                                                      height: Dimensions
-                                                          .blockscreenVertical,
-                                                    ),
-                                                    _restaurant[index]
-                                                                .discount !=
-                                                            null
-                                                        ? DiscountTag(
-                                                            discount:
-                                                                _restaurant[
-                                                                        index]
-                                                                    .discount
-                                                                    .discount,
-                                                            discountType:
-                                                                _restaurant[
-                                                                        index]
-                                                                    .discount
-                                                                    .discountType,
-                                                          )
-                                                        : SizedBox()
-                                                  ])),
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color,
+                                                              width: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  4,
+                                                              height: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  4,
+                                                            ),
+                                                            SizedBox(
+                                                                width: Dimensions
+                                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                                            Text(
+                                                              '${restaurant.deliveryTime} ${'min'.tr}',
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsRegular
+                                                                  .copyWith(
+                                                                    fontSize:
+                                                                        Dimensions.blockscreenHorizontal *
+                                                                            3,
+                                                                  ),
+                                                            ),
+                                                          ],
+                                                        ),
+                                                        Row(
+                                                          children: [
+                                                            SvgPicture.asset(
+                                                              Images
+                                                                  .scooterIconSvg,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color,
+                                                              width: Get.locale
+                                                                          .languageCode !=
+                                                                      "en"
+                                                                  ? Dimensions
+                                                                          .blockscreenHorizontal *
+                                                                      4.5
+                                                                  : Dimensions
+                                                                          .blockscreenHorizontal *
+                                                                      4,
+                                                              height: Get.locale
+                                                                          .languageCode !=
+                                                                      "en"
+                                                                  ? Dimensions
+                                                                          .blockscreenHorizontal *
+                                                                      4.5
+                                                                  : Dimensions
+                                                                          .blockscreenHorizontal *
+                                                                      4,
+                                                            ),
+                                                            SizedBox(
+                                                              width: 5,
+                                                            ),
+                                                            Text(
+                                                              PriceConverter
+                                                                  .convertPrice(
+                                                                      restaurant
+                                                                          .deliveryPrice),
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsRegular
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          Dimensions.blockscreenHorizontal *
+                                                                              3),
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                            ),
+                                                          ],
+                                                        )
+                                                      ]),
+                                                  SizedBox(
+                                                    height: Dimensions
+                                                        .blockscreenVertical,
+                                                  ),
+                                                  restaurant.discount != null
+                                                      ? DiscountTag(
+                                                          discount: restaurant
+                                                              .discount
+                                                              .discount,
+                                                          discountType:
+                                                              restaurant
+                                                                  .discount
+                                                                  .discountType,
+                                                        )
+                                                      : SizedBox()
+                                                ]),
+                                          ),
                                         ),
                                       ]),
                                 ),

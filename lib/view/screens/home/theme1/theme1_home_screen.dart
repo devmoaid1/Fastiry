@@ -14,7 +14,9 @@ import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.d
 
 import '../../../../controller/cart_controller.dart';
 import '../../../../theme/font_styles.dart';
+import '../../../../util/colors.dart';
 import '../../../../util/images.dart';
+import '../home_screen.dart';
 import 'banner_view1.dart';
 import 'category_view1.dart';
 
@@ -31,7 +33,7 @@ class Theme1HomeScreen extends StatelessWidget {
         // App Bar
         SliverAppBar(
           toolbarHeight: Dimensions.blockscreenVertical * 12,
-          expandedHeight: Dimensions.blockscreenVertical * 14,
+          expandedHeight: Dimensions.blockscreenVertical * 16,
           floating: true,
           elevation: 0,
           automaticallyImplyLeading: false,
@@ -122,8 +124,8 @@ class Theme1HomeScreen extends StatelessWidget {
                                       ),
                                       child: SvgPicture.asset(
                                         Images.cartIcon,
-                                        width: 20,
-                                        height: 20,
+                                        width: 25,
+                                        height: 25,
                                       ),
                                     ),
                                   )
@@ -137,6 +139,59 @@ class Theme1HomeScreen extends StatelessWidget {
               ],
             ),
           ),
+        ),
+
+        SliverPersistentHeader(
+          pinned: true,
+          delegate: SliverDelegate(
+              child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 8.0),
+            child: Container(
+              height: Dimensions.blockscreenHorizontal * 20,
+              width: Dimensions.WEB_MAX_WIDTH,
+              color: Theme.of(context).backgroundColor,
+              padding: EdgeInsets.symmetric(
+                  horizontal: Dimensions.PADDING_SIZE_SMALL),
+              child: InkWell(
+                onTap: () => Get.toNamed(RouteHelper.getSearchRoute()),
+                child: Container(
+                  padding: EdgeInsets.symmetric(
+                      horizontal: Dimensions.PADDING_SIZE_SMALL),
+                  decoration: BoxDecoration(
+                    color: Get.isDarkMode ? offWhite : Colors.grey[200],
+                    borderRadius: BorderRadius.circular(8),
+                    boxShadow: Get.isDarkMode
+                        ? null
+                        : [
+                            BoxShadow(
+                                color: Colors.grey[300],
+                                spreadRadius: 0.4,
+                                blurRadius: 5)
+                          ],
+                  ),
+                  child: Row(children: [
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    Icon(
+                      Icons.search,
+                      size: 25,
+                      color: extraLightGrey,
+                    ),
+                    SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                    Expanded(
+                        child: Text(
+                      'search_food_or_restaurant'.tr,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                            color: extraLightGrey,
+                          ),
+                    )),
+                  ]),
+                ),
+              ),
+            ),
+          )),
         ),
 
         // sections

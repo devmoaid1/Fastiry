@@ -103,4 +103,5 @@ class Images {
   static const String fastiryFoodImage = 'assets/image/food.jpg';
   static const String fastiryMartImage = 'assets/image/mart.jpg';
   static const String pin_marker = 'assets/image/location_marker2.png';
+  static const String deliveryPriceIcon = 'assets/image/motorbike.svg';
 }

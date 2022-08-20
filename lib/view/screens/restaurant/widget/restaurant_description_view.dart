@@ -146,22 +146,30 @@ class RestaurantDescriptionView extends StatelessWidget {
         (restaurant.delivery && restaurant.freeDelivery)
             ? Expanded(child: SizedBox())
             : SizedBox(),
-        (restaurant.delivery && restaurant.freeDelivery)
-            ? Row(children: [
-                SvgPicture.asset(
-                  Images.scooterIconSvg,
-                  color: Theme.of(context).dividerColor,
-                  width: 25,
-                  height: 25,
-                ),
-                SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-                Text('free_delivery'.tr,
-                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                        fontSize: Dimensions.fontSizeSmall,
-                        color: Theme.of(context).dividerColor)),
-              ])
-            : SizedBox(),
         Expanded(child: SizedBox()),
+        Row(
+          children: [
+            SvgPicture.asset(
+              Images.scooterIconSvg,
+              color: Theme.of(context).textTheme.bodyText1.color,
+              width: Dimensions.blockscreenHorizontal * 5,
+              height: Dimensions.blockscreenHorizontal * 5,
+            ),
+            SizedBox(
+              width: 5,
+            ),
+            Text(
+              restaurant.deliveryPrice != 0
+                  ? PriceConverter.convertPrice(restaurant.deliveryPrice)
+                  : "free_delivery".tr,
+              style: Get.find<FontStyles>()
+                  .poppinsRegular
+                  .copyWith(fontSize: Dimensions.blockscreenHorizontal * 3),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ],
+        )
       ]),
     ]);
   }
