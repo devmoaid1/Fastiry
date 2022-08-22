@@ -21,6 +21,7 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   void initState() {
     splashController.handleSplashRouting(null);
 
+    // ignore: todo
     // TODO: implement initState
     super.initState();
   }

@@ -16,17 +16,21 @@ class HtmlViewerScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    String _data = htmlType == HtmlType.TERMS_AND_CONDITION ? Get.find<SplashController>().configModel.termsAndConditions
-        : htmlType == HtmlType.ABOUT_US ? Get.find<SplashController>().configModel.aboutUs
-        : htmlType == HtmlType.PRIVACY_POLICY ? Get.find<SplashController>().configModel.privacyPolicy : null;
+    String _data = htmlType == HtmlType.TERMS_AND_CONDITION
+        ? Get.find<SplashController>().configModel.termsAndConditions
+        : htmlType == HtmlType.ABOUT_US
+            ? Get.find<SplashController>().configModel.aboutUs
+            : htmlType == HtmlType.PRIVACY_POLICY
+                ? Get.find<SplashController>().configModel.privacyPolicy
+                : null;
 
-    if(_data != null && _data.isNotEmpty) {
+    if (_data != null && _data.isNotEmpty) {
       _data = _data.replaceAll('href=', 'target="_blank" href=');
     }
 
     String _viewID = htmlType.toString();
-    if(GetPlatform.isWeb) {
-      try{
+    if (GetPlatform.isWeb) {
+      try {
         ui.platformViewRegistry.registerViewFactory(_viewID, (int viewId) {
           html.IFrameElement _ife = html.IFrameElement();
           _ife.width = Dimensions.WEB_MAX_WIDTH.toString();
@@ -37,40 +41,59 @@ class HtmlViewerScreen extends StatelessWidget {
           _ife.allowFullscreen = true;
           return _ife;
         });
-      }catch(e) {}
+      } catch (e) {}
     }
     return Scaffold(
-      appBar: CustomAppBar(title: htmlType == HtmlType.TERMS_AND_CONDITION ? 'terms_conditions'.tr
-          : htmlType == HtmlType.ABOUT_US ? 'about_us'.tr : htmlType == HtmlType.PRIVACY_POLICY
-          ? 'privacy_policy'.tr : 'no_data_found'.tr),
+      appBar: CustomAppBar(
+          title: htmlType == HtmlType.TERMS_AND_CONDITION
+              ? 'terms_conditions'.tr
+              : htmlType == HtmlType.ABOUT_US
+                  ? 'about_us'.tr
+                  : htmlType == HtmlType.PRIVACY_POLICY
+                      ? 'privacy_policy'.tr
+                      : 'no_data_found'.tr),
       body: Center(
         child: Container(
           width: Dimensions.WEB_MAX_WIDTH,
           height: MediaQuery.of(context).size.height,
           color: GetPlatform.isWeb ? Colors.white : Theme.of(context).cardColor,
-          child: GetPlatform.isWeb ? Column(
-            children: [
-              Container(
-                height: 50, alignment: Alignment.center,
-                child: SelectableText(htmlType == HtmlType.TERMS_AND_CONDITION ? 'terms_conditions'.tr
-                    : htmlType == HtmlType.ABOUT_US ? 'about_us'.tr : htmlType == HtmlType.PRIVACY_POLICY
-                    ? 'privacy_policy'.tr : 'no_data_found'.tr,
-                  style: robotoBold.copyWith(fontSize: Dimensions.fontSizeLarge, color: Colors.black),
+          child: GetPlatform.isWeb
+              ? Column(
+                  children: [
+                    Container(
+                      height: 50,
+                      alignment: Alignment.center,
+                      child: SelectableText(
+                        htmlType == HtmlType.TERMS_AND_CONDITION
+                            ? 'terms_conditions'.tr
+                            : htmlType == HtmlType.ABOUT_US
+                                ? 'about_us'.tr
+                                : htmlType == HtmlType.PRIVACY_POLICY
+                                    ? 'privacy_policy'.tr
+                                    : 'no_data_found'.tr,
+                        style: robotoBold.copyWith(
+                            fontSize: Dimensions.fontSizeLarge,
+                            color: Colors.black),
+                      ),
+                    ),
+                    Expanded(
+                        child: IgnorePointer(
+                            child: HtmlElementView(
+                                viewType: _viewID,
+                                key: Key(htmlType.toString())))),
+                  ],
+                )
+              : SingleChildScrollView(
+                  padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                  physics: BouncingScrollPhysics(),
+                  child: HtmlWidget(
+                    _data ?? '',
+                    key: Key(htmlType.toString()),
+                    onTapUrl: (String url) {
+                      return launchUrl(Uri.parse(url));
+                    },
+                  ),
                 ),
-              ),
-              Expanded(child: IgnorePointer(child: HtmlElementView(viewType: _viewID, key: Key(htmlType.toString())))),
-            ],
-          ) : SingleChildScrollView(
-            padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-            physics: BouncingScrollPhysics(),
-            child: HtmlWidget(
-              _data ?? '',
-              key: Key(htmlType.toString()),
-              onTapUrl: (String url) {
-                return launch(url);
-              },
-            ),
-          ),
         ),
       ),
     );

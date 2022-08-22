@@ -2,7 +2,6 @@ import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/search_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/search/widget/filter_widget.dart';
@@ -36,6 +35,13 @@ class _SearchScreenState extends State<SearchScreen> {
   }
 
   @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    Get.find<SearchController>().setSearchMode(true);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return WillPopScope(
       onWillPop: () async {
@@ -56,32 +62,22 @@ class _SearchScreenState extends State<SearchScreen> {
           child: GetBuilder<SearchController>(builder: (searchController) {
             _searchController.text = searchController.searchText;
             return Column(children: [
-              Center(
-                  child: SizedBox(
-                      width: Dimensions.WEB_MAX_WIDTH,
-                      child: Row(children: [
-                        SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                        Expanded(
-                            child: SearchField(
-                          controller: _searchController,
-                          hint: 'search_food_or_restaurant'.tr,
-                          suffixIcon: !searchController.isSearchMode
-                              ? Icons.filter_list
-                              : Icons.search,
-                          iconPressed: () =>
-                              _actionSearch(searchController, false),
-                          onSubmit: (text) =>
-                              _actionSearch(searchController, true),
-                        )),
-                        CustomButton(
-                          onPressed: () => searchController.isSearchMode
-                              ? Get.back()
-                              : searchController.setSearchMode(true),
-                          buttonText: 'cancel'.tr,
-                          transparent: true,
-                          width: Dimensions.blockscreenHorizontal * 20,
-                        ),
-                      ]))),
+              Container(
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.blockscreenHorizontal * 2),
+                child: Row(children: [
+                  Expanded(
+                      child: SearchField(
+                    controller: _searchController,
+                    hint: 'search_food_or_restaurant'.tr,
+                    suffixIcon: !searchController.isSearchMode
+                        ? Icons.filter_list
+                        : Icons.search,
+                    iconPressed: () => _actionSearch(searchController, false),
+                    onSubmit: (text) => _actionSearch(searchController, true),
+                  )),
+                ]),
+              ),
               Expanded(
                   child: searchController.isSearchMode
                       ? SingleChildScrollView(

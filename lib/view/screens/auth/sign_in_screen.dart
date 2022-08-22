@@ -101,13 +101,21 @@ class _SignInScreenState extends State<SignInScreen> {
               child: GetBuilder<AuthController>(builder: (authController) {
                 return Column(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: Dimensions.blockscreenHorizontal * 4),
+                      SizedBox(height: Dimensions.blockscreenHorizontal * 2),
+                      Center(
+                          child: Container(
+                              child: Image.asset(
+                                Images.fastiryRed,
+                                fit: BoxFit.fill,
+                              ),
+                              height: Dimensions.blockscreenHorizontal * 30)),
+                      SizedBox(height: Dimensions.blockscreenHorizontal * 2),
 
                       Text('sign_in'.tr,
                           style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 7,
+                              fontSize: Dimensions.blockscreenHorizontal * 5.5,
                               color: Theme.of(context).dividerColor)),
                       SizedBox(height: Dimensions.blockscreenHorizontal * 4),
                       Column(children: [
@@ -254,17 +262,6 @@ class _SignInScreenState extends State<SignInScreen> {
                             authController.googleSignIn();
                           }),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                      SocialLoginWidget(
-                          fontColor: Get.isDarkMode
-                              ? Theme.of(context).dividerColor
-                              : Colors.black,
-                          iconColor: Colors.blue,
-                          color: Colors.transparent,
-                          iconPath: Images.facebookIcon,
-                          title: "facebook_login".tr,
-                          onTap: () {
-                            authController.facebookSignIn();
-                          }),
                     ]);
               }),
             ),

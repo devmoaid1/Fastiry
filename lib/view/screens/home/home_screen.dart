@@ -9,7 +9,6 @@ import 'package:efood_multivendor/controller/product_controller.dart';
 import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
-import 'package:efood_multivendor/data/model/response/config_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/theme1_home_screen.dart';
@@ -50,7 +49,7 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final ScrollController _scrollController = ScrollController();
-  ConfigModel _configModel = Get.find<SplashController>().configModel;
+
   final homeController = Get.find<HomeController>();
   final cartController = Get.find<CartController>();
   @override

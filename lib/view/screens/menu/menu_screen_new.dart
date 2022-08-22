@@ -44,7 +44,7 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
       body: SafeArea(
           child: Padding(
         padding: EdgeInsets.symmetric(
-            vertical: Dimensions.blockscreenVertical * 4,
+            vertical: Dimensions.blockscreenVertical * 3,
             horizontal: Dimensions.blockscreenHorizontal * 3),
         child: SingleChildScrollView(
           child: Column(
@@ -101,6 +101,14 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                 label: 'coupon'.tr,
                 onTap: () {
                   Get.toNamed(RouteHelper.getCouponRoute());
+                },
+              ),
+              MenuDivider(),
+              MenuSelection(
+                iconPath: Images.ordersIcon,
+                label: 'orders'.tr,
+                onTap: () {
+                  Get.toNamed(RouteHelper.getOrdersRoute());
                 },
               ),
               MenuDivider(),

@@ -52,9 +52,7 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
   TextEditingController _streetNumberController = TextEditingController();
   TextEditingController _houseController = TextEditingController();
   TextEditingController _floorController = TextEditingController();
-  final FocusNode _streetNode = FocusNode();
-  final FocusNode _houseNode = FocusNode();
-  final FocusNode _floorNode = FocusNode();
+
   double _taxPercent = 0;
   bool _isCashOnDeliveryActive;
   bool _isDigitalPaymentActive;

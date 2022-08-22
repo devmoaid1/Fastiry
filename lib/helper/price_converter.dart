@@ -11,17 +11,13 @@ class PriceConverter {
         price = price - ((discount / 100) * price);
       }
     }
-    bool _isRightSide =
-        Get.find<SplashController>().configModel.currencySymbolDirection ==
-            'right';
 
     bool isEnglish = Get.locale.languageCode == "en";
 
     if (!isEnglish) {
       return "${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')} ج.م";
-    } else if (isEnglish) {
-      return 'EGP ${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}  ';
     }
+    return 'EGP ${(price).toStringAsFixed(2).replaceAllMapped(RegExp(r'(\d{1,3})(?=(\d{3})+(?!\d))'), (Match m) => '${m[1]},')}  ';
   }
 
   static double convertWithDiscount(

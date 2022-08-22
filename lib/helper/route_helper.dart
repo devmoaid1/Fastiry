@@ -38,6 +38,7 @@ import 'package:efood_multivendor/view/screens/location/pick_map_screen.dart';
 import 'package:efood_multivendor/view/screens/notification/notification_screen.dart';
 import 'package:efood_multivendor/view/screens/onboard/onboarding_screen.dart';
 import 'package:efood_multivendor/view/screens/order/order_details_screen.dart';
+import 'package:efood_multivendor/view/screens/order/order_screen.dart';
 import 'package:efood_multivendor/view/screens/order/order_tracking_screen.dart';
 import 'package:efood_multivendor/view/screens/profile/profile_screen.dart';
 import 'package:efood_multivendor/view/screens/profile/update_profile_screen.dart';
@@ -87,6 +88,7 @@ class RouteHelper {
   static const String notification = '/notification';
   static const String map = '/map';
   static const String address = '/address';
+  static const String orders = "/orders";
   static const String orderSuccess = '/order-successful';
   static const String payment = '/payment';
   static const String checkout = '/checkout';
@@ -116,6 +118,7 @@ class RouteHelper {
   static String getFastiryFoodRoute() => '$fastiryFood';
   static String getFastiryMartRoute() => '$fastiryMart';
   static String getSplashRoute(int orderID) => '$splash?id=$orderID';
+  static String getOrdersRoute() => '$orders';
   static String getLanguageRoute(String page) => '$language?page=$page';
   static String getOnBoardingRoute() => '$onBoarding';
   static String getSignInRoute(String page) => '$signIn?page=$page';
@@ -218,6 +221,11 @@ class RouteHelper {
   static String getReferAndEarnRoute() => '$referAndEarn';
 
   static List<GetPage> routes = [
+    GetPage(
+        name: orders,
+        page: () => InternetConnectionWrapper(
+              screen: OrderScreen(),
+            )),
     GetPage(name: initial, page: () => DashboardScreen(pageIndex: 0)),
     GetPage(
         name: navigatorScreen,

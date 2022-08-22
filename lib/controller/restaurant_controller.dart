@@ -19,6 +19,8 @@ class RestaurantController extends GetxController implements GetxService {
   RestaurantController({@required this.restaurantRepo});
 
   RestaurantModel _restaurantModel;
+
+  Restaurant _fasteriyMart;
   List<Restaurant> _restaurantList;
   List<Restaurant> _popularRestaurantList;
   List<Restaurant> _latestRestaurantList;
@@ -41,6 +43,7 @@ class RestaurantController extends GetxController implements GetxService {
   String _searchType = 'all';
   String _searchText = '';
 
+  Restaurant get fastiryMart => _fasteriyMart;
   RestaurantModel get restaurantModel => _restaurantModel;
   List<Restaurant> get restaurantList => _restaurantList;
   List<Restaurant> get popularRestaurantList => _popularRestaurantList;

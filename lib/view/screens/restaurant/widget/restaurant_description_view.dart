@@ -19,8 +19,6 @@ class RestaurantDescriptionView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Color _textColor =
-        ResponsiveHelper.isDesktop(context) ? Colors.white : null;
     return Column(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         // restaurant name

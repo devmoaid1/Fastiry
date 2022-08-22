@@ -96,7 +96,8 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => BannerController(bannerRepo: Get.find()));
   Get.lazyPut(() => CategoryController(categoryRepo: Get.find()));
   Get.lazyPut(() => ProductController(productRepo: Get.find()));
-  Get.lazyPut(() => CartController(cartRepo: Get.find()));
+  Get.lazyPut(
+      () => CartController(cartRepo: Get.find(), restaurantRepo: Get.find()));
   Get.lazyPut(() => RestaurantController(restaurantRepo: Get.find()));
   Get.lazyPut(() =>
       WishListController(wishListRepo: Get.find(), productRepo: Get.find()));

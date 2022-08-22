@@ -62,6 +62,11 @@ class PopularStoreView1 extends StatelessWidget {
                           itemBuilder: (context, index) {
                             var restaurant = _restaurants[index];
 
+                            if (restaurant.name == "فاستري مارت" ||
+                                restaurant.name == "Fasteriy mart") {
+                              return SizedBox();
+                            }
+
                             return Padding(
                               padding: EdgeInsets.only(
                                   right: Dimensions.PADDING_SIZE_SMALL,

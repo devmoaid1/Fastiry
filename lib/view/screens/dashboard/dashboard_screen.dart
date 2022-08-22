@@ -8,7 +8,7 @@ import 'package:efood_multivendor/view/screens/dashboard/widget/bottom_nav_item.
 import 'package:efood_multivendor/view/screens/favourite/favourite_screen.dart';
 import 'package:efood_multivendor/view/screens/home/home_screen.dart';
 import 'package:efood_multivendor/view/screens/menu/menu_screen_new.dart';
-import 'package:efood_multivendor/view/screens/order/order_screen.dart';
+import 'package:efood_multivendor/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -40,8 +40,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
 
     _screens = [
       InternetConnectionWrapper(screen: HomeScreen()),
+      InternetConnectionWrapper(screen: SearchScreen()),
       InternetConnectionWrapper(screen: FavouriteScreen()),
-      InternetConnectionWrapper(screen: OrderScreen()),
       InternetConnectionWrapper(screen: MenuScreenNew()),
     ];
 
@@ -116,19 +116,19 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           isSelected: dashBoardController.currentIndex == 0,
                           onTap: () {})),
                   BottomNavigationBarItem(
+                      label: 'search'.tr,
+                      icon: BottomNavItem(
+                          iconData: Icons.search,
+                          iconPath: Images.searchIconSvg,
+                          iconName: 'search',
+                          isSelected: dashBoardController.currentIndex == 1,
+                          onTap: () {})),
+                  BottomNavigationBarItem(
                       label: 'wishlist'.tr,
                       icon: BottomNavItem(
                           iconData: Icons.favorite,
                           iconPath: Images.favouritesIcon,
                           iconName: 'wishlist',
-                          isSelected: dashBoardController.currentIndex == 1,
-                          onTap: () {})),
-                  BottomNavigationBarItem(
-                      label: 'orders'.tr,
-                      icon: BottomNavItem(
-                          iconData: Icons.shopping_bag,
-                          iconPath: Images.ordersIcon,
-                          iconName: 'orders',
                           isSelected: dashBoardController.currentIndex == 2,
                           onTap: () {})),
                   BottomNavigationBarItem(

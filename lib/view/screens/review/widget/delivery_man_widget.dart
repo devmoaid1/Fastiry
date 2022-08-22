@@ -19,30 +19,43 @@ class DeliveryManWidget extends StatelessWidget {
       decoration: BoxDecoration(
         color: Theme.of(context).cardColor,
         borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-        boxShadow: [BoxShadow(
-          color: Colors.grey[Get.isDarkMode ? 700 : 300],
-          blurRadius: 5, spreadRadius: 1,
-        )],
+        boxShadow: [
+          BoxShadow(
+            color: Colors.grey[Get.isDarkMode ? 700 : 300],
+            blurRadius: 5,
+            spreadRadius: 1,
+          )
+        ],
       ),
       child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-        Text('delivery_man'.tr, style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeExtraSmall)),
+        Text('delivery_man'.tr,
+            style: robotoRegular.copyWith(
+                fontSize: Dimensions.fontSizeExtraSmall)),
         ListTile(
           leading: ClipOval(
             child: CustomImage(
-              image: '${Get.find<SplashController>().configModel.baseUrls.deliveryManImageUrl}/${deliveryMan.image}',
-              height: 40, width: 40, fit: BoxFit.cover,
+              image:
+                  '${Get.find<SplashController>().configModel.baseUrls.deliveryManImageUrl}/${deliveryMan.image}',
+              height: 40,
+              width: 40,
+              fit: BoxFit.cover,
             ),
           ),
           title: Text(
             '${deliveryMan.fName} ${deliveryMan.lName}',
             style: robotoRegular.copyWith(fontSize: Dimensions.fontSizeLarge),
           ),
-          subtitle: RatingBar(rating: deliveryMan.avgRating, size: 15, ratingCount: deliveryMan.ratingCount ?? 0),
+          subtitle: RatingBar(
+              rating: deliveryMan.avgRating,
+              size: 15,
+              ratingCount: deliveryMan.ratingCount ?? 0),
           trailing: InkWell(
-            onTap: () => launch('tel:${deliveryMan.phone}'),
+            onTap: () => launchUrl(Uri.parse('tel:${deliveryMan.phone}')),
             child: Container(
               padding: EdgeInsets.all(Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              decoration: BoxDecoration(shape: BoxShape.circle, color: Theme.of(context).disabledColor.withOpacity(0.2)),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  color: Theme.of(context).disabledColor.withOpacity(0.2)),
               child: Icon(Icons.call_outlined),
             ),
           ),

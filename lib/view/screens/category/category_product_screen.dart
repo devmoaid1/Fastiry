@@ -1,5 +1,4 @@
 import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
@@ -26,7 +25,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
     with TickerProviderStateMixin {
   final ScrollController scrollController = ScrollController();
   final ScrollController restaurantScrollController = ScrollController();
-  final bool _ltr = Get.find<LocalizationController>().isLtr;
+
   TabController _tabController;
 
   @override
