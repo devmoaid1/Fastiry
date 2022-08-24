@@ -41,7 +41,9 @@ class RestaurantDescriptionView extends StatelessWidget {
               fontSize: Dimensions.fontSizeSmall,
               color: Theme.of(context).disabledColor),
         ),
-
+        SizedBox(
+          height: 10,
+        ),
         // rating row
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -93,8 +95,7 @@ class RestaurantDescriptionView extends StatelessWidget {
           height: ResponsiveHelper.isDesktop(context)
               ? 30
               : Dimensions.PADDING_SIZE_SMALL),
-      Row(children: [
-        Expanded(child: SizedBox()),
+      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
         InkWell(
           onTap: () => Get.toNamed(RouteHelper.getMapRoute(
             AddressModel(
@@ -140,10 +141,6 @@ class RestaurantDescriptionView extends StatelessWidget {
                 color: Theme.of(context).dividerColor),
           ),
         ]),
-        SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-        (restaurant.delivery && restaurant.freeDelivery)
-            ? Expanded(child: SizedBox())
-            : SizedBox(),
         Expanded(child: SizedBox()),
         Row(
           children: [

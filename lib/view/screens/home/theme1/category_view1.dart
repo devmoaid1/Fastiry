@@ -28,7 +28,8 @@ class CategoryView1 extends StatelessWidget {
                       horizontal: Dimensions.blockscreenHorizontal * 4),
                   child: TitleWidget(
                       title: 'categories'.tr,
-                      onTap: () => Get.toNamed(RouteHelper.getCategoryRoute())),
+                      onTap: () =>
+                          Get.toNamed(RouteHelper.getCategoryRoute(false))),
                 ),
                 Row(
                   children: [

@@ -161,6 +161,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                       if (categoryController.isSearching) {
                         categoryController.toggleSearch();
                       } else {
+                        categoryController.getSubCategoryList("15");
                         Get.back();
                       }
                     },

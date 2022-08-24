@@ -182,7 +182,8 @@ class RouteHelper {
   }
 
   static String getHtmlRoute(String page) => '$html?page=$page';
-  static String getCategoryRoute() => '$categories';
+  static String getCategoryRoute(bool fromMartScreen) =>
+      '$categories?page=${fromMartScreen ? 'mart' : 'other'}';
   static String getCategoryProductRoute(int id, String name) {
     List<int> _encoded = utf8.encode(name);
     String _data = base64Encode(_encoded);
@@ -490,7 +491,10 @@ class RouteHelper {
             )),
     GetPage(
         name: categories,
-        page: () => InternetConnectionWrapper(screen: CategoryScreen())),
+        page: () => InternetConnectionWrapper(
+                screen: CategoryScreen(
+              fromMartScreen: Get.parameters['page'] == 'mart',
+            ))),
     GetPage(
         name: categoryProduct,
         page: () {

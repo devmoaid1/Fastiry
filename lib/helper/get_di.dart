@@ -9,6 +9,7 @@ import 'package:efood_multivendor/controller/coupon_controller.dart';
 import 'package:efood_multivendor/controller/home_controller.dart';
 import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/controller/location_controller.dart';
+
 import 'package:efood_multivendor/controller/notification_controller.dart';
 import 'package:efood_multivendor/controller/onboarding_controller.dart';
 import 'package:efood_multivendor/controller/order_controller.dart';
@@ -110,6 +111,7 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => HomeController());
   Get.lazyPut(() => DashBoardController());
   Get.lazyPut(() => ConectivityController());
+
   // font styles
 
   Get.lazyPut(() => FontStyles());

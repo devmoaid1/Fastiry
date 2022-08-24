@@ -203,9 +203,12 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                       // products
                       SliverToBoxAdapter(
                           child: Container(
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).backgroundColor,
+                          borderRadius: BorderRadius.circular(8),
+                        ),
                         width: Dimensions.WEB_MAX_WIDTH,
                         padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                        color: Theme.of(context).backgroundColor,
                         child: Column(children: [
                           ResponsiveHelper.isDesktop(context)
                               ? SizedBox()
