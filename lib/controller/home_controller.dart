@@ -4,6 +4,7 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:get/get.dart';
 
+import '../data/model/response/restaurant_model.dart';
 import 'auth_controller.dart';
 import 'banner_controller.dart';
 import 'campaign_controller.dart';
@@ -35,23 +36,24 @@ class HomeController extends GetxController implements GetxService {
   Future<void> loadData(bool reload) async {
     setIsLoading(true);
 
-    await bannerController.getBannerList(reload);
-    await categoryController.getCategoryList(reload);
     if (splashController.configModel.popularRestaurant == 1) {
       await restaurantController.getPopularRestaurantList(reload, 'all', false);
     }
-    if (splashController.configModel.popularFood == 1) {
-      await productController.getPopularProductList(reload, 'all', false);
-    }
-
-    await campainController.getItemCampaignList(reload);
-
     if (splashController.configModel.newRestaurant == 1) {
       await restaurantController.getLatestRestaurantList(reload, 'all', false);
     }
-    if (splashController.configModel.mostReviewedFoods == 1) {
-      await productController.getReviewedProductList(reload, 'all', false);
-    }
+    await bannerController.getBannerList(reload);
+    await categoryController.getCategoryList(reload);
+    restaurantController.getRestaurantDetails(Restaurant(id: 12));
+    // if (splashController.configModel.popularFood == 1) {
+    //   await productController.getPopularProductList(reload, 'all', false);
+    // }
+
+    // await campainController.getItemCampaignList(reload);
+
+    // if (splashController.configModel.mostReviewedFoods == 1) {
+    //   await productController.getReviewedProductList(reload, 'all', false);
+    // }
     await restaurantController.getRestaurantList(1, reload);
     if (authController.isLoggedIn()) {
       await notificationController.getNotificationList(reload);

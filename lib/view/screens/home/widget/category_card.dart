@@ -59,7 +59,7 @@ class CategoryCard extends StatelessWidget {
             ),
             child: Text(
               category.name,
-              maxLines: 1,
+              maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
               style: Get.locale.languageCode != "en"

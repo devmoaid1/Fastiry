@@ -72,8 +72,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                       : ResponsiveHelper.isTab(context)
                                           ? 4
                                           : 3,
-                              childAspectRatio:
-                                  Dimensions.blockscreenHorizontal / 5.5,
+                              childAspectRatio: Get.locale.languageCode == "en"
+                                  ? Dimensions.blockscreenHorizontal / 6.8
+                                  : Dimensions.blockscreenHorizontal / 6.2,
                               mainAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                               crossAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                             ),
@@ -96,8 +97,9 @@ class _CategoryScreenState extends State<CategoryScreen> {
                               : ResponsiveHelper.isTab(context)
                                   ? 4
                                   : 3,
-                          childAspectRatio:
-                              Dimensions.blockscreenHorizontal / 5.5,
+                          childAspectRatio: Get.locale.languageCode == "en"
+                              ? Dimensions.blockscreenHorizontal / 6.9
+                              : Dimensions.blockscreenHorizontal / 6,
                           mainAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                           crossAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                         ),
@@ -146,7 +148,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                           ? 4
                                           : 3,
                               childAspectRatio:
-                                  Dimensions.blockscreenHorizontal / 4,
+                                  Dimensions.blockscreenHorizontal / 6,
                               mainAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                               crossAxisSpacing: Dimensions.PADDING_SIZE_SMALL,
                             ),
@@ -154,8 +156,13 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                 EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
                             itemCount: catController.categoryList.length,
                             itemBuilder: (context, index) {
-                              return CategoryCard(
-                                  category: catController.categoryList[index]);
+                              final category =
+                                  catController.categoryList[index];
+                              if (category.name == "Grocery" ||
+                                  category.name == "بقالة") {
+                                return SizedBox();
+                              }
+                              return CategoryCard(category: category);
                             },
                           )
                         : NoDataScreen(text: 'no_category_found'.tr)

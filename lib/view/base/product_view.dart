@@ -81,10 +81,13 @@ class ProductView extends StatelessWidget {
                   padding: padding,
                   itemBuilder: (context, index) {
                     return showTheme1Restaurant
-                        ? RestaurantWidget(
-                            restaurant: restaurants[index],
-                            index: index,
-                            inStore: inRestaurantPage)
+                        ? restaurants[index].name != "fastiry Mart" &&
+                                restaurants[index].name != "فاستري مارت"
+                            ? RestaurantWidget(
+                                restaurant: restaurants[index],
+                                index: index,
+                                inStore: inRestaurantPage)
+                            : Container()
                         : ProductWidget(
                             isRestaurant: isRestaurant,
                             product: isRestaurant ? null : products[index],

@@ -50,9 +50,14 @@ class CategoryView1 extends StatelessWidget {
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
-                                  return CategoryCard(
-                                      category: categoryController
-                                          .categoryList[index]);
+                                  final category =
+                                      categoryController.categoryList[index];
+
+                                  if (category.name == "Grocery" ||
+                                      category.name == "بقالة") {
+                                    return SizedBox();
+                                  }
+                                  return CategoryCard(category: category);
                                 },
                               )
                             : CategoryShimmer(

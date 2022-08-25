@@ -22,6 +22,7 @@ import 'package:efood_multivendor/view/screens/checkout/order_successful_screen.
 import 'package:efood_multivendor/view/screens/checkout/payment_screen.dart';
 import 'package:efood_multivendor/view/screens/coupon/coupon_screen.dart';
 import 'package:efood_multivendor/view/screens/dashboard/dashboard_screen.dart';
+import 'package:efood_multivendor/view/screens/fastiry%20mart/all_products.dart';
 import 'package:efood_multivendor/view/screens/fastiry_food/food_screen.dart';
 import 'package:efood_multivendor/view/screens/food/item_campaign_screen.dart';
 import 'package:efood_multivendor/view/screens/food/popular_food_screen.dart';
@@ -66,6 +67,7 @@ class RouteHelper {
   static const String splash = '/splash';
   static const String navigatorScreen = '/navigator';
   static const String language = '/language';
+  static const String allProducts = '/all-products';
   static const String onBoarding = '/on-boarding';
   static const String signIn = '/sign-in';
   static const String signUp = '/sign-up';
@@ -203,6 +205,10 @@ class RouteHelper {
   static String getEditAddressRoute(AddressModel address) {
     String _data = base64Url.encode(utf8.encode(jsonEncode(address.toJson())));
     return '$editAddress?data=$_data';
+  }
+
+  static String getAllProductsRoute() {
+    return '$allProducts';
   }
 
   static String getRestaurantReviewRoute(
@@ -541,6 +547,11 @@ class RouteHelper {
                     .decode(Get.parameters['data'].replaceAll(' ', '+'))))),
               ),
             )),
+    GetPage(
+        name: allProducts,
+        page: () {
+          return AllProductsScreen();
+        }),
     GetPage(
         name: rateReview,
         page: () => Get.arguments != null ? Get.arguments : NotFound()),

@@ -601,6 +601,7 @@ class ProductWidget extends StatelessWidget {
                                                           3.2,
                                                       color: Theme.of(context)
                                                           .disabledColor,
+                                                      decorationThickness: 20,
                                                       decoration: TextDecoration
                                                           .lineThrough,
                                                     ),
@@ -781,6 +782,7 @@ class ProductWidget extends StatelessWidget {
                                                         3.2,
                                                     color: Theme.of(context)
                                                         .disabledColor,
+                                                    decorationThickness: 20,
                                                     decoration: TextDecoration
                                                         .lineThrough,
                                                   ),

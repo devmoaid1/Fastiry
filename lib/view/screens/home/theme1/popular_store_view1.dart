@@ -63,7 +63,7 @@ class PopularStoreView1 extends StatelessWidget {
                             var restaurant = _restaurants[index];
 
                             if (restaurant.name == "فاستري مارت" ||
-                                restaurant.name == "Fasteriy mart") {
+                                restaurant.name == "Fasteriy Mart") {
                               return SizedBox();
                             }
 
