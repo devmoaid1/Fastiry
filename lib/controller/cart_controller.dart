@@ -47,29 +47,41 @@ class CartController extends GetxController implements GetxService {
     _availableList = [];
     _itemPrice = 0;
     _addOns = 0;
-    _cartList.forEach((cartModel) {
-      List<AddOns> _addOnList = [];
-      cartModel.addOnIds.forEach((addOnId) {
-        for (AddOns addOns in cartModel.product.addOns) {
-          if (addOns.id == addOnId.id) {
-            _addOnList.add(addOns);
-            break;
+
+    getCartRestaurant();
+    if (_cartList.isNotEmpty) {
+      _cartList.forEach((cartModel) {
+        List<AddOns> _addOnList = [];
+        cartModel.addOnIds.forEach((addOnId) {
+          for (AddOns addOns in cartModel.product.addOns) {
+            if (addOns.id == addOnId.id) {
+              _addOnList.add(addOns);
+              break;
+            }
           }
+        });
+        _addOnsList.add(_addOnList);
+
+        _availableList.add(DateConverter.isAvailable(
+            cartModel.product.availableTimeStarts,
+            cartModel.product.availableTimeEnds));
+
+        for (int index = 0; index < _addOnList.length; index++) {
+          _addOns = _addOns +
+              (_addOnList[index].price * cartModel.addOnIds[index].quantity);
         }
+        _itemPrice = _itemPrice + (cartModel.price * cartModel.quantity);
       });
-      _addOnsList.add(_addOnList);
 
-      _availableList.add(DateConverter.isAvailable(
-          cartModel.product.availableTimeStarts,
-          cartModel.product.availableTimeEnds));
-
-      for (int index = 0; index < _addOnList.length; index++) {
-        _addOns = _addOns +
-            (_addOnList[index].price * cartModel.addOnIds[index].quantity);
+      if (_cartRestaurant != null) {
+        _subTotal = _itemPrice + _addOns + _cartRestaurant.deliveryPrice;
+      } else {
+        _subTotal = _itemPrice + _addOns;
       }
-      _itemPrice = _itemPrice + (cartModel.price * cartModel.quantity);
-    });
-    _subTotal = _itemPrice + _addOns + _cartRestaurant.deliveryPrice;
+    } else {
+      _subTotal = 0;
+    }
+
     update();
   }
 
@@ -138,7 +150,11 @@ class CartController extends GetxController implements GetxService {
       _addOns = 0;
       clearCartList();
     } else {
+      final product = _cartList[index];
+
       _cartList.removeAt(index);
+      _itemPrice -= product.price;
+      _subTotal -= product.price;
     }
     cartRepo.addToCartList(_cartList);
     update();

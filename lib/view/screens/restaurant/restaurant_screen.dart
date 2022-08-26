@@ -342,7 +342,7 @@ class _RestaurantScreenState extends State<RestaurantScreen> {
                                         ? [
                                             Center(
                                                 child: NoDataScreen(
-                                              text: "No Products found",
+                                              text: "no_food_available".tr,
                                             ))
                                           ]
                                         : restController.restaurantProducts

@@ -34,7 +34,6 @@ class _CartScreenState extends State<CartScreen> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<CartController>().getCartRestaurant();
       Get.find<CartController>().initCartScreen();
     });
   }
@@ -46,8 +45,8 @@ class _CartScreenState extends State<CartScreen> {
       appBar: CustomAppBar(
           title: 'my_cart'.tr,
           onBackPressed: () {
-            Get.find<CartController>().update();
             Get.back();
+            Get.find<CartController>().update();
           },
           isBackButtonExist:
               (ResponsiveHelper.isDesktop(context) || !widget.fromNav),
@@ -92,318 +91,331 @@ class _CartScreenState extends State<CartScreen> {
           }
 
           return cartController.cartList.length > 0
-              ? Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: Dimensions.blockscreenVertical,
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: Dimensions.blockscreenHorizontal * 4),
-                      child: Container(
-                        height: Dimensions.screeHeight * 0.12,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(
-                                      Dimensions.RADIUS_SMALL),
-                                  border: Border.all(
-                                      color: Theme.of(context).disabledColor,
-                                      width: 1)),
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(
-                                    Dimensions.RADIUS_SMALL),
-                                child: Stack(children: [
-                                  CustomImage(
-                                    image:
-                                        '${Get.find<SplashController>().configModel.baseUrls.restaurantImageUrl}/${cartController.cartRestaurant.logo}',
-                                    height: ResponsiveHelper.isDesktop(context)
-                                        ? 80
-                                        : Dimensions.blockscreenHorizontal * 15,
-                                    width: ResponsiveHelper.isDesktop(context)
-                                        ? 100
-                                        : Dimensions.blockscreenHorizontal * 17,
-                                    fit: BoxFit.fill,
-                                  ),
-                                ]),
+              ? SingleChildScrollView(
+                  padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                  physics: BouncingScrollPhysics(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: Dimensions.blockscreenVertical,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            horizontal: Dimensions.blockscreenHorizontal * 4),
+                        child: cartController.cartRestaurant != null
+                            ? Container(
+                                height: Dimensions.screeHeight * 0.12,
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Container(
+                                      decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.RADIUS_SMALL),
+                                          border: Border.all(
+                                              color: Theme.of(context)
+                                                  .disabledColor,
+                                              width: 1)),
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(
+                                            Dimensions.RADIUS_SMALL),
+                                        child: Stack(children: [
+                                          CustomImage(
+                                            image:
+                                                '${Get.find<SplashController>().configModel.baseUrls.restaurantImageUrl}/${cartController.cartRestaurant.logo}',
+                                            height: ResponsiveHelper.isDesktop(
+                                                    context)
+                                                ? 80
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    15,
+                                            width: ResponsiveHelper.isDesktop(
+                                                    context)
+                                                ? 100
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    17,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ]),
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width:
+                                          Dimensions.blockscreenHorizontal * 2,
+                                    ),
+                                    Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Text(cartController.cartRestaurant.name,
+                                            style: Get.find<FontStyles>()
+                                                .poppinsMedium
+                                                .copyWith(
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        4.5)),
+                                        SizedBox(
+                                          height:
+                                              Dimensions.blockscreenVertical *
+                                                  2.5,
+                                        ),
+                                        Row(
+                                          children: [
+                                            SvgPicture.asset(
+                                              Images.scooterIconSvg,
+                                              color: Theme.of(context)
+                                                  .textTheme
+                                                  .bodyText1
+                                                  .color,
+                                              width: Get.locale
+                                                          .languageCode !=
+                                                      "en"
+                                                  ? Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4.5
+                                                  : Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4,
+                                              height: Get.locale.languageCode !=
+                                                      "en"
+                                                  ? Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4.5
+                                                  : Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4,
+                                            ),
+                                            SizedBox(
+                                              width: 5,
+                                            ),
+                                            Text(
+                                              PriceConverter.convertPrice(
+                                                  cartController.cartRestaurant
+                                                      .deliveryPrice),
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsRegular
+                                                  .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          3),
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                          ],
+                                        )
+                                      ],
+                                    ),
+                                  ],
+                                ),
+                              )
+                            : Container(
+                                height: Dimensions.screeHeight * 0.12,
                               ),
-                            ),
-                            SizedBox(
-                              width: Dimensions.blockscreenHorizontal * 2,
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(cartController.cartRestaurant.name,
+                      ),
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                            vertical: Dimensions.blockscreenHorizontal,
+                            horizontal: Dimensions.blockscreenHorizontal * 2),
+                        child: Text("shopping_cart".tr,
+                            textAlign: TextAlign.left,
+                            style:
+                                Get.find<FontStyles>().poppinsMedium.copyWith(
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 5,
+                                    )),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: Dimensions.WEB_MAX_WIDTH,
+                        child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              // Product
+                              ListView.builder(
+                                physics: NeverScrollableScrollPhysics(),
+                                shrinkWrap: true,
+                                itemCount: cartController.cartList.length,
+                                itemBuilder: (context, index) {
+                                  return CartProductWidget(
+                                      cart: cartController.cartList[index],
+                                      cartIndex: index,
+                                      addOns:
+                                          cartController.addOnsList.isNotEmpty
+                                              ? cartController.addOnsList[index]
+                                              : [],
+                                      isAvailable: cartController
+                                              .availableList.isNotEmpty
+                                          ? cartController.availableList[index]
+                                          : false);
+                                },
+                              ),
+                              SizedBox(
+                                  height: Dimensions.blockscreenVertical * 2),
+
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        Dimensions.blockscreenHorizontal * 3,
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                child: Text("summary".tr,
+                                    textAlign: TextAlign.left,
                                     style: Get.find<FontStyles>()
                                         .poppinsMedium
                                         .copyWith(
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                4.5)),
-                                SizedBox(
-                                  height: Dimensions.blockscreenVertical * 2.5,
-                                ),
-                                Row(
-                                  children: [
-                                    SvgPicture.asset(
-                                      Images.scooterIconSvg,
-                                      color: Theme.of(context)
-                                          .textTheme
-                                          .bodyText1
-                                          .color,
-                                      width: Get.locale.languageCode != "en"
-                                          ? Dimensions.blockscreenHorizontal *
-                                              4.5
-                                          : Dimensions.blockscreenHorizontal *
-                                              4,
-                                      height: Get.locale.languageCode != "en"
-                                          ? Dimensions.blockscreenHorizontal *
-                                              4.5
-                                          : Dimensions.blockscreenHorizontal *
-                                              4,
-                                    ),
-                                    SizedBox(
-                                      width: 5,
-                                    ),
-                                    Text(
-                                      PriceConverter.convertPrice(cartController
-                                          .cartRestaurant.deliveryPrice),
-                                      style: Get.find<FontStyles>()
-                                          .poppinsRegular
-                                          .copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  3),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                  ],
-                                )
-                              ],
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(
-                          vertical: Dimensions.blockscreenHorizontal,
-                          horizontal: Dimensions.blockscreenHorizontal * 2),
-                      child: Text("shopping_cart".tr,
-                          textAlign: TextAlign.left,
-                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                                fontSize: Dimensions.blockscreenHorizontal * 5,
-                              )),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Expanded(
-                      child: Scrollbar(
-                        child: SingleChildScrollView(
-                          padding:
-                              EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                          physics: BouncingScrollPhysics(),
-                          child: SizedBox(
-                            width: Dimensions.WEB_MAX_WIDTH,
-                            child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Product
-                                  ListView.builder(
-                                    physics: NeverScrollableScrollPhysics(),
-                                    shrinkWrap: true,
-                                    itemCount: cartController.cartList.length,
-                                    itemBuilder: (context, index) {
-                                      return CartProductWidget(
-                                          cart: cartController.cartList[index],
-                                          cartIndex: index,
-                                          addOns: cartController
-                                                  .addOnsList.isNotEmpty
-                                              ? cartController.addOnsList[index]
-                                              : [],
-                                          isAvailable: cartController
-                                                  .availableList.isNotEmpty
-                                              ? cartController
-                                                  .availableList[index]
-                                              : false);
-                                    },
-                                  ),
-                                  SizedBox(
-                                      height:
-                                          Dimensions.blockscreenVertical * 2),
-
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical:
-                                            Dimensions.blockscreenHorizontal *
-                                                3,
-                                        horizontal:
-                                            Dimensions.blockscreenHorizontal *
-                                                2),
-                                    child: Text("summary".tr,
-                                        textAlign: TextAlign.left,
-                                        style: Get.find<FontStyles>()
-                                            .poppinsMedium
-                                            .copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
+                                          fontSize:
+                                              Dimensions.blockscreenHorizontal *
                                                   5,
-                                            )),
-                                  ),
-                                  // Total
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.blockscreenHorizontal *
-                                                2),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('item_price'.tr,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                      fontSize: Dimensions
-                                                              .blockscreenHorizontal *
-                                                          4)),
-                                          Text(
-                                              PriceConverter.convertPrice(
-                                                  cartController.itemPrice),
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                    color: Theme.of(context)
-                                                        .dividerColor,
-                                                  )),
-                                        ]),
-                                  ),
-                                  SizedBox(height: 10),
+                                        )),
+                              ),
+                              // Total
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('item_price'.tr,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
+                                      Text(
+                                          PriceConverter.convertPrice(
+                                              cartController.itemPrice),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .dividerColor,
+                                              )),
+                                    ]),
+                              ),
+                              SizedBox(height: 10),
 
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.blockscreenHorizontal *
-                                                2),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('addons'.tr,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                      fontSize: Dimensions
-                                                              .blockscreenHorizontal *
-                                                          4)),
-                                          Text(
-                                              '${PriceConverter.convertPrice(cartController.addOns)}',
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                    color: Theme.of(context)
-                                                        .dividerColor,
-                                                  )),
-                                        ]),
-                                  ),
-                                  SizedBox(height: 10),
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.blockscreenHorizontal *
-                                                2),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('delivery_price'.tr,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                      fontSize: Dimensions
-                                                              .blockscreenHorizontal *
-                                                          4)),
-                                          Text(
-                                              '${PriceConverter.convertPrice(cartController.cartRestaurant.deliveryPrice)}',
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                    color: Theme.of(context)
-                                                        .dividerColor,
-                                                  )),
-                                        ]),
-                                  ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('addons'.tr,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
+                                      Text(
+                                          '${PriceConverter.convertPrice(cartController.addOns)}',
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .dividerColor,
+                                              )),
+                                    ]),
+                              ),
+                              SizedBox(height: 10),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('delivery_price'.tr,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
+                                      Text(
+                                          '${PriceConverter.convertPrice(cartController.cartRestaurant.deliveryPrice)}',
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                color: Theme.of(context)
+                                                    .dividerColor,
+                                              )),
+                                    ]),
+                              ),
 
-                                  Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical:
-                                            Dimensions.PADDING_SIZE_SMALL),
-                                    child: Divider(
-                                        thickness: 1,
-                                        color: Theme.of(context)
-                                            .dividerColor
-                                            .withOpacity(0.5)),
-                                  ),
+                              Padding(
+                                padding: EdgeInsets.symmetric(
+                                    vertical: Dimensions.PADDING_SIZE_SMALL),
+                                child: Divider(
+                                    thickness: 1,
+                                    color: Theme.of(context)
+                                        .dividerColor
+                                        .withOpacity(0.5)),
+                              ),
 
-                                  Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal:
-                                            Dimensions.blockscreenHorizontal *
-                                                2),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text('subtotal'.tr,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsMedium
-                                                  .copyWith(
-                                                    fontSize: Dimensions
-                                                            .blockscreenHorizontal *
-                                                        5,
-                                                  )),
-                                          Text(
-                                              PriceConverter.convertPrice(
-                                                  cartController.subTotal),
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsMedium
-                                                  .copyWith(
-                                                    fontSize: Dimensions
-                                                            .blockscreenHorizontal *
-                                                        5,
-                                                  )),
-                                        ]),
-                                  ),
-                                ]),
-                          ),
-                        ),
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Text('subtotal'.tr,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                fontSize: Dimensions
+                                                        .blockscreenHorizontal *
+                                                    5,
+                                              )),
+                                      Text(
+                                          PriceConverter.convertPrice(
+                                              cartController.subTotal),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsMedium
+                                              .copyWith(
+                                                fontSize: Dimensions
+                                                        .blockscreenHorizontal *
+                                                    5,
+                                              )),
+                                    ]),
+                              ),
+                            ]),
                       ),
-                    ),
-                    Container(
-                      width: Dimensions.WEB_MAX_WIDTH,
-                      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: CustomButton(
-                          buttonText: 'proceed_to_checkout'.tr,
-                          onPressed: () {
-                            if (!cartController
-                                    .cartList.first.product.scheduleOrder &&
-                                cartController.availableList.contains(false)) {
-                              showCustomSnackBar(
-                                  'one_or_more_product_unavailable'.tr);
-                            } else {
-                              Get.find<CouponController>()
-                                  .removeCouponData(false);
-                              Get.toNamed(RouteHelper.getCheckoutRoute('cart'));
-                            }
-                          }),
-                    ),
-                  ],
+                      Container(
+                        width: Dimensions.WEB_MAX_WIDTH,
+                        padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                        child: CustomButton(
+                            buttonText: 'proceed_to_checkout'.tr,
+                            onPressed: () {
+                              if (!cartController
+                                      .cartList.first.product.scheduleOrder &&
+                                  cartController.availableList
+                                      .contains(false)) {
+                                showCustomSnackBar(
+                                    'one_or_more_product_unavailable'.tr);
+                              } else {
+                                Get.find<CouponController>()
+                                    .removeCouponData(false);
+                                Get.toNamed(
+                                    RouteHelper.getCheckoutRoute('cart'));
+                              }
+                            }),
+                      ),
+                    ],
+                  ),
                 )
               : NoDataScreen(isCart: true, text: '');
         },

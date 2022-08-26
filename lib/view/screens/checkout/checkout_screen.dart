@@ -162,9 +162,8 @@ class _CheckoutScreenState extends State<CheckoutScreen> {
                     double _charge = -1;
                     if (restController.restaurant != null &&
                         restController.restaurant.selfDeliverySystem == 1) {
-                      _deliveryCharge =
-                          restController.restaurant.deliveryCharge;
-                      _charge = restController.restaurant.deliveryCharge;
+                      _deliveryCharge = restController.restaurant.deliveryPrice;
+                      _charge = restController.restaurant.deliveryPrice;
                     } else if (restController.restaurant != null &&
                         orderController.distance != null &&
                         orderController.distance != -1) {

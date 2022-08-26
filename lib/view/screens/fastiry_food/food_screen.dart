@@ -29,7 +29,7 @@ class _FoodScreenState extends State<FoodScreen> {
         child: CustomScrollView(slivers: [
           SliverAppBar(
             toolbarHeight: Dimensions.blockscreenVertical * 12,
-            expandedHeight: Dimensions.blockscreenVertical * 12,
+            expandedHeight: Dimensions.blockscreenVertical * 14,
             floating: true,
             elevation: 0,
             automaticallyImplyLeading: true,
@@ -126,14 +126,17 @@ class _FoodScreenState extends State<FoodScreen> {
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.PADDING_SIZE_SMALL),
                   decoration: BoxDecoration(
-                    color: offWhite,
-                    borderRadius: BorderRadius.circular(25),
-                    boxShadow: [
-                      BoxShadow(
-                          color: Colors.grey[Get.isDarkMode ? 800 : 300],
-                          spreadRadius: 0.4,
-                          blurRadius: 5)
-                    ],
+                    color: Theme.of(context).backgroundColor,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: Theme.of(context).disabledColor),
+                    boxShadow: Get.isDarkMode
+                        ? null
+                        : [
+                            BoxShadow(
+                                color: Colors.grey[300],
+                                spreadRadius: 0.4,
+                                blurRadius: 5)
+                          ],
                   ),
                   child: Row(children: [
                     SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
@@ -162,6 +165,9 @@ class _FoodScreenState extends State<FoodScreen> {
           SliverToBoxAdapter(
             child: Column(
               children: [
+                SizedBox(
+                  height: Dimensions.blockscreenVertical * 3,
+                ),
                 Padding(
                   padding: EdgeInsets.symmetric(
                       vertical: Dimensions.blockscreenVertical * 3,

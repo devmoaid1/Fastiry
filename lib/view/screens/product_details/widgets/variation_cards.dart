@@ -59,7 +59,9 @@ class VariationCards extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.blockscreenHorizontal * 3),
                     decoration: BoxDecoration(
-                      color: Theme.of(context).backgroundColor,
+                      color: productController.variationIndex[index] == i
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).backgroundColor,
                       borderRadius:
                           BorderRadius.circular(Dimensions.RADIUS_SMALL),
                       border: Border.all(
@@ -72,8 +74,7 @@ class VariationCards extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         productController.variationIndex[index] == i
-                            ? Icon(Icons.check,
-                                color: Theme.of(context).primaryColor)
+                            ? Icon(Icons.check, color: Colors.white)
                             : SizedBox(
                                 width: Dimensions.blockscreenHorizontal * 5,
                               ),
@@ -93,7 +94,8 @@ class VariationCards extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                color: Theme.of(context).disabledColor,
+                                color:
+                                    Theme.of(context).textTheme.bodyText1.color,
                               ),
                         ),
                       ],

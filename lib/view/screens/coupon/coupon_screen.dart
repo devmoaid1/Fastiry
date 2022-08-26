@@ -11,6 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/splash_controller.dart';
 import '../../../theme/font_styles.dart';
 
 class CouponScreen extends StatefulWidget {
@@ -78,7 +79,9 @@ class _CouponScreenState extends State<CouponScreen> {
                                                         //         .blockscreenHorizontal *
                                                         //     10,
                                                         color: Theme.of(context)
-                                                            .disabledColor),
+                                                            .textTheme
+                                                            .bodyText1
+                                                            .color),
                                                     SizedBox(width: 40),
                                                     Expanded(
                                                       child: Column(
@@ -90,7 +93,7 @@ class _CouponScreenState extends State<CouponScreen> {
                                                                   .center,
                                                           children: [
                                                             Text(
-                                                              '${couponController.couponList[index].title}',
+                                                              ' ${couponController.couponList[index].discount}${couponController.couponList[index].discountType == 'percent' ? '%' : Get.find<SplashController>().configModel.currencySymbol} ${'off'.tr} ${couponController.couponList[index].title.tr}',
                                                               style: Get.find<
                                                                       FontStyles>()
                                                                   .poppinsMedium

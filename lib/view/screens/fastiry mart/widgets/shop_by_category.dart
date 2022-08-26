@@ -42,7 +42,7 @@ class ShopByCategorySection extends StatelessWidget {
                   : 0.01,
               childAspectRatio: Get.locale.languageCode == "en"
                   ? Dimensions.blockscreenHorizontal / 6.9
-                  : Dimensions.blockscreenHorizontal / 6,
+                  : Dimensions.blockscreenHorizontal / 6.4,
               crossAxisCount: ResponsiveHelper.isMobile(context) ? 4 : 3,
             ),
             itemCount: categoryController.subCategoryList != null

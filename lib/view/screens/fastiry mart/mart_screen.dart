@@ -122,7 +122,7 @@ class _MartScreenState extends State<MartScreen> {
                   SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                   Expanded(
                       child: Text(
-                    'search_food_or_restaurant'.tr,
+                    'search_products'.tr,
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: Get.find<FontStyles>().poppinsRegular.copyWith(

@@ -5,10 +5,9 @@ import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/data/model/response/basic_campaign_model.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
+import 'package:efood_multivendor/view/screens/product_details/productDetails.dart';
 import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -63,20 +62,11 @@ class BannerView extends StatelessWidget {
                                     is Product) {
                                   Product _product =
                                       bannerController.bannerDataList[index];
-                                  ResponsiveHelper.isMobile(context)
-                                      ? showModalBottomSheet(
-                                          context: context,
-                                          isScrollControlled: true,
-                                          backgroundColor: Colors.transparent,
-                                          builder: (con) => ProductBottomSheet(
-                                              product: _product),
-                                        )
-                                      : showDialog(
-                                          context: context,
-                                          builder: (con) => Dialog(
-                                              child: ProductBottomSheet(
-                                                  product: _product)),
-                                        );
+                                  Get.toNamed(
+                                      RouteHelper.getProductDetailsRoute(
+                                          _product.id),
+                                      arguments: ProductDetailsScreen(
+                                          product: _product));
                                 } else if (bannerController
                                     .bannerDataList[index] is Restaurant) {
                                   Restaurant _restaurant =

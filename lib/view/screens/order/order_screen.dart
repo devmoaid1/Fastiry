@@ -1,13 +1,13 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
 import 'package:efood_multivendor/view/screens/order/widget/order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../../theme/font_styles.dart';
 
 class OrderScreen extends StatefulWidget {
   @override
@@ -35,9 +35,7 @@ class _OrderScreenState extends State<OrderScreen>
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
-      appBar: CustomAppBar(
-          title: 'my_orders'.tr,
-          isBackButtonExist: ResponsiveHelper.isDesktop(context)),
+      appBar: CustomAppBar(title: 'my_orders'.tr, isBackButtonExist: true),
       body: _isLoggedIn
           ? GetBuilder<OrderController>(
               builder: (orderController) {
@@ -51,15 +49,17 @@ class _OrderScreenState extends State<OrderScreen>
                         indicatorWeight: 3,
                         labelColor: Theme.of(context).primaryColor,
                         unselectedLabelColor: Theme.of(context).disabledColor,
-                        unselectedLabelStyle: robotoRegular.copyWith(
-                            color: Theme.of(context).disabledColor,
-                            fontSize: Dimensions.fontSizeSmall),
-                        labelStyle: robotoBold.copyWith(
+                        unselectedLabelStyle: Get.find<FontStyles>()
+                            .poppinsRegular
+                            .copyWith(
+                                color: Theme.of(context).disabledColor,
+                                fontSize: Dimensions.fontSizeSmall),
+                        labelStyle: Get.find<FontStyles>().poppinsBold.copyWith(
                             fontSize: Dimensions.fontSizeSmall,
                             color: Theme.of(context).primaryColor),
                         tabs: [
                           Tab(text: 'running'.tr),
-                          Tab(text: 'history'.tr),
+                          Tab(text: 'order_history'.tr),
                         ],
                       ),
                     ),
