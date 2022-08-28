@@ -119,6 +119,7 @@
   "addons": "Addons",
   "total_amount": "Total Amount",
   "add_to_cart": "Add To Cart",
+  "remove_wishList":"remove from wishlist",
   "search_products":"Search products...",
   "item_added_to_cart": "Item added to cart",
   "already_added_in_cart": "Already Added in Cart",

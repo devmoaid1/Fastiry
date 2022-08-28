@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/data/model/response/category_model.dart';
+import 'package:efood_multivendor/helper/subCategory_image_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,9 +12,10 @@ import '../../../base/custom_image.dart';
 
 class CategoryCard extends StatelessWidget {
   final CategoryModel category;
-
+  final bool fromMartScreen;
   const CategoryCard({
     Key key,
+    @required this.fromMartScreen,
     @required this.category,
   }) : super(key: key);
 
@@ -42,15 +44,22 @@ class CategoryCard extends StatelessWidget {
             child: ClipRRect(
               clipBehavior: Clip.antiAlias,
               borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-              child: CustomImage(
-                width: Dimensions.blockscreenHorizontal * 35,
-                height: Dimensions.blockscreenHorizontal * 25,
-                placeholder: Images.breakFastImage,
-                image:
-                    '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${category.image}',
-                // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
-                fit: BoxFit.fill,
-              ),
+              child: !fromMartScreen
+                  ? CustomImage(
+                      width: Dimensions.blockscreenHorizontal * 35,
+                      height: Dimensions.blockscreenHorizontal * 25,
+                      placeholder: Images.breakFastImage,
+                      image:
+                          '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${category.image}',
+                      // '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${categoryController.categoryList[index].image}',
+                      fit: BoxFit.fill,
+                    )
+                  : Image.asset(
+                      getSubCategoryImage(category.name),
+                      width: Dimensions.blockscreenHorizontal * 35,
+                      height: Dimensions.blockscreenHorizontal * 25,
+                      fit: BoxFit.fill,
+                    ),
             ),
           ),
           Container(

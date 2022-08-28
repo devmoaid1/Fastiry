@@ -17,6 +17,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
 import '../../helper/price_converter.dart';
 import '../../theme/font_styles.dart';
 import 'discount_tag.dart';
@@ -436,393 +437,509 @@ class ProductWidget extends StatelessWidget {
     }
 
     Widget _buildProductView(context) {
-      return !inRestaurant
-          ? Dismissible(
-              key: ObjectKey(product),
-              background: Container(
-                color: Colors.red,
-                child: Padding(
-                  padding: const EdgeInsets.all(15),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Icon(Icons.delete, color: Colors.white),
-                      Text('remove from wishlist',
-                          style: Get.find<FontStyles>()
-                              .poppinsRegular
-                              .copyWith(color: Colors.white)),
-                    ],
+      return GetBuilder<CartController>(
+        builder: (cartController) {
+          final isExistInCart = cartController.isProductExistInCart(product.id);
+          int index = -1;
+          if (isExistInCart) {
+            index = cartController.cartList
+                .indexWhere((cartItem) => cartItem.product.id == product.id);
+          }
+
+          return !inRestaurant
+              ? Dismissible(
+                  key: ObjectKey(product),
+                  background: Container(
+                    color: Colors.red,
+                    child: Padding(
+                      padding: const EdgeInsets.all(15),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          Icon(Icons.delete, color: Colors.white),
+                          Text('remove_wishlist'.tr,
+                              style: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(color: Colors.white)),
+                        ],
+                      ),
+                    ),
                   ),
-                ),
-              ),
-              onDismissed: (dismissDirection) {
-                Get.find<WishListController>()
-                    .removeFromWishList(product.id, isRestaurant);
-              },
-              child: InkWell(
-                onTap: () {
-                  Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
-                      arguments: ProductDetailsScreen(product: product));
-                },
-                child: Container(
-                  padding: ResponsiveHelper.isDesktop(context)
-                      ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
-                      : null,
-                  decoration: BoxDecoration(
-                    color: ResponsiveHelper.isDesktop(context)
-                        ? Theme.of(context).cardColor
-                        : null,
-                    boxShadow: ResponsiveHelper.isDesktop(context)
-                        ? [
-                            Get.isDarkMode
-                                ? BoxShadow(
-                                    color: Colors.grey[300],
-                                    spreadRadius: 0.4,
-                                    blurRadius: 7,
-                                  )
-                                : BoxShadow(
-                                    color: Theme.of(context).backgroundColor)
-                          ]
-                        : null,
-                  ),
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: [
-                        Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              (_image != null && _image.isNotEmpty)
-                                  ? Stack(children: [
-                                      ClipRRect(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.RADIUS_SMALL),
-                                        child: CustomImage(
-                                          image:
-                                              '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
-                                              '/${isRestaurant ? restaurant.logo : product.image}',
-                                          height: _desktop
-                                              ? 120
-                                              : Dimensions
-                                                      .blockscreenHorizontal *
-                                                  30,
-                                          width: _desktop
-                                              ? 120
-                                              : Dimensions
-                                                      .blockscreenHorizontal *
-                                                  30,
-                                          fit: BoxFit.fill,
-                                        ),
-                                      ),
-                                      _isAvailable
-                                          ? SizedBox()
-                                          : NotAvailableWidget(
-                                              isRestaurant: isRestaurant),
-                                    ])
-                                  : SizedBox.shrink(),
-                              SizedBox(
-                                  width: Dimensions.blockscreenHorizontal * 3),
-                              Expanded(
-                                child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        product.name,
-                                        style: Get.find<FontStyles>()
-                                            .poppinsMedium
-                                            .copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  5.5,
-                                            ),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                          height: product.discount > 0
-                                              ? 4
-                                              : Dimensions.blockscreenVertical *
-                                                  2),
-                                      Text(
-                                        product.description,
-                                        style: Get.find<FontStyles>()
-                                            .poppinsRegular
-                                            .copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  3.5,
-                                            ),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.blockscreenVertical *
-                                                  0.4),
-                                      RatingBar(
-                                        rating: product.avgRating,
-                                        size: _desktop ? 15 : 12,
-                                        ratingCount: product.ratingCount,
-                                      ),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.blockscreenVertical *
-                                                  0.4),
-                                      Row(children: [
-                                        Text(
-                                          PriceConverter.convertPrice(
-                                              product.price,
-                                              discount: _discount,
-                                              discountType: _discountType),
-                                          style: Get.find<FontStyles>()
-                                              .poppinsMedium
-                                              .copyWith(
-                                                  color: Theme.of(context)
-                                                      .dividerColor,
-                                                  fontSize: Dimensions
+                  onDismissed: (dismissDirection) {
+                    Get.find<WishListController>()
+                        .removeFromWishList(product.id, isRestaurant);
+                  },
+                  child: InkWell(
+                    onTap: () {
+                      Get.toNamed(
+                          RouteHelper.getProductDetailsRoute(product.id),
+                          arguments: ProductDetailsScreen(product: product));
+                    },
+                    child: Container(
+                      padding: ResponsiveHelper.isDesktop(context)
+                          ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                          : null,
+                      decoration: BoxDecoration(
+                        color: ResponsiveHelper.isDesktop(context)
+                            ? Theme.of(context).cardColor
+                            : null,
+                        boxShadow: ResponsiveHelper.isDesktop(context)
+                            ? [
+                                Get.isDarkMode
+                                    ? BoxShadow(
+                                        color: Colors.grey[300],
+                                        spreadRadius: 0.4,
+                                        blurRadius: 7,
+                                      )
+                                    : BoxShadow(
+                                        color:
+                                            Theme.of(context).backgroundColor)
+                              ]
+                            : null,
+                      ),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            Row(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  (_image != null && _image.isNotEmpty)
+                                      ? Stack(children: [
+                                          ClipRRect(
+                                            borderRadius: BorderRadius.circular(
+                                                Dimensions.RADIUS_SMALL),
+                                            child: CustomImage(
+                                              image:
+                                                  '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                                  '/${isRestaurant ? restaurant.logo : product.image}',
+                                              height: _desktop
+                                                  ? 120
+                                                  : Dimensions
                                                           .blockscreenHorizontal *
-                                                      4),
-                                        ),
-                                        SizedBox(
-                                            width: _discount > 0
-                                                ? Dimensions
-                                                    .PADDING_SIZE_EXTRA_SMALL
-                                                : 0),
-                                        _discount > 0
-                                            ? Text(
-                                                PriceConverter.convertPrice(
-                                                    product.price),
+                                                      30,
+                                              width: _desktop
+                                                  ? 120
+                                                  : Dimensions
+                                                          .blockscreenHorizontal *
+                                                      30,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                          _isAvailable
+                                              ? SizedBox()
+                                              : NotAvailableWidget(
+                                                  isRestaurant: isRestaurant),
+                                        ])
+                                      : SizedBox.shrink(),
+                                  SizedBox(
+                                      width:
+                                          Dimensions.blockscreenHorizontal * 3),
+                                  Expanded(
+                                    child: Column(
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Text(
+                                                product.name,
                                                 style: Get.find<FontStyles>()
-                                                    .poppinsRegular
+                                                    .poppinsMedium
                                                     .copyWith(
                                                       fontSize: Dimensions
                                                               .blockscreenHorizontal *
-                                                          3.2,
-                                                      color: Theme.of(context)
-                                                          .disabledColor,
-                                                      decorationThickness: 20,
-                                                      decoration: TextDecoration
-                                                          .lineThrough,
+                                                          5.5,
                                                     ),
-                                              )
-                                            : SizedBox(),
-                                        SizedBox(
-                                            width: Dimensions
-                                                .PADDING_SIZE_EXTRA_SMALL),
-                                        (_image != null && _image.isNotEmpty)
-                                            ? SizedBox.shrink()
-                                            : DiscountTagWithoutImage(
-                                                discount: _discount,
-                                                discountType: _discountType,
-                                                freeDelivery: isRestaurant
-                                                    ? restaurant.freeDelivery
-                                                    : false),
-                                      ]),
-                                      SizedBox(
-                                          height:
-                                              Dimensions.blockscreenVertical),
-                                      DiscountTag(
-                                        discount: _discount,
-                                        discountType: _discountType,
-                                      )
-                                    ]),
-                              ),
-                            ]),
-                        Padding(
-                          padding: EdgeInsets.only(
-                              left: _desktop
-                                  ? 130
-                                  : Dimensions.screenWidth -
-                                      Dimensions.blockscreenHorizontal * 65),
-                          child: Divider(
-                              color: index == length - 1
-                                  ? Colors.transparent
-                                  : Theme.of(context).disabledColor),
-                        ),
-                      ]),
-                ),
-              ),
-            )
-          : InkWell(
-              onTap: () {
-                Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
-                    arguments: ProductDetailsScreen(product: product));
-              },
-              child: Container(
-                padding: ResponsiveHelper.isDesktop(context)
-                    ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
-                    : null,
-                decoration: BoxDecoration(
-                  color: ResponsiveHelper.isDesktop(context)
-                      ? Theme.of(context).cardColor
-                      : null,
-                  boxShadow: ResponsiveHelper.isDesktop(context)
-                      ? [
-                          Get.isDarkMode
-                              ? BoxShadow(
-                                  color: Colors.grey[300],
-                                  spreadRadius: 0.4,
-                                  blurRadius: 7,
-                                )
-                              : BoxShadow(
-                                  color: Theme.of(context).backgroundColor)
-                        ]
-                      : null,
-                ),
-                child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            (_image != null && _image.isNotEmpty)
-                                ? Stack(children: [
-                                    ClipRRect(
-                                      borderRadius: BorderRadius.circular(
-                                          Dimensions.RADIUS_SMALL),
-                                      child: CustomImage(
-                                        image:
-                                            '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
-                                            '/${isRestaurant ? restaurant.logo : product.image}',
-                                        height: _desktop
-                                            ? 120
-                                            : Dimensions.blockscreenHorizontal *
-                                                30,
-                                        width: _desktop
-                                            ? 120
-                                            : Dimensions.blockscreenHorizontal *
-                                                30,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    _isAvailable
-                                        ? SizedBox()
-                                        : NotAvailableWidget(
-                                            isRestaurant: isRestaurant),
-                                  ])
-                                : SizedBox.shrink(),
-                            SizedBox(
-                                width: Dimensions.blockscreenHorizontal * 3),
-                            Expanded(
-                              child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      product.name,
-                                      style: Get.find<FontStyles>()
-                                          .poppinsMedium
-                                          .copyWith(
-                                            fontSize: Dimensions
-                                                    .blockscreenHorizontal *
-                                                5.5,
+                                                maxLines: 2,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
+                                              isExistInCart
+                                                  ? Text(
+                                                      "${cartController.cartList[index].quantity}",
+                                                      style:
+                                                          Get.find<FontStyles>()
+                                                              .poppinsMedium
+                                                              .copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: Dimensions
+                                                                        .blockscreenHorizontal *
+                                                                    4,
+                                                              ),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    )
+                                                  : SizedBox(),
+                                            ],
                                           ),
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(
-                                        height: product.discount > 0
-                                            ? 4
-                                            : Dimensions.blockscreenVertical *
-                                                3),
-                                    Text(
-                                      product.description,
-                                      style: Get.find<FontStyles>()
-                                          .poppinsRegular
-                                          .copyWith(
-                                              fontSize: Dimensions
-                                                      .blockscreenHorizontal *
-                                                  3.5,
-                                              color: Theme.of(context)
-                                                  .disabledColor),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(
-                                        height: Dimensions.blockscreenVertical *
-                                            0.4),
-                                    RatingBar(
-                                      rating: product.avgRating,
-                                      size: _desktop ? 15 : 12,
-                                      ratingCount: product.ratingCount,
-                                    ),
-                                    SizedBox(
-                                        height: Dimensions.blockscreenVertical *
-                                            0.4),
-                                    Row(children: [
-                                      Text(
-                                        PriceConverter.convertPrice(
-                                            product.price,
-                                            discount: _discount,
-                                            discountType: _discountType),
-                                        style: Get.find<FontStyles>()
-                                            .poppinsMedium
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    4),
-                                      ),
-                                      SizedBox(
-                                          width: _discount > 0
-                                              ? Dimensions
-                                                  .PADDING_SIZE_EXTRA_SMALL
-                                              : 0),
-                                      _discount > 0
-                                          ? Text(
+                                          SizedBox(
+                                              height: product.discount > 0
+                                                  ? 4
+                                                  : Dimensions
+                                                          .blockscreenVertical *
+                                                      2),
+                                          Text(
+                                            product.description,
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      3.5,
+                                                ),
+                                            maxLines: 1,
+                                            overflow: TextOverflow.ellipsis,
+                                          ),
+                                          SizedBox(
+                                              height: Dimensions
+                                                      .blockscreenVertical *
+                                                  0.4),
+                                          RatingBar(
+                                            rating: product.avgRating,
+                                            size: _desktop ? 15 : 12,
+                                            ratingCount: product.ratingCount,
+                                          ),
+                                          SizedBox(
+                                              height: Dimensions
+                                                      .blockscreenVertical *
+                                                  0.4),
+                                          Row(children: [
+                                            Text(
                                               PriceConverter.convertPrice(
-                                                  product.price),
+                                                  product.price,
+                                                  discount: _discount,
+                                                  discountType: _discountType),
                                               style: Get.find<FontStyles>()
-                                                  .poppinsRegular
+                                                  .poppinsMedium
+                                                  .copyWith(
+                                                      color: Theme.of(context)
+                                                          .dividerColor,
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          4),
+                                            ),
+                                            SizedBox(
+                                                width: _discount > 0
+                                                    ? Dimensions
+                                                        .PADDING_SIZE_EXTRA_SMALL
+                                                    : 0),
+                                            _discount > 0
+                                                ? Text(
+                                                    PriceConverter.convertPrice(
+                                                        product.price),
+                                                    style:
+                                                        Get.find<FontStyles>()
+                                                            .poppinsRegular
+                                                            .copyWith(
+                                                              fontSize: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  3.2,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .disabledColor,
+                                                              decorationThickness:
+                                                                  4,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .lineThrough,
+                                                            ),
+                                                  )
+                                                : SizedBox(),
+                                            SizedBox(
+                                                width: Dimensions
+                                                    .PADDING_SIZE_EXTRA_SMALL),
+                                            (_image != null &&
+                                                    _image.isNotEmpty)
+                                                ? SizedBox.shrink()
+                                                : DiscountTagWithoutImage(
+                                                    discount: _discount,
+                                                    discountType: _discountType,
+                                                    freeDelivery: isRestaurant
+                                                        ? restaurant
+                                                            .freeDelivery
+                                                        : false),
+                                          ]),
+                                          SizedBox(
+                                              height: Dimensions
+                                                  .blockscreenVertical),
+                                          DiscountTag(
+                                            discount: _discount,
+                                            discountType: _discountType,
+                                          )
+                                        ]),
+                                  ),
+                                  isExistInCart
+                                      ? Container(
+                                          height: 50,
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 5),
+                                          decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadiusDirectional.only(
+                                                      topStart:
+                                                          Radius.circular(8),
+                                                      bottomStart:
+                                                          Radius.circular(8)),
+                                              color: Theme.of(context)
+                                                  .primaryColor),
+                                        )
+                                      : SizedBox()
+                                ]),
+                            Padding(
+                              padding: EdgeInsets.only(
+                                  left: _desktop
+                                      ? 130
+                                      : Dimensions.screenWidth -
+                                          Dimensions.blockscreenHorizontal *
+                                              65),
+                              child: Divider(
+                                  color: index == length - 1
+                                      ? Colors.transparent
+                                      : Theme.of(context).disabledColor),
+                            ),
+                          ]),
+                    ),
+                  ),
+                )
+              : InkWell(
+                  onTap: () {
+                    Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
+                        arguments: ProductDetailsScreen(product: product));
+                  },
+                  child: Container(
+                    padding: ResponsiveHelper.isDesktop(context)
+                        ? EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL)
+                        : null,
+                    decoration: BoxDecoration(
+                      color: ResponsiveHelper.isDesktop(context)
+                          ? Theme.of(context).cardColor
+                          : null,
+                      boxShadow: ResponsiveHelper.isDesktop(context)
+                          ? [
+                              Get.isDarkMode
+                                  ? BoxShadow(
+                                      color: Colors.grey[300],
+                                      spreadRadius: 0.4,
+                                      blurRadius: 7,
+                                    )
+                                  : BoxShadow(
+                                      color: Theme.of(context).backgroundColor)
+                            ]
+                          : null,
+                    ),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                (_image != null && _image.isNotEmpty)
+                                    ? Stack(children: [
+                                        ClipRRect(
+                                          borderRadius: BorderRadius.circular(
+                                              Dimensions.RADIUS_SMALL),
+                                          child: CustomImage(
+                                            image:
+                                                '${isCampaign ? _baseUrls.campaignImageUrl : isRestaurant ? _baseUrls.restaurantImageUrl : _baseUrls.productImageUrl}'
+                                                '/${isRestaurant ? restaurant.logo : product.image}',
+                                            height: _desktop
+                                                ? 120
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    30,
+                                            width: _desktop
+                                                ? 120
+                                                : Dimensions
+                                                        .blockscreenHorizontal *
+                                                    30,
+                                            fit: BoxFit.fill,
+                                          ),
+                                        ),
+                                        _isAvailable
+                                            ? SizedBox()
+                                            : NotAvailableWidget(
+                                                isRestaurant: isRestaurant),
+                                      ])
+                                    : SizedBox.shrink(),
+                                SizedBox(
+                                    width:
+                                        Dimensions.blockscreenHorizontal * 3),
+                                Expanded(
+                                  child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Text(
+                                              product.name,
+                                              style: Get.find<FontStyles>()
+                                                  .poppinsMedium
                                                   .copyWith(
                                                     fontSize: Dimensions
                                                             .blockscreenHorizontal *
-                                                        3.2,
-                                                    color: Theme.of(context)
-                                                        .disabledColor,
-                                                    decorationThickness: 20,
-                                                    decoration: TextDecoration
-                                                        .lineThrough,
+                                                        5.5,
                                                   ),
-                                            )
-                                          : SizedBox(),
-                                      SizedBox(
-                                          width: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      (_image != null && _image.isNotEmpty)
-                                          ? SizedBox.shrink()
-                                          : DiscountTagWithoutImage(
-                                              discount: _discount,
-                                              discountType: _discountType,
-                                              freeDelivery: isRestaurant
-                                                  ? restaurant.freeDelivery
-                                                  : false),
-                                    ]),
-                                    SizedBox(
-                                        height: Dimensions.blockscreenVertical),
-                                    DiscountTag(
-                                      discount: _discount,
-                                      discountType: _discountType,
-                                    )
-                                  ]),
-                            ),
-                          ]),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            left: _desktop
-                                ? 130
-                                : Dimensions.screenWidth -
-                                    Dimensions.blockscreenHorizontal * 65),
-                        child: Divider(
-                            color: index == length - 1
-                                ? Colors.transparent
-                                : Theme.of(context).disabledColor),
-                      ),
-                    ]),
-              ),
-            );
+                                              maxLines: 2,
+                                              overflow: TextOverflow.ellipsis,
+                                            ),
+                                            SizedBox(
+                                              width: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  2,
+                                            ),
+                                            isExistInCart
+                                                ? Text(
+                                                    "x ${cartController.cartList[index].quantity}",
+                                                    style:
+                                                        Get.find<FontStyles>()
+                                                            .poppinsMedium
+                                                            .copyWith(
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .primaryColor,
+                                                              fontSize: Dimensions
+                                                                      .blockscreenHorizontal *
+                                                                  4,
+                                                            ),
+                                                    maxLines: 1,
+                                                    overflow:
+                                                        TextOverflow.ellipsis,
+                                                  )
+                                                : SizedBox(),
+                                          ],
+                                        ),
+                                        SizedBox(
+                                            height: product.discount > 0
+                                                ? 4
+                                                : Dimensions
+                                                        .blockscreenVertical *
+                                                    3),
+                                        Text(
+                                          product.description,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      3.5,
+                                                  color: Theme.of(context)
+                                                      .disabledColor),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.ellipsis,
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical *
+                                                    0.4),
+                                        RatingBar(
+                                          rating: product.avgRating,
+                                          size: _desktop ? 15 : 12,
+                                          ratingCount: product.ratingCount,
+                                        ),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical *
+                                                    0.4),
+                                        Row(children: [
+                                          Text(
+                                            PriceConverter.convertPrice(
+                                                product.price,
+                                                discount: _discount,
+                                                discountType: _discountType),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsMedium
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .dividerColor,
+                                                    fontSize: Dimensions
+                                                            .blockscreenHorizontal *
+                                                        4),
+                                          ),
+                                          SizedBox(
+                                              width: _discount > 0
+                                                  ? Dimensions
+                                                      .PADDING_SIZE_EXTRA_SMALL
+                                                  : 0),
+                                          _discount > 0
+                                              ? Text(
+                                                  PriceConverter.convertPrice(
+                                                      product.price),
+                                                  style: Get.find<FontStyles>()
+                                                      .poppinsRegular
+                                                      .copyWith(
+                                                        fontSize: Dimensions
+                                                                .blockscreenHorizontal *
+                                                            3.2,
+                                                        color: Theme.of(context)
+                                                            .disabledColor,
+                                                        decorationThickness: 4,
+                                                        decoration:
+                                                            TextDecoration
+                                                                .lineThrough,
+                                                      ),
+                                                )
+                                              : SizedBox(),
+                                          SizedBox(
+                                              width: Dimensions
+                                                  .PADDING_SIZE_EXTRA_SMALL),
+                                          (_image != null && _image.isNotEmpty)
+                                              ? SizedBox.shrink()
+                                              : DiscountTagWithoutImage(
+                                                  discount: _discount,
+                                                  discountType: _discountType,
+                                                  freeDelivery: isRestaurant
+                                                      ? restaurant.freeDelivery
+                                                      : false),
+                                        ]),
+                                        SizedBox(
+                                            height:
+                                                Dimensions.blockscreenVertical),
+                                        DiscountTag(
+                                          discount: _discount,
+                                          discountType: _discountType,
+                                        )
+                                      ]),
+                                ),
+                                isExistInCart
+                                    ? Container(
+                                        height: 50,
+                                        padding:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadiusDirectional.only(
+                                                    topStart:
+                                                        Radius.circular(8),
+                                                    bottomStart:
+                                                        Radius.circular(8)),
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                      )
+                                    : SizedBox()
+                              ]),
+                          Padding(
+                            padding: EdgeInsets.only(
+                                left: _desktop
+                                    ? 130
+                                    : Dimensions.screenWidth -
+                                        Dimensions.blockscreenHorizontal * 65),
+                            child: Divider(
+                                color: index == length - 1
+                                    ? Colors.transparent
+                                    : Theme.of(context).disabledColor),
+                          ),
+                        ]),
+                  ),
+                );
+        },
+      );
     }
 
     if (isRestaurant) {

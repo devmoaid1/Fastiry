@@ -49,13 +49,14 @@ class ShopByCategorySection extends StatelessWidget {
                 ? categoryController.subCategoryList.length
                 : 4,
             itemBuilder: (context, index) {
-              if (categoryController.subCategoryList == null) {
-                return MartCategoryShimmer(
-                    index: index, categoryController: categoryController);
-              } else {
+              if (categoryController.categoryProductList != null) {
                 final category = categoryController.subCategoryList[index];
-                return MartCategoryCard(category: category);
+                if (categoryController.subCategoryList.isNotEmpty) {
+                  return MartCategoryCard(category: category);
+                }
               }
+              return MartCategoryShimmer(
+                  index: index, categoryController: categoryController);
             }),
       )
     ]);

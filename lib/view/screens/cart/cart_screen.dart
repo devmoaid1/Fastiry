@@ -192,9 +192,14 @@ class _CartScreenState extends State<CartScreen> {
                                               width: 5,
                                             ),
                                             Text(
-                                              PriceConverter.convertPrice(
-                                                  cartController.cartRestaurant
-                                                      .deliveryPrice),
+                                              cartController.cartRestaurant !=
+                                                      null
+                                                  ? PriceConverter.convertPrice(
+                                                      cartController
+                                                          .cartRestaurant
+                                                          .deliveryPrice)
+                                                  : PriceConverter.convertPrice(
+                                                      0),
                                               style: Get.find<FontStyles>()
                                                   .poppinsRegular
                                                   .copyWith(
@@ -344,7 +349,11 @@ class _CartScreenState extends State<CartScreen> {
                                                           .blockscreenHorizontal *
                                                       4)),
                                       Text(
-                                          '${PriceConverter.convertPrice(cartController.cartRestaurant.deliveryPrice)}',
+                                          cartController.cartRestaurant != null
+                                              ? PriceConverter.convertPrice(
+                                                  cartController.cartRestaurant
+                                                      .deliveryPrice)
+                                              : PriceConverter.convertPrice(0),
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
                                               .copyWith(

@@ -83,6 +83,7 @@ class _CategoryScreenState extends State<CategoryScreen> {
                             itemCount: catController.subCategoryList.length,
                             itemBuilder: (context, index) {
                               return CategoryCard(
+                                  fromMartScreen: widget.fromMartScreen,
                                   category:
                                       catController.subCategoryList[index]);
                             },
@@ -162,7 +163,10 @@ class _CategoryScreenState extends State<CategoryScreen> {
                                   category.name == "بقالة") {
                                 return SizedBox();
                               }
-                              return CategoryCard(category: category);
+                              return CategoryCard(
+                                category: category,
+                                fromMartScreen: widget.fromMartScreen,
+                              );
                             },
                           )
                         : NoDataScreen(text: 'no_category_found'.tr)

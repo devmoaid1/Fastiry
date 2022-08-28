@@ -57,7 +57,10 @@ class CategoryView1 extends StatelessWidget {
                                       category.name == "بقالة") {
                                     return SizedBox();
                                   }
-                                  return CategoryCard(category: category);
+                                  return CategoryCard(
+                                    category: category,
+                                    fromMartScreen: false,
+                                  );
                                 },
                               )
                             : CategoryShimmer(

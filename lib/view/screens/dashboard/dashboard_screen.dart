@@ -110,9 +110,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                   BottomNavigationBarItem(
                       label: 'home_screen'.tr,
                       icon: BottomNavItem(
-                          iconData: Icons.favorite,
+                          iconData: Icons.home,
                           iconPath: Images.homeIcon,
-                          iconName: 'wishlist',
+                          iconName: 'home',
                           isSelected: dashBoardController.currentIndex == 0,
                           onTap: () {})),
                   BottomNavigationBarItem(

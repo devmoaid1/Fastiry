@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/model/response/cart_model.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
@@ -41,14 +43,14 @@ class CartController extends GetxController implements GetxService {
     update();
   }
 
-  void initCartScreen() {
+  Future<void> initCartScreen() async {
     _subTotal = 0;
     _addOnsList = [];
     _availableList = [];
     _itemPrice = 0;
     _addOns = 0;
 
-    getCartRestaurant();
+    final restaurant = await getCartRestaurant();
     if (_cartList.isNotEmpty) {
       _cartList.forEach((cartModel) {
         List<AddOns> _addOnList = [];
@@ -73,8 +75,8 @@ class CartController extends GetxController implements GetxService {
         _itemPrice = _itemPrice + (cartModel.price * cartModel.quantity);
       });
 
-      if (_cartRestaurant != null) {
-        _subTotal = _itemPrice + _addOns + _cartRestaurant.deliveryPrice;
+      if (restaurant != null) {
+        _subTotal = _itemPrice + _addOns + restaurant.deliveryPrice;
       } else {
         _subTotal = _itemPrice + _addOns;
       }
@@ -85,7 +87,7 @@ class CartController extends GetxController implements GetxService {
     update();
   }
 
-  Future<void> getCartRestaurant() async {
+  Future<Restaurant> getCartRestaurant() async {
     int restaurantId;
     _isLoading = true;
     if (_cartList.isNotEmpty) {
@@ -101,27 +103,30 @@ class CartController extends GetxController implements GetxService {
     }
     _isLoading = false;
     update();
+
+    return _cartRestaurant;
   }
 
   void addToCart(CartModel cartModel, int index) {
     bool isProductExistinCart = false;
-    if (index != null && index != -1) {
-      _cartList.replaceRange(index, index + 1, [cartModel]);
-    } else {
-      for (var cartItem in _cartList) {
-        if (cartModel.product.id == cartItem.product.id) {
-          cartModel.quantity += cartItem.quantity;
-          isProductExistinCart = true;
-        }
+    // if (index != null && index != -1) {
+    //   _cartList.replaceRange(index, index + 1, [cartModel]);
+    // } else {
+    for (var cartItem in _cartList) {
+      if (cartModel.product.id == cartItem.product.id) {
+        cartModel.quantity += cartItem.quantity;
+        isProductExistinCart = true;
       }
-
-      if (isProductExistinCart) {
-        _cartList.removeWhere(
-            (element) => element.product.id == cartModel.product.id);
-      }
-      _cartList.add(cartModel);
     }
+
+    if (isProductExistinCart) {
+      _cartList
+          .removeWhere((element) => element.product.id == cartModel.product.id);
+    }
+    _cartList.add(cartModel);
+    // }
     cartRepo.addToCartList(_cartList);
+    _subTotal = getCartSubTotal();
     update();
   }
 
@@ -168,6 +173,7 @@ class CartController extends GetxController implements GetxService {
 
   void clearCartList() {
     _cartList = [];
+    _cartRestaurant = null;
     cartRepo.addToCartList(_cartList);
     update();
   }
@@ -187,6 +193,19 @@ class CartController extends GetxController implements GetxService {
       }
     }
     return -1;
+  }
+
+  bool isProductExistInCart(int productId) {
+    bool isExist = false;
+
+    for (CartModel cartItem in _cartList) {
+      if (cartItem.product.id == productId) {
+        isExist = true;
+        break;
+      }
+    }
+
+    return isExist;
   }
 
   int getCartIndex(Product product) {
@@ -218,6 +237,7 @@ class CartController extends GetxController implements GetxService {
     _cartList = [];
     _cartList.add(cartModel);
     cartRepo.addToCartList(_cartList);
+    _subTotal = getCartSubTotal();
     update();
   }
 
