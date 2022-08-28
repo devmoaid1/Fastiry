@@ -1,9 +1,6 @@
-import 'package:efood_multivendor/view/screens/product_details/widgets/add_ons_cards.dart';
 import 'package:efood_multivendor/view/screens/product_details/widgets/add_to_bascket_bottom.dart';
-import 'package:efood_multivendor/view/screens/product_details/widgets/not_available.dart';
 import 'package:efood_multivendor/view/screens/product_details/widgets/product_details_card.dart';
 import 'package:efood_multivendor/view/screens/product_details/widgets/product_image.dart';
-import 'package:efood_multivendor/view/screens/product_details/widgets/variation_cards.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -14,6 +11,9 @@ import '../../../helper/date_converter.dart';
 import '../../../helper/price_converter.dart';
 import '../../../helper/responsive_helper.dart';
 import '../../../util/dimensions.dart';
+import 'widgets/add_ons_cards.dart';
+import 'widgets/not_available.dart';
+import 'widgets/variation_cards.dart';
 
 class ProductDetailsScreen extends StatefulWidget {
   final Product product;
@@ -30,7 +30,6 @@ class ProductDetailsScreen extends StatefulWidget {
 class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     Get.find<ProductController>().initData(widget.product, widget.cartItem);
   }
@@ -160,14 +159,29 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
                               discount: _discount,
                               discountType: _discountType),
                           SizedBox(height: Dimensions.blockscreenVertical),
-                          // Variation
+                          // // Variation
                           VariationCards(
                               productController: productController,
                               product: widget.product),
 
                           SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
-                          // Addons
+                          widget.product.addOns.length > 0
+                              ? Padding(
+                                  padding: const EdgeInsets.only(
+                                    top: 10,
+                                  ),
+                                  child: Divider(
+                                    height: 20,
+                                    thickness: 6,
+                                    color: Get.isDarkMode
+                                        ? Theme.of(context)
+                                            .disabledColor
+                                            .withOpacity(0.3)
+                                        : Colors.grey[200],
+                                  ),
+                                )
+                              : SizedBox(),
+                          // // Addons
                           widget.product.addOns.length > 0
                               ? AddOnsCards(
                                   product: widget.product,
@@ -176,14 +190,10 @@ class _ProductDetailsScreenState extends State<ProductDetailsScreen> {
 
                           SizedBox(height: Dimensions.blockscreenVertical),
 
-                          //Add to cart Button
+                          // //Add to cart Button
                           _isAvailable
                               ? SizedBox()
                               : ProductNotAvailableCard(product: widget.product)
-
-                          // (!widget.product.scheduleOrder && !_isAvailable)
-                          //     ? SizedBox()
-                          //     :
 
                           //
                         ]),

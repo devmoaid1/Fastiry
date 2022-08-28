@@ -53,7 +53,7 @@ class ProductView extends StatelessWidget {
       }
     }
 
-    return Column(children: [
+    return Column(mainAxisAlignment: MainAxisAlignment.center, children: [
       type != null
           ? VegFilterWidget(type: type, onSelected: onVegFilterTap)
           : SizedBox(),
@@ -81,10 +81,13 @@ class ProductView extends StatelessWidget {
                   padding: padding,
                   itemBuilder: (context, index) {
                     return showTheme1Restaurant
-                        ? RestaurantWidget(
-                            restaurant: restaurants[index],
-                            index: index,
-                            inStore: inRestaurantPage)
+                        ? restaurants[index].name != "fastiry Mart" &&
+                                restaurants[index].name != "فاستري مارت"
+                            ? RestaurantWidget(
+                                restaurant: restaurants[index],
+                                index: index,
+                                inStore: inRestaurantPage)
+                            : Container()
                         : ProductWidget(
                             isRestaurant: isRestaurant,
                             product: isRestaurant ? null : products[index],
@@ -97,7 +100,9 @@ class ProductView extends StatelessWidget {
                           );
                   },
                 )
-              : Center(
+              : Padding(
+                  padding: EdgeInsets.symmetric(
+                      vertical: Dimensions.blockscreenVertical * 12),
                   child: NoDataScreen(
                     text: noDataText != null
                         ? noDataText

@@ -39,7 +39,7 @@ class _RestaurantProductSearchScreenState
           height: 60 + context.mediaQueryPadding.top,
           width: Dimensions.WEB_MAX_WIDTH,
           padding: EdgeInsets.only(top: context.mediaQueryPadding.top),
-          color: Theme.of(context).cardColor,
+          color: Theme.of(context).backgroundColor,
           alignment: Alignment.center,
           child: SizedBox(
               width: Dimensions.WEB_MAX_WIDTH,
@@ -86,7 +86,7 @@ class _RestaurantProductSearchScreenState
                       ),
                       suffixIcon: IconButton(
                         icon: Icon(Icons.search,
-                            color: Theme.of(context).hintColor, size: 25),
+                            color: Theme.of(context).dividerColor, size: 25),
                         onPressed: () => Get.find<RestaurantController>()
                             .getStoreSearchItemList(
                           _searchController.text.trim(),

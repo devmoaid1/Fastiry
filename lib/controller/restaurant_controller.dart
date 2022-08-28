@@ -19,6 +19,8 @@ class RestaurantController extends GetxController implements GetxService {
   RestaurantController({@required this.restaurantRepo});
 
   RestaurantModel _restaurantModel;
+
+  Restaurant _fasteriyMart;
   List<Restaurant> _restaurantList;
   List<Restaurant> _popularRestaurantList;
   List<Restaurant> _latestRestaurantList;
@@ -41,6 +43,7 @@ class RestaurantController extends GetxController implements GetxService {
   String _searchType = 'all';
   String _searchText = '';
 
+  Restaurant get fastiryMart => _fasteriyMart;
   RestaurantModel get restaurantModel => _restaurantModel;
   List<Restaurant> get restaurantList => _restaurantList;
   List<Restaurant> get popularRestaurantList => _popularRestaurantList;
@@ -85,6 +88,7 @@ class RestaurantController extends GetxController implements GetxService {
   }
 
   Future<void> getRestaurantList(int offset, bool reload) async {
+    _isLoading = true;
     if (reload) {
       _restaurantModel = null;
       update();
@@ -102,6 +106,7 @@ class RestaurantController extends GetxController implements GetxService {
         _restaurantModel.restaurants
             .addAll(RestaurantModel.fromJson(response.body).restaurants);
       }
+      _isLoading = false;
       update();
     } else {
       ApiChecker.checkApi(response);
@@ -116,6 +121,7 @@ class RestaurantController extends GetxController implements GetxService {
   Future<void> getPopularRestaurantList(
       bool reload, String type, bool notify) async {
     _type = type;
+    _isLoading = true;
     if (reload) {
       _popularRestaurantList = null;
     }
@@ -131,12 +137,14 @@ class RestaurantController extends GetxController implements GetxService {
       } else {
         ApiChecker.checkApi(response);
       }
-      update();
     }
+    _isLoading = false;
+    update();
   }
 
   Future<void> getLatestRestaurantList(
       bool reload, String type, bool notify) async {
+    _isLoading = true;
     _type = type;
     if (reload) {
       _latestRestaurantList = null;
@@ -153,8 +161,9 @@ class RestaurantController extends GetxController implements GetxService {
       } else {
         ApiChecker.checkApi(response);
       }
-      update();
     }
+    _isLoading = false;
+    update();
   }
 
   void setCategoryList() {

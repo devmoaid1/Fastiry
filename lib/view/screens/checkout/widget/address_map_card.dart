@@ -51,12 +51,18 @@ class AddressMapCard extends StatelessWidget {
                             CameraPosition(
                                 zoom: 17,
                                 target: LatLng(
-                                    double.parse(locationController
-                                            .selectedAddress.latitude ??
-                                        ' 0'),
-                                    double.parse(locationController
-                                            .selectedAddress.longitude ??
-                                        '0'))),
+                                    double.parse(
+                                        locationController.selectedAddress !=
+                                                null
+                                            ? locationController
+                                                .selectedAddress.latitude
+                                            : ' 0'),
+                                    double.parse(
+                                        locationController.selectedAddress !=
+                                                null
+                                            ? locationController
+                                                .selectedAddress.latitude
+                                            : ' 0'))),
                             true);
                       },
                       indoorViewEnabled: true,
@@ -99,12 +105,12 @@ class AddressMapCard extends StatelessWidget {
                           SizedBox(width: 5),
                           Container(
                             constraints: BoxConstraints(
-                                maxWidth: Dimensions.screenWidth * 0.5),
+                                maxWidth: Dimensions.screenWidth * 0.58),
                             child: Text(
                               locationController.selectedAddress != null
                                   ? locationController.selectedAddress.address
                                   : locationController.getUserAddress().address,
-                              maxLines: 1,
+                              maxLines: 2,
                               style: Get.find<FontStyles>()
                                   .poppinsMedium
                                   .copyWith(

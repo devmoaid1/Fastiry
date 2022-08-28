@@ -30,6 +30,11 @@ class _SearchFieldState extends State<SearchField> {
     return TextField(
       controller: widget.controller,
       textInputAction: TextInputAction.search,
+      style: Get.find<FontStyles>().poppinsRegular.copyWith(
+            color: Get.isDarkMode
+                ? Theme.of(context).cardColor
+                : Theme.of(context).dividerColor,
+          ),
       decoration: InputDecoration(
         hintText: widget.hint,
         hintStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
@@ -43,7 +48,9 @@ class _SearchFieldState extends State<SearchField> {
         isDense: true,
         suffixIcon: IconButton(
           onPressed: widget.iconPressed,
-          color: Theme.of(context).disabledColor,
+          color: Get.isDarkMode
+              ? Theme.of(context).cardColor
+              : Theme.of(context).dividerColor,
           icon: Icon(widget.suffixIcon),
         ),
       ),

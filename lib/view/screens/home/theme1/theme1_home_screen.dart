@@ -24,54 +24,54 @@ class Theme1HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomScrollView(
-      controller: scrollController,
-      physics: AlwaysScrollableScrollPhysics(),
-      slivers: [
-        // App Bar
-        SliverAppBar(
-          toolbarHeight: Dimensions.blockscreenVertical * 12,
-          expandedHeight: Dimensions.blockscreenVertical * 14,
-          floating: true,
-          elevation: 0,
-          automaticallyImplyLeading: false,
-          backgroundColor: ResponsiveHelper.isDesktop(context)
-              ? Colors.transparent
-              : Theme.of(context).backgroundColor,
-          title: Container(
-            color: Theme.of(context).backgroundColor,
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                SizedBox(
-                  height: 10,
-                ),
-                Text(
-                  "deliver_to".tr,
-                  style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                      color: Theme.of(context).dividerColor,
-                      fontSize: Dimensions.blockscreenHorizontal * 3.5),
-                ),
-                Row(children: [
-                  InkWell(
-                    onTap: () =>
-                        Get.toNamed(RouteHelper.getAccessLocationRoute('home')),
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                        vertical: Dimensions.PADDING_SIZE_SMALL,
-                        horizontal: ResponsiveHelper.isDesktop(context)
-                            ? Dimensions.PADDING_SIZE_SMALL
-                            : 0,
-                      ),
-                      child: GetBuilder<LocationController>(
-                          builder: (locationController) {
-                        return Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Row(
+    return SafeArea(
+      child: CustomScrollView(
+        controller: scrollController,
+        physics: AlwaysScrollableScrollPhysics(),
+        slivers: [
+          // App Bar
+          SliverAppBar(
+            toolbarHeight: Dimensions.blockscreenVertical * 12,
+            expandedHeight: Dimensions.blockscreenVertical * 16,
+            floating: true,
+            elevation: 0,
+            automaticallyImplyLeading: false,
+            backgroundColor: ResponsiveHelper.isDesktop(context)
+                ? Colors.transparent
+                : Theme.of(context).backgroundColor,
+            title: Container(
+              color: Theme.of(context).backgroundColor,
+              child: Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 10,
+                  ),
+                  Text(
+                    "deliver_to".tr,
+                    style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                        color: Theme.of(context).dividerColor,
+                        fontSize: Dimensions.blockscreenHorizontal * 3.5),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(
+                      vertical: Dimensions.PADDING_SIZE_SMALL,
+                      horizontal: ResponsiveHelper.isDesktop(context)
+                          ? Dimensions.PADDING_SIZE_SMALL
+                          : 0,
+                    ),
+                    child: GetBuilder<LocationController>(
+                        builder: (locationController) {
+                      return Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          InkWell(
+                            onTap: () => Get.toNamed(
+                                RouteHelper.getAccessLocationRoute('home')),
+                            child: Row(
                               children: [
                                 Image.asset(
                                   Images.pin_marker,
@@ -80,9 +80,9 @@ class Theme1HomeScreen extends StatelessWidget {
                                 ),
                                 SizedBox(
                                     width:
-                                        Dimensions.blockscreenHorizontal * 2),
+                                        Dimensions.blockscreenHorizontal * 3),
                                 Container(
-                                  width: Dimensions.screenWidth * 0.7,
+                                  width: Dimensions.screenWidth * 0.58,
                                   child: Text(
                                     locationController.getUserAddress().address,
                                     style: Get.find<FontStyles>()
@@ -101,7 +101,9 @@ class Theme1HomeScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            Get.find<CartController>().cartList.length > 0
+                          ),
+                          GetBuilder<CartController>(builder: (cartController) {
+                            return cartController.cartList.length > 0
                                 ? InkWell(
                                     onTap: () =>
                                         Get.toNamed(RouteHelper.getCartRoute()),
@@ -111,9 +113,7 @@ class Theme1HomeScreen extends StatelessWidget {
                                           Theme.of(context).primaryColor,
                                       badgeContent: Center(
                                         child: Text(
-                                          Get.find<CartController>()
-                                              .cartList
-                                              .length
+                                          cartController.cartList.length
                                               .toString(),
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
@@ -122,89 +122,90 @@ class Theme1HomeScreen extends StatelessWidget {
                                       ),
                                       child: SvgPicture.asset(
                                         Images.cartIcon,
-                                        width: 20,
-                                        height: 20,
+                                        width: 25,
+                                        height: 25,
                                       ),
                                     ),
                                   )
-                                : SizedBox()
-                          ],
-                        );
-                      }),
-                    ),
+                                : SizedBox();
+                          })
+                        ],
+                      );
+                    }),
                   ),
-                ]),
-              ],
+                ],
+              ),
             ),
           ),
-        ),
 
-        // sections
-        SliverToBoxAdapter(
-          child: SizedBox(
-            width: Dimensions.WEB_MAX_WIDTH,
-            child:
-                Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              !Get.find<AuthController>().isLoggedIn()
-                  ? NotLoggedCard()
-                  : SizedBox(),
-              FastiryOptions(),
-              PopularStoreView1(isPopular: false),
-              BannerView1(),
-              CategoryView1(),
-              ItemCampaignView1(),
-              // BestReviewedItemView(),
-              // PopularStoreView1(isPopular: true),
-              // PopularItemView1(isPopular: true),
-              // Padding(
-              //   padding: EdgeInsets.symmetric(
-              //       vertical: Dimensions.blockscreenVertical * 3,
-              //       horizontal: Dimensions.blockscreenHorizontal * 3),
-              //   child: Row(children: [
-              //     Expanded(
-              //         child: Text(
-              //       'all_restaurants'.tr,
-              //       style: poppinsRegular.copyWith(
-              //           fontSize: Dimensions.blockscreenHorizontal * 3.5,
-              //           fontWeight: FontWeight.w600,
-              //           color: Theme.of(context).dividerColor),
-              //     )),
-              //     FilterView(),
-              //   ]),
-              // ),
-              // GetBuilder<RestaurantController>(builder: (restaurantController) {
-              //   return PaginatedListView(
-              //     scrollController: scrollController,
-              //     totalSize: restaurantController.restaurantModel != null
-              //         ? restaurantController.restaurantModel.totalSize
-              //         : null,
-              //     offset: restaurantController.restaurantModel != null
-              //         ? restaurantController.restaurantModel.offset
-              //         : null,
-              //     onPaginate: (int offset) async => await restaurantController
-              //         .getRestaurantList(offset, false),
-              //     productView: ProductView(
-              //       isRestaurant: true,
-              //       products: null,
-              //       showTheme1Restaurant: true,
-              //       restaurants: restaurantController.restaurantModel != null
-              //           ? restaurantController.restaurantModel.restaurants
-              //           : null,
-              //       padding: EdgeInsets.symmetric(
-              //         horizontal: ResponsiveHelper.isDesktop(context)
-              //             ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-              //             : Dimensions.PADDING_SIZE_SMALL,
-              //         vertical: ResponsiveHelper.isDesktop(context)
-              //             ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-              //             : 0,
-              //       ),
-              //     ),
-              //   );
-              // }),
-            ]),
+          // sections
+          SliverToBoxAdapter(
+            child: SizedBox(
+              width: Dimensions.WEB_MAX_WIDTH,
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    !Get.find<AuthController>().isLoggedIn()
+                        ? NotLoggedCard()
+                        : SizedBox(),
+                    FastiryOptions(),
+                    PopularStoreView1(isPopular: false),
+                    BannerView1(),
+                    CategoryView1(),
+                    ItemCampaignView1(),
+                    // BestReviewedItemView(),
+                    // PopularStoreView1(isPopular: true),
+                    // PopularItemView1(isPopular: true),
+                    // Padding(
+                    //   padding: EdgeInsets.symmetric(
+                    //       vertical: Dimensions.blockscreenVertical * 3,
+                    //       horizontal: Dimensions.blockscreenHorizontal * 3),
+                    //   child: Row(children: [
+                    //     Expanded(
+                    //         child: Text(
+                    //       'all_restaurants'.tr,
+                    //       style: poppinsRegular.copyWith(
+                    //           fontSize: Dimensions.blockscreenHorizontal * 3.5,
+                    //           fontWeight: FontWeight.w600,
+                    //           color: Theme.of(context).dividerColor),
+                    //     )),
+                    //     FilterView(),
+                    //   ]),
+                    // ),
+                    // GetBuilder<RestaurantController>(builder: (restaurantController) {
+                    //   return PaginatedListView(
+                    //     scrollController: scrollController,
+                    //     totalSize: restaurantController.restaurantModel != null
+                    //         ? restaurantController.restaurantModel.totalSize
+                    //         : null,
+                    //     offset: restaurantController.restaurantModel != null
+                    //         ? restaurantController.restaurantModel.offset
+                    //         : null,
+                    //     onPaginate: (int offset) async => await restaurantController
+                    //         .getRestaurantList(offset, false),
+                    //     productView: ProductView(
+                    //       isRestaurant: true,
+                    //       products: null,
+                    //       showTheme1Restaurant: true,
+                    //       restaurants: restaurantController.restaurantModel != null
+                    //           ? restaurantController.restaurantModel.restaurants
+                    //           : null,
+                    //       padding: EdgeInsets.symmetric(
+                    //         horizontal: ResponsiveHelper.isDesktop(context)
+                    //             ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                    //             : Dimensions.PADDING_SIZE_SMALL,
+                    //         vertical: ResponsiveHelper.isDesktop(context)
+                    //             ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                    //             : 0,
+                    //       ),
+                    //     ),
+                    //   );
+                    // }),
+                  ]),
+            ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 }

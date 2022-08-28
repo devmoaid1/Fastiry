@@ -1,5 +1,4 @@
 import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
@@ -39,9 +38,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final bool _showWalletCard =
-        Get.find<SplashController>().configModel.customerWalletStatus == 1 ||
-            Get.find<SplashController>().configModel.loyaltyPointStatus == 1;
+    // final bool _showWalletCard =
+    //     Get.find<SplashController>().configModel.customerWalletStatus == 1 ||
+    //         Get.find<SplashController>().configModel.loyaltyPointStatus == 1;
 
     return Scaffold(
       appBar: ResponsiveHelper.isDesktop(context)

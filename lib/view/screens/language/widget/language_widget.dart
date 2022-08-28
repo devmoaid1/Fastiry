@@ -40,7 +40,10 @@ class LanguageWidget extends StatelessWidget {
           boxShadow: [
             !Get.isDarkMode
                 ? BoxShadow(
-                    color: Colors.grey[200], blurRadius: 5, spreadRadius: 1)
+                    color: Colors.grey[200],
+                    blurRadius: 6,
+                    spreadRadius: 0.4,
+                    offset: Offset(3, 5))
                 : BoxShadow(color: Theme.of(context).backgroundColor)
           ],
         ),

@@ -62,7 +62,7 @@ class RestaurantBottomBar extends StatelessWidget {
                           fontSize: Dimensions.blockscreenHorizontal * 4),
                     ),
                     Text(
-                      PriceConverter.convertPrice(cartController.cartSubTotal),
+                      PriceConverter.convertPrice(cartController.subTotal),
                       style: Get.find<FontStyles>().poppinsRegular.copyWith(
                           color: Colors.white,
                           fontSize: Dimensions.blockscreenHorizontal * 4),

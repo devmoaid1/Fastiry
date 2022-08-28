@@ -108,7 +108,7 @@ class ProductController extends GetxController implements GetxService {
     _addOnQtyList = [];
     _addOnActiveList = [];
     if (cart != null) {
-      _quantity = cart.quantity;
+      _quantity = 1;
       List<String> _variationTypes = [];
       if (cart.variation.length != null &&
           cart.variation.length > 0 &&
@@ -169,7 +169,7 @@ class ProductController extends GetxController implements GetxService {
     _cartIndex = Get.find<CartController>()
         .isExistInCart(product.id, variationType, false, null);
     if (_cartIndex != -1) {
-      _quantity = Get.find<CartController>().cartList[_cartIndex].quantity;
+      _quantity = 1;
       _addOnActiveList = [];
       _addOnQtyList = [];
       List<int> _addOnIdList = [];

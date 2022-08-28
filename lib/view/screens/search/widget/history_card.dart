@@ -16,46 +16,49 @@ class HistoryCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(children: [
-      Row(children: [
-        SvgPicture.asset(
-          Images.historyIcon,
-          color: Theme.of(context).dividerColor,
-          width: 22,
-          height: 22,
-        ),
-        SizedBox(
-          width: 3,
-        ),
-        Expanded(
-          child: InkWell(
-            onTap: () => searchController
-                .searchData(searchController.historyList[index]),
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                  vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-              child: Text(
-                searchController.historyList[index],
-                style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 4,
-                    color: Theme.of(context).disabledColor),
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
+    return Container(
+      margin: EdgeInsets.symmetric(vertical: Dimensions.blockscreenVertical),
+      child: Column(children: [
+        Row(children: [
+          SvgPicture.asset(
+            Images.historyIcon,
+            color: Theme.of(context).dividerColor,
+            width: Dimensions.blockscreenHorizontal * 5,
+            height: Dimensions.blockscreenHorizontal * 5,
+          ),
+          SizedBox(
+            width: Dimensions.blockscreenHorizontal * 2,
+          ),
+          Expanded(
+            child: InkWell(
+              onTap: () => searchController
+                  .searchData(searchController.historyList[index]),
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                child: Text(
+                  searchController.historyList[index],
+                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                      fontSize: Dimensions.blockscreenHorizontal * 4,
+                      color: Theme.of(context).dividerColor),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
               ),
             ),
           ),
-        ),
-        InkWell(
-          onTap: () => searchController.removeHistory(index),
-          child: Padding(
-            padding: EdgeInsets.symmetric(
-                vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
-            child: Icon(Icons.close,
-                color: Theme.of(context).disabledColor, size: 20),
-          ),
-        )
+          InkWell(
+            onTap: () => searchController.removeHistory(index),
+            child: Padding(
+              padding: EdgeInsets.symmetric(
+                  vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL),
+              child: Icon(Icons.close,
+                  color: Theme.of(context).disabledColor, size: 20),
+            ),
+          )
+        ]),
+        // index != searchController.historyList.length - 1 ? Divider() : SizedBox(),
       ]),
-      index != searchController.historyList.length - 1 ? Divider() : SizedBox(),
-    ]);
+    );
   }
 }

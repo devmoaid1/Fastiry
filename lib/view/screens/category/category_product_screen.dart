@@ -1,11 +1,10 @@
 import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/controller/localization_controller.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/theme/font_styles.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
+import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:efood_multivendor/view/base/veg_filter_widget.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
@@ -26,7 +25,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
     with TickerProviderStateMixin {
   final ScrollController scrollController = ScrollController();
   final ScrollController restaurantScrollController = ScrollController();
-  final bool _ltr = Get.find<LocalizationController>().isLtr;
+
   TabController _tabController;
 
   @override
@@ -162,6 +161,7 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                       if (categoryController.isSearching) {
                         categoryController.toggleSearch();
                       } else {
+                        categoryController.getSubCategoryList("15");
                         Get.back();
                       }
                     },
@@ -193,10 +193,12 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                   indicatorWeight: 3,
                   labelColor: Theme.of(context).primaryColor,
                   unselectedLabelColor: Theme.of(context).disabledColor,
-                  unselectedLabelStyle: robotoRegular.copyWith(
-                      color: Theme.of(context).disabledColor,
-                      fontSize: Dimensions.fontSizeSmall),
-                  labelStyle: robotoBold.copyWith(
+                  unselectedLabelStyle: Get.find<FontStyles>()
+                      .poppinsRegular
+                      .copyWith(
+                          color: Theme.of(context).disabledColor,
+                          fontSize: Dimensions.fontSizeSmall),
+                  labelStyle: Get.find<FontStyles>().poppinsBold.copyWith(
                       fontSize: Dimensions.fontSizeSmall,
                       color: Theme.of(context).primaryColor),
                   tabs: [
@@ -309,68 +311,71 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                   controller: _tabController,
                   children: [
                     _products != null
-                        ? ListView.builder(
-                            controller: scrollController,
-                            padding: EdgeInsets.symmetric(
-                                vertical: Dimensions.blockscreenVertical * 2,
-                                horizontal:
-                                    Dimensions.blockscreenHorizontal * 2),
-                            itemCount: _products.length,
-                            itemBuilder: ((context, index) {
-                              return ProductWidget(
-                                product: _products[index],
-                                isRestaurant: false,
-                                restaurant: null,
-                                index: index,
-                                length: _products.length,
-                                inRestaurant: true,
-                                isCampaign: false,
-                              );
-                            }))
+                        ? _products.isNotEmpty
+                            ? ListView.builder(
+                                controller: scrollController,
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        Dimensions.blockscreenVertical * 2,
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                itemCount: _products.length,
+                                itemBuilder: ((context, index) {
+                                  return ProductWidget(
+                                    product: _products[index],
+                                    isRestaurant: false,
+                                    restaurant: null,
+                                    index: index,
+                                    length: _products.length,
+                                    inRestaurant: true,
+                                    isCampaign: false,
+                                  );
+                                }))
+                            : SingleChildScrollView(
+                                child: Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical:
+                                            Dimensions.blockscreenVertical *
+                                                12),
+                                    child: NoDataScreen(
+                                        text: "no_food_available".tr)),
+                              )
                         : Center(
                             child: CircularProgressIndicator.adaptive(),
                           ),
-                    // SingleChildScrollView(
-                    //   controller: scrollController,
-                    //   child: ProductView(
-                    //     isRestaurant: false,
-                    //     products: _products,
-                    //     inRestaurantPage: true,
-                    //     restaurants: null,
-                    //     noDataText: 'no_category_food_found'.tr,
-                    //   ),
-                    // ),
                     _restaurants != null
-                        ? ListView.builder(
-                            controller: restaurantScrollController,
-                            padding: EdgeInsets.symmetric(
-                                vertical: Dimensions.blockscreenVertical * 2,
-                                horizontal:
-                                    Dimensions.blockscreenHorizontal * 2),
-                            itemCount: _restaurants.length,
-                            itemBuilder: ((context, index) {
-                              return ProductWidget(
-                                product: null,
-                                isRestaurant: true,
-                                restaurant: _restaurants[index],
-                                index: index,
-                                length: _restaurants.length,
-                                inRestaurant: true,
-                                isCampaign: false,
-                              );
-                            }))
+                        ? _restaurants.isNotEmpty
+                            ? ListView.builder(
+                                controller: restaurantScrollController,
+                                padding: EdgeInsets.symmetric(
+                                    vertical:
+                                        Dimensions.blockscreenVertical * 2,
+                                    horizontal:
+                                        Dimensions.blockscreenHorizontal * 2),
+                                itemCount: _restaurants.length,
+                                itemBuilder: ((context, index) {
+                                  return ProductWidget(
+                                    product: null,
+                                    isRestaurant: true,
+                                    restaurant: _restaurants[index],
+                                    index: index,
+                                    length: _restaurants.length,
+                                    inRestaurant: true,
+                                    isCampaign: false,
+                                  );
+                                }))
+                            : SingleChildScrollView(
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      vertical:
+                                          Dimensions.blockscreenVertical * 12),
+                                  child: NoDataScreen(
+                                      text: 'no_restaurant_available'.tr),
+                                ),
+                              )
                         : Center(
                             child: CircularProgressIndicator.adaptive(),
                           ),
-                    // SingleChildScrollView(
-                    //   controller: restaurantScrollController,
-                    //   child: ProductView(
-                    //     isRestaurant: true,
-                    //     products: null,
-                    //     restaurants: _restaurants,
-                    //     noDataText: 'no_category_restaurant_found'.tr,
-                    //   ),
-                    // ),
                   ],
                 ),
               )),

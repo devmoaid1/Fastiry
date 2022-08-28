@@ -64,7 +64,7 @@ class AuthController extends GetxController implements GetxService {
       responseModel = ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
     } else {
-      responseModel = ResponseModel(false, response.statusText);
+      responseModel = ResponseModel(false, "username or password is invalid ");
     }
     _isLoading = false;
     update();

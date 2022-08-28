@@ -6,6 +6,8 @@ import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../base/custom_loader.dart';
+
 class AllRestaurantScreen extends StatefulWidget {
   final bool isPopular;
   AllRestaurantScreen({@required this.isPopular});
@@ -19,13 +21,15 @@ class _AllRestaurantScreenState extends State<AllRestaurantScreen> {
   void initState() {
     super.initState();
 
-    if (widget.isPopular) {
-      Get.find<RestaurantController>()
-          .getPopularRestaurantList(false, 'all', false);
-    } else {
-      Get.find<RestaurantController>()
-          .getLatestRestaurantList(false, 'all', false);
-    }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      if (widget.isPopular) {
+        Get.find<RestaurantController>()
+            .getPopularRestaurantList(false, 'all', false);
+      } else {
+        Get.find<RestaurantController>()
+            .getLatestRestaurantList(false, 'all', false);
+      }
+    });
   }
 
   @override
@@ -56,25 +60,30 @@ class _AllRestaurantScreenState extends State<AllRestaurantScreen> {
             child: SizedBox(
           width: Dimensions.WEB_MAX_WIDTH,
           child: GetBuilder<RestaurantController>(builder: (restController) {
-            return ListView.builder(
-                padding: EdgeInsets.symmetric(horizontal: 8),
-                shrinkWrap: true,
-                itemCount: widget.isPopular
-                    ? restController.popularRestaurantList.length
-                    : restController.latestRestaurantList.length,
-                itemBuilder: (context, index) {
-                  return ProductWidget(
-                      product: null,
-                      isRestaurant: true,
-                      inRestaurant: true,
-                      restaurant: widget.isPopular
-                          ? restController.popularRestaurantList[index]
-                          : restController.latestRestaurantList[index],
-                      index: index,
-                      length: widget.isPopular
-                          ? restController.popularRestaurantList.length
-                          : restController.latestRestaurantList.length);
-                });
+            if (!restController.isLoading) {
+              return ListView.builder(
+                  padding: EdgeInsets.symmetric(horizontal: 8),
+                  shrinkWrap: true,
+                  itemCount: widget.isPopular
+                      ? restController.popularRestaurantList.length
+                      : restController.latestRestaurantList.length,
+                  itemBuilder: (context, index) {
+                    return ProductWidget(
+                        product: null,
+                        isRestaurant: true,
+                        inRestaurant: true,
+                        restaurant: widget.isPopular
+                            ? restController.popularRestaurantList[index]
+                            : restController.latestRestaurantList[index],
+                        index: index,
+                        length: widget.isPopular
+                            ? restController.popularRestaurantList.length
+                            : restController.latestRestaurantList.length);
+                  });
+            }
+            return Center(
+              child: CustomLoader(),
+            );
             // return ProductView(
             //   isRestaurant: true,
             //   products: null,

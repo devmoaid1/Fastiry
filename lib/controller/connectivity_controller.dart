@@ -23,7 +23,6 @@ class ConectivityController extends GetxController implements GetxService {
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
     _conectivitySubscription.cancel();
   }

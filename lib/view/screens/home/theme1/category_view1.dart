@@ -28,7 +28,8 @@ class CategoryView1 extends StatelessWidget {
                       horizontal: Dimensions.blockscreenHorizontal * 4),
                   child: TitleWidget(
                       title: 'categories'.tr,
-                      onTap: () => Get.toNamed(RouteHelper.getCategoryRoute())),
+                      onTap: () =>
+                          Get.toNamed(RouteHelper.getCategoryRoute(false))),
                 ),
                 Row(
                   children: [
@@ -49,9 +50,17 @@ class CategoryView1 extends StatelessWidget {
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {
+                                  final category =
+                                      categoryController.categoryList[index];
+
+                                  if (category.name == "Grocery" ||
+                                      category.name == "بقالة") {
+                                    return SizedBox();
+                                  }
                                   return CategoryCard(
-                                      category: categoryController
-                                          .categoryList[index]);
+                                    category: category,
+                                    fromMartScreen: false,
+                                  );
                                 },
                               )
                             : CategoryShimmer(

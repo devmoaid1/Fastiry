@@ -63,9 +63,13 @@ class SocialLoginWidget extends StatelessWidget {
               fit: BoxFit.fitWidth,
               child: Text(
                 title,
-                style: Get.find<FontStyles>()
-                    .poppinsMedium
-                    .copyWith(color: this.fontColor, fontSize: 20),
+                style: Get.locale.languageCode == "en"
+                    ? Get.find<FontStyles>().poppinsRegular.copyWith(
+                        color: this.fontColor,
+                        fontSize: Dimensions.blockscreenHorizontal * 4.5)
+                    : Get.find<FontStyles>().poppinsMedium.copyWith(
+                        color: this.fontColor,
+                        fontSize: Dimensions.blockscreenHorizontal * 4.8),
               ),
             )
           ],

@@ -10,10 +10,10 @@ class SearchController extends GetxController implements GetxService {
   final SearchRepo searchRepo;
   SearchController({@required this.searchRepo});
 
-  List<Product> _searchProductList;
+  List<Product> _searchProductList = [];
   List<Product> _allProductList;
   List<Product> _suggestedFoodList;
-  List<Restaurant> _searchRestList;
+  List<Restaurant> _searchRestList = [];
   List<Restaurant> _allRestList;
   String _searchText = '';
   String _restResultText = '';
@@ -30,6 +30,7 @@ class SearchController extends GetxController implements GetxService {
   bool _isDiscountedFoods = false;
   bool _veg = false;
   bool _nonVeg = false;
+  bool _isLoading = true;
 
   List<Product> get searchProductList => _searchProductList;
   List<Product> get allProductList => _allProductList;
@@ -39,6 +40,7 @@ class SearchController extends GetxController implements GetxService {
   double get lowerValue => _lowerValue;
   double get upperValue => _upperValue;
   bool get isSearchMode => _isSearchMode;
+  bool get isLoading => _isLoading;
   List<String> get historyList => _historyList;
   List<String> get sortList => _sortList;
   int get sortIndex => _sortIndex;
@@ -76,14 +78,14 @@ class SearchController extends GetxController implements GetxService {
 
   void setSearchMode(bool isSearchMode) {
     _isSearchMode = isSearchMode;
-    if(isSearchMode) {
+    if (isSearchMode) {
       _searchText = '';
       _prodResultText = '';
       _restResultText = '';
-      _allRestList = null;
-      _allProductList = null;
-      _searchProductList = null;
-      _searchRestList = null;
+      _allRestList = [];
+      _allProductList = [];
+      _searchProductList = [];
+      _searchRestList = [];
       _sortIndex = -1;
       _isDiscountedFoods = false;
       _isAvailableFoods = false;
@@ -103,33 +105,37 @@ class SearchController extends GetxController implements GetxService {
   }
 
   void sortFoodSearchList() {
-    _searchProductList= [];
+    _searchProductList = [];
     _searchProductList.addAll(_allProductList);
-    if(_upperValue > 0) {
-      _searchProductList.removeWhere((product) => (product.price) <= _lowerValue || (product.price) > _upperValue);
+    if (_upperValue > 0) {
+      _searchProductList.removeWhere((product) =>
+          (product.price) <= _lowerValue || (product.price) > _upperValue);
     }
-    if(_rating != -1) {
+    if (_rating != -1) {
       _searchProductList.removeWhere((product) => product.avgRating < _rating);
     }
-    if(!_veg && _nonVeg) {
+    if (!_veg && _nonVeg) {
       _searchProductList.removeWhere((product) => product.veg == 1);
     }
-    if(!_nonVeg && _veg) {
+    if (!_nonVeg && _veg) {
       _searchProductList.removeWhere((product) => product.veg == 0);
     }
-    if(_isAvailableFoods || _isDiscountedFoods) {
-      if(_isAvailableFoods) {
-        _searchProductList.removeWhere((product) => !DateConverter.isAvailable(product.availableTimeStarts, product.availableTimeEnds));
+    if (_isAvailableFoods || _isDiscountedFoods) {
+      if (_isAvailableFoods) {
+        _searchProductList.removeWhere((product) => !DateConverter.isAvailable(
+            product.availableTimeStarts, product.availableTimeEnds));
       }
-      if(_isDiscountedFoods) {
+      if (_isDiscountedFoods) {
         _searchProductList.removeWhere((product) => product.discount == 0);
       }
     }
-    if(_sortIndex != -1) {
-      if(_sortIndex == 0) {
-        _searchProductList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-      }else {
-        _searchProductList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    if (_sortIndex != -1) {
+      if (_sortIndex == 0) {
+        _searchProductList.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      } else {
+        _searchProductList.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         Iterable iterable = _searchProductList.reversed;
         _searchProductList = iterable.toList();
       }
@@ -140,28 +146,32 @@ class SearchController extends GetxController implements GetxService {
   void sortRestSearchList() {
     _searchRestList = [];
     _searchRestList.addAll(_allRestList);
-    if(_rating != -1) {
-      _searchRestList.removeWhere((restaurant) => restaurant.avgRating < _rating);
+    if (_rating != -1) {
+      _searchRestList
+          .removeWhere((restaurant) => restaurant.avgRating < _rating);
     }
-    if(!_veg && _nonVeg) {
+    if (!_veg && _nonVeg) {
       _searchRestList.removeWhere((product) => product.nonVeg == 0);
     }
-    if(!_nonVeg && _veg) {
+    if (!_nonVeg && _veg) {
       _searchRestList.removeWhere((product) => product.veg == 0);
     }
-    if(_isAvailableFoods || _isDiscountedFoods) {
-      if(_isAvailableFoods) {
+    if (_isAvailableFoods || _isDiscountedFoods) {
+      if (_isAvailableFoods) {
         _searchRestList.removeWhere((restaurant) => restaurant.open == 0);
       }
-      if(_isDiscountedFoods) {
-        _searchRestList.removeWhere((restaurant) => restaurant.discount == null);
+      if (_isDiscountedFoods) {
+        _searchRestList
+            .removeWhere((restaurant) => restaurant.discount == null);
       }
     }
-    if(_sortIndex != -1) {
-      if(_sortIndex == 0) {
-        _searchRestList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
-      }else {
-        _searchRestList.sort((a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+    if (_sortIndex != -1) {
+      if (_sortIndex == 0) {
+        _searchRestList.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
+      } else {
+        _searchRestList.sort(
+            (a, b) => a.name.toLowerCase().compareTo(b.name.toLowerCase()));
         Iterable iterable = _searchRestList.reversed;
         _searchRestList = iterable.toList();
       }
@@ -176,17 +186,20 @@ class SearchController extends GetxController implements GetxService {
 
   void getSuggestedFoods() async {
     Response response = await searchRepo.getSuggestedFoods();
-    if(response.statusCode == 200) {
+    if (response.statusCode == 200) {
       _suggestedFoodList = [];
-      response.body.forEach((suggestedFood) => _suggestedFoodList.add(Product.fromJson(suggestedFood)));
-    }else {
+      response.body.forEach((suggestedFood) =>
+          _suggestedFoodList.add(Product.fromJson(suggestedFood)));
+    } else {
       ApiChecker.checkApi(response);
     }
     update();
   }
 
   void searchData(String query) async {
-    if((_isRestaurant && query.isNotEmpty && query != _restResultText) || (!_isRestaurant && query.isNotEmpty && query != _prodResultText)) {
+    _isLoading = true;
+    if ((_isRestaurant && query.isNotEmpty && query != _restResultText) ||
+        (!_isRestaurant && query.isNotEmpty && query != _prodResultText)) {
       _searchText = query;
       _rating = -1;
       _upperValue = 0;
@@ -218,21 +231,26 @@ class SearchController extends GetxController implements GetxService {
             _restResultText = query;
             _searchRestList = [];
             _allRestList = [];
-            _searchRestList.addAll(RestaurantModel.fromJson(response.body).restaurants);
-            _allRestList.addAll(RestaurantModel.fromJson(response.body).restaurants);
+            _searchRestList
+                .addAll(RestaurantModel.fromJson(response.body).restaurants);
+            _allRestList
+                .addAll(RestaurantModel.fromJson(response.body).restaurants);
           } else {
             _prodResultText = query;
             _searchProductList = [];
             _allProductList = [];
-            _searchProductList.addAll(ProductModel.fromJson(response.body).products);
-            _allProductList.addAll(ProductModel.fromJson(response.body).products);
+            _searchProductList
+                .addAll(ProductModel.fromJson(response.body).products);
+            _allProductList
+                .addAll(ProductModel.fromJson(response.body).products);
           }
         }
       } else {
         ApiChecker.checkApi(response);
       }
-      update();
     }
+    _isLoading = false;
+    update();
   }
 
   void getHistoryList() {
@@ -274,5 +292,4 @@ class SearchController extends GetxController implements GetxService {
     _sortIndex = -1;
     update();
   }
-
 }

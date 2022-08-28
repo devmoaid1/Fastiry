@@ -132,49 +132,36 @@ class ProductDetailsCard extends StatelessWidget {
                     RatingBar(
                         rating: product.avgRating,
                         ratingCount: product.ratingCount),
-                    Container(
-                      padding: EdgeInsets.all(8),
-                      decoration: BoxDecoration(
-                          color: Theme.of(context).backgroundColor,
-                          borderRadius: BorderRadius.circular(8),
-                          boxShadow: [
-                            !Get.isDarkMode
-                                ? BoxShadow(
-                                    blurRadius: 7,
-                                    offset: Offset(2, 4),
-                                    spreadRadius: 0.4,
-                                    color: Colors.grey[300])
-                                : BoxShadow(
-                                    color: Theme.of(context).backgroundColor)
-                          ]),
-                      child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            QuantityButton(
-                              fromProductPage: true,
-                              onTap: () {
-                                if (productController.quantity > 1) {
-                                  productController.setQuantity(false);
-                                }
-                              },
-                              isIncrement: false,
-                              canDecrement: productController.quantity != 1,
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Text(productController.quantity.toString(),
-                                  style: Get.find<FontStyles>()
-                                      .poppinsMedium
-                                      .copyWith(
-                                          fontSize: Dimensions.fontSizeLarge)),
-                            ),
-                            QuantityButton(
-                              fromProductPage: true,
-                              onTap: () => productController.setQuantity(true),
-                              isIncrement: true,
-                            ),
-                          ]),
-                    ),
+                    Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          QuantityButton(
+                            fromProductPage: true,
+                            onTap: () {
+                              if (productController.quantity > 1) {
+                                productController.setQuantity(false);
+                              }
+                            },
+                            isIncrement: false,
+                            canDecrement: productController.quantity != 1,
+                          ),
+                          Container(
+                            margin: EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(productController.quantity.toString(),
+                                style: Get.find<FontStyles>()
+                                    .poppinsMedium
+                                    .copyWith(
+                                        fontSize:
+                                            Dimensions.blockscreenHorizontal *
+                                                5)),
+                          ),
+                          QuantityButton(
+                            fromProductPage: true,
+                            onTap: () => productController.setQuantity(true),
+                            isIncrement: true,
+                          ),
+                        ]),
                   ],
                 ),
                 Padding(
@@ -183,7 +170,7 @@ class ProductDetailsCard extends StatelessWidget {
                   ),
                   child: Divider(
                     height: 20,
-                    thickness: 3,
+                    thickness: 6,
                     color: Get.isDarkMode
                         ? Theme.of(context).disabledColor.withOpacity(0.3)
                         : Colors.grey[200],

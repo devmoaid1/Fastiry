@@ -27,7 +27,8 @@ class VariationCards extends StatelessWidget {
             padding: EdgeInsets.symmetric(
               horizontal: Dimensions.blockscreenHorizontal * 2,
             ),
-            child: Text('Select ${product.choiceOptions[index].title}',
+            child: Text(
+                '${"select".tr} ${product.choiceOptions[index].title.tr}',
                 style: Get.find<FontStyles>()
                     .poppinsMedium
                     .copyWith(fontSize: Dimensions.blockscreenHorizontal * 4)),
@@ -58,15 +59,16 @@ class VariationCards extends StatelessWidget {
                     padding: EdgeInsets.symmetric(
                         horizontal: Dimensions.blockscreenHorizontal * 3),
                     decoration: BoxDecoration(
-                      color: productController.variationIndex[index] != i
-                          ? Theme.of(context).backgroundColor
-                          : Theme.of(context).primaryColor,
+                      color: productController.variationIndex[index] == i
+                          ? Theme.of(context).primaryColor
+                          : Theme.of(context).backgroundColor,
                       borderRadius:
                           BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                      border: productController.variationIndex[index] != i
-                          ? Border.all(
-                              color: Theme.of(context).disabledColor, width: 2)
-                          : null,
+                      border: Border.all(
+                          color: productController.variationIndex[index] != i
+                              ? Theme.of(context).disabledColor
+                              : Theme.of(context).primaryColor,
+                          width: 2),
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
@@ -80,26 +82,20 @@ class VariationCards extends StatelessWidget {
                           width: Dimensions.blockscreenHorizontal,
                         ),
                         Text(
-                          product.choiceOptions[index].options[i].trim(),
+                          product.choiceOptions[index].options[i].trim().tr,
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
-                          style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                color:
-                                    productController.variationIndex[index] != i
-                                        ? Theme.of(context).dividerColor
-                                        : Colors.white,
-                              ),
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 4),
                         ),
                         Expanded(child: SizedBox()),
                         Text(
-                          '(${PriceConverter.convertPrice(((product.variations[i].price) - (product.price)))}+)',
+                          '(${PriceConverter.convertPrice(product.variations[i].price)})',
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
                                 color:
-                                    productController.variationIndex[index] != i
-                                        ? Theme.of(context).dividerColor
-                                        : Colors.white,
+                                    Theme.of(context).textTheme.bodyText1.color,
                               ),
                         ),
                       ],

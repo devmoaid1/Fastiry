@@ -9,7 +9,10 @@ class RestaurantModel {
   RestaurantModel.fromJson(Map<String, dynamic> json) {
     totalSize = json['total_size'];
     limit = json['limit'].toString();
-    offset = (json['offset'] != null && json['offset'].toString().trim().isNotEmpty) ? int.parse(json['offset'].toString()) : null;
+    offset =
+        (json['offset'] != null && json['offset'].toString().trim().isNotEmpty)
+            ? int.parse(json['offset'].toString())
+            : null;
     if (json['restaurants'] != null) {
       restaurants = [];
       json['restaurants'].forEach((v) {
@@ -52,6 +55,7 @@ class Restaurant {
   int selfDeliverySystem;
   bool posSystem;
   double deliveryCharge;
+  double deliveryPrice;
   int open;
   bool active;
   String deliveryTime;
@@ -61,37 +65,38 @@ class Restaurant {
   Discount discount;
   List<Schedules> schedules;
 
-  Restaurant(
-      {this.id,
-        this.name,
-        this.phone,
-        this.email,
-        this.logo,
-        this.latitude,
-        this.longitude,
-        this.address,
-        this.minimumOrder,
-        this.currency,
-        this.freeDelivery,
-        this.coverPhoto,
-        this.delivery,
-        this.takeAway,
-        this.scheduleOrder,
-        this.avgRating,
-        this.tax,
-        this.ratingCount,
-        this.selfDeliverySystem,
-        this.posSystem,
-        this.deliveryCharge,
-        this.open,
-        this.active,
-        this.deliveryTime,
-        this.categoryIds,
-        this.veg,
-        this.nonVeg,
-        this.discount,
-        this.schedules,
-      });
+  Restaurant({
+    this.id,
+    this.name,
+    this.phone,
+    this.email,
+    this.logo,
+    this.latitude,
+    this.longitude,
+    this.address,
+    this.minimumOrder,
+    this.currency,
+    this.freeDelivery,
+    this.coverPhoto,
+    this.delivery,
+    this.takeAway,
+    this.scheduleOrder,
+    this.avgRating,
+    this.tax,
+    this.ratingCount,
+    this.selfDeliverySystem,
+    this.posSystem,
+    this.deliveryCharge,
+    this.deliveryPrice,
+    this.open,
+    this.active,
+    this.deliveryTime,
+    this.categoryIds,
+    this.veg,
+    this.nonVeg,
+    this.discount,
+    this.schedules,
+  });
 
   Restaurant.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -115,13 +120,17 @@ class Restaurant {
     selfDeliverySystem = json['self_delivery_system'];
     posSystem = json['pos_system'];
     deliveryCharge = json['delivery_charge'].toDouble();
+    deliveryPrice = json['delivery_price'].toDouble();
     open = json['open'];
     active = json['active'];
     deliveryTime = json['delivery_time'];
     veg = json['veg'];
     nonVeg = json['non_veg'];
-    categoryIds = json['category_ids'] != null ? json['category_ids'].cast<int>() : [];
-    discount = json['discount'] != null ? new Discount.fromJson(json['discount']) : null;
+    categoryIds =
+        json['category_ids'] != null ? json['category_ids'].cast<int>() : [];
+    discount = json['discount'] != null
+        ? new Discount.fromJson(json['discount'])
+        : null;
     if (json['schedules'] != null) {
       schedules = <Schedules>[];
       json['schedules'].forEach((v) {
@@ -153,6 +162,7 @@ class Restaurant {
     data['self_delivery_system'] = this.selfDeliverySystem;
     data['pos_system'] = this.posSystem;
     data['delivery_charge'] = this.deliveryCharge;
+    data['delivery_price'] = this.deliveryPrice;
     data['open'] = this.open;
     data['active'] = this.active;
     data['veg'] = this.veg;
@@ -185,24 +195,26 @@ class Discount {
 
   Discount(
       {this.id,
-        this.startDate,
-        this.endDate,
-        this.startTime,
-        this.endTime,
-        this.minPurchase,
-        this.maxDiscount,
-        this.discount,
-        this.discountType,
-        this.restaurantId,
-        this.createdAt,
-        this.updatedAt});
+      this.startDate,
+      this.endDate,
+      this.startTime,
+      this.endTime,
+      this.minPurchase,
+      this.maxDiscount,
+      this.discount,
+      this.discountType,
+      this.restaurantId,
+      this.createdAt,
+      this.updatedAt});
 
   Discount.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     startDate = json['start_date'];
     endDate = json['end_date'];
-    startTime = json['start_time'] != null ? json['start_time'].substring(0, 5) : null;
-    endTime = json['end_time'] != null ? json['end_time'].substring(0, 5) : null;
+    startTime =
+        json['start_time'] != null ? json['start_time'].substring(0, 5) : null;
+    endTime =
+        json['end_time'] != null ? json['end_time'].substring(0, 5) : null;
     minPurchase = json['min_purchase'].toDouble();
     maxDiscount = json['max_discount'].toDouble();
     discount = json['discount'].toDouble();
@@ -239,10 +251,10 @@ class Schedules {
 
   Schedules(
       {this.id,
-        this.restaurantId,
-        this.day,
-        this.openingTime,
-        this.closingTime});
+      this.restaurantId,
+      this.day,
+      this.openingTime,
+      this.closingTime});
 
   Schedules.fromJson(Map<String, dynamic> json) {
     id = json['id'];

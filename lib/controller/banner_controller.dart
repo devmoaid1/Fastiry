@@ -1,7 +1,6 @@
 import 'package:efood_multivendor/data/api/api_checker.dart';
 import 'package:efood_multivendor/data/model/response/banner_model.dart';
 import 'package:efood_multivendor/data/repository/banner_repo.dart';
-import 'package:efood_multivendor/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +8,8 @@ class BannerController extends GetxController implements GetxService {
   final BannerRepo bannerRepo;
   BannerController({@required this.bannerRepo});
 
-  List<String> _bannerImageList = [Images.americaFlag, Images.breakFastImage];
-  List<dynamic> _bannerDataList = [{}, {}];
+  List<String> _bannerImageList;
+  List<dynamic> _bannerDataList;
   int _currentIndex = 0;
 
   List<String> get bannerImageList => _bannerImageList;
