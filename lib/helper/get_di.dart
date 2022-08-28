@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/banner_controller.dart';
 import 'package:efood_multivendor/controller/campaign_controller.dart';
@@ -21,6 +22,9 @@ import 'package:efood_multivendor/controller/theme_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/controller/wallet_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
+import 'package:efood_multivendor/data/api/api_consumer.dart';
+import 'package:efood_multivendor/data/api/dio_consumer.dart';
+import 'package:efood_multivendor/data/api/interceptors.dart';
 import 'package:efood_multivendor/data/repository/auth_repo.dart';
 import 'package:efood_multivendor/data/repository/banner_repo.dart';
 import 'package:efood_multivendor/data/repository/campaign_repo.dart';
@@ -55,8 +59,20 @@ Future<Map<String, Map<String, String>>> init() async {
   // Core
   final sharedPreferences = await SharedPreferences.getInstance();
   Get.lazyPut(() => sharedPreferences);
+  Get.lazyPut(() => Dio());
   Get.lazyPut(() => ApiClient(
       appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
+
+  Get.lazyPut<ApiConsumer>(() => DioConsumer(client: Get.find()));
+
+  Get.lazyPut(() => AppInterceptors());
+  Get.lazyPut(() => LogInterceptor(
+      request: true,
+      requestBody: true,
+      requestHeader: true,
+      responseBody: true,
+      responseHeader: true,
+      error: true));
 
   // Repository
   Get.lazyPut(

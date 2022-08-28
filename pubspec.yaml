@@ -15,7 +15,9 @@ dependencies:
   country_code_picker: ^2.0.2
   crypto: ^3.0.2
   device_preview: ^1.1.0
+  dio: ^4.0.6
   dotted_border: ^2.0.0+2
+  equatable: ^2.0.5
   extended_image: ^6.2.1
   firebase_auth: ^3.4.2
   firebase_core: ^1.19.2
