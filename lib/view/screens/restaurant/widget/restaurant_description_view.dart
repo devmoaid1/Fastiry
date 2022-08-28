@@ -22,20 +22,23 @@ class RestaurantDescriptionView extends StatelessWidget {
     return Column(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         // restaurant name
-        Text(
-          restaurant.name,
-          style: Get.find<FontStyles>().poppinsMedium.copyWith(
-              fontSize: Dimensions.blockscreenHorizontal * 6,
-              color: Theme.of(context).dividerColor),
-          maxLines: 1,
-          overflow: TextOverflow.ellipsis,
+        Container(
+          child: Text(
+            restaurant.name,
+            style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                fontSize: Dimensions.blockscreenHorizontal * 6,
+                color: Theme.of(context).dividerColor),
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
+          ),
         ),
         SizedBox(height: Dimensions.blockscreenHorizontal),
 
         // address
         Text(
           restaurant.address ?? '',
-          maxLines: 1,
+          textAlign: TextAlign.center,
+          maxLines: 2,
           overflow: TextOverflow.ellipsis,
           style: Get.find<FontStyles>().poppinsRegular.copyWith(
               fontSize: Dimensions.fontSizeSmall,

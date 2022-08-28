@@ -29,7 +29,8 @@ class _SplashScreenState extends State<SplashScreen> {
     splashController.initSharedData();
     cartController.getCartData();
     cartController.getCartSubTotal();
-    splashController.navigatorScreenRouting();
+    splashController.handleSplashRouting(null);
+    // splashController.navigatorScreenRouting();
 
     // bool _firstTime = true;
     // _onConnectivityChanged = Connectivity()
