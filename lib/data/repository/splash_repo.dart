@@ -1,19 +1,19 @@
-import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/api/api_consumer.dart';
+import 'package:efood_multivendor/data/model/response/config_model.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashRepo {
-  ApiClient apiClient;
+  ApiConsumer apiClient;
   final SharedPreferences sharedPreferences;
   SplashRepo({@required this.sharedPreferences, @required this.apiClient});
 
-  Future<Response> getConfigData() async {
-    Response _response = await apiClient.getData(
+  Future<ConfigModel> getConfigData() async {
+    final response = await apiClient.get(
       AppConstants.CONFIG_URI,
     );
-    return _response;
+    return ConfigModel.fromJson(response);
   }
 
   Future<bool> initSharedData() {

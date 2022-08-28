@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/data/api/api_checker.dart';
+import 'package:efood_multivendor/data/errors/exeptions.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/data/repository/product_repo.dart';
@@ -22,13 +23,15 @@ class WishListController extends GetxController implements GetxService {
   List<int> get wishProductIdList => _wishProductIdList;
   List<int> get wishRestIdList => _wishRestIdList;
 
-  void addToWishList(Product product, Restaurant restaurant, bool isRestaurant) async {
-    Response response = await wishListRepo.addWishList(isRestaurant ? restaurant.id : product.id, isRestaurant);
+  void addToWishList(
+      Product product, Restaurant restaurant, bool isRestaurant) async {
+    Response response = await wishListRepo.addWishList(
+        isRestaurant ? restaurant.id : product.id, isRestaurant);
     if (response.statusCode == 200) {
-      if(isRestaurant) {
+      if (isRestaurant) {
         _wishRestIdList.add(restaurant.id);
         _wishRestList.add(restaurant);
-      }else {
+      } else {
         _wishProductList.add(product);
         _wishProductIdList.add(product.id);
       }
@@ -43,11 +46,11 @@ class WishListController extends GetxController implements GetxService {
     Response response = await wishListRepo.removeWishList(id, isRestaurant);
     if (response.statusCode == 200) {
       int _idIndex = -1;
-      if(isRestaurant) {
+      if (isRestaurant) {
         _idIndex = _wishRestIdList.indexOf(id);
         _wishRestIdList.removeAt(_idIndex);
         _wishRestList.removeAt(_idIndex);
-      }else {
+      } else {
         _idIndex = _wishProductIdList.indexOf(id);
         _wishProductIdList.removeAt(_idIndex);
         _wishProductList.removeAt(_idIndex);
@@ -63,22 +66,22 @@ class WishListController extends GetxController implements GetxService {
     _wishProductList = [];
     _wishRestList = [];
     _wishRestIdList = [];
-    Response response = await wishListRepo.getWishList();
-    if (response.statusCode == 200) {
-      update();
-      response.body['food'].forEach((food) async {
-        Product _product = Product.fromJson(food);
-        _wishProductList.add(_product);
-        _wishProductIdList.add(_product.id);
+    try {
+      final response = await wishListRepo.getWishList();
+
+      _wishProductList.addAll(response.food);
+      response.food.forEach((food) async {
+        _wishProductList.add(food);
+        _wishProductIdList.add(food.id);
       });
-      response.body['restaurant'].forEach((restaurant) async {
-        Restaurant _restaurant = Restaurant.fromJson(restaurant);
-        _wishRestList.add(_restaurant);
-        _wishRestIdList.add(_restaurant.id);
+      response.restaurant.forEach((restaurant) async {
+        _wishRestList.add(restaurant);
+        _wishRestIdList.add(restaurant.id);
       });
-    } else {
-      ApiChecker.checkApi(response);
+    } on ServerException catch (err) {
+      showCustomSnackBar(err.message);
     }
+
     update();
   }
 

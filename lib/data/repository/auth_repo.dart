@@ -4,7 +4,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/api/api_consumer.dart';
 import 'package:efood_multivendor/data/model/body/signup_body.dart';
 import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
 import 'package:efood_multivendor/data/model/response/google_response.dart';
@@ -21,31 +21,31 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../model/body/social_customer.dart';
 
 class AuthRepo {
-  final ApiClient apiClient;
+  final ApiConsumer apiClient;
   final SharedPreferences sharedPreferences;
   AuthRepo({@required this.apiClient, @required this.sharedPreferences});
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FacebookAuth _faceBookAuth = FacebookAuth.i;
 
   Future<Response> registration(SignUpBody signUpBody) async {
-    return await apiClient.postData(
-        AppConstants.REGISTER_URI, signUpBody.toJson());
+    return await apiClient.post(AppConstants.REGISTER_URI,
+        body: signUpBody.toJson());
   }
 
   Future<Response> login({String phone, String password}) async {
-    return await apiClient.postData(
-        AppConstants.LOGIN_URI, {"phone": phone, "password": password});
+    return await apiClient.post(AppConstants.LOGIN_URI,
+        body: {"phone": phone, "password": password});
   }
 
   Future<Response> loginWithSocialMedia(String email) async {
     return await apiClient
-        .postData(AppConstants.SOCIAL_LOGIN_URL, {"email": email});
+        .post(AppConstants.SOCIAL_LOGIN_URL, body: {"email": email});
   }
 
   Future<Response> registerWithSocialMedia(
       SocialLogInBody socialLogInBody) async {
-    return await apiClient.postData(
-        AppConstants.SOCIAL_REGISTER_URL, socialLogInBody.toJson());
+    return await apiClient.post(AppConstants.SOCIAL_REGISTER_URL,
+        body: socialLogInBody.toJson());
   }
 
   Future<GoogleResponse> signInWithGoogle() async {
@@ -111,8 +111,8 @@ class AuthRepo {
     if (!GetPlatform.isWeb) {
       FirebaseMessaging.instance.subscribeToTopic(AppConstants.TOPIC);
     }
-    return await apiClient.postData(AppConstants.TOKEN_URI,
-        {"_method": "put", "cm_firebase_token": _deviceToken});
+    return await apiClient.post(AppConstants.TOKEN_URI,
+        body: {"_method": "put", "cm_firebase_token": _deviceToken});
   }
 
   Future<String> _saveDeviceToken() async {
@@ -129,24 +129,24 @@ class AuthRepo {
   }
 
   Future<Response> getUserByEmail(String email) async {
-    return await apiClient.postData('${AppConstants.getUserUri}$email', {});
+    return await apiClient.post('${AppConstants.getUserUri}$email', body: {});
   }
 
   Future<Response> forgetPassword(String phone) async {
     return await apiClient
-        .postData(AppConstants.FORGET_PASSWORD_URI, {"phone": phone});
+        .post(AppConstants.FORGET_PASSWORD_URI, body: {"phone": phone});
   }
 
   Future<Response> verifyToken(String phone, String token) async {
-    return await apiClient.postData(
-        AppConstants.VERIFY_TOKEN_URI, {"phone": phone, "reset_token": token});
+    return await apiClient.post(AppConstants.VERIFY_TOKEN_URI,
+        body: {"phone": phone, "reset_token": token});
   }
 
   Future<Response> resetPassword(String resetToken, String number,
       String password, String confirmPassword) async {
-    return await apiClient.postData(
+    return await apiClient.post(
       AppConstants.RESET_PASSWORD_URI,
-      {
+      body: {
         "_method": "put",
         "reset_token": resetToken,
         "phone": number,
@@ -158,28 +158,28 @@ class AuthRepo {
 
   Future<Response> checkEmail(String email) async {
     return await apiClient
-        .postData(AppConstants.CHECK_EMAIL_URI, {"email": email});
+        .post(AppConstants.CHECK_EMAIL_URI, body: {"email": email});
   }
 
   Future<Response> verifyEmail(String email, String token) async {
-    return await apiClient.postData(
-        AppConstants.VERIFY_EMAIL_URI, {"email": email, "token": token});
+    return await apiClient.post(AppConstants.VERIFY_EMAIL_URI,
+        body: {"email": email, "token": token});
   }
 
   Future<Response> updateZone() async {
-    return await apiClient.getData(AppConstants.UPDATE_ZONE_URL);
+    return await apiClient.get(AppConstants.UPDATE_ZONE_URL);
   }
 
   Future<Response> verifyPhone(String phone, String otp) async {
-    return await apiClient
-        .postData(AppConstants.VERIFY_PHONE_URI, {"phone": phone, "otp": otp});
+    return await apiClient.post(AppConstants.VERIFY_PHONE_URI,
+        body: {"phone": phone, "otp": otp});
   }
 
   // for  user token
   Future<bool> saveUserToken(String token) async {
-    apiClient.token = token;
-    apiClient.updateHeader(
-        token, null, sharedPreferences.getString(AppConstants.LANGUAGE_CODE));
+    // apiClient.token = token;
+    // apiClient.updateHeader(
+    //     token, null, sharedPreferences.getString(AppConstants.LANGUAGE_CODE));
     return await sharedPreferences.setString(AppConstants.TOKEN, token);
   }
 
@@ -230,14 +230,14 @@ class AuthRepo {
   bool clearSharedData() {
     if (!GetPlatform.isWeb) {
       FirebaseMessaging.instance.unsubscribeFromTopic(AppConstants.TOPIC);
-      apiClient.postData(
-          AppConstants.TOKEN_URI, {"_method": "put", "cm_firebase_token": '@'});
+      apiClient.post(AppConstants.TOKEN_URI,
+          body: {"_method": "put", "cm_firebase_token": '@'});
     }
     sharedPreferences.remove(AppConstants.TOKEN);
     sharedPreferences.setStringList(AppConstants.CART_LIST, []);
     sharedPreferences.remove(AppConstants.USER_ADDRESS);
-    apiClient.token = null;
-    apiClient.updateHeader(null, null, null);
+    // apiClient.token = null;
+    // apiClient.updateHeader(null, null, null);
     return true;
   }
 

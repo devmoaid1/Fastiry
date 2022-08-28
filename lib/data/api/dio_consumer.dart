@@ -25,6 +25,7 @@ class DioConsumer extends GetxService implements ApiConsumer {
 
     client.options
       ..baseUrl = AppConstants.BASE_URL
+      ..responseType = dio.ResponseType.plain
       ..followRedirects = false
       ..validateStatus = ((status) {
         return status < StatusCode.internalServerError;

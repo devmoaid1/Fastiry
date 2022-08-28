@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/api/api_consumer.dart';
 import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:flutter/material.dart';
@@ -7,11 +8,12 @@ import 'package:get/get_connect/http/src/response/response.dart';
 import 'package:image_picker/image_picker.dart';
 
 class UserRepo {
+  final ApiConsumer apiConsumer;
   final ApiClient apiClient;
-  UserRepo({@required this.apiClient});
+  UserRepo({@required this.apiClient, @required this.apiConsumer});
 
   Future<Response> getUserInfo() async {
-    return await apiClient.getData(AppConstants.CUSTOMER_INFO_URI);
+    return await apiConsumer.get(AppConstants.CUSTOMER_INFO_URI);
   }
 
   Future<Response> updateProfile(

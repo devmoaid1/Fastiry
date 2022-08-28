@@ -18,7 +18,7 @@ class AppConstants {
   static const String CATEGORY_RESTAURANT_URI =
       '/api/v1/categories/restaurants/';
   static const String CONFIG_URI = '/api/v1/config';
-  static const String TRACK_URI = '/api/v1/customer/order/track?order_id=';
+  static const String TRACK_URI = '/api/v1/customer/order/track';
   static const String MESSAGE_URI = '/api/v1/customer/message/get';
   static const String SEND_MESSAGE_URI = '/api/v1/customer/message/send';
   static const String FORGET_PASSWORD_URI = '/api/v1/auth/forgot-password';
@@ -40,25 +40,23 @@ class AppConstants {
   static const String SET_MENU_URI = '/api/v1/products/set-menu';
   static const String CUSTOMER_INFO_URI = '/api/v1/customer/info';
   static const String COUPON_URI = '/api/v1/coupon/list';
-  static const String COUPON_APPLY_URI = '/api/v1/coupon/apply?code=';
+  static const String COUPON_APPLY_URI = '/api/v1/coupon/apply';
   static const String RUNNING_ORDER_LIST_URI =
       '/api/v1/customer/order/running-orders';
   static const String HISTORY_ORDER_LIST_URI = '/api/v1/customer/order/list';
   static const String ORDER_CANCEL_URI = '/api/v1/customer/order/cancel';
   static const String COD_SWITCH_URL = '/api/v1/customer/order/payment-method';
-  static const String ORDER_DETAILS_URI =
-      '/api/v1/customer/order/details?order_id=';
+  static const String ORDER_DETAILS_URI = '/api/v1/customer/order/details';
   static const String WISH_LIST_GET_URI = '/api/v1/customer/wish-list';
-  static const String ADD_WISH_LIST_URI = '/api/v1/customer/wish-list/add?';
+  static const String ADD_WISH_LIST_URI = '/api/v1/customer/wish-list/add';
   static const String REMOVE_WISH_LIST_URI =
-      '/api/v1/customer/wish-list/remove?';
+      '/api/v1/customer/wish-list/remove';
   static const String NOTIFICATION_URI = '/api/v1/customer/notifications';
   static const String UPDATE_PROFILE_URI = '/api/v1/customer/update-profile';
   static const String SEARCH_URI = '/api/v1/';
   static const String REVIEW_URI = '/api/v1/products/reviews/submit';
   static const String PRODUCT_DETAILS_URI = '/api/v1/products/details/';
-  static const String LAST_LOCATION_URI =
-      '/api/v1/delivery-man/last-location?order_id=';
+  static const String LAST_LOCATION_URI = '/api/v1/delivery-man/last-location';
   static const String DELIVER_MAN_REVIEW_URI =
       '/api/v1/delivery-man/reviews/submit';
   static const String RESTAURANT_URI = '/api/v1/restaurants/get-restaurants';
@@ -70,7 +68,7 @@ class AppConstants {
   static const String BASIC_CAMPAIGN_URI = '/api/v1/campaigns/basic';
   static const String ITEM_CAMPAIGN_URI = '/api/v1/campaigns/item';
   static const String BASIC_CAMPAIGN_DETAILS_URI =
-      '/api/v1/campaigns/basic-campaign-details?basic_campaign_id=';
+      '/api/v1/campaigns/basic-campaign-details';
   static const String INTEREST_URI = '/api/v1/customer/update-interest';
   static const String SUGGESTED_FOOD_URI = '/api/v1/customer/suggested-foods';
   static const String RESTAURANT_REVIEW_URI = '/api/v1/restaurants/reviews';

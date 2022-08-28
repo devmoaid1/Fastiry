@@ -3,10 +3,10 @@ import 'dart:async';
 import 'package:efood_multivendor/controller/cart_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:efood_multivendor/controller/wishlist_controller.dart';
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/errors/exeptions.dart';
 import 'package:efood_multivendor/data/model/response/config_model.dart';
 import 'package:efood_multivendor/data/repository/splash_repo.dart';
+import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -38,18 +38,16 @@ class SplashController extends GetxController implements GetxService {
 
   Future<bool> getConfigData() async {
     _hasConnection = true;
-    Response response = await splashRepo.getConfigData();
     bool _isSuccess = false;
-    if (response.statusCode == 200) {
-      _configModel = ConfigModel.fromJson(response.body);
+
+    try {
+      _configModel = await splashRepo.getConfigData();
       _isSuccess = true;
-    } else {
-      ApiChecker.checkApi(response);
-      if (response.statusText == ApiClient.noInternetMessage) {
-        _hasConnection = false;
-      }
+    } on ServerException catch (err) {
       _isSuccess = false;
+      showCustomSnackBar(err.message);
     }
+
     update();
     return _isSuccess;
   }
