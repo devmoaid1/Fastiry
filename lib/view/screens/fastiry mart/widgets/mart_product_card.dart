@@ -31,7 +31,7 @@ class MartProductCard extends StatelessWidget {
         onTap: () => Get.toNamed(RouteHelper.getProductDetailsRoute(product.id),
             arguments: ProductDetailsScreen(product: product)),
         child: Container(
-          width: Dimensions.screenWidth * 0.45,
+          // width: Dimensions.screenWidth * 0.45,
           margin: EdgeInsets.symmetric(horizontal: 5),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
@@ -49,7 +49,7 @@ class MartProductCard extends StatelessWidget {
                           '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}'
                           '/${product.image}',
                       height: (Dimensions.screeHeight * 0.30) * 0.7,
-                      width: Dimensions.screenWidth * 0.4,
+                      width: Dimensions.screenWidth * 0.45,
                       fit: BoxFit.fill,
                     ),
                   ),
@@ -89,11 +89,14 @@ class MartProductCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      product.name,
-                      maxLines: 2,
-                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 3.5),
+                    Container(
+                      width: Dimensions.screenWidth * 0.45,
+                      child: Text(
+                        product.name,
+                        maxLines: 2,
+                        style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 3.5),
+                      ),
                     ),
                     SizedBox(
                       height: 5,
@@ -106,19 +109,18 @@ class MartProductCard extends StatelessWidget {
                         style: Get.find<FontStyles>().poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
-                      SizedBox(
-                          width: product.discount > 0
-                              ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                              : 0),
+                      // SizedBox(
+                      //     width: product.discount > 0
+                      //         ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                      //         : 0),
                       product.discount > 0
                           ? Text(
                               PriceConverter.convertPrice(product.price),
                               style: Get.find<FontStyles>()
                                   .poppinsRegular
                                   .copyWith(
-                                      fontSize: Dimensions
-                                              .blockscreenHorizontal *
-                                          3.2,
+                                      fontSize:
+                                          Dimensions.blockscreenHorizontal * 3,
                                       color: Theme.of(context).dividerColor,
                                       decorationThickness: 3,
                                       decorationColor:

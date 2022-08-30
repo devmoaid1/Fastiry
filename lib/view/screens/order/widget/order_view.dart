@@ -158,17 +158,44 @@ class OrderView extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                        orderList[index]
-                                                            .restaurant
-                                                            .name,
-                                                        style: Get.find<
-                                                                FontStyles>()
-                                                            .poppinsMedium
-                                                            .copyWith(
-                                                                fontSize: Dimensions
-                                                                        .blockscreenHorizontal *
-                                                                    4)),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          width: Dimensions
+                                                                  .screenWidth *
+                                                              0.3,
+                                                          child: Text(
+                                                              orderList[index]
+                                                                  .restaurant
+                                                                  .name,
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsMedium
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          Dimensions.blockscreenHorizontal *
+                                                                              4)),
+                                                        ),
+                                                        Text(
+                                                          '#Rx${orderList[index].id}',
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .disabledColor,
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                              .blockscreenHorizontal *
+                                                                          3),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     SizedBox(
                                                         height: Dimensions
                                                                 .blockscreenVertical *
@@ -193,19 +220,6 @@ class OrderView extends StatelessWidget {
                                                                       fontSize:
                                                                           Dimensions
                                                                               .fontSizeSmall),
-                                                            ),
-                                                            Text(
-                                                              '#Rx${orderList[index].id}',
-                                                              style: Get.find<
-                                                                      FontStyles>()
-                                                                  .poppinsRegular
-                                                                  .copyWith(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .disabledColor,
-                                                                      fontSize:
-                                                                          Dimensions.blockscreenHorizontal *
-                                                                              3),
                                                             ),
                                                           ],
                                                         ),

@@ -44,11 +44,14 @@ class ProductDetailsCard extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text(product.name,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 5)),
+                    Container(
+                      width: Dimensions.screenWidth * 0.8,
+                      child: Text(product.name,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                              fontSize: Dimensions.blockscreenHorizontal * 5)),
+                    ),
                     GetBuilder<WishListController>(builder: (wishController) {
                       bool _isWished =
                           wishController.wishProductIdList.contains(product.id);

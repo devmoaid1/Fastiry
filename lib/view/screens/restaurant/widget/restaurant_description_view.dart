@@ -22,15 +22,13 @@ class RestaurantDescriptionView extends StatelessWidget {
     return Column(children: [
       Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
         // restaurant name
-        Container(
-          child: Text(
-            restaurant.name,
-            style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                fontSize: Dimensions.blockscreenHorizontal * 6,
-                color: Theme.of(context).dividerColor),
-            maxLines: 1,
-            overflow: TextOverflow.ellipsis,
-          ),
+        Text(
+          restaurant.name ?? "",
+          style: Get.find<FontStyles>().poppinsMedium.copyWith(
+              fontSize: Dimensions.blockscreenHorizontal * 6,
+              color: Theme.of(context).dividerColor),
+          maxLines: 1,
+          overflow: TextOverflow.ellipsis,
         ),
         SizedBox(height: Dimensions.blockscreenHorizontal),
 

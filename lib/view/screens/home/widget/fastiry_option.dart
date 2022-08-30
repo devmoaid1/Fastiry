@@ -59,7 +59,7 @@ class FastiryOption extends StatelessWidget {
                         fontSize: Dimensions.blockscreenHorizontal * 3.8,
                       )
                   : Get.find<FontStyles>().poppinsRegular.copyWith(
-                        fontSize: Dimensions.blockscreenHorizontal * 3.8,
+                        fontSize: Dimensions.blockscreenHorizontal * 3.6,
                       ),
             ),
           ),

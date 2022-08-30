@@ -17,7 +17,7 @@ class AddressMapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: Dimensions.screeHeight * 0.35,
+        height: Dimensions.screeHeight * 0.40,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
             border: Border.all(
