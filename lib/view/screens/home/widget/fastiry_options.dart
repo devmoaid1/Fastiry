@@ -38,6 +38,7 @@ class FastiryOptions extends StatelessWidget {
                   height: Dimensions.blockscreenVertical * 2,
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     FastiryOption(
                         imagePath: Images.fastiryFoodImage,

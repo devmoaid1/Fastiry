@@ -66,7 +66,7 @@ class Theme1HomeScreen extends StatelessWidget {
                         builder: (locationController) {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
                             onTap: () => Get.toNamed(
@@ -109,15 +109,21 @@ class Theme1HomeScreen extends StatelessWidget {
                                         Get.toNamed(RouteHelper.getCartRoute()),
                                     child: Badge(
                                       showBadge: true,
+                                      position: Get.locale.languageCode == "en"
+                                          ? BadgePosition.topEnd()
+                                          : BadgePosition.topStart(),
+                                      padding: EdgeInsets.all(6),
                                       badgeColor:
                                           Theme.of(context).primaryColor,
-                                      badgeContent: Center(
-                                        child: Text(
-                                          cartController.cartList.length
-                                              .toString(),
-                                          style: Get.find<FontStyles>()
-                                              .poppinsRegular
-                                              .copyWith(color: Colors.white),
+                                      badgeContent: Container(
+                                        child: Center(
+                                          child: Text(
+                                            cartController.cartList.length
+                                                .toString(),
+                                            style: Get.find<FontStyles>()
+                                                .poppinsRegular
+                                                .copyWith(color: Colors.white),
+                                          ),
                                         ),
                                       ),
                                       child: SvgPicture.asset(

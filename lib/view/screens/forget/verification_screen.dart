@@ -14,6 +14,7 @@ import 'package:get/get.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 
 import '../../../theme/font_styles.dart';
+import '../../../util/colors.dart';
 
 class VerificationScreen extends StatefulWidget {
   final String number;
@@ -140,7 +141,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   cursorColor: Theme.of(context).primaryColor,
                   textStyle: Get.find<FontStyles>().poppinsMedium.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 6,
-                      color: Theme.of(context).dividerColor),
+                      color: lightGreyTextColor),
                   pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       fieldHeight: 60,
