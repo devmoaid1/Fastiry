@@ -112,9 +112,9 @@ class Theme1HomeScreen extends StatelessWidget {
                                       position: Get.locale.languageCode == "en"
                                           ? BadgePosition.topEnd()
                                           : BadgePosition.topStart(),
-                                      padding: EdgeInsets.all(6),
-                                      badgeColor:
-                                          Theme.of(context).primaryColor,
+                                      padding: EdgeInsets.all(0),
+                                      elevation: 0,
+                                      badgeColor: Colors.transparent,
                                       badgeContent: Container(
                                         child: Center(
                                           child: Text(
@@ -122,7 +122,10 @@ class Theme1HomeScreen extends StatelessWidget {
                                                 .toString(),
                                             style: Get.find<FontStyles>()
                                                 .poppinsRegular
-                                                .copyWith(color: Colors.white),
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontSize: 20),
                                           ),
                                         ),
                                       ),
