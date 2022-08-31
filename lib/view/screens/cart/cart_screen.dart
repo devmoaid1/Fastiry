@@ -149,6 +149,8 @@ class _CartScreenState extends State<CartScreen> {
                                     Column(
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
                                         Text(cartController.cartRestaurant.name,
                                             style: Get.find<FontStyles>()
@@ -160,7 +162,7 @@ class _CartScreenState extends State<CartScreen> {
                                         SizedBox(
                                           height:
                                               Dimensions.blockscreenVertical *
-                                                  2.5,
+                                                  2,
                                         ),
                                         Row(
                                           children: [

@@ -259,6 +259,8 @@ class _SignInScreenState extends State<SignInScreen> {
                           iconPath: Images.googleIcon,
                           title: "google_login".tr,
                           onTap: () {
+                            authController
+                                .googleSignOut(); // force the app to logout google before login again
                             authController.googleSignIn();
                           }),
                       SizedBox(height: Dimensions.PADDING_SIZE_SMALL),

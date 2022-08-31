@@ -22,17 +22,19 @@ class WishListController extends GetxController implements GetxService {
   List<int> get wishProductIdList => _wishProductIdList;
   List<int> get wishRestIdList => _wishRestIdList;
 
-  void addToWishList(Product product, Restaurant restaurant, bool isRestaurant) async {
-    Response response = await wishListRepo.addWishList(isRestaurant ? restaurant.id : product.id, isRestaurant);
+  void addToWishList(
+      Product product, Restaurant restaurant, bool isRestaurant) async {
+    Response response = await wishListRepo.addWishList(
+        isRestaurant ? restaurant.id : product.id, isRestaurant);
     if (response.statusCode == 200) {
-      if(isRestaurant) {
+      if (isRestaurant) {
         _wishRestIdList.add(restaurant.id);
         _wishRestList.add(restaurant);
-      }else {
+      } else {
         _wishProductList.add(product);
         _wishProductIdList.add(product.id);
       }
-      showCustomSnackBar(response.body['message'], isError: false);
+      showCustomSnackBar("succsesfully_added_wishlist".tr, isError: false);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -43,16 +45,16 @@ class WishListController extends GetxController implements GetxService {
     Response response = await wishListRepo.removeWishList(id, isRestaurant);
     if (response.statusCode == 200) {
       int _idIndex = -1;
-      if(isRestaurant) {
+      if (isRestaurant) {
         _idIndex = _wishRestIdList.indexOf(id);
         _wishRestIdList.removeAt(_idIndex);
         _wishRestList.removeAt(_idIndex);
-      }else {
+      } else {
         _idIndex = _wishProductIdList.indexOf(id);
         _wishProductIdList.removeAt(_idIndex);
         _wishProductList.removeAt(_idIndex);
       }
-      showCustomSnackBar(response.body['message'], isError: false);
+      showCustomSnackBar("succsesfully_removed_wishlist".tr, isError: false);
     } else {
       ApiChecker.checkApi(response);
     }

@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';
-import '../../../controller/cart_controller.dart';
 import '../../../controller/wishlist_controller.dart';
 import '../../../helper/route_helper.dart';
 import '../../../theme/font_styles.dart';
@@ -51,39 +50,41 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              ListTile(
-                leading: CircleAvatar(
-                  backgroundColor: Colors.grey[300],
-                  child: Center(
-                    child: Text(
-                      (isLogged && userContoller.userInfoModel != null)
-                          ? userContoller.userInfoModel.fName.substring(0, 1)
-                          : 'G',
-                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 5),
+              GetBuilder<UserController>(
+                builder: (user) => ListTile(
+                  leading: CircleAvatar(
+                    backgroundColor: Colors.grey[300],
+                    child: Center(
+                      child: Text(
+                        (isLogged && user.userInfoModel != null)
+                            ? user.userInfoModel.fName.substring(0, 1)
+                            : 'G',
+                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 5),
+                      ),
                     ),
                   ),
-                ),
-                title: Text(
-                  (isLogged && userContoller.userInfoModel != null)
-                      ? userContoller.userInfoModel.fName +
-                          " " +
-                          userContoller.userInfoModel.lName
-                      : "guest".tr,
-                  style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                      fontSize: Get.locale.languageCode == "en"
-                          ? Dimensions.blockscreenHorizontal * 4
-                          : Dimensions.blockscreenHorizontal * 5),
-                ),
-                trailing: InkWell(
-                  onTap: () {
-                    Get.toNamed(RouteHelper.getProfileRoute());
-                  },
-                  child: SvgPicture.asset(
-                    Images.settingsIcon,
-                    width: 25,
-                    height: 25,
-                    color: Theme.of(context).dividerColor,
+                  title: Text(
+                    (isLogged && user.userInfoModel != null)
+                        ? user.userInfoModel.fName +
+                            " " +
+                            user.userInfoModel.lName
+                        : "guest".tr,
+                    style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                        fontSize: Get.locale.languageCode == "en"
+                            ? Dimensions.blockscreenHorizontal * 4
+                            : Dimensions.blockscreenHorizontal * 5),
+                  ),
+                  trailing: InkWell(
+                    onTap: () {
+                      Get.toNamed(RouteHelper.getProfileRoute());
+                    },
+                    child: SvgPicture.asset(
+                      Images.settingsIcon,
+                      width: 25,
+                      height: 25,
+                      color: Theme.of(context).dividerColor,
+                    ),
                   ),
                 ),
               ),
@@ -145,9 +146,8 @@ class _MenuScreenNewState extends State<MenuScreenNew> {
                                 description: 'are_you_sure_to_logout'.tr,
                                 isLogOut: true,
                                 onYesPressed: () {
-                                  Get.find<AuthController>().clearSharedData();
-                                  Get.find<CartController>().clearCartList();
-                                  Get.find<WishListController>().removeWishes();
+                                  Get.find<AuthController>().logout();
+
                                   Get.offAllNamed(RouteHelper.getSignInRoute(
                                       RouteHelper.splash));
                                 }),

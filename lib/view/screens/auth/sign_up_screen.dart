@@ -247,20 +247,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         iconPath: Images.googleIcon,
                         title: "google_login".tr,
                         onTap: () {
+                          authController
+                              .googleSignOut(); // force the app to logout google before login again
                           authController.googleSignIn();
-                        }),
-                    SizedBox(height: Dimensions.PADDING_SIZE_SMALL),
-                    SocialLoginWidget(
-                        fontColor: Get.isDarkMode
-                            ? Theme.of(context).dividerColor
-                            : Colors.black,
-                        iconColor: Colors.blue,
-                        color: Colors.transparent,
-                        iconPath: Images.facebookIcon,
-                        title: "facebook_login".tr,
-                        onTap: () {
-                          Get.toNamed(RouteHelper.getVerificationRoute(
-                              '01033266366', 'asasasasas', 'sign-up', ''));
                         }),
                   ]);
             }),
@@ -331,8 +320,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
             Get.toNamed(RouteHelper.getAccessLocationRoute(RouteHelper.signUp));
           }
         } else {
-          if (status.message == "The email has already been taken." ||
-              status.message == "The phone has already been taken.") {
+          if (status.message == "email_taken".tr ||
+              status.message == "phone_taken".tr) {
             showCustomSnackBar(status.message);
           } else {
             ScaffoldMessenger.of(context).showSnackBar(

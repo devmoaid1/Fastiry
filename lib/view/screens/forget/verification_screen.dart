@@ -3,10 +3,8 @@ import 'dart:async';
 import 'package:efood_multivendor/controller/auth_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
 import 'package:efood_multivendor/view/base/custom_button.dart';
 import 'package:efood_multivendor/view/base/custom_dialog.dart';
@@ -69,8 +67,13 @@ class _VerificationScreenState extends State<VerificationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: CustomAppBar(title: 'otp_verification'.tr),
+      backgroundColor: Theme.of(context).backgroundColor,
+      appBar: CustomAppBar(
+          title: 'otp_verification'.tr,
+          onBackPressed: () {
+            Get.find<AuthController>().googleSignOut();
+            Get.back();
+          }),
       body: SafeArea(
           child: Scrollbar(
               child: SingleChildScrollView(
@@ -85,12 +88,14 @@ class _VerificationScreenState extends State<VerificationScreen> {
               ? BoxDecoration(
                   color: Theme.of(context).cardColor,
                   borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey[Get.isDarkMode ? 700 : 300],
-                        blurRadius: 5,
-                        spreadRadius: 1)
-                  ],
+                  boxShadow: Get.isDarkMode
+                      ? null
+                      : [
+                          BoxShadow(
+                              color: Colors.grey[300],
+                              blurRadius: 5,
+                              spreadRadius: 1)
+                        ],
                 )
               : null,
           child: GetBuilder<AuthController>(builder: (authController) {
@@ -102,7 +107,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
               Get.find<SplashController>().configModel.demo
                   ? Text(
                       'for_demo_purpose'.tr,
-                      style: robotoRegular,
+                      style: Get.find<FontStyles>().poppinsRegular,
                     )
                   : RichText(
                       textAlign: TextAlign.center,
@@ -111,7 +116,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                             text: 'enter_the_verification_sent_to'.tr,
                             style: Get.find<FontStyles>()
                                 .poppinsRegular
-                                .copyWith(color: lightGreyTextColor)),
+                                .copyWith(
+                                    color: Theme.of(context).dividerColor)),
                         TextSpan(
                             text: ' $_number',
                             style: Get.find<FontStyles>()
@@ -134,7 +140,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                   cursorColor: Theme.of(context).primaryColor,
                   textStyle: Get.find<FontStyles>().poppinsMedium.copyWith(
                       fontSize: Dimensions.blockscreenHorizontal * 6,
-                      color: lightGreyTextColor),
+                      color: Theme.of(context).dividerColor),
                   pinTheme: PinTheme(
                       shape: PinCodeFieldShape.box,
                       fieldHeight: 60,
@@ -161,7 +167,8 @@ class _VerificationScreenState extends State<VerificationScreen> {
                       Text(
                         'did_not_receive_the_code'.tr,
                         style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                            color: lightGreyTextColor.withOpacity(0.7),
+                            color:
+                                Theme.of(context).dividerColor.withOpacity(0.7),
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
                       TextButton(
@@ -239,15 +246,20 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                                     height: Dimensions
                                                         .PADDING_SIZE_LARGE),
                                                 Text('verified'.tr,
-                                                    style: robotoBold.copyWith(
-                                                      fontSize: 30,
-                                                      color: Theme.of(context)
-                                                          .textTheme
-                                                          .bodyText1
-                                                          .color,
-                                                      decoration:
-                                                          TextDecoration.none,
-                                                    )),
+                                                    style:
+                                                        Get.find<FontStyles>()
+                                                            .poppinsBold
+                                                            .copyWith(
+                                                              fontSize: 30,
+                                                              color: Theme.of(
+                                                                      context)
+                                                                  .textTheme
+                                                                  .bodyText1
+                                                                  .color,
+                                                              decoration:
+                                                                  TextDecoration
+                                                                      .none,
+                                                            )),
                                               ]),
                                         ),
                                       ),
@@ -255,7 +267,7 @@ class _VerificationScreenState extends State<VerificationScreen> {
                                   Future.delayed(Duration(seconds: 2), () {
                                     Get.offNamed(
                                         RouteHelper.getAccessLocationRoute(
-                                            'verification'));
+                                            RouteHelper.splash));
                                   });
                                 } else {
                                   showCustomSnackBar(value.message);

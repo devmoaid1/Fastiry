@@ -96,7 +96,7 @@ class RestaurantDescriptionView extends StatelessWidget {
           height: ResponsiveHelper.isDesktop(context)
               ? 30
               : Dimensions.PADDING_SIZE_SMALL),
-      Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
+      Row(mainAxisAlignment: MainAxisAlignment.start, children: [
         InkWell(
           onTap: () => Get.toNamed(RouteHelper.getMapRoute(
             AddressModel(
@@ -114,15 +114,15 @@ class RestaurantDescriptionView extends StatelessWidget {
             SvgPicture.asset(
               Images.locationIconSvg,
               color: Theme.of(context).dividerColor,
-              width: 25,
-              height: 25,
+              width: Dimensions.blockscreenHorizontal * 5,
+              height: Dimensions.blockscreenHorizontal * 5,
             ),
             SizedBox(
               width: Dimensions.PADDING_SIZE_EXTRA_SMALL,
             ),
             Text('view_on_map'.tr,
                 style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                    fontSize: Dimensions.blockscreenHorizontal * 3,
+                    fontSize: Dimensions.blockscreenHorizontal * 2.8,
                     color: Theme.of(context).dividerColor)),
           ]),
         ),
@@ -131,14 +131,14 @@ class RestaurantDescriptionView extends StatelessWidget {
           SvgPicture.asset(
             Images.clockIcon,
             color: Theme.of(context).dividerColor,
-            width: 25,
-            height: 25,
+            width: Dimensions.blockscreenHorizontal * 5,
+            height: Dimensions.blockscreenHorizontal * 5,
           ),
           SizedBox(width: Dimensions.PADDING_SIZE_EXTRA_SMALL),
           Text(
             '${restaurant.deliveryTime} ${'min'.tr}',
             style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                fontSize: Dimensions.fontSizeSmall,
+                fontSize: Dimensions.blockscreenHorizontal * 2.8,
                 color: Theme.of(context).dividerColor),
           ),
         ]),
@@ -160,7 +160,7 @@ class RestaurantDescriptionView extends StatelessWidget {
                   : "free_delivery".tr,
               style: Get.find<FontStyles>()
                   .poppinsRegular
-                  .copyWith(fontSize: Dimensions.blockscreenHorizontal * 3),
+                  .copyWith(fontSize: Dimensions.blockscreenHorizontal * 2.8),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

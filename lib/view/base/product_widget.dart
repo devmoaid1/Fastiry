@@ -82,7 +82,7 @@ class ProductWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Icon(Icons.delete, color: Colors.white),
-                      Text('remove from wishlist',
+                      Text("remove_wishList".tr,
                           style: Get.find<FontStyles>()
                               .poppinsRegular
                               .copyWith(color: Colors.white)),
@@ -779,7 +779,7 @@ class ProductWidget extends StatelessWidget {
                                           children: [
                                             Container(
                                               width:
-                                                  Dimensions.screenWidth * 0.50,
+                                                  Dimensions.screenWidth * 0.45,
                                               child: Text(
                                                 product.name,
                                                 style: Get.find<FontStyles>()

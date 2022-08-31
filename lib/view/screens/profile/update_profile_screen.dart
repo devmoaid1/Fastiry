@@ -31,12 +31,13 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _phoneController = TextEditingController();
   bool _isLoggedIn;
-
+  bool _isGoogleUser;
   @override
   void initState() {
     super.initState();
 
     _isLoggedIn = Get.find<AuthController>().isLoggedIn();
+    Get.find<AuthController>().checkIfGoogleUser();
     if (_isLoggedIn && Get.find<UserController>().userInfoModel == null) {
       Get.find<UserController>().getUserInfo();
     }
@@ -181,11 +182,14 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         )),
                   ))),
                   !userController.isLoading
-                      ? CustomButton(
-                          onPressed: () => _updateProfile(userController),
-                          margin: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                          buttonText: 'update'.tr,
-                        )
+                      ? !Get.find<AuthController>().isGoogleUser
+                          ? CustomButton(
+                              onPressed: () => _updateProfile(userController),
+                              margin:
+                                  EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                              buttonText: 'update'.tr,
+                            )
+                          : SizedBox()
                       : Center(child: CircularProgressIndicator()),
                 ]),
               )

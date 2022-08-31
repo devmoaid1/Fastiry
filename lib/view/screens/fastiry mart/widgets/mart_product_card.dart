@@ -109,10 +109,10 @@ class MartProductCard extends StatelessWidget {
                         style: Get.find<FontStyles>().poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 4),
                       ),
-                      // SizedBox(
-                      //     width: product.discount > 0
-                      //         ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                      //         : 0),
+                      SizedBox(
+                          width: product.discount > 0
+                              ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                              : 0),
                       product.discount > 0
                           ? Text(
                               PriceConverter.convertPrice(product.price),
