@@ -244,11 +244,11 @@ class CartController extends GetxController implements GetxService {
   double getCartSubTotal() {
     _cartSubTotal = 0;
     for (var cartProduct in _cartList) {
-      _cartSubTotal += (cartProduct.quantity * cartProduct.price);
+      _subTotal += (cartProduct.quantity * cartProduct.price);
     }
 
     update();
 
-    return _cartSubTotal;
+    return _subTotal;
   }
 }

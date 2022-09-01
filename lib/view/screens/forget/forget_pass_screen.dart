@@ -43,7 +43,13 @@ class _ForgetPassScreenState extends State<ForgetPassScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(
-          title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr),
+          title: widget.fromSocialLogin ? 'phone'.tr : 'forgot_password'.tr,
+          onBackPressed: () {
+            if (widget.fromSocialLogin) {
+              Get.find<AuthController>().googleSignOut();
+            }
+            Get.back();
+          }),
       body: SafeArea(
           child: Center(
         child: Scrollbar(

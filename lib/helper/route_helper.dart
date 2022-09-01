@@ -256,9 +256,12 @@ class RouteHelper {
         }),
     GetPage(
         name: splash,
-        page: () => SplashScreen(
-            orderID:
-                Get.parameters['id'] == 'null' ? null : Get.parameters['id'])),
+        page: () => InternetConnectionWrapper(
+              screen: SplashScreen(
+                  orderID: Get.parameters['id'] == 'null'
+                      ? null
+                      : Get.parameters['id']),
+            )),
     GetPage(
         name: language,
         page: () => InternetConnectionWrapper(

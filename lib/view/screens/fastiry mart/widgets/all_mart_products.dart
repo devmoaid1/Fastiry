@@ -27,7 +27,7 @@ class AllMartProductsSection extends StatelessWidget {
               onTap: () => Get.toNamed(RouteHelper.getAllProductsRoute())),
         ),
         SizedBox(
-          height: Dimensions.screeHeight * 0.39,
+          height: Dimensions.screeHeight * 0.50,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: categoryController.categoryProductList != null

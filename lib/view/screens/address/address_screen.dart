@@ -89,6 +89,8 @@ class _AddressScreenState extends State<AddressScreen> {
                                     fromCheckout: widget.fromCheckout,
                                     onTap: () {
                                       if (widget.fromCheckout) {
+                                        locationController
+                                            .setAddressIndex(index);
                                         locationController.changeAddress(
                                             locationController
                                                 .addressList[index]);

@@ -25,7 +25,9 @@ class AuthController extends GetxController implements GetxService {
   bool _isLoading = false;
   bool _notification = true;
   bool _acceptTerms = true;
+  bool _isGoogleUser = false;
 
+  bool get isGoogleUser => _isGoogleUser;
   bool get isLoading => _isLoading;
   bool get notification => _notification;
   bool get acceptTerms => _acceptTerms;
@@ -146,7 +148,7 @@ class AuthController extends GetxController implements GetxService {
       _isLoading = false;
       update();
       print(err.toString());
-      showCustomSnackBar("something went wrong");
+      showCustomSnackBar(err.toString());
     }
   }
 
@@ -175,7 +177,7 @@ class AuthController extends GetxController implements GetxService {
         String _token = status.message.substring(1, status.message.length);
         if (Get.find<SplashController>().configModel.customerVerification &&
             int.parse(status.message[0]) == 0) {
-          List<int> _encoded = utf8.encode(user.password);
+          List<int> _encoded = utf8.encode(user.email);
           String _data = base64Encode(_encoded);
           Get.toNamed(RouteHelper.getVerificationRoute(
               user.phone, _token, RouteHelper.signUp, _data));
@@ -210,10 +212,11 @@ class AuthController extends GetxController implements GetxService {
       if (status.isSuccess) {
         List<int> _encoded = utf8.encode(signUpBody.password);
         String _data = base64Encode(_encoded); // hash password
-        setSocialCustomer(socialCustomer); // save customer to localStorage
+        // setSocialCustomer(socialCustomer); // save customer to localStorage
         Get.toNamed(RouteHelper.getVerificationRoute(body.phone, token,
             RouteHelper.signUp, _data)); // navigate to phone verfication
       } else {
+        googleSignOut();
         // setSocialCustomer(socialCustomer);
         showCustomSnackBar(status.message);
       }
@@ -365,6 +368,14 @@ class AuthController extends GetxController implements GetxService {
 
   bool get isActiveRememberMe => _isActiveRememberMe;
 
+  void logout() {
+    authRepo.logout();
+  }
+
+  void googleSignOut() {
+    authRepo.googleSignOut();
+  }
+
   void toggleTerms() {
     _acceptTerms = !_acceptTerms;
     update();
@@ -413,6 +424,12 @@ class AuthController extends GetxController implements GetxService {
     authRepo.setNotificationActive(isActive);
     update();
     return _notification;
+  }
+
+  Future<bool> checkIfGoogleUser() async {
+    _isGoogleUser = await authRepo.isGoogleUser();
+    update();
+    return _isGoogleUser;
   }
 
   bool isSocialUserExist() {

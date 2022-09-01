@@ -18,7 +18,7 @@ class FastiryOptions extends StatelessWidget {
       return Padding(
         padding: EdgeInsets.symmetric(vertical: 8.0),
         child: Container(
-          height: Dimensions.blockscreenHorizontal * 55,
+          // height: Dimensions.blockscreenHorizontal * 5,
           child: Padding(
             padding: EdgeInsets.symmetric(
                 horizontal: Dimensions.blockscreenHorizontal * 3, vertical: 10),
@@ -37,8 +37,9 @@ class FastiryOptions extends StatelessWidget {
                 SizedBox(
                   height: Dimensions.blockscreenVertical * 2,
                 ),
-                Expanded(
-                  child: ListView(scrollDirection: Axis.horizontal, children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
                     FastiryOption(
                         imagePath: Images.fastiryFoodImage,
                         onTap: () {
@@ -50,8 +51,8 @@ class FastiryOptions extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(RouteHelper.getFastiryMartRoute());
                         },
-                        optionName: "fasteriy_mart".tr),
-                  ]),
+                        optionName: "fasteriy_mart".tr)
+                  ],
                 )
               ],
             ),

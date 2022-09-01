@@ -156,7 +156,10 @@ class _MartScreenState extends State<MartScreen> {
                         padding: EdgeInsets.symmetric(horizontal: 8.0),
                         child: SizedBox(
                           height: Dimensions.blockscreenVertical * 9,
-                          child: LinearProgressIndicator(),
+                          child: Center(
+                              child: Text("loading...",
+                                  style:
+                                      Get.find<FontStyles>().poppinsRegular)),
                         ),
                       );
                     }

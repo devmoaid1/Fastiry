@@ -35,7 +35,7 @@ class WishListController extends GetxController implements GetxService {
         _wishProductList.add(product);
         _wishProductIdList.add(product.id);
       }
-      showCustomSnackBar(response.body['message'], isError: false);
+      showCustomSnackBar("succsesfully_added_wishlist".tr, isError: false);
     } else {
       ApiChecker.checkApi(response);
     }
@@ -55,7 +55,7 @@ class WishListController extends GetxController implements GetxService {
         _wishProductIdList.removeAt(_idIndex);
         _wishProductList.removeAt(_idIndex);
       }
-      showCustomSnackBar(response.body['message'], isError: false);
+      showCustomSnackBar("succsesfully_removed_wishlist".tr, isError: false);
     } else {
       ApiChecker.checkApi(response);
     }

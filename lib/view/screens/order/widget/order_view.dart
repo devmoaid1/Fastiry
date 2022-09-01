@@ -1,5 +1,4 @@
 import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/controller/restaurant_controller.dart';
 import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/model/response/order_model.dart';
 import 'package:efood_multivendor/helper/date_converter.dart';
@@ -34,24 +33,9 @@ class OrderView extends StatelessWidget {
         int offset = 1;
         if (orderController.runningOrderList != null &&
             orderController.historyOrderList != null) {
-          orderList = [
-            OrderModel(
-                userId: 30,
-                createdAt: DateTime.now().toString(),
-                accepted: 'true',
-                confirmed: 'true',
-                id: 12355,
-                orderAmount: 330,
-                detailsCount: 2,
-                orderStatus: 'pending',
-                pending: 'true',
-                restaurant: Get.find<RestaurantController>()
-                    .popularRestaurantList
-                    .first)
-          ];
-          // orderList = isRunning
-          //     ? orderController.runningOrderList
-          //     : orderController.historyOrderList;
+          orderList = isRunning
+              ? orderController.runningOrderList
+              : orderController.historyOrderList;
           paginate = isRunning
               ? orderController.runningPaginate
               : orderController.historyPaginate;
@@ -174,17 +158,44 @@ class OrderView extends StatelessWidget {
                                                   crossAxisAlignment:
                                                       CrossAxisAlignment.start,
                                                   children: [
-                                                    Text(
-                                                        orderList[index]
-                                                            .restaurant
-                                                            .name,
-                                                        style: Get.find<
-                                                                FontStyles>()
-                                                            .poppinsMedium
-                                                            .copyWith(
-                                                                fontSize: Dimensions
-                                                                        .blockscreenHorizontal *
-                                                                    4)),
+                                                    Row(
+                                                      children: [
+                                                        Container(
+                                                          width: Dimensions
+                                                                  .screenWidth *
+                                                              0.3,
+                                                          child: Text(
+                                                              orderList[index]
+                                                                  .restaurant
+                                                                  .name,
+                                                              maxLines: 2,
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .ellipsis,
+                                                              style: Get.find<
+                                                                      FontStyles>()
+                                                                  .poppinsMedium
+                                                                  .copyWith(
+                                                                      fontSize:
+                                                                          Dimensions.blockscreenHorizontal *
+                                                                              4)),
+                                                        ),
+                                                        Text(
+                                                          '#Rx${orderList[index].id}',
+                                                          style: Get.find<
+                                                                  FontStyles>()
+                                                              .poppinsRegular
+                                                              .copyWith(
+                                                                  color: Theme.of(
+                                                                          context)
+                                                                      .disabledColor,
+                                                                  fontSize:
+                                                                      Dimensions
+                                                                              .blockscreenHorizontal *
+                                                                          3),
+                                                        ),
+                                                      ],
+                                                    ),
                                                     SizedBox(
                                                         height: Dimensions
                                                                 .blockscreenVertical *
@@ -209,19 +220,6 @@ class OrderView extends StatelessWidget {
                                                                       fontSize:
                                                                           Dimensions
                                                                               .fontSizeSmall),
-                                                            ),
-                                                            Text(
-                                                              '#Rx${orderList[index].id}',
-                                                              style: Get.find<
-                                                                      FontStyles>()
-                                                                  .poppinsRegular
-                                                                  .copyWith(
-                                                                      color: Theme.of(
-                                                                              context)
-                                                                          .disabledColor,
-                                                                      fontSize:
-                                                                          Dimensions.blockscreenHorizontal *
-                                                                              3),
                                                             ),
                                                           ],
                                                         ),

@@ -13,7 +13,9 @@ class UserController extends GetxController implements GetxService {
   UserInfoModel _userInfoModel;
   XFile _pickedFile;
   bool _isLoading = false;
+  bool _isGoogleUser = false;
 
+  bool get isGoogleUser => _isGoogleUser;
   UserInfoModel get userInfoModel => _userInfoModel;
   XFile get pickedFile => _pickedFile;
   bool get isLoading => _isLoading;

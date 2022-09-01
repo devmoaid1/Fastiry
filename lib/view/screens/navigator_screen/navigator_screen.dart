@@ -19,8 +19,6 @@ class _NavigatorScreenState extends State<NavigatorScreen> {
   final cartController = Get.find<CartController>();
   @override
   void initState() {
-    splashController.handleSplashRouting(null);
-
     // ignore: todo
     // TODO: implement initState
     super.initState();

@@ -6,7 +6,6 @@ import 'package:efood_multivendor/view/base/custom_snackbar.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
 import 'package:efood_multivendor/view/screens/search/widget/filter_widget.dart';
 import 'package:efood_multivendor/view/screens/search/widget/history_card.dart';
-import 'package:efood_multivendor/view/screens/search/widget/search_field.dart';
 import 'package:efood_multivendor/view/screens/search/widget/search_result_widget.dart';
 import 'package:efood_multivendor/view/screens/search/widget/suggestion_card.dart';
 import 'package:flutter/material.dart';
@@ -20,7 +19,8 @@ class SearchScreen extends StatefulWidget {
 }
 
 class _SearchScreenState extends State<SearchScreen> {
-  final TextEditingController _searchController = TextEditingController();
+  final TextEditingController _searchController =
+      TextEditingController(text: "");
   bool _isLoggedIn;
 
   @override
@@ -60,22 +60,70 @@ class _SearchScreenState extends State<SearchScreen> {
           padding:
               EdgeInsets.symmetric(vertical: Dimensions.PADDING_SIZE_SMALL),
           child: GetBuilder<SearchController>(builder: (searchController) {
-            _searchController.text = searchController.searchText;
+            // _searchController.text = searchController.searchText;
             return Column(children: [
               Container(
                 padding: EdgeInsets.symmetric(
                     horizontal: Dimensions.blockscreenHorizontal * 2),
                 child: Row(children: [
                   Expanded(
-                      child: SearchField(
-                    controller: _searchController,
-                    hint: 'search_food_or_restaurant'.tr,
-                    suffixIcon: !searchController.isSearchMode
-                        ? Icons.filter_list
-                        : Icons.search,
-                    iconPressed: () => _actionSearch(searchController, false),
-                    onSubmit: (text) => _actionSearch(searchController, true),
-                  )),
+                      child: TextField(
+                          controller: _searchController,
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(fontSize: Dimensions.fontSizeLarge),
+                          textInputAction: TextInputAction.search,
+                          cursorColor: Theme.of(context).primaryColor,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                              hintText: 'search_item_in_store'.tr,
+                              hintStyle: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(
+                                      fontSize: Dimensions.fontSizeLarge,
+                                      color: Theme.of(context).hintColor),
+                              isDense: true,
+                              contentPadding:
+                                  EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                              border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.RADIUS_SMALL),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context)
+                                        .primaryColor
+                                        .withOpacity(0.3),
+                                    width: 1),
+                              ),
+                              enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(
+                                    Dimensions.RADIUS_SMALL),
+                                borderSide: BorderSide(
+                                    color: Theme.of(context).disabledColor,
+                                    width: 1),
+                              ),
+                              suffixIcon: !searchController.isSearchMode
+                                  ? IconButton(
+                                      icon: Icon(Icons.filter_list,
+                                          color: Theme.of(context).dividerColor,
+                                          size: 25),
+                                      onPressed: () {
+                                        _actionSearch(searchController, false);
+                                        clearSearch();
+                                        // _searchController.text = "";
+                                      })
+                                  : IconButton(
+                                      icon: Icon(Icons.search,
+                                          color: Theme.of(context).dividerColor,
+                                          size: 25),
+                                      onPressed: () {
+                                        _actionSearch(searchController, false);
+                                        clearSearch();
+                                        // _searchController.text = "";
+                                      })),
+                          onSubmitted: (text) {
+                            _actionSearch(searchController, true);
+                            clearSearch();
+                          })),
                 ]),
               ),
               Expanded(
@@ -228,5 +276,9 @@ class _SearchScreenState extends State<SearchScreen> {
       Get.dialog(FilterWidget(
           maxValue: _maxValue, isRestaurant: searchController.isRestaurant));
     }
+  }
+
+  void clearSearch() {
+    _searchController.clear();
   }
 }

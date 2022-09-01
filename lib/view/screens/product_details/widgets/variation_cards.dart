@@ -86,6 +86,10 @@ class VariationCards extends StatelessWidget {
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                              color:
+                                  productController.variationIndex[index] == i
+                                      ? Colors.white
+                                      : Theme.of(context).dividerColor,
                               fontSize: Dimensions.blockscreenHorizontal * 4),
                         ),
                         Expanded(child: SizedBox()),
@@ -95,7 +99,9 @@ class VariationCards extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
                                 color:
-                                    Theme.of(context).textTheme.bodyText1.color,
+                                    productController.variationIndex[index] == i
+                                        ? Colors.white
+                                        : Theme.of(context).dividerColor,
                               ),
                         ),
                       ],

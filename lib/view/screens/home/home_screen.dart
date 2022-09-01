@@ -56,10 +56,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     // init();
-    if (homeController.isFirstTimeLoad) {
-      homeController.loadData(false);
-    }
-    cartController.update();
+    homeController.loadData(false);
   }
 
   void init() async {

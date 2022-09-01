@@ -66,7 +66,7 @@ class Theme1HomeScreen extends StatelessWidget {
                         builder: (locationController) {
                       return Row(
                         crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           InkWell(
                             onTap: () => Get.toNamed(
@@ -109,15 +109,21 @@ class Theme1HomeScreen extends StatelessWidget {
                                         Get.toNamed(RouteHelper.getCartRoute()),
                                     child: Badge(
                                       showBadge: true,
-                                      badgeColor:
-                                          Theme.of(context).primaryColor,
+                                      position: Get.locale.languageCode == "en"
+                                          ? BadgePosition.topEnd()
+                                          : BadgePosition.topStart(top: -5),
+                                      padding: EdgeInsets.all(8),
+                                      elevation: 0,
+                                      badgeColor: Colors.red,
                                       badgeContent: Center(
                                         child: Text(
                                           cartController.cartList.length
                                               .toString(),
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
-                                              .copyWith(color: Colors.white),
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
                                         ),
                                       ),
                                       child: SvgPicture.asset(

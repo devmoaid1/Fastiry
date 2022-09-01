@@ -1,4 +1,5 @@
 import 'package:efood_multivendor/controller/search_controller.dart';
+import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/view/base/custom_loader.dart';
 import 'package:efood_multivendor/view/base/product_widget.dart';
 import 'package:flutter/material.dart';
@@ -26,6 +27,8 @@ class ItemView extends StatelessWidget {
             );
           } else {
             return ListView.builder(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.blockscreenVertical * 2),
                 itemCount: isRestaurant
                     ? searchController.searchRestList.length
                     : searchController.searchProductList.length,

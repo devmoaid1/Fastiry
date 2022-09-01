@@ -17,7 +17,7 @@ class AddressMapCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: Dimensions.screeHeight * 0.35,
+        height: Dimensions.screeHeight * 0.40,
         decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
             border: Border.all(
@@ -56,13 +56,17 @@ class AddressMapCard extends StatelessWidget {
                                                 null
                                             ? locationController
                                                 .selectedAddress.latitude
-                                            : ' 0'),
+                                            : locationController
+                                                .getUserAddress()
+                                                .latitude),
                                     double.parse(
                                         locationController.selectedAddress !=
                                                 null
                                             ? locationController
                                                 .selectedAddress.latitude
-                                            : ' 0'))),
+                                            : locationController
+                                                .getUserAddress()
+                                                .latitude))),
                             true);
                       },
                       indoorViewEnabled: true,
@@ -71,8 +75,8 @@ class AddressMapCard extends StatelessWidget {
                       onMapCreated: (GoogleMapController controller) {
                         locationController.setMapController(controller);
 
-                        locationController.getCurrentLocation(true,
-                            mapController: controller);
+                        // locationController.getCurrentLocation(true,
+                        //     mapController: controller);
                       }),
                 ),
                 locationController.loading

@@ -12,12 +12,13 @@ import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controller/cart_controller.dart';
+import '../../controller/wishlist_controller.dart';
 import '../model/body/social_customer.dart';
 
 class AuthRepo {
@@ -26,6 +27,7 @@ class AuthRepo {
   AuthRepo({@required this.apiClient, @required this.sharedPreferences});
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FacebookAuth _faceBookAuth = FacebookAuth.i;
+  final GoogleSignIn _googleAuth = GoogleSignIn();
 
   Future<Response> registration(SignUpBody signUpBody) async {
     return await apiClient.post(AppConstants.REGISTER_URI,
@@ -51,7 +53,7 @@ class AuthRepo {
   Future<GoogleResponse> signInWithGoogle() async {
     try {
       // Trigger the authentication flow
-      final GoogleSignInAccount googleUser = await GoogleSignIn().signIn();
+      final GoogleSignInAccount googleUser = await _googleAuth.signIn();
 
       // Obtain the auth details from the request
       final GoogleSignInAuthentication googleAuth =
@@ -68,7 +70,7 @@ class AuthRepo {
       final response = GoogleResponse(googleAuth.idToken, userCrediential);
       // Once signed in, return the UserCredential
       return response;
-    } on PlatformException catch (e) {
+    } on FirebaseAuthException catch (e) {
       print(e.message);
       throw e.message.toString();
     }
@@ -227,6 +229,10 @@ class AuthRepo {
     return sharedPreferences.containsKey(AppConstants.TOKEN);
   }
 
+  Future<bool> isGoogleUser() async {
+    return await _googleAuth.isSignedIn();
+  }
+
   bool clearSharedData() {
     if (!GetPlatform.isWeb) {
       FirebaseMessaging.instance.unsubscribeFromTopic(AppConstants.TOPIC);
@@ -289,5 +295,19 @@ class AuthRepo {
     await sharedPreferences.remove(AppConstants.USER_PASSWORD);
     await sharedPreferences.remove(AppConstants.USER_COUNTRY_CODE);
     return await sharedPreferences.remove(AppConstants.USER_NUMBER);
+  }
+
+  Future<void> googleSignOut() async {
+    final isGoogleLoggedIn = await _googleAuth.isSignedIn();
+    if (isGoogleLoggedIn) {
+      await _googleAuth.signOut();
+    }
+  }
+
+  Future<void> logout() async {
+    googleSignOut();
+    clearSharedData();
+    Get.find<CartController>().clearCartList();
+    Get.find<WishListController>().removeWishes();
   }
 }

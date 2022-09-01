@@ -150,7 +150,7 @@ class PopularStoreView1 extends StatelessWidget {
                                                         width: (Dimensions
                                                                     .blockscreenHorizontal *
                                                                 50) *
-                                                            0.6,
+                                                            0.8,
                                                         child: Text(
                                                           restaurant.name ?? '',
                                                           style: Get.find<
@@ -161,7 +161,7 @@ class PopularStoreView1 extends StatelessWidget {
                                                                       Dimensions
                                                                               .blockscreenHorizontal *
                                                                           4),
-                                                          maxLines: 1,
+                                                          maxLines: 2,
                                                           overflow: TextOverflow
                                                               .ellipsis,
                                                         ),

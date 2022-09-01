@@ -82,7 +82,7 @@ class ProductWidget extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Icon(Icons.delete, color: Colors.white),
-                      Text('remove from wishlist',
+                      Text("remove_wishList".tr,
                           style: Get.find<FontStyles>()
                               .poppinsRegular
                               .copyWith(color: Colors.white)),
@@ -334,7 +334,7 @@ class ProductWidget extends StatelessWidget {
                                     mainAxisAlignment: MainAxisAlignment.start,
                                     children: [
                                       Text(
-                                        restaurant.name,
+                                        restaurant.name ?? "",
                                         style: Get.find<FontStyles>()
                                             .poppinsMedium
                                             .copyWith(
@@ -349,7 +349,7 @@ class ProductWidget extends StatelessWidget {
                                           height:
                                               Dimensions.blockscreenVertical *
                                                   2),
-                                      Text(restaurant.address,
+                                      Text(restaurant.address ?? "",
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
                                               .copyWith(
@@ -552,7 +552,7 @@ class ProductWidget extends StatelessWidget {
                                                               .blockscreenHorizontal *
                                                           5.5,
                                                     ),
-                                                maxLines: 2,
+                                                maxLines: 1,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               isExistInCart
@@ -777,17 +777,21 @@ class ProductWidget extends StatelessWidget {
                                       children: [
                                         Row(
                                           children: [
-                                            Text(
-                                              product.name,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsMedium
-                                                  .copyWith(
-                                                    fontSize: Dimensions
-                                                            .blockscreenHorizontal *
-                                                        5.5,
-                                                  ),
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
+                                            Container(
+                                              width:
+                                                  Dimensions.screenWidth * 0.45,
+                                              child: Text(
+                                                product.name,
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsMedium
+                                                    .copyWith(
+                                                      fontSize: Dimensions
+                                                              .blockscreenHorizontal *
+                                                          5,
+                                                    ),
+                                                maxLines: 1,
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                             SizedBox(
                                               width: Dimensions
