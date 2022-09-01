@@ -124,16 +124,6 @@ class _SearchScreenState extends State<SearchScreen> {
                             _actionSearch(searchController, true);
                             clearSearch();
                           })),
-                  // Expanded(
-                  //     child: SearchField(
-                  //   controller: _searchController,
-                  //   hint: 'search_food_or_restaurant'.tr,
-                  //   suffixIcon: !searchController.isSearchMode
-                  //       ? Icons.filter_list
-                  //       : Icons.search,
-                  //   iconPressed: () => _actionSearch(searchController, false),
-                  //   onSubmit: (text) => _actionSearch(searchController, true),
-                  // )),
                 ]),
               ),
               Expanded(

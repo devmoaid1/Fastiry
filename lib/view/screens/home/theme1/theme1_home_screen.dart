@@ -111,22 +111,19 @@ class Theme1HomeScreen extends StatelessWidget {
                                       showBadge: true,
                                       position: Get.locale.languageCode == "en"
                                           ? BadgePosition.topEnd()
-                                          : BadgePosition.topStart(),
-                                      padding: EdgeInsets.all(0),
+                                          : BadgePosition.topStart(top: -5),
+                                      padding: EdgeInsets.all(8),
                                       elevation: 0,
-                                      badgeColor: Colors.transparent,
-                                      badgeContent: Container(
-                                        child: Center(
-                                          child: Text(
-                                            cartController.cartList.length
-                                                .toString(),
-                                            style: Get.find<FontStyles>()
-                                                .poppinsRegular
-                                                .copyWith(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    fontSize: 20),
-                                          ),
+                                      badgeColor: Colors.red,
+                                      badgeContent: Center(
+                                        child: Text(
+                                          cartController.cartList.length
+                                              .toString(),
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
                                         ),
                                       ),
                                       child: SvgPicture.asset(
