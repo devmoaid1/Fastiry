@@ -38,7 +38,8 @@ class DioConsumer extends GetxService implements ApiConsumer {
     }
   }
   @override
-  Future delete(String path, {Map<String, dynamic> queryParams}) async {
+  Future delete(String path,
+      {Map<String, dynamic> queryParams, Map<String, dynamic> headers}) async {
     try {
       final response = await client.delete(path, queryParameters: queryParams);
 
@@ -49,7 +50,8 @@ class DioConsumer extends GetxService implements ApiConsumer {
   }
 
   @override
-  Future get(String path, {Map<String, dynamic> queryParams}) async {
+  Future get(String path,
+      {Map<String, dynamic> queryParams, Map<String, dynamic> headers}) async {
     try {
       final response = await client.get(path, queryParameters: queryParams);
 
@@ -61,7 +63,9 @@ class DioConsumer extends GetxService implements ApiConsumer {
 
   @override
   Future post(String path,
-      {Map<String, dynamic> queryParams, Map<String, dynamic> body}) async {
+      {Map<String, dynamic> queryParams,
+      Map<String, dynamic> body,
+      Map<String, dynamic> headers}) async {
     try {
       final response =
           await client.post(path, queryParameters: queryParams, data: body);
@@ -74,7 +78,9 @@ class DioConsumer extends GetxService implements ApiConsumer {
 
   @override
   Future put(String path,
-      {Map<String, dynamic> queryParams, Map<String, dynamic> body}) async {
+      {Map<String, dynamic> queryParams,
+      Map<String, dynamic> body,
+      Map<String, dynamic> headers}) async {
     try {
       final response =
           await client.post(path, queryParameters: queryParams, data: body);

@@ -1,7 +1,6 @@
 // ignore_for_file: missing_return
 
 import 'dart:async';
-import 'dart:convert';
 
 import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/data/api/api_consumer.dart';
@@ -19,7 +18,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../controller/cart_controller.dart';
 import '../../controller/wishlist_controller.dart';
-import '../model/body/social_customer.dart';
 
 class AuthRepo {
   final ApiConsumer apiClient;
@@ -158,15 +156,15 @@ class AuthRepo {
     );
   }
 
-  Future<Response> checkEmail(String email) async {
-    return await apiClient
-        .post(AppConstants.CHECK_EMAIL_URI, body: {"email": email});
-  }
+  // Future<Response> checkEmail(String email) async {
+  //   return await apiClient
+  //       .post(AppConstants.CHECK_EMAIL_URI, body: {"email": email});
+  // }
 
-  Future<Response> verifyEmail(String email, String token) async {
-    return await apiClient.post(AppConstants.VERIFY_EMAIL_URI,
-        body: {"email": email, "token": token});
-  }
+  // Future<Response> verifyEmail(String email, String token) async {
+  //   return await apiClient.post(AppConstants.VERIFY_EMAIL_URI,
+  //       body: {"email": email, "token": token});
+  // }
 
   Future<Response> updateZone() async {
     return await apiClient.get(AppConstants.UPDATE_ZONE_URL);
@@ -187,38 +185,6 @@ class AuthRepo {
 
   String getUserToken() {
     return sharedPreferences.getString(AppConstants.TOKEN) ?? "";
-  }
-
-  void setSocialCustomer(SocialCustomer socialCustomer) {
-    List<String> data = [];
-    List<SocialCustomer> currentCustomers = getCurrentSocialCustomer();
-    if (currentCustomers.isEmpty) {
-      data.add(jsonEncode(socialCustomer.toJson()));
-    } else {
-      currentCustomers.forEach((element) {
-        String customer = jsonEncode(socialCustomer.toJson());
-
-        data.add(customer);
-      });
-    }
-    sharedPreferences.setStringList(AppConstants.socialUser, data);
-  }
-
-  List<SocialCustomer> getCurrentSocialCustomer() {
-    final isCustomerExist = checkSocialUser();
-    List<SocialCustomer> customers = [];
-    if (isCustomerExist) {
-      List<String> data =
-          sharedPreferences.getStringList(AppConstants.socialUser);
-      data.forEach((element) {
-        SocialCustomer socialCustomer =
-            SocialCustomer.fromJson(jsonDecode(element));
-        customers.add(socialCustomer);
-      });
-      return customers;
-    }
-
-    return [];
   }
 
   bool checkSocialUser() {

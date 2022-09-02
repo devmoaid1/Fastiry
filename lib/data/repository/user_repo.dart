@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/api/http_consumer.dart';
 import 'package:efood_multivendor/data/api/api_consumer.dart';
 import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
 import 'package:efood_multivendor/util/app_constants.dart';
@@ -9,7 +9,7 @@ import 'package:image_picker/image_picker.dart';
 
 class UserRepo {
   final ApiConsumer apiConsumer;
-  final ApiClient apiClient;
+  final HttpConumer apiClient;
   UserRepo({@required this.apiClient, @required this.apiConsumer});
 
   Future<Response> getUserInfo() async {
@@ -29,7 +29,7 @@ class UserRepo {
   }
 
   Future<Response> changePassword(UserInfoModel userInfoModel) async {
-    return await apiClient.postData(AppConstants.UPDATE_PROFILE_URI, {
+    return await apiClient.post(AppConstants.UPDATE_PROFILE_URI, body: {
       'f_name': userInfoModel.fName,
       'l_name': userInfoModel.lName,
       'email': userInfoModel.email,

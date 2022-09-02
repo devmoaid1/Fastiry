@@ -40,7 +40,7 @@ import 'package:efood_multivendor/data/repository/product_repo.dart';
 import 'package:efood_multivendor/data/repository/restaurant_repo.dart';
 import 'package:efood_multivendor/data/repository/search_repo.dart';
 import 'package:efood_multivendor/data/repository/splash_repo.dart';
-import 'package:efood_multivendor/data/api/api_client.dart';
+import 'package:efood_multivendor/data/api/http_consumer.dart';
 import 'package:efood_multivendor/data/repository/user_repo.dart';
 import 'package:efood_multivendor/data/repository/wallet_repo.dart';
 import 'package:efood_multivendor/data/repository/wishlist_repo.dart';
@@ -60,7 +60,7 @@ Future<Map<String, Map<String, String>>> init() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   Get.lazyPut(() => sharedPreferences);
   Get.lazyPut(() => Dio());
-  Get.lazyPut(() => ApiClient(
+  Get.lazyPut(() => HttpConumer(
       appBaseUrl: AppConstants.BASE_URL, sharedPreferences: Get.find()));
 
   Get.lazyPut<ApiConsumer>(() => DioConsumer(client: Get.find()));

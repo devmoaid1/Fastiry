@@ -297,37 +297,37 @@ class AuthController extends GetxController implements GetxService {
     return responseModel;
   }
 
-  Future<ResponseModel> checkEmail(String email) async {
-    _isLoading = true;
-    update();
-    Response response = await authRepo.checkEmail(email);
-    ResponseModel responseModel;
-    if (response.statusCode == 200) {
-      responseModel = ResponseModel(true, response.body["token"]);
-    } else {
-      responseModel = ResponseModel(false, response.statusText);
-    }
-    _isLoading = false;
-    update();
-    return responseModel;
-  }
+  // Future<ResponseModel> checkEmail(String email) async {
+  //   _isLoading = true;
+  //   update();
+  //   Response response = await authRepo.checkEmail(email);
+  //   ResponseModel responseModel;
+  //   if (response.statusCode == 200) {
+  //     responseModel = ResponseModel(true, response.body["token"]);
+  //   } else {
+  //     responseModel = ResponseModel(false, response.statusText);
+  //   }
+  //   _isLoading = false;
+  //   update();
+  //   return responseModel;
+  // }
 
-  Future<ResponseModel> verifyEmail(String email, String token) async {
-    _isLoading = true;
-    update();
-    Response response = await authRepo.verifyEmail(email, _verificationCode);
-    ResponseModel responseModel;
-    if (response.statusCode == 200) {
-      authRepo.saveUserToken(token);
-      await authRepo.updateToken();
-      responseModel = ResponseModel(true, response.body["message"]);
-    } else {
-      responseModel = ResponseModel(false, response.statusText);
-    }
-    _isLoading = false;
-    update();
-    return responseModel;
-  }
+  // Future<ResponseModel> verifyEmail(String email, String token) async {
+  //   _isLoading = true;
+  //   update();
+  //   Response response = await authRepo.verifyEmail(email, _verificationCode);
+  //   ResponseModel responseModel;
+  //   if (response.statusCode == 200) {
+  //     authRepo.saveUserToken(token);
+  //     await authRepo.updateToken();
+  //     responseModel = ResponseModel(true, response.body["message"]);
+  //   } else {
+  //     responseModel = ResponseModel(false, response.statusText);
+  //   }
+  //   _isLoading = false;
+  //   update();
+  //   return responseModel;
+  // }
 
   Future<ResponseModel> verifyPhone(String phone, String token) async {
     _isLoading = true;
@@ -434,13 +434,5 @@ class AuthController extends GetxController implements GetxService {
 
   bool isSocialUserExist() {
     return authRepo.checkSocialUser();
-  }
-
-  List<SocialCustomer> getCurrentSocialCustomer() {
-    return authRepo.getCurrentSocialCustomer();
-  }
-
-  void setSocialCustomer(SocialCustomer socialCustomer) {
-    authRepo.setSocialCustomer(socialCustomer);
   }
 }
