@@ -155,9 +155,9 @@ class Theme1HomeScreen extends StatelessWidget {
                         ? NotLoggedCard()
                         : SizedBox(),
                     FastiryOptions(),
-                    PopularStoreView1(isPopular: false),
                     BannerView1(),
                     CategoryView1(),
+                    PopularStoreView1(isPopular: false),
                     ItemCampaignView1(),
                     // BestReviewedItemView(),
                     // PopularStoreView1(isPopular: true),

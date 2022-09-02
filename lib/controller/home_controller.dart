@@ -36,15 +36,15 @@ class HomeController extends GetxController implements GetxService {
   Future<void> loadData(bool reload) async {
     setIsLoading(true);
 
+    restaurantController.getRestaurantDetails(Restaurant(id: 12));
+    await bannerController.getBannerList(reload);
+    await categoryController.getCategoryList(reload);
     if (splashController.configModel.popularRestaurant == 1) {
       await restaurantController.getPopularRestaurantList(reload, 'all', false);
     }
     if (splashController.configModel.newRestaurant == 1) {
       await restaurantController.getLatestRestaurantList(reload, 'all', false);
     }
-    await bannerController.getBannerList(reload);
-    await categoryController.getCategoryList(reload);
-    restaurantController.getRestaurantDetails(Restaurant(id: 12));
     // if (splashController.configModel.popularFood == 1) {
     //   await productController.getPopularProductList(reload, 'all', false);
     // }
