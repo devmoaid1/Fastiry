@@ -10,6 +10,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'helper/get_di.dart' as di;
+import 'package:flutter/services.dart';
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -37,7 +38,8 @@ Future<void> main() async {
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
     }
   } catch (e) {}
-
+  SystemChrome.setPreferredOrientations(
+      [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(FastiryApp(languages: _languages, orderID: _orderID));
 }
 
