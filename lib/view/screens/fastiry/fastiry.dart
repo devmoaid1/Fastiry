@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -52,7 +51,6 @@ class FastiryApp extends StatelessWidget {
                     key: UniqueKey(),
                     title: AppConstants.APP_NAME,
                     debugShowCheckedModeBanner: false,
-                    builder: DevicePreview.appBuilder,
                     navigatorKey: Get.key,
                     scrollBehavior: MaterialScrollBehavior().copyWith(
                       dragDevices: {
