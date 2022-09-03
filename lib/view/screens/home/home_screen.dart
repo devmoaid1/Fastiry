@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void init() async {
     await homeController.loadData(false);
-  }
+  } 
 
   @override
   Widget build(BuildContext context) {

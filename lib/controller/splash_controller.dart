@@ -71,7 +71,7 @@ class SplashController extends GetxController implements GetxService {
 
     getConfigData().then((isSuccess) {
       if (isSuccess) {
-        Timer(Duration(seconds: 4), () async {
+        Timer(Duration(seconds: 2), () async {
           int _minimumVersion = 0;
           handleAppVersion(_minimumVersion); // set the version based on the os
 
