@@ -53,10 +53,6 @@ class CategoryView1 extends StatelessWidget {
                                   final category =
                                       categoryController.categoryList[index];
 
-                                  if (category.name == "Grocery" ||
-                                      category.name == "بقالة") {
-                                    return SizedBox();
-                                  }
                                   return CategoryCard(
                                     category: category,
                                     fromMartScreen: false,

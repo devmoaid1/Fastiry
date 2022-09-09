@@ -24,7 +24,11 @@ class CategoryCard extends StatelessWidget {
     return InkWell(
       onTap: () => Get.toNamed(RouteHelper.getCategoryProductRoute(
         category.id,
-        category.name,
+        !fromMartScreen
+            ? category.name
+            : Get.locale.languageCode == "en"
+                ? category.name
+                : category.translations[0].value,
       )),
       child: Container(
         margin: EdgeInsets.only(right: Dimensions.blockscreenHorizontal * 5),
@@ -67,7 +71,11 @@ class CategoryCard extends StatelessWidget {
               vertical: Dimensions.blockscreenVertical * 1.5,
             ),
             child: Text(
-              category.name,
+              !fromMartScreen
+                  ? category.name
+                  : Get.locale.languageCode == "en"
+                      ? category.name
+                      : category.translations[0].value,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,

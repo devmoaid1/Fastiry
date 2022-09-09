@@ -1,8 +1,9 @@
 import 'package:efood_multivendor/data/model/response/category_model.dart';
-import 'package:efood_multivendor/helper/subCategory_image_detector.dart';
+import 'package:efood_multivendor/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../../controller/splash_controller.dart';
 import '../../../../helper/route_helper.dart';
 import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
@@ -16,7 +17,9 @@ class MartCategoryCard extends StatelessWidget {
     return InkWell(
       onTap: () => Get.toNamed(RouteHelper.getCategoryProductRoute(
         category.id,
-        category.name,
+        Get.locale.languageCode == "en"
+            ? category.name
+            : category.translations[0].value,
       )),
       child: Container(
         decoration: BoxDecoration(
@@ -26,8 +29,10 @@ class MartCategoryCard extends StatelessWidget {
           children: [
             ClipRRect(
               borderRadius: BorderRadius.circular(8),
-              child: Image.asset(
-                getSubCategoryImage(category.name),
+              child: CustomImage(
+                image:
+                    '${Get.find<SplashController>().configModel.baseUrls.categoryImageUrl}/${category.image}',
+
                 fit: BoxFit.fill,
                 height: Dimensions.blockscreenVertical * 10,
                 //
@@ -37,7 +42,9 @@ class MartCategoryCard extends StatelessWidget {
               height: 4,
             ),
             Text(
-              category.name,
+              Get.locale.languageCode == "en"
+                  ? category.name
+                  : category.translations[0].value,
               textAlign: TextAlign.center,
               maxLines: 2,
               style: Get.find<FontStyles>().poppinsRegular,

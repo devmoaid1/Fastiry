@@ -1,15 +1,15 @@
 import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/theme/font_styles.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
+import 'package:efood_multivendor/view/base/custom_loader.dart';
 import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/base/product_widget.dart';
-import 'package:efood_multivendor/view/base/veg_filter_widget.dart';
 import 'package:efood_multivendor/view/base/web_menu_bar.dart';
+import 'package:efood_multivendor/view/screens/category/category_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+
+import '../../base/product_widget.dart';
 
 class CategoryProductScreen extends StatefulWidget {
   final String categoryID;
@@ -25,89 +25,91 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
     with TickerProviderStateMixin {
   final ScrollController scrollController = ScrollController();
   final ScrollController restaurantScrollController = ScrollController();
-
+  final textEditingController = TextEditingController();
   TabController _tabController;
 
   @override
   void initState() {
     super.initState();
-
-    _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
-    Get.find<CategoryController>().getSubCategoryList(widget.categoryID);
-    scrollController?.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent &&
-          Get.find<CategoryController>().categoryProductList != null &&
-          !Get.find<CategoryController>().isLoading) {
-        int pageSize = (Get.find<CategoryController>().pageSize / 10).ceil();
-        if (Get.find<CategoryController>().offset < pageSize) {
-          print('end of the page');
-          Get.find<CategoryController>().showBottomLoader();
-          Get.find<CategoryController>().getCategoryProductList(
-            Get.find<CategoryController>().subCategoryIndex == 0
-                ? widget.categoryID
-                : Get.find<CategoryController>()
-                    .subCategoryList[
-                        Get.find<CategoryController>().subCategoryIndex]
-                    .id
-                    .toString(),
-            Get.find<CategoryController>().offset + 1,
-            Get.find<CategoryController>().type,
-            false,
-          );
-        }
-      }
+    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
+      Get.find<CategoryViewModel>().initCategoryScreen(widget.categoryID);
     });
-    restaurantScrollController?.addListener(() {
-      if (scrollController.position.pixels ==
-              scrollController.position.maxScrollExtent &&
-          Get.find<CategoryController>().categoryRestList != null &&
-          !Get.find<CategoryController>().isLoading) {
-        int pageSize =
-            (Get.find<CategoryController>().restPageSize / 10).ceil();
-        if (Get.find<CategoryController>().offset < pageSize) {
-          print('end of the page');
-          Get.find<CategoryController>().showBottomLoader();
-          Get.find<CategoryController>().getCategoryRestaurantList(
-            Get.find<CategoryController>().subCategoryIndex == 0
-                ? widget.categoryID
-                : Get.find<CategoryController>()
-                    .subCategoryList[
-                        Get.find<CategoryController>().subCategoryIndex]
-                    .id
-                    .toString(),
-            Get.find<CategoryController>().offset + 1,
-            Get.find<CategoryController>().type,
-            false,
-          );
-        }
-      }
-    });
+    // _tabController = TabController(length: 2, initialIndex: 0, vsync: this);
+    // Get.find<CategoryController>().getSubCategoryList(widget.categoryID);
+    // scrollController?.addListener(() {
+    //   if (scrollController.position.pixels ==
+    //           scrollController.position.maxScrollExtent &&
+    //       Get.find<CategoryController>().categoryProductList != null &&
+    //       !Get.find<CategoryController>().isLoading) {
+    //     int pageSize = (Get.find<CategoryController>().pageSize / 10).ceil();
+    //     if (Get.find<CategoryController>().offset < pageSize) {
+    //       print('end of the page');
+    //       Get.find<CategoryController>().showBottomLoader();
+    //       Get.find<CategoryController>().getCategoryProductList(
+    //         Get.find<CategoryController>().subCategoryIndex == 0
+    //             ? widget.categoryID
+    //             : Get.find<CategoryController>()
+    //                 .subCategoryList[
+    //                     Get.find<CategoryController>().subCategoryIndex]
+    //                 .id
+    //                 .toString(),
+    //         Get.find<CategoryController>().offset + 1,
+    //         Get.find<CategoryController>().type,
+    //         false,
+    //       );
+    //     }
+    //   }
+    // });
+    // restaurantScrollController?.addListener(() {
+    //   if (scrollController.position.pixels ==
+    //           scrollController.position.maxScrollExtent &&
+    //       Get.find<CategoryController>().categoryRestList != null &&
+    //       !Get.find<CategoryController>().isLoading) {
+    //     int pageSize =
+    //         (Get.find<CategoryController>().restPageSize / 10).ceil();
+    //     if (Get.find<CategoryController>().offset < pageSize) {
+    //       print('end of the page');
+    //       Get.find<CategoryController>().showBottomLoader();
+    //       Get.find<CategoryController>().getCategoryRestaurantList(
+    //         Get.find<CategoryController>().subCategoryIndex == 0
+    //             ? widget.categoryID
+    //             : Get.find<CategoryController>()
+    //                 .subCategoryList[
+    //                     Get.find<CategoryController>().subCategoryIndex]
+    //                 .id
+    //                 .toString(),
+    //         Get.find<CategoryController>().offset + 1,
+    //         Get.find<CategoryController>().type,
+    //         false,
+    //       );
+    //     }
+    //   }
+    // });
   }
 
   @override
   Widget build(BuildContext context) {
     return GetBuilder<CategoryController>(builder: (categoryController) {
-      List<Product> _products;
-      List<Restaurant> _restaurants;
-      if (categoryController.categoryProductList != null &&
-          categoryController.searchProductList != null) {
-        _products = [];
-        if (categoryController.isSearching) {
-          _products.addAll(categoryController.searchProductList);
-        } else {
-          _products.addAll(categoryController.categoryProductList);
-        }
-      }
-      if (categoryController.categoryRestList != null &&
-          categoryController.searchRestList != null) {
-        _restaurants = [];
-        if (categoryController.isSearching) {
-          _restaurants.addAll(categoryController.searchRestList);
-        } else {
-          _restaurants.addAll(categoryController.categoryRestList);
-        }
-      }
+      // List<Product> _products;
+      // List<Restaurant> _restaurants;
+      // if (categoryController.categoryProductList != null &&
+      //     categoryController.searchProductList != null) {
+      //   _products = [];
+      //   if (categoryController.isSearching) {
+      //     _products.addAll(categoryController.searchProductList);
+      //   } else {
+      //     _products.addAll(categoryController.categoryProductList);
+      //   }
+      // }
+      // if (categoryController.categoryRestList != null &&
+      //     categoryController.searchRestList != null) {
+      //   _restaurants = [];
+      //   if (categoryController.isSearching) {
+      //     _restaurants.addAll(categoryController.searchRestList);
+      //   } else {
+      //     _restaurants.addAll(categoryController.categoryRestList);
+      //   }
+      // }
 
       return WillPopScope(
         onWillPop: () async {
@@ -125,28 +127,30 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
               : AppBar(
                   title: categoryController.isSearching
                       ? TextField(
+                          controller: textEditingController,
                           autofocus: true,
                           textInputAction: TextInputAction.search,
                           decoration: InputDecoration(
-                            hintText: 'Search...',
+                            hintText: 'search_products'.tr,
                             border: InputBorder.none,
                           ),
                           style: Get.find<FontStyles>()
                               .poppinsRegular
                               .copyWith(fontSize: Dimensions.fontSizeLarge),
-                          onSubmitted: (String query) =>
-                              categoryController.searchData(
-                            query,
-                            categoryController.subCategoryIndex == 0
-                                ? widget.categoryID
-                                : categoryController
-                                    .subCategoryList[
-                                        categoryController.subCategoryIndex]
-                                    .id
-                                    .toString(),
-                            categoryController.type,
-                          ),
-                        )
+                          onSubmitted: (String query) {
+                            categoryController.searchData(
+                              query,
+                              categoryController.subCategoryIndex == 0
+                                  ? widget.categoryID
+                                  : categoryController
+                                      .subCategoryList[
+                                          categoryController.subCategoryIndex]
+                                      .id
+                                      .toString(),
+                              categoryController.type,
+                            );
+                            textEditingController.clear();
+                          })
                       : Text(widget.categoryName,
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
                                 fontSize: Dimensions.fontSizeLarge,
@@ -161,7 +165,6 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                       if (categoryController.isSearching) {
                         categoryController.toggleSearch();
                       } else {
-                        categoryController.getSubCategoryList("15");
                         Get.back();
                       }
                     },
@@ -180,216 +183,128 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                     ),
                   ],
                 ),
-          body: SizedBox(
-            width: Dimensions.WEB_MAX_WIDTH,
-            child: Column(children: [
-              Center(
-                  child: Container(
+          body: GetBuilder<CategoryViewModel>(builder: (categoryViewModel) {
+            if (categoryController.isSearching) {
+              if (categoryController.searchProductList == null) {
+                return Container();
+              } else {
+                if (categoryController.searchProductList.isEmpty) {
+                  return Center(
+                      child: NoDataScreen(text: "no_food_available".tr));
+                } else {
+                  return ListView.builder(
+                      itemCount: categoryController.searchProductList.length,
+                      shrinkWrap: true,
+                      itemBuilder: (context, index) {
+                        return ProductWidget(
+                          product: categoryController.searchProductList[index],
+                          isRestaurant: false,
+                          restaurant: null,
+                          index: index,
+                          length: categoryController.searchProductList.length,
+                          inRestaurant: true,
+                          isCampaign: false,
+                        );
+                      });
+                }
+              }
+            } else {
+              if (categoryViewModel.isLoading) {
+                return Center(child: CustomLoader());
+              }
+              return SizedBox(
                 width: Dimensions.WEB_MAX_WIDTH,
-                color: Theme.of(context).backgroundColor,
-                child: TabBar(
-                  controller: _tabController,
-                  indicatorColor: Theme.of(context).primaryColor,
-                  indicatorWeight: 3,
-                  labelColor: Theme.of(context).primaryColor,
-                  unselectedLabelColor: Theme.of(context).disabledColor,
-                  unselectedLabelStyle: Get.find<FontStyles>()
-                      .poppinsRegular
-                      .copyWith(
-                          color: Theme.of(context).disabledColor,
-                          fontSize: Dimensions.fontSizeSmall),
-                  labelStyle: Get.find<FontStyles>().poppinsBold.copyWith(
-                      fontSize: Dimensions.fontSizeSmall,
-                      color: Theme.of(context).primaryColor),
-                  tabs: [
-                    Tab(text: 'food'.tr),
-                    Tab(text: 'restaurants'.tr),
-                  ],
-                ),
-              )),
-              VegFilterWidget(
-                  type: categoryController.type,
-                  onSelected: (String type) {
-                    if (categoryController.isSearching) {
-                      categoryController.searchData(
-                        categoryController.subCategoryIndex == 0
-                            ? widget.categoryID
-                            : categoryController
-                                .subCategoryList[
-                                    categoryController.subCategoryIndex]
-                                .id
-                                .toString(),
-                        '1',
-                        type,
-                      );
-                    } else {
-                      if (categoryController.isRestaurant) {
-                        categoryController.getCategoryRestaurantList(
-                          categoryController.subCategoryIndex == 0
-                              ? widget.categoryID
-                              : categoryController
-                                  .subCategoryList[
-                                      categoryController.subCategoryIndex]
-                                  .id
-                                  .toString(),
-                          1,
-                          type,
-                          true,
-                        );
-                      } else {
-                        categoryController.getCategoryProductList(
-                          categoryController.subCategoryIndex == 0
-                              ? widget.categoryID
-                              : categoryController
-                                  .subCategoryList[
-                                      categoryController.subCategoryIndex]
-                                  .id
-                                  .toString(),
-                          1,
-                          type,
-                          true,
-                        );
-                      }
-                    }
-                  }),
-              Expanded(
-                  child: NotificationListener(
-                onNotification: (scrollNotification) {
-                  if (scrollNotification is ScrollEndNotification) {
-                    if ((_tabController.index == 1 &&
-                            !categoryController.isRestaurant) ||
-                        _tabController.index == 0 &&
-                            categoryController.isRestaurant) {
-                      categoryController
-                          .setRestaurant(_tabController.index == 1);
-                      if (categoryController.isSearching) {
-                        categoryController.searchData(
-                          categoryController.searchText,
-                          categoryController.subCategoryIndex == 0
-                              ? widget.categoryID
-                              : categoryController
-                                  .subCategoryList[
-                                      categoryController.subCategoryIndex]
-                                  .id
-                                  .toString(),
-                          categoryController.type,
-                        );
-                      } else {
-                        if (_tabController.index == 1) {
-                          categoryController.getCategoryRestaurantList(
-                            categoryController.subCategoryIndex == 0
-                                ? widget.categoryID
-                                : categoryController
-                                    .subCategoryList[
-                                        categoryController.subCategoryIndex]
-                                    .id
-                                    .toString(),
-                            1,
-                            categoryController.type,
-                            false,
-                          );
-                        } else {
-                          categoryController.getCategoryProductList(
-                            categoryController.subCategoryIndex == 0
-                                ? widget.categoryID
-                                : categoryController
-                                    .subCategoryList[
-                                        categoryController.subCategoryIndex]
-                                    .id
-                                    .toString(),
-                            1,
-                            categoryController.type,
-                            false,
-                          );
-                        }
-                      }
-                    }
-                  }
-                  return false;
-                },
-                child: TabBarView(
-                  controller: _tabController,
-                  children: [
-                    _products != null
-                        ? _products.isNotEmpty
-                            ? ListView.builder(
-                                controller: scrollController,
-                                padding: EdgeInsets.symmetric(
-                                    vertical:
-                                        Dimensions.blockscreenVertical * 2,
-                                    horizontal:
-                                        Dimensions.blockscreenHorizontal * 2),
-                                itemCount: _products.length,
-                                itemBuilder: ((context, index) {
-                                  return ProductWidget(
-                                    product: _products[index],
-                                    isRestaurant: false,
-                                    restaurant: null,
-                                    index: index,
-                                    length: _products.length,
-                                    inRestaurant: true,
-                                    isCampaign: false,
-                                  );
-                                }))
-                            : SingleChildScrollView(
-                                child: Padding(
-                                    padding: EdgeInsets.symmetric(
-                                        vertical:
-                                            Dimensions.blockscreenVertical *
-                                                12),
-                                    child: NoDataScreen(
-                                        text: "no_food_available".tr)),
-                              )
-                        : Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ),
-                    _restaurants != null
-                        ? _restaurants.isNotEmpty
-                            ? ListView.builder(
-                                controller: restaurantScrollController,
-                                padding: EdgeInsets.symmetric(
-                                    vertical:
-                                        Dimensions.blockscreenVertical * 2,
-                                    horizontal:
-                                        Dimensions.blockscreenHorizontal * 2),
-                                itemCount: _restaurants.length,
-                                itemBuilder: ((context, index) {
-                                  return ProductWidget(
-                                    product: null,
-                                    isRestaurant: true,
-                                    restaurant: _restaurants[index],
-                                    index: index,
-                                    length: _restaurants.length,
-                                    inRestaurant: true,
-                                    isCampaign: false,
-                                  );
-                                }))
-                            : SingleChildScrollView(
-                                child: Padding(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                          height: Dimensions.blockscreenVertical * 7,
+                          child: ListView.builder(
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: categoryViewModel.subCategories.length,
+                              itemBuilder: (context, index) => GestureDetector(
+                                    onTap: () =>
+                                        categoryViewModel.setSubCategoryIndex(
+                                            index,
+                                            categoryViewModel
+                                                .subCategories[index].id
+                                                .toString()),
+                                    child: Container(
+                                        height: 20,
+                                        margin:
+                                            EdgeInsets.symmetric(horizontal: 5),
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color: categoryViewModel.subCategoryIndex == index
+                                                ? Theme.of(context).primaryColor
+                                                : Theme.of(context)
+                                                    .backgroundColor,
+                                            border: categoryViewModel
+                                                        .subCategoryIndex ==
+                                                    index
+                                                ? Border.all(
+                                                    color: Theme.of(context)
+                                                        .primaryColor)
+                                                : Border.all(
+                                                    color: Theme.of(context)
+                                                        .disabledColor)),
+                                        padding: EdgeInsets.symmetric(
+                                            vertical:
+                                                Dimensions.blockscreenVertical * 2,
+                                            horizontal: Dimensions.blockscreenHorizontal * 4),
+                                        child: Text(
+                                          categoryViewModel
+                                              .subCategories[index].name,
+                                          style: Get.find<FontStyles>()
+                                              .poppinsRegular
+                                              .copyWith(
+                                                  color: categoryViewModel
+                                                              .subCategoryIndex ==
+                                                          index
+                                                      ? Colors.white
+                                                      : Theme.of(context)
+                                                          .disabledColor),
+                                          maxLines: 2,
+                                        )),
+                                  ))),
+                      SizedBox(
+                        height: Dimensions.blockscreenVertical * 2,
+                      ),
+                      categoryViewModel.secondaryLoading
+                          ? Center(
+                              child: CustomLoader(),
+                            )
+                          : categoryViewModel.categoryProducts.isNotEmpty
+                              ? Expanded(
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: categoryViewModel
+                                          .categoryProducts.length,
+                                      itemBuilder: (context, index) {
+                                        return ProductWidget(
+                                          product: categoryViewModel
+                                              .categoryProducts[index],
+                                          isRestaurant: false,
+                                          restaurant: null,
+                                          index: index,
+                                          length: categoryViewModel
+                                              .categoryProducts.length,
+                                          inRestaurant: true,
+                                          isCampaign: false,
+                                        );
+                                      }))
+                              : Padding(
                                   padding: EdgeInsets.symmetric(
                                       vertical:
-                                          Dimensions.blockscreenVertical * 12),
-                                  child: NoDataScreen(
-                                      text: 'no_restaurant_available'.tr),
-                                ),
-                              )
-                        : Center(
-                            child: CircularProgressIndicator.adaptive(),
-                          ),
-                  ],
-                ),
-              )),
-              categoryController.isLoading
-                  ? Center(
-                      child: Padding(
-                      padding: EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      child: CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                              Theme.of(context).primaryColor)),
-                    ))
-                  : SizedBox(),
-            ]),
-          ),
+                                          Dimensions.blockscreenVertical * 7),
+                                  child: Center(child: CustomLoader()),
+                                )
+                    ]),
+              );
+            }
+          }),
         ),
       );
     });

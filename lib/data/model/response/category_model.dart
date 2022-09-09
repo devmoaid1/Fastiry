@@ -1,3 +1,5 @@
+import 'package:efood_multivendor/data/model/response/translation.dart';
+
 class CategoryModel {
   int _id;
   String _name;
@@ -7,16 +9,18 @@ class CategoryModel {
   String _createdAt;
   String _updatedAt;
   String _image;
+  List<Translation> _translations;
 
   CategoryModel(
       {int id,
-        String name,
-        int parentId,
-        int position,
-        int status,
-        String createdAt,
-        String updatedAt,
-        String image}) {
+      String name,
+      int parentId,
+      int position,
+      int status,
+      String createdAt,
+      String updatedAt,
+      List<Translation> translations,
+      String image}) {
     this._id = id;
     this._name = name;
     this._parentId = parentId;
@@ -25,6 +29,7 @@ class CategoryModel {
     this._createdAt = createdAt;
     this._updatedAt = updatedAt;
     this._image = image;
+    this._translations = translations;
   }
 
   int get id => _id;
@@ -35,7 +40,7 @@ class CategoryModel {
   String get createdAt => _createdAt;
   String get updatedAt => _updatedAt;
   String get image => _image;
-
+  List<Translation> get translations => _translations;
   CategoryModel.fromJson(Map<String, dynamic> json) {
     _id = json['id'];
     _name = json['name'];
@@ -45,6 +50,12 @@ class CategoryModel {
     _createdAt = json['created_at'];
     _updatedAt = json['updated_at'];
     _image = json['image'];
+    if (json['translations'] != null) {
+      _translations = <Translation>[];
+      json['translations'].forEach((v) {
+        _translations.add(Translation.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -57,6 +68,11 @@ class CategoryModel {
     data['created_at'] = this._createdAt;
     data['updated_at'] = this._updatedAt;
     data['image'] = this._image;
+
+    if (this._translations != null) {
+      data['translations'] = this._translations.map((v) => v.toJson()).toList();
+    }
+
     return data;
   }
 }

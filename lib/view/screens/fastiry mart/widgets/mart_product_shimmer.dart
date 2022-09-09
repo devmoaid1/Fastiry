@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
+import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';
 
@@ -6,9 +6,9 @@ import '../../../../util/dimensions.dart';
 
 class MartProductShimmer extends StatelessWidget {
   final int index;
-  final CategoryController categoryController;
+  final MartViewModel martViewModel;
   const MartProductShimmer(
-      {Key key, @required this.categoryController, @required this.index})
+      {Key key, @required this.martViewModel, @required this.index})
       : super(key: key);
 
   @override
@@ -25,7 +25,7 @@ class MartProductShimmer extends StatelessWidget {
         ),
         child: Shimmer(
           duration: Duration(seconds: 2),
-          enabled: categoryController.subCategoryList == null,
+          enabled: martViewModel.isLoading,
           child: Container(
             width: 100,
             height: 100,

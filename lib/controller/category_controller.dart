@@ -53,8 +53,12 @@ class CategoryController extends GetxController implements GetxService {
         _categoryList = [];
         _interestSelectedList = [];
         response.body.forEach((category) {
-          _categoryList.add(CategoryModel.fromJson(category));
-          _interestSelectedList.add(false);
+          final categoryModel = CategoryModel.fromJson(category);
+          if (categoryModel.id == 18 || categoryModel.id == 19) {
+          } else {
+            _categoryList.add(categoryModel);
+            _interestSelectedList.add(false);
+          }
         });
       } else {
         ApiChecker.checkApi(response);

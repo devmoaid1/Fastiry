@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/view/base/no_data_screen.dart';
+import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/mart_product_card.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/mart_product_shimmer.dart';
 import 'package:flutter/material.dart';
@@ -10,8 +10,8 @@ import '../../../../util/dimensions.dart';
 import '../../../base/title_widget.dart';
 
 class AllMartProductsSection extends StatelessWidget {
-  final CategoryController categoryController;
-  const AllMartProductsSection({Key key, @required this.categoryController})
+  final MartViewModel martViewModel;
+  const AllMartProductsSection({Key key, @required this.martViewModel})
       : super(key: key);
 
   @override
@@ -30,14 +30,14 @@ class AllMartProductsSection extends StatelessWidget {
           height: Dimensions.screeHeight * 0.50,
           child: ListView.builder(
               scrollDirection: Axis.horizontal,
-              itemCount: categoryController.categoryProductList != null
-                  ? categoryController.categoryProductList.length
-                  : 4,
+              itemCount: martViewModel.martProducts.length,
+              // itemCount: categoryController.categoryProductList != null
+              //     ? categoryController.categoryProductList.length
+              //     : 4,
               itemBuilder: ((context, index) {
-                if (categoryController.categoryProductList != null) {
-                  if (categoryController.categoryProductList.isNotEmpty) {
-                    final product =
-                        categoryController.categoryProductList[index];
+                if (!martViewModel.isLoading) {
+                  if (martViewModel.martProducts.isNotEmpty) {
+                    final product = martViewModel.martProducts[index];
                     return MartProductCard(product: product);
                   }
 
@@ -46,7 +46,7 @@ class AllMartProductsSection extends StatelessWidget {
                 }
 
                 return MartProductShimmer(
-                    categoryController: categoryController, index: index);
+                    martViewModel: martViewModel, index: index);
               })),
         )
       ],

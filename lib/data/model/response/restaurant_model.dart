@@ -1,3 +1,5 @@
+import 'package:efood_multivendor/data/model/response/category_model.dart';
+
 class RestaurantModel {
   int totalSize;
   String limit;
@@ -63,6 +65,7 @@ class Restaurant {
   int veg;
   int nonVeg;
   Discount discount;
+  List<CategoryModel> categories;
   List<Schedules> schedules;
 
   Restaurant({
@@ -95,6 +98,7 @@ class Restaurant {
     this.veg,
     this.nonVeg,
     this.discount,
+    this.categories,
     this.schedules,
   });
 
@@ -137,6 +141,12 @@ class Restaurant {
         schedules.add(new Schedules.fromJson(v));
       });
     }
+    if (json['categories'] != null) {
+      categories = <CategoryModel>[];
+      json['categories'].forEach((v) {
+        categories.add(CategoryModel.fromJson(v));
+      });
+    }
   }
 
   Map<String, dynamic> toJson() {
@@ -174,6 +184,9 @@ class Restaurant {
     }
     if (this.schedules != null) {
       data['schedules'] = this.schedules.map((v) => v.toJson()).toList();
+    }
+    if (this.categories != null) {
+      data['categories'] = this.categories.map((v) => v.toJson()).toList();
     }
     return data;
   }
