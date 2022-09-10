@@ -35,7 +35,7 @@ class CategoryView1 extends StatelessWidget {
                   children: [
                     Expanded(
                       child: SizedBox(
-                        height: Dimensions.blockscreenVertical * 25,
+                        height: Dimensions.blockscreenVertical * 23,
                         child: categoryController.categoryList != null
                             ? ListView.builder(
                                 controller: _scrollController,
@@ -46,7 +46,7 @@ class CategoryView1 extends StatelessWidget {
                                             .categoryList.length,
                                 padding: EdgeInsets.symmetric(
                                     horizontal:
-                                        Dimensions.blockscreenHorizontal * 4),
+                                        Dimensions.blockscreenHorizontal * 3),
                                 physics: BouncingScrollPhysics(),
                                 scrollDirection: Axis.horizontal,
                                 itemBuilder: (context, index) {

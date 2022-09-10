@@ -50,6 +50,7 @@ import 'package:efood_multivendor/util/app_constants.dart';
 import 'package:efood_multivendor/data/model/response/language_model.dart';
 import 'package:efood_multivendor/view/screens/dashboard/dashboard_controller.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
+import 'package:efood_multivendor/view/screens/restaurant/restaurant_viewModel.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
@@ -133,6 +134,8 @@ Future<Map<String, Map<String, String>>> init() async {
   // viewModels
   Get.lazyPut(() => MartViewModel(restaurantRepo: Get.find()));
   Get.lazyPut(() => CategoryViewModel(categoryRepo: Get.find()));
+  Get.lazyPut(() => RestuarantViewModel(
+      categoryRepo: Get.find(), restaurantRepo: Get.find()));
 
   // font styles
 

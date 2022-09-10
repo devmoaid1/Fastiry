@@ -9,7 +9,6 @@ import 'package:efood_multivendor/controller/location_controller.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/helper/route_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/screens/home/theme1/item_campaign_view1.dart';
 import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.dart';
 
 import '../../../../controller/cart_controller.dart';
@@ -32,7 +31,7 @@ class Theme1HomeScreen extends StatelessWidget {
           // App Bar
           SliverAppBar(
             toolbarHeight: Dimensions.blockscreenVertical * 12,
-            expandedHeight: Dimensions.blockscreenVertical * 16,
+            expandedHeight: Dimensions.blockscreenVertical * 12,
             floating: true,
             elevation: 0,
             automaticallyImplyLeading: false,
@@ -158,7 +157,7 @@ class Theme1HomeScreen extends StatelessWidget {
                     BannerView1(),
                     CategoryView1(),
                     PopularStoreView1(isPopular: false),
-                    ItemCampaignView1(),
+                    // ItemCampaignView1(),
                     // BestReviewedItemView(),
                     // PopularStoreView1(isPopular: true),
                     // PopularItemView1(isPopular: true),

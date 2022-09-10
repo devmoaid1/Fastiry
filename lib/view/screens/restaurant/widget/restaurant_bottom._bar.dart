@@ -12,7 +12,9 @@ class RestaurantBottomBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<CartController>(builder: (cartController) {
+    return GetBuilder<CartController>(
+        // init: Get.find<CartController>()..getCartSubTotal(),
+        builder: (cartController) {
       return Container(
         padding: EdgeInsets.symmetric(
             vertical: Dimensions.blockscreenVertical * 2,

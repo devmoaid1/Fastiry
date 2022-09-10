@@ -279,7 +279,7 @@ class PopularStoreView1 extends StatelessWidget {
                                                                   .copyWith(
                                                                     fontSize:
                                                                         Dimensions.blockscreenHorizontal *
-                                                                            3,
+                                                                            3.6,
                                                                   ),
                                                             ),
                                                           ],
@@ -327,7 +327,7 @@ class PopularStoreView1 extends StatelessWidget {
                                                                   .copyWith(
                                                                       fontSize:
                                                                           Dimensions.blockscreenHorizontal *
-                                                                              3),
+                                                                              3.6),
                                                               maxLines: 2,
                                                               overflow:
                                                                   TextOverflow

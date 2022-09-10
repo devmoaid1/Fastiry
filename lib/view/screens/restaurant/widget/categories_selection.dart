@@ -2,16 +2,16 @@ import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../../controller/restaurant_controller.dart';
 import '../../../../data/model/response/restaurant_model.dart';
 import '../../../../theme/font_styles.dart';
 import '../../../../util/dimensions.dart';
+import '../restaurant_viewModel.dart';
 
 class CategoriesSelection extends StatelessWidget {
-  final RestaurantController restaurantController;
+  final RestuarantViewModel restaurantViewModel;
   final Restaurant restaurant;
   const CategoriesSelection(
-      {Key key, @required this.restaurant, @required this.restaurantController})
+      {Key key, @required this.restaurant, @required this.restaurantViewModel})
       : super(key: key);
 
   @override
@@ -27,12 +27,16 @@ class CategoriesSelection extends StatelessWidget {
             vertical: Dimensions.blockscreenVertical, horizontal: 10),
         child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: restaurantController.categoryList.length,
+          shrinkWrap: true,
+          key: UniqueKey(),
+          itemCount: restaurantViewModel.restaurantCategories.length,
           padding: EdgeInsets.only(left: Dimensions.PADDING_SIZE_SMALL),
           physics: BouncingScrollPhysics(),
           itemBuilder: (context, index) {
+            final category = restaurantViewModel.restaurantCategories[index];
             return InkWell(
-              onTap: () => restaurantController.setCategoryIndex(index),
+              onTap: () =>
+                  restaurantViewModel.setCategoryIndex(index, category.id),
               child: Container(
                 margin: EdgeInsets.only(right: 10),
                 padding: EdgeInsets.symmetric(
@@ -41,13 +45,13 @@ class CategoriesSelection extends StatelessWidget {
                 decoration: BoxDecoration(
                     border: Border(
                         bottom: BorderSide(
-                            color: index == restaurantController.categoryIndex
+                            color: index == restaurantViewModel.categoryIndex
                                 ? Theme.of(context).primaryColor
                                 : Theme.of(context).backgroundColor,
                             width: 2))),
                 child: Text(
-                  restaurantController.categoryList[index].name,
-                  style: index == restaurantController.categoryIndex
+                  category.name,
+                  style: index == restaurantViewModel.categoryIndex
                       ? Get.find<FontStyles>().poppinsMedium.copyWith(
                           fontSize: Dimensions.fontSizeSmall,
                           color: Theme.of(context).primaryColor)

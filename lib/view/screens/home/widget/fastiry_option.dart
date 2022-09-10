@@ -27,6 +27,7 @@ class FastiryOption extends StatelessWidget {
           child: Column(children: [
             Container(
               decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
                 color: Colors.white,
                 boxShadow: [
                   !Get.isDarkMode
@@ -40,7 +41,7 @@ class FastiryOption extends StatelessWidget {
               ),
               child: ClipRRect(
                 clipBehavior: Clip.antiAlias,
-                borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                borderRadius: BorderRadius.circular(12),
                 child: Image.asset(
                   imagePath,
                   width: Dimensions.screenWidth * 0.45,

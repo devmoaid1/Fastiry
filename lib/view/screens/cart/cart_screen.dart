@@ -207,7 +207,7 @@ class _CartScreenState extends State<CartScreen> {
                                                   .copyWith(
                                                       fontSize: Dimensions
                                                               .blockscreenHorizontal *
-                                                          3),
+                                                          3.6),
                                               maxLines: 2,
                                               overflow: TextOverflow.ellipsis,
                                             ),
@@ -302,9 +302,11 @@ class _CartScreenState extends State<CartScreen> {
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
                                               .copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                              )),
+                                                  color: Theme.of(context)
+                                                      .dividerColor,
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
                                     ]),
                               ),
                               SizedBox(height: 10),
@@ -329,9 +331,11 @@ class _CartScreenState extends State<CartScreen> {
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
                                               .copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                              )),
+                                                  color: Theme.of(context)
+                                                      .dividerColor,
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
                                     ]),
                               ),
                               SizedBox(height: 10),
@@ -359,9 +363,11 @@ class _CartScreenState extends State<CartScreen> {
                                           style: Get.find<FontStyles>()
                                               .poppinsRegular
                                               .copyWith(
-                                                color: Theme.of(context)
-                                                    .dividerColor,
-                                              )),
+                                                  color: Theme.of(context)
+                                                      .dividerColor,
+                                                  fontSize: Dimensions
+                                                          .blockscreenHorizontal *
+                                                      4)),
                                     ]),
                               ),
 
@@ -389,7 +395,7 @@ class _CartScreenState extends State<CartScreen> {
                                               .copyWith(
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
-                                                    5,
+                                                    5.5,
                                               )),
                                       Text(
                                           PriceConverter.convertPrice(
@@ -399,7 +405,7 @@ class _CartScreenState extends State<CartScreen> {
                                               .copyWith(
                                                 fontSize: Dimensions
                                                         .blockscreenHorizontal *
-                                                    5,
+                                                    5.5,
                                               )),
                                     ]),
                               ),

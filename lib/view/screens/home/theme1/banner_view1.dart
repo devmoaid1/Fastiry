@@ -18,9 +18,9 @@ class BannerView1 extends StatelessWidget {
           : Container(
               height: GetPlatform.isDesktop
                   ? 500
-                  : MediaQuery.of(context).size.height * 0.30,
+                  : MediaQuery.of(context).size.height * 0.20,
               padding: EdgeInsets.symmetric(
-                vertical: Dimensions.blockscreenVertical * 4,
+                // vertical: Dimensions.blockscreenVertical,
                 horizontal: Dimensions.blockscreenHorizontal * 4,
               ),
               child: bannerList != null
