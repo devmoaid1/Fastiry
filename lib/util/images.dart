@@ -108,4 +108,10 @@ class Images {
   static const String milkImage = 'assets/image/milk.jpg';
   static const String iceCreamImage = 'assets/image/ice_cream.jpg';
   static const String homeFastIcon = 'assets/image/home_fast.svg';
+  static const String fasteriyMartEnglish =
+      'assets/image/fasteriy_mart_english.png';
+  static const String fasteriyMartArabic =
+      'assets/image/fasteriy_mart_arabic.png';
+  static const String fasteriyMartGraphics =
+      'assets/image/Fastiry_mart_graphics.png';
 }

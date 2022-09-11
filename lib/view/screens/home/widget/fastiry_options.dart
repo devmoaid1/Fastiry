@@ -29,7 +29,7 @@ class FastiryOptions extends StatelessWidget {
                   userController.userInfoModel != null &&
                           Get.find<AuthController>().isLoggedIn()
                       ? "${"hey".tr},${userController.userInfoModel.fName}"
-                      : "hey_guest".tr,
+                      : "",
                   style: Get.find<FontStyles>()
                       .poppinsMedium
                       .copyWith(fontSize: Dimensions.blockscreenHorizontal * 5),

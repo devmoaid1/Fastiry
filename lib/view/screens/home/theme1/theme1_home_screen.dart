@@ -1,5 +1,6 @@
 import 'package:badges/badges.dart';
 import 'package:efood_multivendor/controller/auth_controller.dart';
+import 'package:efood_multivendor/view/screens/home/theme1/Fasteriy_mart_ad.dart';
 import 'package:efood_multivendor/view/screens/home/widget/fastiry_options.dart';
 import 'package:efood_multivendor/view/screens/home/widget/not_logged_card.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,6 @@ import 'package:efood_multivendor/view/screens/home/theme1/popular_store_view1.d
 import '../../../../controller/cart_controller.dart';
 import '../../../../theme/font_styles.dart';
 import '../../../../util/images.dart';
-import 'banner_view1.dart';
 import 'category_view1.dart';
 
 class Theme1HomeScreen extends StatelessWidget {
@@ -150,11 +150,16 @@ class Theme1HomeScreen extends StatelessWidget {
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    // SizedBox(
+                    //   height: 15,
+                    // ),
+                    FastriyMartAdSection(),
+
                     !Get.find<AuthController>().isLoggedIn()
                         ? NotLoggedCard()
                         : SizedBox(),
                     FastiryOptions(),
-                    BannerView1(),
+                    // BannerView1(),
                     CategoryView1(),
                     PopularStoreView1(isPopular: false),
                     // ItemCampaignView1(),
