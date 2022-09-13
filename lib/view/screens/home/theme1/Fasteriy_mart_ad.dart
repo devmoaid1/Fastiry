@@ -68,7 +68,7 @@ class FastriyMartAdSection extends StatelessWidget {
               // ),
               InkWell(
                   onTap: () {
-                    Get.toNamed(RouteHelper.getSignInRoute('home'));
+                    Get.toNamed(RouteHelper.getFastiryMartRoute());
                   },
                   child: Container(
                     decoration: BoxDecoration(

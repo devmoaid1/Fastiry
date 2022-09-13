@@ -35,9 +35,9 @@ class MartViewModel extends GetxController implements GetxService {
     _isLoading = true;
     getFasteryMartDetails();
     getRestaurantProducts();
-    _isLoading = false;
+    // _isLoading = false;
 
-    update();
+    // update();
   }
 
   Future<void> getFasteryMartDetails() async {
@@ -79,9 +79,8 @@ class MartViewModel extends GetxController implements GetxService {
     );
     if (response.statusCode == 200) {
       _martProducts.addAll(ProductModel.fromJson(response.body).products);
-
-      // _isLoading = false;
     }
+    _isLoading = false;
     update();
   }
 }

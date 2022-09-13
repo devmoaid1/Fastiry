@@ -8,7 +8,6 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/cart_controller.dart';
-import '../../../controller/restaurant_controller.dart';
 import '../../../helper/price_converter.dart';
 import '../../../helper/route_helper.dart';
 import '../../../theme/font_styles.dart';
@@ -17,51 +16,8 @@ import '../../../util/dimensions.dart';
 import '../../../util/images.dart';
 import '../home/home_screen.dart';
 
-class MartScreen extends StatefulWidget {
-  MartScreen({Key key}) : super(key: key);
-
-  @override
-  State<MartScreen> createState() => _MartScreenState();
-}
-
-class _MartScreenState extends State<MartScreen> {
-  final ScrollController scrollController = ScrollController();
-  final restaurantController = Get.find<RestaurantController>();
-  final categoryController = Get.find<CategoryController>();
-  @override
-  void initState() {
-    super.initState();
-    WidgetsBinding.instance.addPostFrameCallback((timeStamp) {
-      Get.find<MartViewModel>().martScreenIntial();
-      // categoryController.getSubCategoryList("15");
-
-      // restaurantController.getRestaurantProductList(12, 1, 'all', false);
-
-      Get.find<CartController>().getCartSubTotal();
-    });
-
-    // scrollController?.addListener(() {
-    //   if (scrollController.position.pixels ==
-    //           scrollController.position.maxScrollExtent &&
-    //       restaurantController.restaurantProducts != null &&
-    //       !Get.find<RestaurantController>().foodPaginate) {
-    //     int pageSize =
-    //         (Get.find<RestaurantController>().foodPageSize / 10).ceil();
-    //     if (Get.find<RestaurantController>().foodOffset < pageSize) {
-    //       restaurantController
-    //           .setFoodOffset(Get.find<RestaurantController>().foodOffset + 1);
-    //       print('end of the page');
-    //       restaurantController.showFoodBottomLoader();
-    //       restaurantController.getRestaurantProductList(
-    //         12,
-    //         restaurantController.foodOffset,
-    //         restaurantController.type,
-    //         false,
-    //       );
-    //     }
-    //   }
-    // });
-  }
+class MartScreen extends StatelessWidget {
+  const MartScreen({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +30,7 @@ class _MartScreenState extends State<MartScreen> {
                 : Container(height: 0)
             : Container(height: 0),
         body: GetBuilder<MartViewModel>(
+          init: Get.find<MartViewModel>()..martScreenIntial(),
           builder: (martViewModel) => SafeArea(
               child: CustomScrollView(slivers: [
             SliverAppBar(
@@ -248,8 +205,8 @@ class _MartScreenState extends State<MartScreen> {
                                                     .deliveryPrice !=
                                                 0
                                             ? PriceConverter.convertPrice(
-                                                restaurantController
-                                                    .restaurant.deliveryPrice)
+                                                martViewModel
+                                                    .fastiryMart.deliveryPrice)
                                             : "free_delivery".tr,
                                         style: Get.find<FontStyles>()
                                             .poppinsRegular

@@ -4,7 +4,6 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/controller/user_controller.dart';
 import 'package:get/get.dart';
 
-import '../data/model/response/restaurant_model.dart';
 import 'auth_controller.dart';
 import 'banner_controller.dart';
 import 'campaign_controller.dart';
@@ -37,14 +36,14 @@ class HomeController extends GetxController implements GetxService {
     setIsLoading(true);
 
     await bannerController.getBannerList(reload);
-    restaurantController.getRestaurantDetails(Restaurant(id: 12));
+    // restaurantController.getRestaurantDetails(Restaurant(id: 12));
     await categoryController.getCategoryList(reload);
-    if (splashController.configModel.popularRestaurant == 1) {
-      await restaurantController.getPopularRestaurantList(reload, 'all', false);
-    }
-    if (splashController.configModel.newRestaurant == 1) {
-      await restaurantController.getLatestRestaurantList(reload, 'all', false);
-    }
+    // if (splashController.configModel.popularRestaurant == 1) {
+    //   await restaurantController.getPopularRestaurantList(reload, 'all', false);
+    // }
+    // if (splashController.configModel.newRestaurant == 1) {
+    //   await restaurantController.getLatestRestaurantList(reload, 'all', false);
+    // }
     // if (splashController.configModel.popularFood == 1) {
     //   await productController.getPopularProductList(reload, 'all', false);
     // }
@@ -65,15 +64,15 @@ class HomeController extends GetxController implements GetxService {
   Future<void> refresh() async {
     await Get.find<BannerController>().getBannerList(false);
     await Get.find<CategoryController>().getCategoryList(false);
-    await Get.find<RestaurantController>()
-        .getPopularRestaurantList(true, 'all', false);
-    await Get.find<CampaignController>().getItemCampaignList(false);
-    await Get.find<ProductController>()
-        .getPopularProductList(true, 'all', false);
-    await Get.find<RestaurantController>()
-        .getLatestRestaurantList(true, 'all', false);
-    await Get.find<ProductController>()
-        .getReviewedProductList(true, 'all', false);
+    // await Get.find<RestaurantController>()
+    //     .getPopularRestaurantList(true, 'all', false);
+    // await Get.find<CampaignController>().getItemCampaignList(false);
+    // await Get.find<ProductController>()
+    //     .getPopularProductList(true, 'all', false);
+    // await Get.find<RestaurantController>()
+    //     .getLatestRestaurantList(true, 'all', false);
+    // await Get.find<ProductController>()
+    //     .getReviewedProductList(true, 'all', false);
     await Get.find<RestaurantController>().getRestaurantList(1, false);
     if (Get.find<AuthController>().isLoggedIn()) {
       await Get.find<UserController>().getUserInfo();
