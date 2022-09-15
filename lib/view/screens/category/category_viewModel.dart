@@ -11,7 +11,7 @@ class CategoryViewModel extends GetxController implements GetxService {
 
   CategoryViewModel({@required this.categoryRepo});
 
-  bool _isLoading = false;
+  RxBool _isLoading = false.obs;
   bool _secondaryLoading = false;
 
   int _subCategoryIndex = 0;
@@ -22,7 +22,7 @@ class CategoryViewModel extends GetxController implements GetxService {
 
   List<CategoryModel> _subCategories = [];
 
-  bool get isLoading => _isLoading;
+  RxBool get isLoading => _isLoading;
   bool get secondaryLoading => _secondaryLoading;
 
   List<Product> get categoryProducts => _categoryProducts;
@@ -31,14 +31,18 @@ class CategoryViewModel extends GetxController implements GetxService {
   int get subCategoryIndex => _subCategoryIndex;
 
   void initCategoryScreen(String categoryId) {
-    _isLoading = true;
+    if (_isLoading.isFalse) {
+      _isLoading.toggle();
+    }
 
     _subCategoryIndex = 0;
     _subCategories.clear();
     _categoryProducts.clear();
     getSubCategories(categoryId);
     getCategoryProducts(categoryId);
-    _isLoading = false;
+    // if (_isLoading.isTrue) {
+    //   _isLoading.toggle();
+    // }
 
     update();
   }
@@ -76,10 +80,14 @@ class CategoryViewModel extends GetxController implements GetxService {
         _categoryProducts.addAll(ProductModel.fromJson(response.body).products);
       }
       // _isLoading = false;
-      update();
     } catch (err) {
       showCustomSnackBar(err);
     }
+
+    if (_isLoading.isTrue) {
+      _isLoading.toggle();
+    }
+    update();
   }
 
   void setSubCategoryIndex(int index, String categoryId) {

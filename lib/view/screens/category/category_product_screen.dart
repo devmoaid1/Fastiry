@@ -26,7 +26,6 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
   final ScrollController scrollController = ScrollController();
   final ScrollController restaurantScrollController = ScrollController();
   final textEditingController = TextEditingController();
-  TabController _tabController;
 
   @override
   void initState() {
@@ -193,105 +192,102 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                     }
                   }
                 } else {
-                  if (categoryViewModel.isLoading) {
-                    return Center(child: CustomLoader());
-                  }
-                  return SizedBox(
-                    width: Dimensions.WEB_MAX_WIDTH,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          SizedBox(
-                              height: Dimensions.blockscreenVertical * 7,
-                              child: ListView.builder(
-                                  shrinkWrap: true,
-                                  scrollDirection: Axis.horizontal,
-                                  itemCount:
-                                      categoryViewModel.subCategories.length,
-                                  itemBuilder: (context, index) =>
-                                      GestureDetector(
-                                        onTap: () => categoryViewModel
-                                            .setSubCategoryIndex(
-                                                index,
+                  return Obx(() {
+                    if (categoryViewModel.isLoading.isTrue) {
+                      return Center(child: CustomLoader());
+                    }
+                    return SizedBox(
+                      width: Dimensions.WEB_MAX_WIDTH,
+                      child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            SizedBox(
+                                height: Dimensions.blockscreenVertical * 7,
+                                child: ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        categoryViewModel.subCategories.length,
+                                    itemBuilder: (context, index) =>
+                                        GestureDetector(
+                                          onTap: () => categoryViewModel
+                                              .setSubCategoryIndex(
+                                                  index,
+                                                  categoryViewModel
+                                                      .subCategories[index].id
+                                                      .toString()),
+                                          child: Container(
+                                              height: 20,
+                                              margin: EdgeInsets.symmetric(
+                                                  horizontal: 5),
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  color: categoryViewModel.subCategoryIndex == index
+                                                      ? Theme.of(context)
+                                                          .primaryColor
+                                                      : Theme.of(context)
+                                                          .backgroundColor,
+                                                  border: categoryViewModel
+                                                              .subCategoryIndex ==
+                                                          index
+                                                      ? Border.all(
+                                                          color: Theme.of(context)
+                                                              .primaryColor)
+                                                      : Border.all(
+                                                          color: Theme.of(context)
+                                                              .disabledColor)),
+                                              padding: EdgeInsets.symmetric(
+                                                  vertical: Dimensions.blockscreenVertical * 2,
+                                                  horizontal: Dimensions.blockscreenHorizontal * 4),
+                                              child: Text(
                                                 categoryViewModel
-                                                    .subCategories[index].id
-                                                    .toString()),
-                                        child: Container(
-                                            height: 20,
-                                            margin: EdgeInsets.symmetric(
-                                                horizontal: 5),
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(20),
-                                                color: categoryViewModel.subCategoryIndex == index
-                                                    ? Theme.of(context)
-                                                        .primaryColor
-                                                    : Theme.of(context)
-                                                        .backgroundColor,
-                                                border: categoryViewModel
-                                                            .subCategoryIndex ==
-                                                        index
-                                                    ? Border.all(
-                                                        color: Theme.of(context)
-                                                            .primaryColor)
-                                                    : Border.all(
-                                                        color: Theme.of(context)
-                                                            .disabledColor)),
-                                            padding: EdgeInsets.symmetric(
-                                                vertical: Dimensions.blockscreenVertical * 2,
-                                                horizontal: Dimensions.blockscreenHorizontal * 4),
-                                            child: Text(
-                                              categoryViewModel
-                                                  .subCategories[index].name,
-                                              style: Get.find<FontStyles>()
-                                                  .poppinsRegular
-                                                  .copyWith(
-                                                      color: categoryViewModel
-                                                                  .subCategoryIndex ==
-                                                              index
-                                                          ? Colors.white
-                                                          : Theme.of(context)
-                                                              .disabledColor),
-                                              maxLines: 2,
-                                            )),
-                                      ))),
-                          SizedBox(
-                            height: Dimensions.blockscreenVertical * 2,
-                          ),
-                          categoryViewModel.secondaryLoading
-                              ? Center(
-                                  child: CustomLoader(),
-                                )
-                              : categoryViewModel.categoryProducts.isNotEmpty
-                                  ? Expanded(
-                                      child: ListView.builder(
-                                          shrinkWrap: true,
-                                          itemCount: categoryViewModel
-                                              .categoryProducts.length,
-                                          itemBuilder: (context, index) {
-                                            return ProductWidget(
-                                              product: categoryViewModel
-                                                  .categoryProducts[index],
-                                              isRestaurant: false,
-                                              restaurant: null,
-                                              index: index,
-                                              length: categoryViewModel
-                                                  .categoryProducts.length,
-                                              inRestaurant: true,
-                                              isCampaign: false,
-                                            );
-                                          }))
-                                  : Padding(
-                                      padding: EdgeInsets.symmetric(
-                                          vertical:
-                                              Dimensions.blockscreenVertical *
-                                                  7),
-                                      child: Center(
-                                          child: NoDataScreen(
-                                              text: "no_food_available".tr)),
-                                    )
-                        ]),
-                  );
+                                                    .subCategories[index].name,
+                                                style: Get.find<FontStyles>()
+                                                    .poppinsRegular
+                                                    .copyWith(
+                                                        color: categoryViewModel
+                                                                    .subCategoryIndex ==
+                                                                index
+                                                            ? Colors.white
+                                                            : Theme.of(context)
+                                                                .disabledColor),
+                                                maxLines: 2,
+                                              )),
+                                        ))),
+                            SizedBox(
+                              height: Dimensions.blockscreenVertical * 2,
+                            ),
+                            categoryViewModel.categoryProducts.isNotEmpty
+                                ? Expanded(
+                                    child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: categoryViewModel
+                                            .categoryProducts.length,
+                                        itemBuilder: (context, index) {
+                                          return ProductWidget(
+                                            product: categoryViewModel
+                                                .categoryProducts[index],
+                                            isRestaurant: false,
+                                            restaurant: null,
+                                            index: index,
+                                            length: categoryViewModel
+                                                .categoryProducts.length,
+                                            inRestaurant: true,
+                                            isCampaign: false,
+                                          );
+                                        }))
+                                : Padding(
+                                    padding: EdgeInsets.symmetric(
+                                        vertical:
+                                            Dimensions.blockscreenVertical * 7),
+                                    child: Center(
+                                        child: NoDataScreen(
+                                            text: "no_food_available".tr)),
+                                  )
+                          ]),
+                    );
+                  });
                 }
               }),
         ),
