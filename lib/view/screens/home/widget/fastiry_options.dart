@@ -28,7 +28,7 @@ class FastiryOptions extends StatelessWidget {
                 Text(
                   userController.userInfoModel != null &&
                           Get.find<AuthController>().isLoggedIn()
-                      ? "${"hey".tr},${userController.userInfoModel.fName}"
+                      ? "${"hey".tr} ${userController.userInfoModel.fName}"
                       : "",
                   style: Get.find<FontStyles>()
                       .poppinsMedium
@@ -45,13 +45,13 @@ class FastiryOptions extends StatelessWidget {
                         onTap: () {
                           Get.toNamed(RouteHelper.getFastiryFoodRoute());
                         },
-                        optionName: "food".tr),
+                        optionName: "Restaurants".tr),
                     FastiryOption(
                         imagePath: Images.fastiryMartImage,
                         onTap: () {
                           Get.toNamed(RouteHelper.getFastiryMartRoute());
                         },
-                        optionName: "fasteriy_mart".tr)
+                        optionName: "groceries".tr)
                   ],
                 )
               ],

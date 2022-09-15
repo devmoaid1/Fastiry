@@ -49,7 +49,7 @@ class MartScreen extends StatelessWidget {
                   )),
               backgroundColor: Theme.of(context).backgroundColor,
               title: Text(
-                "fasteriy_mart".tr,
+                "groceries".tr,
                 style: Get.find<FontStyles>().poppinsRegular.copyWith(
                     color: Theme.of(context).dividerColor,
                     fontSize: Dimensions.blockscreenHorizontal * 4),

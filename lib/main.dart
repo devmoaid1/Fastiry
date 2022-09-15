@@ -35,18 +35,19 @@ Future<void> main() async {
             : null;
       }
       await NotificationHelper.initialize(flutterLocalNotificationsPlugin);
+
       FirebaseMessaging.onBackgroundMessage(myBackgroundMessageHandler);
-      FirebaseMessaging.onMessage.listen((RemoteMessage message) {
-        print(
-            "onMessage: ${message.notification.title}/${message.notification.body}/${message.notification.titleLocKey}");
-        NotificationHelper.showNotification(
-            message, flutterLocalNotificationsPlugin, false);
-        // if(Get.find<AuthController>().isLoggedIn()) {
-        //   Get.find<OrderController>().getRunningOrders(1);
-        //   Get.find<OrderController>().getHistoryOrders(1);
-        //   Get.find<NotificationController>().getNotificationList(true);
-        // }
-      });
+      // FirebaseMessaging.onMessage.listen((RemoteMessage message) {
+      //   print(
+      //       "onMessage: ${message.notification.title}/${message.notification.body}/${message.notification.titleLocKey}");
+      //   NotificationHelper.showNotification(
+      //       message, flutterLocalNotificationsPlugin, false);
+      //   // if(Get.find<AuthController>().isLoggedIn()) {
+      //   //   Get.find<OrderController>().getRunningOrders(1);
+      //   //   Get.find<OrderController>().getHistoryOrders(1);
+      //   //   Get.find<NotificationController>().getNotificationList(true);
+      //   // }
+      // });
     }
   } catch (e) {}
   SystemChrome.setPreferredOrientations(

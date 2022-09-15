@@ -26,14 +26,13 @@ class FastriyMartAdSection extends StatelessWidget {
               Row(
                 children: [
                   Container(
-                    height: Dimensions.blockscreenVertical * 10,
-                    // width: Dimensions.screenWidth * 0.2,
+                    height: Dimensions.blockscreenVertical * 8,
                     child: Image.asset(
                       Images.fastiryLogoRed,
                       fit: BoxFit.fill,
                     ),
                   ),
-                  Text("fasteriy_mart".tr,
+                  Text("fasteriy".tr,
                       maxLines: 1,
                       style: Get.find<FontStyles>().poppinsRegular.copyWith(
                           fontSize: Dimensions.blockscreenHorizontal * 4.5,
@@ -47,7 +46,7 @@ class FastriyMartAdSection extends StatelessWidget {
                 child: Text("Groceries_home".tr,
                     maxLines: 2,
                     style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                        fontSize: Dimensions.blockscreenHorizontal * 6,
+                        fontSize: Dimensions.blockscreenHorizontal * 5.5,
                         color: Theme.of(context).primaryColor)),
               ),
               SizedBox(
