@@ -183,7 +183,9 @@ class _CategoryProductScreenState extends State<CategoryProductScreen>
                     ),
                   ],
                 ),
-          body: GetBuilder<CategoryViewModel>(builder: (categoryViewModel) {
+          body: GetBuilder<CategoryViewModel>(
+            init:Get.find<CategoryViewModel>(),
+            builder: (categoryViewModel) {
             if (categoryController.isSearching) {
               if (categoryController.searchProductList == null) {
                 return Container();

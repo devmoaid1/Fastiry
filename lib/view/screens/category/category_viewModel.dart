@@ -75,7 +75,7 @@ class CategoryViewModel extends GetxController implements GetxService {
         _categoryProducts.clear();
         _categoryProducts.addAll(ProductModel.fromJson(response.body).products);
       }
-
+      // _isLoading = false;
       update();
     } catch (err) {
       showCustomSnackBar(err);

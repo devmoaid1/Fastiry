@@ -38,13 +38,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                     children: [
                       isWithSpace
                           ? SizedBox(
-                              width: Dimensions.blockscreenHorizontal * 4,
+                              width: Dimensions.blockscreenHorizontal * 12,
                             )
                           : Container(),
                       Get.locale.languageCode != "en"
                           ? Image.asset(
                               Images.fastiryLogoTypeArabic,
-                              height: Dimensions.blockscreenVertical * 20,
+                              width: Dimensions.blockscreenVertical * 15,
+                              height: Dimensions.blockscreenVertical * 15,
                             )
                           : Container(),
                       Image.asset(
@@ -54,7 +55,8 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
                       Get.locale.languageCode == "en"
                           ? Image.asset(
                               Images.fastiryLogoType,
-                              height: Dimensions.blockscreenVertical * 20,
+                              width: Dimensions.blockscreenVertical * 15,
+                              height: Dimensions.blockscreenVertical * 15,
                             )
                           : Container()
                     ],
