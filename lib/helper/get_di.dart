@@ -29,7 +29,6 @@ import 'package:efood_multivendor/data/repository/auth_repo.dart';
 import 'package:efood_multivendor/data/repository/banner_repo.dart';
 import 'package:efood_multivendor/data/repository/campaign_repo.dart';
 import 'package:efood_multivendor/data/repository/cart_repo.dart';
-import 'package:efood_multivendor/data/repository/category_repo.dart';
 import 'package:efood_multivendor/data/repository/coupon_repo.dart';
 import 'package:efood_multivendor/data/repository/language_repo.dart';
 import 'package:efood_multivendor/data/repository/location_repo.dart';
@@ -56,6 +55,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:get/get.dart';
 
 import '../controller/connectivity_controller.dart';
+import '../data/repository/category_repo.dart';
 import '../view/screens/category/category_viewModel.dart';
 
 Future<Map<String, Map<String, String>>> init() async {
@@ -133,9 +133,10 @@ Future<Map<String, Map<String, String>>> init() async {
 
   // viewModels
   Get.lazyPut(() => MartViewModel(restaurantRepo: Get.find()));
-  Get.lazyPut(() => CategoryViewModel(categoryRepo: Get.find()));
   Get.lazyPut(() => RestuarantViewModel(
       categoryRepo: Get.find(), restaurantRepo: Get.find()));
+  Get.lazyPut(() =>
+      CategoryViewModel(categoryRepo: CategoryRepo(apiClient: Get.find())));
 
   // font styles
 
