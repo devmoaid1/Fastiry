@@ -71,6 +71,7 @@ class MartViewModel extends GetxController implements GetxService {
   }
 
   Future<void> getRestaurantProducts() async {
+    _martProducts.clear();
     Response response = await restaurantRepo.getRestaurantProductList(
       12,
       1,

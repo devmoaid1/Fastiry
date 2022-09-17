@@ -29,6 +29,7 @@ class AllMartProductsSection extends StatelessWidget {
         SizedBox(
           height: Dimensions.screeHeight * 0.50,
           child: ListView.builder(
+              physics: BouncingScrollPhysics(),
               scrollDirection: Axis.horizontal,
               itemCount: martViewModel.martProducts.length,
               // itemCount: categoryController.categoryProductList != null

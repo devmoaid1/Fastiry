@@ -13,7 +13,7 @@ class FastriyMartAdSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.symmetric(
-          vertical: 8, horizontal: Dimensions.blockscreenHorizontal * 2),
+          horizontal: Dimensions.blockscreenHorizontal * 2),
       decoration: BoxDecoration(
           color: Theme.of(context).backgroundColor,
           borderRadius: BorderRadius.circular(8)),
@@ -25,68 +25,59 @@ class FastriyMartAdSection extends StatelessWidget {
             child: Container(
               // width: Dimensions.screenWidth * 0.48,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
-                    children: [
-                      Get.locale.languageCode != "en"
-                          ? Image.asset(
-                              Images.fastiryLogoTypeArabic,
-                              height: Dimensions.blockscreenVertical * 12,
-                              width: Dimensions.blockscreenVertical * 12,
-                            )
-                          : Container(),
-                      Image.asset(
-                        Images.fastiryLogoRed,
-                        height: Dimensions.blockscreenVertical * 8,
-                      ),
-                      Get.locale.languageCode == "en"
-                          ? Image.asset(
-                              Images.fastiryLogoType,
-                              height: Dimensions.blockscreenVertical * 10,
-                              width: Dimensions.blockscreenVertical * 12,
-                            )
-                          : Container()
-                      // Container(
-                      //   height: Dimensions.blockscreenVertical * 8,
-                      //   child: Image.asset(
-                      //     Images.fastiryLogoRed,
-                      //     fit: BoxFit.fill,
-                      //   ),
-                      // ),
-                      // Text("fasteriy".tr,
-                      //     maxLines: 1,
-                      //     style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                      //         fontSize: Dimensions.blockscreenHorizontal * 4.5,
-                      //         color: Theme.of(context).primaryColor)),
-                    ],
+                  Container(
+                    child: Row(
+                      children: [
+                        Get.locale.languageCode != "en"
+                            ? Image.asset(
+                                Images.fastiryLogoTypeArabic,
+                                height: Dimensions.blockscreenVertical * 6,
+                                width: Dimensions.blockscreenVertical * 12,
+                              )
+                            : Container(),
+                        Image.asset(
+                          Images.fastiryLogoRed,
+                          height: Dimensions.blockscreenVertical * 6,
+                        ),
+                        Get.locale.languageCode == "en"
+                            ? Image.asset(
+                                Images.fastiryLogoType,
+                                height: Dimensions.blockscreenVertical * 6,
+                                width: Dimensions.blockscreenVertical * 12,
+                              )
+                            : Container()
+                        // Container(
+                        //   height: Dimensions.blockscreenVertical * 8,
+                        //   child: Image.asset(
+                        //     Images.fastiryLogoRed,
+                        //     fit: BoxFit.fill,
+                        //   ),
+                        // ),
+                        // Text("fasteriy".tr,
+                        //     maxLines: 1,
+                        //     style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                        //         fontSize: Dimensions.blockscreenHorizontal * 4.5,
+                        //         color: Theme.of(context).primaryColor)),
+                      ],
+                    ),
                   ),
                   Container(
-                    constraints: BoxConstraints(
-                        maxWidth: Dimensions.screenWidth * 0.6,
-                        minHeight: Dimensions.screenWidth * 0.1),
                     child: Text("Groceries_home".tr,
-                        maxLines: 2,
+                        textAlign: TextAlign.left,
                         style: Get.find<FontStyles>().poppinsMedium.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 5.5,
                             color: Theme.of(context).primaryColor)),
                   ),
+                  Text("high_quality".tr,
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                            fontSize: Dimensions.blockscreenHorizontal * 4,
+                          )),
                   SizedBox(
-                    height: 5,
+                    height: 8,
                   ),
-                  Container(
-                    constraints: BoxConstraints(
-                        maxWidth: Dimensions.screenWidth * 0.7,
-                        minHeight: Dimensions.screenWidth * 0.1),
-                    child: Text("high_quality".tr,
-                        maxLines: 2,
-                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                              fontSize: Dimensions.blockscreenHorizontal * 4,
-                            )),
-                  ),
-                  // SizedBox(
-                  //   height: 5,
-                  // ),
                   InkWell(
                       onTap: () {
                         Get.toNamed(RouteHelper.getFastiryMartRoute());

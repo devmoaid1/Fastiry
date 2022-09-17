@@ -30,8 +30,8 @@ class Theme1HomeScreen extends StatelessWidget {
         slivers: [
           // App Bar
           SliverAppBar(
-            toolbarHeight: Dimensions.blockscreenVertical * 12,
-            expandedHeight: Dimensions.blockscreenVertical * 12,
+            toolbarHeight: Dimensions.blockscreenVertical * 11,
+            // expandedHeight: Dimensions.blockscreenVertical * 8,
             floating: true,
             elevation: 0,
             automaticallyImplyLeading: false,
