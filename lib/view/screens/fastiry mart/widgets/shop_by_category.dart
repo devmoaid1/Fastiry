@@ -26,13 +26,14 @@ class ShopByCategorySection extends StatelessWidget {
             onTap: () => Get.toNamed(RouteHelper.getCategoryRoute(true))),
       ),
       SizedBox(
-          height: martViewModel.martCategories != null
-              ? martViewModel.martCategories.length <= 4
-                  ? Dimensions.screeHeight * 0.19
-                  : Dimensions.screeHeight * 0.35
-              : 0,
+          // height: martViewModel.martCategories != null
+          //     ? martViewModel.martCategories.length <= 4
+          //         ? Dimensions.screeHeight * 0.19
+          //         : Dimensions.screeHeight * 0.35
+          //     : 0,
           child: !martViewModel.isLoading
               ? GridView.builder(
+                  shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.blockscreenHorizontal * 2),
@@ -54,6 +55,7 @@ class ShopByCategorySection extends StatelessWidget {
                     //     index: index, martViewModel: martViewModel);
                   })
               : GridView.builder(
+                  shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   padding: EdgeInsets.symmetric(
                       horizontal: Dimensions.blockscreenHorizontal * 2),

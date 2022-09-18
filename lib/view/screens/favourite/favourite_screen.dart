@@ -51,7 +51,7 @@ class _FavouriteScreenState extends State<FavouriteScreen>
                       color: Theme.of(context).primaryColor),
                   tabs: [
                     Tab(text: 'food'.tr),
-                    Tab(text: 'restaurants'.tr),
+                    Tab(text: 'Restaurants'.tr),
                   ],
                 ),
               ),

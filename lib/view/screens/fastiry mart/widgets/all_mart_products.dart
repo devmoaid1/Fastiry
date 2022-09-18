@@ -28,27 +28,33 @@ class AllMartProductsSection extends StatelessWidget {
         ),
         SizedBox(
           height: Dimensions.screeHeight * 0.50,
-          child: ListView.builder(
-              physics: BouncingScrollPhysics(),
-              scrollDirection: Axis.horizontal,
-              itemCount: martViewModel.martProducts.length,
-              // itemCount: categoryController.categoryProductList != null
-              //     ? categoryController.categoryProductList.length
-              //     : 4,
-              itemBuilder: ((context, index) {
-                if (!martViewModel.isLoading) {
-                  if (martViewModel.martProducts.isNotEmpty) {
-                    final product = martViewModel.martProducts[index];
-                    return MartProductCard(product: product);
-                  }
+          child: !martViewModel.isLoading
+              ? ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: martViewModel.martProducts.length,
+                  // itemCount: categoryController.categoryProductList != null
+                  //     ? categoryController.categoryProductList.length
+                  //     : 4,
+                  itemBuilder: ((context, index) {
+                    if (martViewModel.martProducts.isNotEmpty) {
+                      final product = martViewModel.martProducts[index];
+                      return MartProductCard(product: product);
+                    }
 
-                  return Center(
-                      child: NoDataScreen(text: "No Products at the moment"));
-                }
-
-                return MartProductShimmer(
-                    martViewModel: martViewModel, index: index);
-              })),
+                    return Center(
+                        child: NoDataScreen(text: "No Products at the moment"));
+                  }))
+              : ListView.builder(
+                  physics: BouncingScrollPhysics(),
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 4,
+                  itemBuilder: ((context, index) {
+                    return MartProductShimmer(
+                        martViewModel: martViewModel, index: index);
+                  })),
         )
       ],
     );

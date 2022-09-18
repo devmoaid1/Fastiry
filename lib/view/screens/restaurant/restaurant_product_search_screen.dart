@@ -55,55 +55,64 @@ class _RestaurantProductSearchScreenState
                   ),
                   Expanded(
                       child: TextField(
-                    controller: _searchController,
-                    style: Get.find<FontStyles>()
-                        .poppinsRegular
-                        .copyWith(fontSize: Dimensions.fontSizeLarge),
-                    textInputAction: TextInputAction.search,
-                    cursorColor: Theme.of(context).primaryColor,
-                    textAlignVertical: TextAlignVertical.center,
-                    decoration: InputDecoration(
-                      hintText: 'search_item_in_store'.tr,
-                      hintStyle: Get.find<FontStyles>().poppinsRegular.copyWith(
-                          fontSize: Dimensions.fontSizeLarge,
-                          color: Theme.of(context).hintColor),
-                      isDense: true,
-                      contentPadding:
-                          EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
-                      border: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                        borderSide: BorderSide(
-                            color:
-                                Theme.of(context).primaryColor.withOpacity(0.3),
-                            width: 1),
-                      ),
-                      enabledBorder: OutlineInputBorder(
-                        borderRadius:
-                            BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                        borderSide: BorderSide(
-                            color: Theme.of(context).disabledColor, width: 1),
-                      ),
-                      suffixIcon: IconButton(
-                        icon: Icon(Icons.search,
-                            color: Theme.of(context).dividerColor, size: 25),
-                        onPressed: () => Get.find<RestaurantController>()
-                            .getStoreSearchItemList(
-                          _searchController.text.trim(),
-                          widget.storeID,
-                          1,
-                          Get.find<RestaurantController>().searchType,
-                        ),
-                      ),
-                    ),
-                    onSubmitted: (text) =>
-                        Get.find<RestaurantController>().getStoreSearchItemList(
-                      _searchController.text.trim(),
-                      widget.storeID,
-                      1,
-                      Get.find<RestaurantController>().searchType,
-                    ),
-                  )),
+                          controller: _searchController,
+                          style: Get.find<FontStyles>()
+                              .poppinsRegular
+                              .copyWith(fontSize: Dimensions.fontSizeLarge),
+                          textInputAction: TextInputAction.search,
+                          cursorColor: Theme.of(context).primaryColor,
+                          textAlignVertical: TextAlignVertical.center,
+                          decoration: InputDecoration(
+                            hintText: 'search_item_in_store'.tr,
+                            hintStyle: Get.find<FontStyles>()
+                                .poppinsRegular
+                                .copyWith(
+                                    fontSize: Dimensions.fontSizeLarge,
+                                    color: Theme.of(context).hintColor),
+                            isDense: true,
+                            contentPadding:
+                                EdgeInsets.all(Dimensions.PADDING_SIZE_SMALL),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.RADIUS_SMALL),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.3),
+                                  width: 1),
+                            ),
+                            enabledBorder: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(
+                                  Dimensions.RADIUS_SMALL),
+                              borderSide: BorderSide(
+                                  color: Theme.of(context).disabledColor,
+                                  width: 1),
+                            ),
+                            suffixIcon: IconButton(
+                                icon: Icon(Icons.search,
+                                    color: Theme.of(context).dividerColor,
+                                    size: 25),
+                                onPressed: () {
+                                  Get.find<RestaurantController>()
+                                      .getStoreSearchItemList(
+                                    _searchController.text.trim(),
+                                    widget.storeID,
+                                    1,
+                                    Get.find<RestaurantController>().searchType,
+                                  );
+                                  _searchController.clear();
+                                }),
+                          ),
+                          onSubmitted: (text) {
+                            Get.find<RestaurantController>()
+                                .getStoreSearchItemList(
+                              _searchController.text.trim(),
+                              widget.storeID,
+                              1,
+                              Get.find<RestaurantController>().searchType,
+                            );
+                            _searchController.clear();
+                          })),
                 ]),
               )),
         ),
