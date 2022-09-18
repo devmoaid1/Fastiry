@@ -64,15 +64,16 @@ class FastriyMartAdSection extends StatelessWidget {
                       ],
                     ),
                   ),
-                  Container(
-                    child: Text("Groceries_home".tr,
-                        textAlign: TextAlign.left,
-                        style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 5.5,
-                            color: Theme.of(context).primaryColor)),
+                  Text("Groceries_home".tr,
+                      textAlign: TextAlign.left,
+                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                          fontSize: Dimensions.blockscreenHorizontal * 5.5,
+                          color: Theme.of(context).primaryColor)),
+                  SizedBox(
+                    height: 5,
                   ),
                   Text("high_quality".tr,
-                      style: Get.find<FontStyles>().poppinsMedium.copyWith(
+                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
                             fontSize: Dimensions.blockscreenHorizontal * 4,
                           )),
                   SizedBox(
@@ -110,10 +111,8 @@ class FastriyMartAdSection extends StatelessWidget {
           Expanded(
             flex: 1,
             child: Container(
-              // height: Dimensions.blockscreenVertical * 20,
-              // width: Dimensions.screenWidth * 0.45,
               child: Image.asset(
-                Images.fasteriyMartGraphics,
+                Images.fasteriyMartGraphicsFourth,
                 fit: BoxFit.fill,
               ),
             ),
