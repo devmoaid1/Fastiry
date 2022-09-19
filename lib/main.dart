@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:device_preview/device_preview.dart';
 import 'package:efood_multivendor/helper/notification_helper.dart';
 import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/view/screens/fastiry/fastiry.dart';
@@ -52,7 +53,9 @@ Future<void> main() async {
   } catch (e) {}
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-  runApp(FastiryApp(languages: _languages, orderID: _orderID));
+  runApp(DevicePreview(
+      builder: (context) =>
+          FastiryApp(languages: _languages, orderID: _orderID)));
 }
 
 class MyHttpOverrides extends HttpOverrides {

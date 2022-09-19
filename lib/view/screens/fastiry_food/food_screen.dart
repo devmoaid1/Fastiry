@@ -78,11 +78,15 @@ class _FoodScreenState extends State<FoodScreen> {
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
-                                  Flexible(
+                                  Container(
+                                    constraints: BoxConstraints(
+                                        maxWidth:
+                                            Dimensions.screenWidth * 0.70),
                                     child: Text(
                                       locationController
                                           .getUserAddress()
-                                          .address,
+                                          .address
+                                          .substring(0, 40),
                                       style: Get.find<FontStyles>()
                                           .poppinsRegular
                                           .copyWith(

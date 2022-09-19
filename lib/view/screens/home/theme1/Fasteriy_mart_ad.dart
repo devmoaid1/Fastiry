@@ -65,9 +65,8 @@ class FastriyMartAdSection extends StatelessWidget {
                     ),
                   ),
                   Text("Groceries_home".tr,
-                      textAlign: TextAlign.left,
                       style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                          fontSize: Dimensions.blockscreenHorizontal * 5.5,
+                          fontSize: Dimensions.blockscreenHorizontal * 5,
                           color: Theme.of(context).primaryColor)),
                   SizedBox(
                     height: 5,

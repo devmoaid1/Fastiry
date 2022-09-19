@@ -73,16 +73,22 @@ class Theme1HomeScreen extends StatelessWidget {
                               SizedBox(
                                   width: Dimensions.blockscreenHorizontal * 3),
                               Container(
-                                width: Dimensions.screenWidth * 0.58,
+                                constraints: BoxConstraints(
+                                  maxWidth: Dimensions.screenWidth * 0.58,
+                                ),
                                 child: Text(
-                                  locationController.getUserAddress().address,
+                                  locationController
+                                      .getUserAddress()
+                                      .address
+                                      .substring(0, 30)
+                                      .trim(),
                                   style: Get.find<FontStyles>()
                                       .poppinsRegular
                                       .copyWith(
                                         color: Theme.of(context).primaryColor,
                                         fontSize: Dimensions.fontSizeSmall,
                                       ),
-                                  maxLines: 1,
+                                  maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
