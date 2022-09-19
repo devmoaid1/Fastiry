@@ -170,24 +170,30 @@ class LocationController extends GetxController implements GetxService {
     }
     update();
     ZoneResponseModel _responseModel;
-    Response response = await locationRepo.getZone(lat, long);
-    if (response.statusCode == 200) {
-      _inZone = true;
-      _zoneID = int.parse(jsonDecode(response.body['zone_id'])[0].toString());
-      List<int> _zoneIds = [];
-      jsonDecode(response.body['zone_id']).forEach((zoneId) {
-        _zoneIds.add(int.parse(zoneId.toString()));
-      });
-      _responseModel = ZoneResponseModel(true, '', _zoneIds);
-    } else {
+    try {
+      Response response = await locationRepo.getZone(lat, long);
+      if (response.statusCode == 200) {
+        _inZone = true;
+        _zoneID = int.parse(jsonDecode(response.body['zone_id'])[0].toString());
+        List<int> _zoneIds = [];
+        jsonDecode(response.body['zone_id']).forEach((zoneId) {
+          _zoneIds.add(int.parse(zoneId.toString()));
+        });
+        _responseModel = ZoneResponseModel(true, '', _zoneIds);
+      }
+    } catch (err) {
       _inZone = false;
-      _responseModel = ZoneResponseModel(false, response.statusText, []);
+      _responseModel = ZoneResponseModel(false, "something_wrong".tr, []);
+      showCustomSnackBar("something_wrong");
+      _isLoading = false;
     }
+
     if (markerLoad) {
       _loading = false;
     } else {
       _isLoading = false;
     }
+
     update();
     return _responseModel;
   }

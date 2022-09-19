@@ -114,7 +114,7 @@ class AddressMapCard extends StatelessWidget {
                               locationController.selectedAddress != null
                                   ? locationController.selectedAddress.address
                                   : locationController.getUserAddress().address,
-                              maxLines: 2,
+                              maxLines: 3,
                               style: Get.find<FontStyles>()
                                   .poppinsMedium
                                   .copyWith(

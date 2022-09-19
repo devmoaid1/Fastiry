@@ -90,7 +90,7 @@ class _FoodScreenState extends State<FoodScreen> {
                                                 Theme.of(context).primaryColor,
                                             fontSize: Dimensions.fontSizeSmall,
                                           ),
-                                      maxLines: 2,
+                                      maxLines: 1,
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),

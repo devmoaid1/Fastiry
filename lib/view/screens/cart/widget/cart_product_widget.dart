@@ -3,11 +3,9 @@ import 'package:efood_multivendor/controller/splash_controller.dart';
 import 'package:efood_multivendor/data/model/response/cart_model.dart';
 import 'package:efood_multivendor/data/model/response/product_model.dart';
 import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
 import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/util/styles.dart';
 import 'package:efood_multivendor/view/base/custom_image.dart';
-import 'package:efood_multivendor/view/base/product_bottom_sheet.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -60,153 +58,132 @@ class CartProductWidget extends StatelessWidget {
 
     return Padding(
       padding: EdgeInsets.only(bottom: Dimensions.blockscreenVertical * 1.5),
-      child: InkWell(
-        onTap: () {
-          ResponsiveHelper.isMobile(context)
-              ? showModalBottomSheet(
-                  context: context,
-                  isScrollControlled: true,
-                  backgroundColor: Colors.transparent,
-                  builder: (con) => ProductBottomSheet(
-                      product: cart.product, cartIndex: cartIndex, cart: cart),
-                )
-              : showDialog(
-                  context: context,
-                  builder: (con) => Dialog(
-                        child: ProductBottomSheet(
-                            product: cart.product,
-                            cartIndex: cartIndex,
-                            cart: cart),
-                      ));
-        },
-        child: Container(
-          padding: EdgeInsets.symmetric(
-              vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
-              horizontal: Dimensions.PADDING_SIZE_SMALL),
-          decoration: BoxDecoration(
-            color: Theme.of(context).backgroundColor,
-          ),
-          child: Column(
-            children: [
-              Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                (cart.product.image != null && cart.product.image.isNotEmpty)
-                    ? Stack(
-                        children: [
-                          ClipRRect(
-                            borderRadius:
-                                BorderRadius.circular(Dimensions.RADIUS_SMALL),
-                            child: CustomImage(
-                              image:
-                                  '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${cart.product.image}',
-                              height: Dimensions.blockscreenVertical * 15,
-                              width: Dimensions.blockscreenVertical * 15,
-                              fit: BoxFit.cover,
-                            ),
-                          ),
-                          isAvailable
-                              ? SizedBox()
-                              : Positioned(
-                                  top: 0,
-                                  left: 0,
-                                  bottom: 0,
-                                  right: 0,
-                                  child: Container(
-                                    alignment: Alignment.center,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(
-                                            Dimensions.RADIUS_SMALL),
-                                        color: Colors.black.withOpacity(0.6)),
-                                    child: Text('not_available_now_break'.tr,
-                                        textAlign: TextAlign.center,
-                                        style: robotoRegular.copyWith(
-                                          color: Colors.white,
-                                          fontSize: 8,
-                                        )),
-                                  ),
-                                ),
-                        ],
-                      )
-                    : SizedBox.shrink(),
-                SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-                Expanded(
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.start,
+      child: Container(
+        padding: EdgeInsets.symmetric(
+            vertical: Dimensions.PADDING_SIZE_EXTRA_SMALL,
+            horizontal: Dimensions.PADDING_SIZE_SMALL),
+        decoration: BoxDecoration(
+          color: Theme.of(context).backgroundColor,
+        ),
+        child: Column(
+          children: [
+            Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              (cart.product.image != null && cart.product.image.isNotEmpty)
+                  ? Stack(
                       children: [
-                        FittedBox(
-                          fit: BoxFit.fill,
-                          child: Container(
-                            width: Dimensions.blockscreenHorizontal * 40,
-                            child: Text(
-                              cart.product.name,
-                              style: Get.find<FontStyles>()
-                                  .poppinsMedium
-                                  .copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal * 5),
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                            ),
+                        ClipRRect(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                          child: CustomImage(
+                            image:
+                                '${Get.find<SplashController>().configModel.baseUrls.productImageUrl}/${cart.product.image}',
+                            height: Dimensions.blockscreenVertical * 15,
+                            width: Dimensions.blockscreenVertical * 15,
+                            fit: BoxFit.cover,
                           ),
                         ),
-                        SizedBox(height: Dimensions.blockscreenVertical * 1),
-                        FittedBox(
-                          fit: BoxFit.fill,
-                          child: Container(
-                            width: Dimensions.blockscreenHorizontal * 35,
-                            child: Text(
-                              PriceConverter.convertPrice(
-                                  cart.discountedPrice + cart.discountAmount),
-                              maxLines: 1,
-                              overflow: TextOverflow.ellipsis,
-                              style: Get.find<FontStyles>()
-                                  .poppinsRegular
-                                  .copyWith(
-                                      fontSize:
-                                          Dimensions.blockscreenHorizontal *
-                                              4.5),
-                            ),
+                        isAvailable
+                            ? SizedBox()
+                            : Positioned(
+                                top: 0,
+                                left: 0,
+                                bottom: 0,
+                                right: 0,
+                                child: Container(
+                                  alignment: Alignment.center,
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(
+                                          Dimensions.RADIUS_SMALL),
+                                      color: Colors.black.withOpacity(0.6)),
+                                  child: Text('not_available_now_break'.tr,
+                                      textAlign: TextAlign.center,
+                                      style: robotoRegular.copyWith(
+                                        color: Colors.white,
+                                        fontSize: 8,
+                                      )),
+                                ),
+                              ),
+                      ],
+                    )
+                  : SizedBox.shrink(),
+              SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
+              Expanded(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      FittedBox(
+                        fit: BoxFit.fill,
+                        child: Container(
+                          width: Dimensions.blockscreenHorizontal * 40,
+                          child: Text(
+                            cart.product.name,
+                            style: Get.find<FontStyles>()
+                                .poppinsMedium
+                                .copyWith(
+                                    fontSize:
+                                        Dimensions.blockscreenHorizontal * 5),
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
                           ),
                         ),
-                        SizedBox(height: 5),
-                        Row(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            children: [
-                              QuantityButton(
-                                fromProductPage: false,
-                                onTap: () {
-                                  if (cart.quantity > 1) {
-                                    Get.find<CartController>()
-                                        .setQuantity(false, cart);
-                                  } else {
-                                    Get.find<CartController>()
-                                        .removeFromCart(cartIndex);
-                                  }
-                                },
-                                isIncrement: false,
-                                canDecrement: cart.quantity != 1,
-                              ),
-                              Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 8.0),
-                                child: Text(cart.quantity.toString(),
-                                    style: Get.find<FontStyles>()
-                                        .poppinsMedium
-                                        .copyWith(
-                                            fontSize:
-                                                Dimensions.fontSizeExtraLarge)),
-                              ),
-                              QuantityButton(
-                                fromProductPage: false,
-                                onTap: () => Get.find<CartController>()
-                                    .setQuantity(true, cart),
-                                isIncrement: true,
-                              ),
-                            ]),
-                      ]),
-                ),
-              ]),
-            ],
-          ),
+                      ),
+                      SizedBox(height: Dimensions.blockscreenVertical * 1),
+                      FittedBox(
+                        fit: BoxFit.fill,
+                        child: Container(
+                          width: Dimensions.blockscreenHorizontal * 35,
+                          child: Text(
+                            PriceConverter.convertPrice(
+                                cart.discountedPrice + cart.discountAmount),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: Get.find<FontStyles>()
+                                .poppinsRegular
+                                .copyWith(
+                                    fontSize:
+                                        Dimensions.blockscreenHorizontal * 4.5),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 5),
+                      Row(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          children: [
+                            QuantityButton(
+                              fromProductPage: false,
+                              onTap: () {
+                                if (cart.quantity > 1) {
+                                  Get.find<CartController>()
+                                      .setQuantity(false, cart);
+                                } else {
+                                  Get.find<CartController>()
+                                      .removeFromCart(cartIndex);
+                                }
+                              },
+                              isIncrement: false,
+                              canDecrement: cart.quantity != 1,
+                            ),
+                            Padding(
+                              padding: EdgeInsets.symmetric(horizontal: 8.0),
+                              child: Text(cart.quantity.toString(),
+                                  style: Get.find<FontStyles>()
+                                      .poppinsMedium
+                                      .copyWith(
+                                          fontSize:
+                                              Dimensions.fontSizeExtraLarge)),
+                            ),
+                            QuantityButton(
+                              fromProductPage: false,
+                              onTap: () => Get.find<CartController>()
+                                  .setQuantity(true, cart),
+                              isIncrement: true,
+                            ),
+                          ]),
+                    ]),
+              ),
+            ]),
+          ],
         ),
       ),
     );

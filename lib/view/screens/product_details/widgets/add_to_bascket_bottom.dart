@@ -53,7 +53,7 @@ class AddToBascketBottomBar extends StatelessWidget {
                         Get.back();
                         Get.find<CartController>()
                             .removeAllAndAddToCart(cartModel);
-                        _showCartSnackBar();
+                        // _showCartSnackBar();
                       },
                     ),
                     barrierDismissible: false);

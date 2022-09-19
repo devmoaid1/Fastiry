@@ -38,6 +38,7 @@ class Theme1HomeScreen extends StatelessWidget {
             backgroundColor: ResponsiveHelper.isDesktop(context)
                 ? Colors.transparent
                 : Theme.of(context).backgroundColor,
+
             title: Container(
               color: Theme.of(context).backgroundColor,
               child: Column(
@@ -45,99 +46,89 @@ class Theme1HomeScreen extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(
-                    height: 10,
-                  ),
+                  // SizedBox(
+                  //   height: 6,
+                  // ),
                   Text(
                     "deliver_to".tr,
                     style: Get.find<FontStyles>().poppinsMedium.copyWith(
                         color: Theme.of(context).dividerColor,
                         fontSize: Dimensions.blockscreenHorizontal * 3.5),
                   ),
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                      vertical: Dimensions.PADDING_SIZE_SMALL,
-                      horizontal: ResponsiveHelper.isDesktop(context)
-                          ? Dimensions.PADDING_SIZE_SMALL
-                          : 0,
-                    ),
-                    child: GetBuilder<LocationController>(
-                        builder: (locationController) {
-                      return Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: () => Get.toNamed(
-                                RouteHelper.getAccessLocationRoute('home')),
-                            child: Row(
-                              children: [
-                                Image.asset(
-                                  Images.pin_marker,
-                                  color: Theme.of(context).primaryColor,
-                                  height: Dimensions.blockscreenHorizontal * 5,
-                                ),
-                                SizedBox(
-                                    width:
-                                        Dimensions.blockscreenHorizontal * 3),
-                                Container(
-                                  width: Dimensions.screenWidth * 0.58,
-                                  child: Text(
-                                    locationController.getUserAddress().address,
-                                    style: Get.find<FontStyles>()
-                                        .poppinsRegular
-                                        .copyWith(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: Dimensions.fontSizeSmall,
-                                        ),
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ),
-                                Icon(
-                                  Icons.arrow_drop_down,
-                                  color: Theme.of(context).disabledColor,
-                                ),
-                              ],
-                            ),
-                          ),
-                          GetBuilder<CartController>(builder: (cartController) {
-                            return cartController.cartList.length > 0
-                                ? InkWell(
-                                    onTap: () =>
-                                        Get.toNamed(RouteHelper.getCartRoute()),
-                                    child: Badge(
-                                      showBadge: true,
-                                      position: Get.locale.languageCode == "en"
-                                          ? BadgePosition.topEnd()
-                                          : BadgePosition.topStart(top: -5),
-                                      padding: EdgeInsets.all(8),
-                                      elevation: 0,
-                                      badgeColor: Colors.red,
-                                      badgeContent: Center(
-                                        child: Text(
-                                          cartController.cartList.length
-                                              .toString(),
-                                          style: Get.find<FontStyles>()
-                                              .poppinsRegular
-                                              .copyWith(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                        ),
+                  GetBuilder<LocationController>(builder: (locationController) {
+                    return Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        InkWell(
+                          onTap: () => Get.toNamed(
+                              RouteHelper.getAccessLocationRoute('home')),
+                          child: Row(
+                            children: [
+                              Image.asset(
+                                Images.pin_marker,
+                                color: Theme.of(context).primaryColor,
+                                height: Dimensions.blockscreenHorizontal * 5,
+                              ),
+                              SizedBox(
+                                  width: Dimensions.blockscreenHorizontal * 3),
+                              Container(
+                                width: Dimensions.screenWidth * 0.58,
+                                child: Text(
+                                  locationController.getUserAddress().address,
+                                  style: Get.find<FontStyles>()
+                                      .poppinsRegular
+                                      .copyWith(
+                                        color: Theme.of(context).primaryColor,
+                                        fontSize: Dimensions.fontSizeSmall,
                                       ),
-                                      child: SvgPicture.asset(
-                                        Images.cartIcon,
-                                        width: 25,
-                                        height: 25,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                              ),
+                              Icon(
+                                Icons.arrow_drop_down,
+                                color: Theme.of(context).disabledColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                        GetBuilder<CartController>(builder: (cartController) {
+                          return cartController.cartList.length > 0
+                              ? InkWell(
+                                  onTap: () =>
+                                      Get.toNamed(RouteHelper.getCartRoute()),
+                                  child: Badge(
+                                    showBadge: true,
+                                    position: Get.locale.languageCode == "en"
+                                        ? BadgePosition.topEnd()
+                                        : BadgePosition.topStart(top: -5),
+                                    padding: EdgeInsets.all(8),
+                                    elevation: 0,
+                                    badgeColor: Colors.red,
+                                    badgeContent: Center(
+                                      child: Text(
+                                        cartController.cartList.length
+                                            .toString(),
+                                        style: Get.find<FontStyles>()
+                                            .poppinsRegular
+                                            .copyWith(
+                                                color: Colors.white,
+                                                fontSize: 12),
                                       ),
                                     ),
-                                  )
-                                : SizedBox();
-                          })
-                        ],
-                      );
-                    }),
-                  ),
+                                    child: SvgPicture.asset(
+                                      Images.cartIcon,
+                                      width: 25,
+                                      height: 25,
+                                    ),
+                                  ),
+                                )
+                              : SizedBox();
+                        })
+                      ],
+                    );
+                  }),
                 ],
               ),
             ),
