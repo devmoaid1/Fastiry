@@ -6,7 +6,7 @@ import 'package:get/get.dart';
 import '../../../data/model/response/category_model.dart';
 import '../../../data/model/response/product_model.dart';
 
-class CategoryViewModel extends GetxController implements GetxService {
+class CategoryViewModel extends GetxController {
   final CategoryRepo categoryRepo;
 
   CategoryViewModel({@required this.categoryRepo});

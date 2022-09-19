@@ -12,7 +12,7 @@ import '../../../controller/location_controller.dart';
 import '../../../controller/order_controller.dart';
 import '../../../data/model/response/category_model.dart';
 
-class RestuarantViewModel extends GetxController implements GetxService {
+class RestuarantViewModel extends GetxController {
   final CategoryRepo categoryRepo;
   final RestaurantRepo restaurantRepo;
 
@@ -41,7 +41,7 @@ class RestuarantViewModel extends GetxController implements GetxService {
     }
     print("loading is: ${_isLoading.value}");
     _categoryIndex = 0;
-    _restaurantCategories.clear();
+
     final restaurantDetails =
         await getRestaurantDetails(restaurant.id.toString());
     setRestaurantDetails(restaurantDetails);

@@ -88,7 +88,7 @@ Future<Map<String, Map<String, String>>> init() async {
       () => LocationRepo(apiClient: Get.find(), sharedPreferences: Get.find()));
   Get.lazyPut(() => UserRepo(apiClient: Get.find()));
   Get.lazyPut(() => BannerRepo(apiClient: Get.find()));
-  Get.lazyPut(() => CategoryRepo(apiClient: Get.find()));
+  Get.lazyPut(() => CategoryRepo(apiClient: Get.find()), fenix: true);
   Get.lazyPut(() => RestaurantRepo(apiClient: Get.find()));
   Get.lazyPut(() => WishListRepo(apiClient: Get.find()));
   Get.lazyPut(() => ProductRepo(apiClient: Get.find()));
@@ -132,10 +132,12 @@ Future<Map<String, Map<String, String>>> init() async {
   Get.lazyPut(() => ConectivityController());
 
   // viewModels
-  Get.lazyPut(() => MartViewModel(restaurantRepo: Get.find()));
-  Get.lazyPut(() => RestuarantViewModel(
-      categoryRepo: Get.find(), restaurantRepo: Get.find()));
-  Get.lazyPut(() => CategoryViewModel(categoryRepo: Get.find()));
+  Get.lazyPut(() => MartViewModel(restaurantRepo: Get.find()), fenix: true);
+  Get.lazyPut(
+      () => RestuarantViewModel(
+          categoryRepo: Get.find(), restaurantRepo: Get.find()),
+      fenix: true);
+  Get.lazyPut(() => CategoryViewModel(categoryRepo: Get.find()), fenix: true);
 
   // font styles
 

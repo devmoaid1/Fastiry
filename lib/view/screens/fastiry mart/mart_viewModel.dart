@@ -12,7 +12,7 @@ import '../../../data/model/response/product_model.dart';
 import '../../../data/model/response/restaurant_model.dart';
 import '../../../data/repository/restaurant_repo.dart';
 
-class MartViewModel extends GetxController implements GetxService {
+class MartViewModel extends GetxController {
   final RestaurantRepo restaurantRepo;
   bool _isLoading = true;
 
