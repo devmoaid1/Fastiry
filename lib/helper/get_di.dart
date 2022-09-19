@@ -134,10 +134,8 @@ Future<Map<String, Map<String, String>>> init() async {
   // viewModels
   Get.lazyPut(() => MartViewModel(restaurantRepo: Get.find()));
   Get.lazyPut(() => RestuarantViewModel(
-      categoryRepo: CategoryRepo(apiClient: Get.find()),
-      restaurantRepo: Get.find()));
-  Get.lazyPut(() =>
-      CategoryViewModel(categoryRepo: CategoryRepo(apiClient: Get.find())));
+      categoryRepo: Get.find(), restaurantRepo: Get.find()));
+  Get.lazyPut(() => CategoryViewModel(categoryRepo: Get.find()));
 
   // font styles
 

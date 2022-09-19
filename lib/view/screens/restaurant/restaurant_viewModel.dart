@@ -35,15 +35,18 @@ class RestuarantViewModel extends GetxController implements GetxService {
   List<Product> get restaurantAllProducts => _restaurantAllProducts;
   List<Product> get categoryProducts => _categoryProducts;
 
-  void initRestaurantData(Restaurant restaurant) {
+  void initRestaurantData(Restaurant restaurant) async {
     if (_isLoading.isFalse) {
       _isLoading.toggle();
     }
     print("loading is: ${_isLoading.value}");
     _categoryIndex = 0;
-    setRestaurantDetails(restaurant.id.toString());
-    setResturantCategories(restaurant);
-    getRestaurantProducts(restaurant);
+    _restaurantCategories.clear();
+    final restaurantDetails =
+        await getRestaurantDetails(restaurant.id.toString());
+    setRestaurantDetails(restaurantDetails);
+    setResturantCategories(restaurantDetails);
+    getRestaurantProducts(restaurantDetails);
 
     update();
 
@@ -64,9 +67,7 @@ class RestuarantViewModel extends GetxController implements GetxService {
     return restaurant;
   }
 
-  void setRestaurantDetails(String restaurantId) async {
-    final restaurant = await getRestaurantDetails(restaurantId);
-
+  void setRestaurantDetails(Restaurant restaurant) async {
     Get.find<OrderController>().initializeTimeSlot(restaurant);
     Get.find<OrderController>().getDistanceInMeter(
       LatLng(

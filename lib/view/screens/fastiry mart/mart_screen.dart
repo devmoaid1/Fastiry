@@ -1,4 +1,3 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/all_mart_products.dart';
 import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/shop_by_category.dart';
@@ -104,132 +103,125 @@ class MartScreen extends StatelessWidget {
             ),
 
             SliverToBoxAdapter(
-              child: GetBuilder<CategoryController>(
-                builder: (cateController) => Column(
-                  children: [
-                    SizedBox(
-                      height: Dimensions.blockscreenVertical * 4,
-                    ),
-                    martViewModel.isLoading || martViewModel.fastiryMart == null
-                        ? Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: SizedBox(
-                              height: Dimensions.blockscreenVertical * 9,
-                            ),
-                          )
-                        : Padding(
-                            padding: EdgeInsets.symmetric(horizontal: 8.0),
-                            child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SvgPicture.asset(
-                                          Images.ordersIcon,
-                                          color: Theme.of(context)
-                                              .textTheme
-                                              .bodyText1
-                                              .color,
-                                          width: 25,
-                                          height: 25,
-                                        ),
-                                        SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL,
-                                        ),
-                                        Text(
-                                          PriceConverter.convertPrice(
-                                              martViewModel
-                                                  .fastiryMart.minimumOrder),
-                                          style: Get.find<FontStyles>()
-                                              .poppinsMedium
-                                              .copyWith(
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    3.5,
-                                                color: Theme.of(context)
-                                                    .disabledColor,
-                                              ),
-                                        ),
-                                      ]),
-                                  // Expanded(child: SizedBox()),
-                                  Column(children: [
+              child: Column(
+                children: [
+                  SizedBox(
+                    height: Dimensions.blockscreenVertical * 4,
+                  ),
+                  martViewModel.isLoading || martViewModel.fastiryMart == null
+                      ? Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: SizedBox(
+                            height: Dimensions.blockscreenVertical * 9,
+                          ),
+                        )
+                      : Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 8.0),
+                          child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      SvgPicture.asset(
+                                        Images.ordersIcon,
+                                        color: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1
+                                            .color,
+                                        width: 25,
+                                        height: 25,
+                                      ),
+                                      SizedBox(
+                                        height:
+                                            Dimensions.PADDING_SIZE_EXTRA_SMALL,
+                                      ),
+                                      Text(
+                                        PriceConverter.convertPrice(
+                                            martViewModel
+                                                .fastiryMart.minimumOrder),
+                                        style: Get.find<FontStyles>()
+                                            .poppinsMedium
+                                            .copyWith(
+                                              fontSize: Dimensions
+                                                      .blockscreenHorizontal *
+                                                  3.5,
+                                              color: Theme.of(context)
+                                                  .disabledColor,
+                                            ),
+                                      ),
+                                    ]),
+                                // Expanded(child: SizedBox()),
+                                Column(children: [
+                                  SvgPicture.asset(
+                                    Images.clockIcon,
+                                    color: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1
+                                        .color,
+                                    width: 25,
+                                    height: 25,
+                                  ),
+                                  SizedBox(
+                                      height:
+                                          Dimensions.PADDING_SIZE_EXTRA_SMALL),
+                                  Text(
+                                    '${martViewModel.fastiryMart.deliveryTime} ${'min'.tr}',
+                                    style: Get.find<FontStyles>()
+                                        .poppinsRegular
+                                        .copyWith(
+                                            fontSize: Dimensions
+                                                    .blockscreenHorizontal *
+                                                3.5,
+                                            color: Theme.of(context)
+                                                .disabledColor),
+                                  ),
+                                ]),
+                                // Expanded(child: SizedBox()),
+                                Column(
+                                  children: [
                                     SvgPicture.asset(
-                                      Images.clockIcon,
+                                      Images.scooterIconSvg,
                                       color: Theme.of(context)
                                           .textTheme
                                           .bodyText1
                                           .color,
-                                      width: 25,
-                                      height: 25,
+                                      width:
+                                          Dimensions.blockscreenHorizontal * 5,
+                                      height:
+                                          Dimensions.blockscreenHorizontal * 5,
                                     ),
                                     SizedBox(
                                         height: Dimensions
                                             .PADDING_SIZE_EXTRA_SMALL),
                                     Text(
-                                      '${martViewModel.fastiryMart.deliveryTime} ${'min'.tr}',
+                                      martViewModel.fastiryMart.deliveryPrice !=
+                                              0
+                                          ? PriceConverter.convertPrice(
+                                              martViewModel
+                                                  .fastiryMart.deliveryPrice)
+                                          : "free_delivery".tr,
                                       style: Get.find<FontStyles>()
                                           .poppinsRegular
                                           .copyWith(
+                                              color: Theme.of(context)
+                                                  .disabledColor,
                                               fontSize: Dimensions
                                                       .blockscreenHorizontal *
-                                                  3.5,
-                                              color: Theme.of(context)
-                                                  .disabledColor),
+                                                  3.5),
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
                                     ),
-                                  ]),
-                                  // Expanded(child: SizedBox()),
-                                  Column(
-                                    children: [
-                                      SvgPicture.asset(
-                                        Images.scooterIconSvg,
-                                        color: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1
-                                            .color,
-                                        width:
-                                            Dimensions.blockscreenHorizontal *
-                                                5,
-                                        height:
-                                            Dimensions.blockscreenHorizontal *
-                                                5,
-                                      ),
-                                      SizedBox(
-                                          height: Dimensions
-                                              .PADDING_SIZE_EXTRA_SMALL),
-                                      Text(
-                                        martViewModel.fastiryMart
-                                                    .deliveryPrice !=
-                                                0
-                                            ? PriceConverter.convertPrice(
-                                                martViewModel
-                                                    .fastiryMart.deliveryPrice)
-                                            : "free_delivery".tr,
-                                        style: Get.find<FontStyles>()
-                                            .poppinsRegular
-                                            .copyWith(
-                                                color: Theme.of(context)
-                                                    .disabledColor,
-                                                fontSize: Dimensions
-                                                        .blockscreenHorizontal *
-                                                    3.5),
-                                        maxLines: 2,
-                                        overflow: TextOverflow.ellipsis,
-                                      ),
-                                    ],
-                                  )
-                                ]),
-                          ),
-                    SizedBox(height: Dimensions.blockscreenVertical * 2),
-                    ShopByCategorySection(martViewModel: martViewModel),
-                    AllMartProductsSection(
-                      martViewModel: martViewModel,
-                    )
-                  ],
-                ),
+                                  ],
+                                )
+                              ]),
+                        ),
+                  SizedBox(height: Dimensions.blockscreenVertical * 2),
+                  ShopByCategorySection(martViewModel: martViewModel),
+                  AllMartProductsSection(
+                    martViewModel: martViewModel,
+                  )
+                ],
               ),
             )
           ])),

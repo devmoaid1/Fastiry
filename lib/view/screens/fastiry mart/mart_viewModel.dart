@@ -30,7 +30,6 @@ class MartViewModel extends GetxController implements GetxService {
   List<CategoryModel> get martCategories => _martCategories;
 
   final restaurantController = Get.find<RestaurantController>();
-
   void martScreenIntial() {
     _isLoading = true;
     getFasteryMartDetails();
