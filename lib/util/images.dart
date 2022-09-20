@@ -114,14 +114,4 @@ class Images {
       'assets/image/fasteriy_mart_arabic.png';
   static const String fasteriyMartGraphics =
       'assets/image/fasteriy_graphics.png';
-  static const String fasteriyMartGraphicsSecond =
-      'assets/image/fasteriy_graphics (2).png';
-  static const String fasteriyMartGraphicsThird =
-      'assets/image/fasteriy_graphics3.png';
-  static const String fasteriyMartGraphicsFourth =
-      'assets/image/fasteriy_graphics4.png';
-  static const String fasteriyMartGraphicsFifth =
-      'assets/image/fasteriy_graphics5.png';
-  static const String fasteriyMartGraphicsSixth =
-      'assets/image/fasteriy_graphics6.png';
 }

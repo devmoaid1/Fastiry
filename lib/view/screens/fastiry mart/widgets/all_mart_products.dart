@@ -24,7 +24,8 @@ class AllMartProductsSection extends StatelessWidget {
               horizontal: Dimensions.blockscreenHorizontal * 4),
           child: TitleWidget(
               title: 'all_products'.tr,
-              onTap: () => Get.toNamed(RouteHelper.getAllProductsRoute())),
+              onTap: () => Get.toNamed(RouteHelper.getAllProductsRoute(),
+                  arguments: martViewModel.martProducts ?? [])),
         ),
         SizedBox(
           height: Dimensions.screeHeight * 0.50,

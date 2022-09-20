@@ -553,7 +553,10 @@ class RouteHelper {
     GetPage(
         name: allProducts,
         page: () {
-          return AllProductsScreen();
+          List<Product> _products = Get.arguments;
+          return AllProductsScreen(
+            products: _products,
+          );
         }),
     GetPage(
         name: rateReview,

@@ -43,7 +43,6 @@ class ApiClient extends GetxService {
         sharedPreferences.getString(AppConstants.LANGUAGE_CODE),
       );
       print('-------------');
-      print(_addressModel.toJson());
     } catch (e) {}
     updateHeader(
       token,

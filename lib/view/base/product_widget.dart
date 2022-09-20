@@ -552,7 +552,7 @@ class ProductWidget extends StatelessWidget {
                                                               .blockscreenHorizontal *
                                                           5.5,
                                                     ),
-                                                maxLines: 1,
+                                                maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                               isExistInCart
@@ -776,10 +776,17 @@ class ProductWidget extends StatelessWidget {
                                           MainAxisAlignment.start,
                                       children: [
                                         Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          mainAxisAlignment: isExistInCart
+                                              ? MainAxisAlignment.spaceBetween
+                                              : MainAxisAlignment.start,
                                           children: [
                                             Container(
-                                              width:
-                                                  Dimensions.screenWidth * 0.45,
+                                              constraints: BoxConstraints(
+                                                  maxWidth:
+                                                      Dimensions.screenWidth *
+                                                          0.45),
                                               child: Text(
                                                 product.name,
                                                 style: Get.find<FontStyles>()
@@ -789,7 +796,7 @@ class ProductWidget extends StatelessWidget {
                                                               .blockscreenHorizontal *
                                                           5,
                                                     ),
-                                                maxLines: 1,
+                                                maxLines: 2,
                                                 overflow: TextOverflow.ellipsis,
                                               ),
                                             ),
@@ -799,22 +806,27 @@ class ProductWidget extends StatelessWidget {
                                                   2,
                                             ),
                                             isExistInCart
-                                                ? Text(
-                                                    "x ${cartController.cartList[index].quantity}",
-                                                    style:
-                                                        Get.find<FontStyles>()
-                                                            .poppinsMedium
-                                                            .copyWith(
-                                                              color: Theme.of(
-                                                                      context)
-                                                                  .primaryColor,
-                                                              fontSize: Dimensions
-                                                                      .blockscreenHorizontal *
-                                                                  4,
-                                                            ),
-                                                    maxLines: 1,
-                                                    overflow:
-                                                        TextOverflow.ellipsis,
+                                                ? Container(
+                                                    margin:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal: 5),
+                                                    child: Text(
+                                                      "x ${cartController.cartList[index].quantity}",
+                                                      style:
+                                                          Get.find<FontStyles>()
+                                                              .poppinsMedium
+                                                              .copyWith(
+                                                                color: Theme.of(
+                                                                        context)
+                                                                    .primaryColor,
+                                                                fontSize: Dimensions
+                                                                        .blockscreenHorizontal *
+                                                                    4,
+                                                              ),
+                                                      maxLines: 1,
+                                                      overflow:
+                                                          TextOverflow.ellipsis,
+                                                    ),
                                                   )
                                                 : SizedBox(),
                                           ],
@@ -913,9 +925,9 @@ class ProductWidget extends StatelessWidget {
                                 ),
                                 isExistInCart
                                     ? Container(
-                                        height: 50,
+                                        height: 80,
                                         padding:
-                                            EdgeInsets.symmetric(horizontal: 5),
+                                            EdgeInsets.symmetric(horizontal: 3),
                                         decoration: BoxDecoration(
                                             borderRadius:
                                                 BorderRadiusDirectional.only(

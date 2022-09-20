@@ -1,12 +1,16 @@
+import 'package:efood_multivendor/util/dimensions.dart';
 import 'package:efood_multivendor/view/base/custom_app_bar.dart';
+import 'package:efood_multivendor/view/base/no_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../controller/category_controller.dart';
+import '../../../data/model/response/product_model.dart';
 import '../../base/product_widget.dart';
 
 class AllProductsScreen extends StatelessWidget {
+  final List<Product> products;
   const AllProductsScreen({
+    @required this.products,
     Key key,
   }) : super(key: key);
 
@@ -16,21 +20,24 @@ class AllProductsScreen extends StatelessWidget {
       backgroundColor: Theme.of(context).backgroundColor,
       appBar: CustomAppBar(title: "all_products".tr),
       body: SafeArea(
-          child: GetBuilder<CategoryController>(
-        builder: (categoryController) => ListView.builder(
-            itemCount: categoryController.categoryProductList != null
-                ? categoryController.categoryProductList.length
-                : 10,
-            itemBuilder: (context, index) {
-              return ProductWidget(
-                  product: categoryController.categoryProductList[index],
-                  isRestaurant: false,
-                  inRestaurant: true,
-                  restaurant: null,
-                  index: index,
-                  length: categoryController.categoryProductList.length);
-            }),
-      )),
+        child: products.isNotEmpty
+            ? ListView.builder(
+                padding: EdgeInsets.symmetric(
+                    vertical: Dimensions.blockscreenVertical * 2),
+                itemCount: products.length,
+                itemBuilder: (context, index) {
+                  return ProductWidget(
+                      product: products[index],
+                      isRestaurant: false,
+                      inRestaurant: true,
+                      restaurant: null,
+                      index: index,
+                      length: products.length);
+                })
+            : Center(
+                child: NoDataScreen(text: "no_food_available".tr),
+              ),
+      ),
     );
   }
 }

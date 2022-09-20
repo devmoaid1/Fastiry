@@ -66,7 +66,7 @@ class AuthController extends GetxController implements GetxService {
       responseModel = ResponseModel(true,
           '${response.body['is_phone_verified']}${response.body['token']}');
     } else {
-      responseModel = ResponseModel(false, "username or password is invalid ");
+      responseModel = ResponseModel(false, "phone_or_password_is_invalid".tr);
     }
     _isLoading = false;
     update();
@@ -148,7 +148,7 @@ class AuthController extends GetxController implements GetxService {
       _isLoading = false;
       update();
       print(err.toString());
-      showCustomSnackBar(err.toString());
+      showCustomSnackBar("something_wrong".tr);
     }
   }
 
@@ -254,7 +254,7 @@ class AuthController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       responseModel = ResponseModel(true, response.body["message"]);
     } else {
-      responseModel = ResponseModel(false, response.statusText);
+      responseModel = ResponseModel(false, response.statusText.tr);
     }
     _isLoading = false;
     update();
@@ -290,7 +290,7 @@ class AuthController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       responseModel = ResponseModel(true, response.body["message"]);
     } else {
-      responseModel = ResponseModel(false, response.statusText);
+      responseModel = ResponseModel(false, response.statusText.tr);
     }
     _isLoading = false;
     update();

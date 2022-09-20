@@ -55,6 +55,9 @@ class Theme1HomeScreen extends StatelessWidget {
                         color: Theme.of(context).dividerColor,
                         fontSize: Dimensions.blockscreenHorizontal * 3.5),
                   ),
+                  SizedBox(
+                    height: 5,
+                  ),
                   GetBuilder<LocationController>(builder: (locationController) {
                     return Row(
                       crossAxisAlignment: CrossAxisAlignment.center,

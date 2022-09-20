@@ -6,6 +6,8 @@
   "order_history":"Order history",
   "Get off on selected items":"Get off on selected items",
   "something_wrong":"something went wrong",
+  "Phone number not found!":"Phone number not found!",
+  "phone_or_password_is_invalid":"phone number or password is invalid",
   "succsesfully_added_wishlist":"successfuly added to wishlist",
   "succsesfully_removed_wishlist":"successfuly removed to wishlist",
   "email_taken.":"The email has already been taken.",

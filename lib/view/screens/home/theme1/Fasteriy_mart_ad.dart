@@ -19,6 +19,7 @@ class FastriyMartAdSection extends StatelessWidget {
           borderRadius: BorderRadius.circular(8)),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
             flex: 1,
@@ -69,13 +70,6 @@ class FastriyMartAdSection extends StatelessWidget {
                           fontSize: Dimensions.blockscreenHorizontal * 5,
                           color: Theme.of(context).primaryColor)),
                   SizedBox(
-                    height: 5,
-                  ),
-                  Text("high_quality".tr,
-                      style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                            fontSize: Dimensions.blockscreenHorizontal * 4,
-                          )),
-                  SizedBox(
                     height: 8,
                   ),
                   InkWell(
@@ -111,8 +105,9 @@ class FastriyMartAdSection extends StatelessWidget {
             flex: 1,
             child: Container(
               child: Image.asset(
-                Images.fasteriyMartGraphicsFourth,
-                fit: BoxFit.fill,
+                Images.fasteriyMartGraphics,
+                fit: BoxFit.cover,
+                height: Dimensions.blockscreenVertical * 18,
               ),
             ),
           )
