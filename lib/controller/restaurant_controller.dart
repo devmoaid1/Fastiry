@@ -98,13 +98,19 @@ class RestaurantController extends GetxController implements GetxService {
     if (response.statusCode == 200) {
       if (offset == 1) {
         _restaurantModel = RestaurantModel.fromJson(response.body);
+        _restaurantModel.restaurants = _restaurantModel.restaurants
+            .where((element) => element.id != 12)
+            .toList();
       } else {
         _restaurantModel.totalSize =
             RestaurantModel.fromJson(response.body).totalSize;
         _restaurantModel.offset =
             RestaurantModel.fromJson(response.body).offset;
-        _restaurantModel.restaurants
-            .addAll(RestaurantModel.fromJson(response.body).restaurants);
+        _restaurantModel.restaurants.addAll(
+            RestaurantModel.fromJson(response.body)
+                .restaurants
+                .where((element) => element.id != 12)
+                .toList());
       }
       _isLoading = false;
       update();

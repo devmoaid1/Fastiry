@@ -1,3 +1,4 @@
+import 'package:efood_multivendor/view/base/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -190,33 +191,43 @@ class _FoodScreenState extends State<FoodScreen> {
                 ),
                 GetBuilder<RestaurantController>(
                     builder: (restaurantController) {
-                  return PaginatedListView(
-                    scrollController: ScrollController(),
-                    totalSize: restaurantController.restaurantModel != null
-                        ? restaurantController.restaurantModel.totalSize
-                        : null,
-                    offset: restaurantController.restaurantModel != null
-                        ? restaurantController.restaurantModel.offset
-                        : null,
-                    onPaginate: (int offset) async => await restaurantController
-                        .getRestaurantList(offset, false),
-                    productView: ProductView(
-                      isRestaurant: true,
-                      products: null,
-                      showTheme1Restaurant: true,
-                      restaurants: restaurantController.restaurantModel != null
-                          ? restaurantController.restaurantModel.restaurants
-                          : null,
-                      padding: EdgeInsets.symmetric(
-                        horizontal: ResponsiveHelper.isDesktop(context)
-                            ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                            : Dimensions.PADDING_SIZE_SMALL,
-                        vertical: ResponsiveHelper.isDesktop(context)
-                            ? Dimensions.PADDING_SIZE_EXTRA_SMALL
-                            : 0,
-                      ),
-                    ),
-                  );
+                  print(restaurantController.restaurantModel.restaurants);
+                  return restaurantController.restaurantModel == null
+                      ? Center(
+                          child: CustomLoader(),
+                        )
+                      : PaginatedListView(
+                          scrollController: ScrollController(),
+                          totalSize:
+                              restaurantController.restaurantModel != null
+                                  ? restaurantController
+                                      .restaurantModel.restaurants.length
+                                  : null,
+                          offset: restaurantController.restaurantModel != null
+                              ? restaurantController.restaurantModel.offset
+                              : null,
+                          onPaginate: (int offset) async =>
+                              await restaurantController.getRestaurantList(
+                                  offset, false),
+                          productView: ProductView(
+                            isRestaurant: true,
+                            products: null,
+                            showTheme1Restaurant: true,
+                            restaurants:
+                                restaurantController.restaurantModel != null
+                                    ? restaurantController
+                                        .restaurantModel.restaurants
+                                    : null,
+                            padding: EdgeInsets.symmetric(
+                              horizontal: ResponsiveHelper.isDesktop(context)
+                                  ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                                  : Dimensions.PADDING_SIZE_SMALL,
+                              vertical: ResponsiveHelper.isDesktop(context)
+                                  ? Dimensions.PADDING_SIZE_EXTRA_SMALL
+                                  : 0,
+                            ),
+                          ),
+                        );
                 }),
               ],
             ),

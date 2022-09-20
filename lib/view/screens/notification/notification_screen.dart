@@ -79,16 +79,6 @@ class _NotificationScreenState extends State<NotificationScreen> {
                                                   onTap: () {
                                                     Get.toNamed(RouteHelper
                                                         .getFastiryFoodRoute());
-                                                    // showDialog(
-                                                    //     context: context,
-                                                    //     builder: (BuildContext
-                                                    //         context) {
-                                                    //       return NotificationDialog(
-                                                    //           notificationModel:
-                                                    //               notificationController
-                                                    //                       .notificationList[
-                                                    //                   index]);
-                                                    //     });
                                                   },
                                                   child: AspectRatio(
                                                     aspectRatio: 3 / 1,
