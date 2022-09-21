@@ -1,14 +1,14 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/user_controller.dart';
-import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/base/custom_text_field.dart';
+import '/controller/auth_controller.dart';
+import '/controller/user_controller.dart';
+import '/data/model/response/userinfo_model.dart';
+import '/helper/route_helper.dart';
+import '/util/colors.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/custom_button.dart';
+import '/view/base/custom_snackbar.dart';
+import '/view/base/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

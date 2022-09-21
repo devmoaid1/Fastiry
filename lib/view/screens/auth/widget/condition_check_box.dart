@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
+import '/controller/auth_controller.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
+import '/util/styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

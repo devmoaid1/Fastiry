@@ -1,8 +1,8 @@
-import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
+import '/controller/location_controller.dart';
+import '/data/model/response/address_model.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
@@ -57,8 +57,9 @@ class AddressWidget extends StatelessWidget {
                       children: [
                         Text(
                           "${address.addressType.tr} (${address.address}) ",
-                          style: Get.find<FontStyles>().poppinsMedium.copyWith(
-                              fontSize: Dimensions.fontSizeSmall),
+                          style: Get.find<FontStyles>()
+                              .poppinsMedium
+                              .copyWith(fontSize: Dimensions.fontSizeSmall),
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -66,16 +67,16 @@ class AddressWidget extends StatelessWidget {
                         Text(
                           "${address.road} , ${address.house} , ${address.floor}",
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                            fontSize: Dimensions.fontSizeExtraSmall,
-                          ),
+                                fontSize: Dimensions.fontSizeExtraSmall,
+                              ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Text(
                           "${address.contactPersonName}",
                           style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                            fontSize: Dimensions.fontSizeExtraSmall,
-                          ),
+                                fontSize: Dimensions.fontSizeExtraSmall,
+                              ),
                           maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -83,17 +84,21 @@ class AddressWidget extends StatelessWidget {
                           children: [
                             Text(
                               "Mobile Number:",
-                              style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeExtraSmall,
-                                  color: Theme.of(context).disabledColor),
+                              style: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(
+                                      fontSize: Dimensions.fontSizeExtraSmall,
+                                      color: Theme.of(context).disabledColor),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),
                             Text(
                               "${address.contactPersonNumber}",
-                              style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                                  fontSize: Dimensions.fontSizeExtraSmall,
-                                  color: Theme.of(context).disabledColor),
+                              style: Get.find<FontStyles>()
+                                  .poppinsRegular
+                                  .copyWith(
+                                      fontSize: Dimensions.fontSizeExtraSmall,
+                                      color: Theme.of(context).disabledColor),
                               maxLines: 1,
                               overflow: TextOverflow.ellipsis,
                             ),

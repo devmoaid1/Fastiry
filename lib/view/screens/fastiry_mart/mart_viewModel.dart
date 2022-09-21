@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/category_model.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/category_model.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

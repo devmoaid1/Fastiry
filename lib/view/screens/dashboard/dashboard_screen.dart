@@ -1,14 +1,14 @@
 import 'dart:async';
 
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/internet_connection_wrapper.dart';
-import 'package:efood_multivendor/view/screens/dashboard/dashboard_controller.dart';
-import 'package:efood_multivendor/view/screens/dashboard/widget/bottom_nav_item.dart';
-import 'package:efood_multivendor/view/screens/favourite/favourite_screen.dart';
-import 'package:efood_multivendor/view/screens/home/home_screen.dart';
-import 'package:efood_multivendor/view/screens/menu/menu_screen_new.dart';
-import 'package:efood_multivendor/view/screens/search/search_screen.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/internet_connection_wrapper.dart';
+import '/view/screens/dashboard/dashboard_controller.dart';
+import '/view/screens/dashboard/widget/bottom_nav_item.dart';
+import '/view/screens/favourite/favourite_screen.dart';
+import '/view/screens/home/home_screen.dart';
+import '/view/screens/menu/menu_screen_new.dart';
+import '/view/screens/search/search_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

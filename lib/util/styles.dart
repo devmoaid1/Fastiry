@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/util/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,13 +1,13 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/search_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/base/web_menu_bar.dart';
-import 'package:efood_multivendor/view/screens/search/widget/filter_widget.dart';
-import 'package:efood_multivendor/view/screens/search/widget/history_card.dart';
-import 'package:efood_multivendor/view/screens/search/widget/search_result_widget.dart';
-import 'package:efood_multivendor/view/screens/search/widget/suggestion_card.dart';
+import '/controller/auth_controller.dart';
+import '/controller/search_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_snackbar.dart';
+import '/view/base/web_menu_bar.dart';
+import '/view/screens/search/widget/filter_widget.dart';
+import '/view/screens/search/widget/history_card.dart';
+import '/view/screens/search/widget/search_result_widget.dart';
+import '/view/screens/search/widget/suggestion_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

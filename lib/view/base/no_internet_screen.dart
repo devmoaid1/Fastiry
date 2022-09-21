@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/util/services_instances.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/util/services_instances.dart';
+import '/view/base/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

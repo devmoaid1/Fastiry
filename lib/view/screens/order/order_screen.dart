@@ -1,9 +1,9 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/not_logged_in_screen.dart';
-import 'package:efood_multivendor/view/screens/order/widget/order_view.dart';
+import '/controller/auth_controller.dart';
+import '/controller/order_controller.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/not_logged_in_screen.dart';
+import '/view/screens/order/widget/order_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

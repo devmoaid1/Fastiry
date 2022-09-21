@@ -1,9 +1,9 @@
-import 'package:efood_multivendor/controller/search_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/screens/search/widget/custom_check_box.dart';
+import '/controller/search_controller.dart';
+import '/controller/splash_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_button.dart';
+import '/view/screens/search/widget/custom_check_box.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

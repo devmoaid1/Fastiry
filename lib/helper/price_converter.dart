@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
+import '/controller/splash_controller.dart';
 import 'package:get/get.dart';
 
 class PriceConverter {

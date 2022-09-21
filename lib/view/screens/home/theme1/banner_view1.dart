@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/controller/banner_controller.dart';
-import 'package:efood_multivendor/controller/home_controller.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/screens/home/widget/banner_slider.dart';
+import '/controller/banner_controller.dart';
+import '/controller/home_controller.dart';
+import '/util/dimensions.dart';
+import '/view/screens/home/widget/banner_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';

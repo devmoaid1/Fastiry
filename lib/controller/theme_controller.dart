@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

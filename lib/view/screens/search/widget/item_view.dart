@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/controller/search_controller.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_loader.dart';
-import 'package:efood_multivendor/view/base/product_widget.dart';
+import '/controller/search_controller.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_loader.dart';
+import '/view/base/product_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

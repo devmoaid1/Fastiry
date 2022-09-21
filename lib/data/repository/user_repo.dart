@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/data/api/api_client.dart';
-import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/data/api/api_client.dart';
+import '/data/model/response/userinfo_model.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_connect/http/src/response/response.dart';

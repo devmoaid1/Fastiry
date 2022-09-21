@@ -1,15 +1,15 @@
-import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/data/model/response/order_model.dart';
-import 'package:efood_multivendor/helper/date_converter.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/screens/order/order_details_screen.dart';
-import 'package:efood_multivendor/view/screens/order/widget/order_shimmer.dart';
+import '/controller/order_controller.dart';
+import '/controller/splash_controller.dart';
+import '/data/model/response/order_model.dart';
+import '/helper/date_converter.dart';
+import '/helper/responsive_helper.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/custom_image.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/screens/order/order_details_screen.dart';
+import '/view/screens/order/widget/order_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,15 +1,15 @@
 import 'package:badges/badges.dart';
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/view/screens/home/theme1/Fasteriy_mart_ad.dart';
-import 'package:efood_multivendor/view/screens/home/widget/fastiry_options.dart';
-import 'package:efood_multivendor/view/screens/home/widget/not_logged_card.dart';
+import '/controller/auth_controller.dart';
+import '/view/screens/home/theme1/Fasteriy_mart_ad.dart';
+import '/view/screens/home/widget/fastiry_options.dart';
+import '/view/screens/home/widget/not_logged_card.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
-import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/controller/location_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
 
 import '../../../../controller/cart_controller.dart';
 import '../../../../theme/font_styles.dart';
@@ -81,10 +81,18 @@ class Theme1HomeScreen extends StatelessWidget {
                                 ),
                                 child: Text(
                                   locationController
-                                      .getUserAddress()
-                                      .address
-                                      .substring(0, 30)
-                                      .trim(),
+                                              .getUserAddress()
+                                              .address
+                                              .length <
+                                          30
+                                      ? locationController
+                                          .getUserAddress()
+                                          .address
+                                      : locationController
+                                          .getUserAddress()
+                                          .address
+                                          .substring(0, 30)
+                                          .trim(),
                                   style: Get.find<FontStyles>()
                                       .poppinsRegular
                                       .copyWith(

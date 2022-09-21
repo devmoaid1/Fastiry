@@ -1,11 +1,11 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/theme/font_styles.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_loader.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/base/web_menu_bar.dart';
-import 'package:efood_multivendor/view/screens/category/category_viewModel.dart';
+import '/controller/category_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/theme/font_styles.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_loader.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/base/web_menu_bar.dart';
+import '/view/screens/category/category_viewModel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

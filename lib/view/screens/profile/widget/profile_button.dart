@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/util/dimensions.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';

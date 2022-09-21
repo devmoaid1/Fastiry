@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/controller/banner_controller.dart';
-import 'package:efood_multivendor/controller/product_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/user_controller.dart';
+import '/controller/banner_controller.dart';
+import '/controller/product_controller.dart';
+import '/controller/splash_controller.dart';
+import '/controller/user_controller.dart';
 import 'package:get/get.dart';
 
 import 'auth_controller.dart';

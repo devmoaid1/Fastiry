@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/model/response/category_model.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
+import '/data/model/response/category_model.dart';
+import '/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

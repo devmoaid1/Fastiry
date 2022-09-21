@@ -1,13 +1,13 @@
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/colors.dart';
-import 'package:efood_multivendor/view/screens/language/widget/language_widget.dart';
+import '/helper/route_helper.dart';
+import '/util/colors.dart';
+import '/view/screens/language/widget/language_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:efood_multivendor/controller/localization_controller.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/controller/localization_controller.dart';
+import '/util/app_constants.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/custom_button.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:get/get.dart';
 
 import '../../../theme/font_styles.dart';

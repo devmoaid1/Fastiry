@@ -1,12 +1,12 @@
-import 'package:efood_multivendor/controller/cart_controller.dart';
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/body/review_body.dart';
-import 'package:efood_multivendor/data/model/response/cart_model.dart';
-import 'package:efood_multivendor/data/model/response/order_details_model.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/response_model.dart';
-import 'package:efood_multivendor/data/repository/product_repo.dart';
-import 'package:efood_multivendor/helper/date_converter.dart';
+import '/controller/cart_controller.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/body/review_body.dart';
+import '/data/model/response/cart_model.dart';
+import '/data/model/response/order_details_model.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/response_model.dart';
+import '/data/repository/product_repo.dart';
+import '/helper/date_converter.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

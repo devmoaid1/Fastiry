@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/repository/category_repo.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/data/repository/category_repo.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

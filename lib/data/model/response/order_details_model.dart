@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/model/response/product_model.dart';
+import '/data/model/response/product_model.dart';
 
 class OrderDetailsModel {
   int id;
@@ -20,21 +20,21 @@ class OrderDetailsModel {
 
   OrderDetailsModel(
       {this.id,
-        this.foodId,
-        this.orderId,
-        this.price,
-        this.foodDetails,
-        this.variation,
-        this.addOns,
-        this.discountOnFood,
-        this.discountType,
-        this.quantity,
-        this.taxAmount,
-        this.variant,
-        this.createdAt,
-        this.updatedAt,
-        this.itemCampaignId,
-        this.totalAddOnPrice});
+      this.foodId,
+      this.orderId,
+      this.price,
+      this.foodDetails,
+      this.variation,
+      this.addOns,
+      this.discountOnFood,
+      this.discountType,
+      this.quantity,
+      this.taxAmount,
+      this.variant,
+      this.createdAt,
+      this.updatedAt,
+      this.itemCampaignId,
+      this.totalAddOnPrice});
 
   OrderDetailsModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];

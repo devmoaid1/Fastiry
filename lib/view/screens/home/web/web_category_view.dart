@@ -1,10 +1,10 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/theme_controller.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
+import '/controller/category_controller.dart';
+import '/controller/splash_controller.dart';
+import '/controller/theme_controller.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
+import '/util/styles.dart';
+import '/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shimmer_animation/shimmer_animation.dart';

@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/data/model/response/wallet_model.dart';
-import 'package:efood_multivendor/helper/date_converter.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/data/model/response/wallet_model.dart';
+import '/helper/date_converter.dart';
+import '/helper/price_converter.dart';
+import '/util/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
+import '/view/screens/restaurant/restaurant_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

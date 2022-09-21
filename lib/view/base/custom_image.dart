@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/images.dart';
+import '/util/images.dart';
 import 'package:extended_image/extended_image.dart';
 import 'package:flutter/material.dart';
 

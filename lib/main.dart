@@ -1,8 +1,8 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:efood_multivendor/helper/notification_helper.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/view/screens/fastiry/fastiry.dart';
+import '/helper/notification_helper.dart';
+import '/helper/responsive_helper.dart';
+import '/view/screens/fastiry/fastiry.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';

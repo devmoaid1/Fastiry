@@ -1,22 +1,22 @@
 import 'dart:convert';
 
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/cart_controller.dart';
-import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/wishlist_controller.dart';
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/data/model/response/place_details_model.dart';
-import 'package:efood_multivendor/data/model/response/prediction_model.dart';
-import 'package:efood_multivendor/data/model/response/response_model.dart';
-import 'package:efood_multivendor/data/model/response/zone_response_model.dart';
-import 'package:efood_multivendor/data/repository/location_repo.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/confirmation_dialog.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/screens/home/home_screen.dart';
+import '/controller/auth_controller.dart';
+import '/controller/cart_controller.dart';
+import '/controller/order_controller.dart';
+import '/controller/splash_controller.dart';
+import '/controller/wishlist_controller.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/address_model.dart';
+import '/data/model/response/place_details_model.dart';
+import '/data/model/response/prediction_model.dart';
+import '/data/model/response/response_model.dart';
+import '/data/model/response/zone_response_model.dart';
+import '/data/repository/location_repo.dart';
+import '/helper/route_helper.dart';
+import '/util/images.dart';
+import '/view/base/confirmation_dialog.dart';
+import '/view/base/custom_snackbar.dart';
+import '/view/screens/home/home_screen.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -147,15 +147,28 @@ class LocationController extends GetxController implements GetxService {
         _myPosition.latitude.toString(),
         _myPosition.longitude.toString(),
         true);
-    _buttonDisabled = !_responseModel.isSuccess;
-    _addressModel = AddressModel(
-      latitude: _myPosition.latitude.toString(),
-      longitude: _myPosition.longitude.toString(),
-      addressType: 'others',
-      zoneId: _responseModel.isSuccess ? _responseModel.zoneIds[0] : 0,
-      zoneIds: _responseModel.zoneIds,
-      address: _addressFromGeocode,
-    );
+    if (_responseModel != null) {
+      _buttonDisabled = !_responseModel.isSuccess;
+      _addressModel = AddressModel(
+        latitude: _myPosition.latitude.toString(),
+        longitude: _myPosition.longitude.toString(),
+        addressType: 'others',
+        zoneId: _responseModel.isSuccess ? _responseModel.zoneIds[0] : 0,
+        zoneIds: _responseModel.zoneIds,
+        address: _addressFromGeocode,
+      );
+    } else {
+      _buttonDisabled = false;
+      _addressModel = AddressModel(
+        latitude: _myPosition.latitude.toString(),
+        longitude: _myPosition.longitude.toString(),
+        addressType: 'others',
+        zoneId: 0,
+        zoneIds: [1, 2],
+        address: _addressFromGeocode,
+      );
+    }
+
     _loading = false;
     update();
     return _addressModel;

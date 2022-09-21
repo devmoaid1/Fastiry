@@ -1,18 +1,18 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/banner_controller.dart';
-import 'package:efood_multivendor/controller/campaign_controller.dart';
-import 'package:efood_multivendor/controller/cart_controller.dart';
-import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/controller/home_controller.dart';
-import 'package:efood_multivendor/controller/notification_controller.dart';
-import 'package:efood_multivendor/controller/product_controller.dart';
-import 'package:efood_multivendor/controller/restaurant_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/user_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/view/base/web_menu_bar.dart';
-import 'package:efood_multivendor/view/screens/home/theme1/theme1_home_screen.dart';
-import 'package:efood_multivendor/view/screens/home/web_home_screen.dart';
+import '/controller/auth_controller.dart';
+import '/controller/banner_controller.dart';
+import '/controller/campaign_controller.dart';
+import '/controller/cart_controller.dart';
+import '/controller/category_controller.dart';
+import '/controller/home_controller.dart';
+import '/controller/notification_controller.dart';
+import '/controller/product_controller.dart';
+import '/controller/restaurant_controller.dart';
+import '/controller/splash_controller.dart';
+import '/controller/user_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/view/base/web_menu_bar.dart';
+import '/view/screens/home/theme1/theme1_home_screen.dart';
+import '/view/screens/home/web_home_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -61,7 +61,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void init() async {
     await homeController.loadData(false);
-  } 
+  }
 
   @override
   Widget build(BuildContext context) {

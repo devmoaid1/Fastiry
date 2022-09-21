@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/model/response/language_model.dart';
-import 'package:efood_multivendor/util/images.dart';
+import '/data/model/response/language_model.dart';
+import '/util/images.dart';
 
 class AppConstants {
   static const String APP_NAME = 'Fasteriy';

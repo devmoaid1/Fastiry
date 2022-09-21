@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
+import '/controller/auth_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

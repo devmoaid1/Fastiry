@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/view/screens/product_details/productDetails.dart';
+import '/view/screens/product_details/productDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

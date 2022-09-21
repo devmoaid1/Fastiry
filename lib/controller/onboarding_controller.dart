@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/onboarding_model.dart';
-import 'package:efood_multivendor/data/repository/onboarding_repo.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/onboarding_model.dart';
+import '/data/repository/onboarding_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

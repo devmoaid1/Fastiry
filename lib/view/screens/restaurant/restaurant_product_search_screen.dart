@@ -1,8 +1,8 @@
-import 'package:efood_multivendor/controller/restaurant_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/paginated_list_view.dart';
-import 'package:efood_multivendor/view/base/product_view.dart';
+import '/controller/restaurant_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/paginated_list_view.dart';
+import '/view/base/product_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

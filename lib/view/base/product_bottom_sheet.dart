@@ -1,15 +1,15 @@
-import 'package:efood_multivendor/controller/product_controller.dart';
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/data/model/response/cart_model.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/helper/date_converter.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
-import 'package:efood_multivendor/view/base/quantity_button.dart';
-import 'package:efood_multivendor/view/base/rating_bar.dart';
+import '/controller/product_controller.dart';
+import '/controller/splash_controller.dart';
+import '/data/model/response/cart_model.dart';
+import '/data/model/response/product_model.dart';
+import '/helper/date_converter.dart';
+import '/helper/price_converter.dart';
+import '/helper/responsive_helper.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_image.dart';
+import '/view/base/quantity_button.dart';
+import '/view/base/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -3,12 +3,12 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/data/api/api_client.dart';
-import 'package:efood_multivendor/data/model/body/signup_body.dart';
-import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
-import 'package:efood_multivendor/data/model/response/google_response.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/controller/location_controller.dart';
+import '/data/api/api_client.dart';
+import '/data/model/body/signup_body.dart';
+import '/data/model/body/social_log_in_body.dart';
+import '/data/model/response/google_response.dart';
+import '/util/app_constants.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';

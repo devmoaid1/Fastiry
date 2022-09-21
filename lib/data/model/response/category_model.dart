@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/model/response/translation.dart';
+import '/data/model/response/translation.dart';
 
 class CategoryModel {
   int _id;

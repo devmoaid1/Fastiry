@@ -1,8 +1,8 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/data/model/response/notification_model.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_image.dart';
+import '/controller/splash_controller.dart';
+import '/data/model/response/notification_model.dart';
+import '/util/dimensions.dart';
+import '/util/styles.dart';
+import '/view/base/custom_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,16 +13,17 @@ class NotificationDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(Dimensions.RADIUS_SMALL))),
+      shape: RoundedRectangleBorder(
+          borderRadius:
+              BorderRadius.all(Radius.circular(Dimensions.RADIUS_SMALL))),
       insetPadding: EdgeInsets.all(30),
       clipBehavior: Clip.antiAliasWithSaveLayer,
-      child:  SizedBox(
+      child: SizedBox(
         width: 600,
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-
               Align(
                 alignment: Alignment.centerRight,
                 child: IconButton(
@@ -30,23 +31,30 @@ class NotificationDialog extends StatelessWidget {
                   onPressed: () => Navigator.of(context).pop(),
                 ),
               ),
-
               Container(
-                height: 150, width: MediaQuery.of(context).size.width,
-                margin: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
-                decoration: BoxDecoration(borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL), color: Theme.of(context).primaryColor.withOpacity(0.20)),
+                height: 150,
+                width: MediaQuery.of(context).size.width,
+                margin: EdgeInsets.symmetric(
+                    horizontal: Dimensions.PADDING_SIZE_LARGE),
+                decoration: BoxDecoration(
+                    borderRadius:
+                        BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                    color: Theme.of(context).primaryColor.withOpacity(0.20)),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL),
                   child: CustomImage(
-                    image: '${Get.find<SplashController>().configModel.baseUrls.notificationImageUrl}/${notificationModel.data.image}',
-                    height: 150, width: MediaQuery.of(context).size.width, fit: BoxFit.cover,
+                    image:
+                        '${Get.find<SplashController>().configModel.baseUrls.notificationImageUrl}/${notificationModel.data.image}',
+                    height: 150,
+                    width: MediaQuery.of(context).size.width,
+                    fit: BoxFit.cover,
                   ),
                 ),
               ),
               SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: Dimensions.PADDING_SIZE_LARGE),
+                padding: EdgeInsets.symmetric(
+                    horizontal: Dimensions.PADDING_SIZE_LARGE),
                 child: Text(
                   notificationModel.data.title,
                   textAlign: TextAlign.center,
@@ -56,7 +64,6 @@ class NotificationDialog extends StatelessWidget {
                   ),
                 ),
               ),
-
               Padding(
                 padding: EdgeInsets.fromLTRB(20, 10, 20, 20),
                 child: Text(
@@ -67,7 +74,6 @@ class NotificationDialog extends StatelessWidget {
                   ),
                 ),
               ),
-
             ],
           ),
         ),

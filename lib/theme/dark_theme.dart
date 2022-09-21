@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/colors.dart';
+import '/util/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../util/app_constants.dart';

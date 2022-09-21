@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/model/response/product_model.dart';
+import '/data/model/response/product_model.dart';
 import 'package:flutter/material.dart';
 
 class PlaceOrderBody {
@@ -26,31 +26,31 @@ class PlaceOrderBody {
   String _floor;
   String _dmTips;
 
-  PlaceOrderBody(
-      {@required List<Cart> cart,
-        @required double couponDiscountAmount,
-        @required String couponDiscountTitle,
-        @required String couponCode,
-        @required double orderAmount,
-        @required String orderType,
-        @required String paymentMethod,
-        @required int restaurantId,
-        @required double distance,
-        @required String scheduleAt,
-        @required double discountAmount,
-        @required double taxAmount,
-        @required String orderNote,
-        @required String address,
-        @required String latitude,
-        @required String longitude,
-        @required String contactPersonName,
-        @required String contactPersonNumber,
-        @required String addressType,
-        @required String road,
-        @required String house,
-        @required String floor,
-        @required String dmTips,
-      }) {
+  PlaceOrderBody({
+    @required List<Cart> cart,
+    @required double couponDiscountAmount,
+    @required String couponDiscountTitle,
+    @required String couponCode,
+    @required double orderAmount,
+    @required String orderType,
+    @required String paymentMethod,
+    @required int restaurantId,
+    @required double distance,
+    @required String scheduleAt,
+    @required double discountAmount,
+    @required double taxAmount,
+    @required String orderNote,
+    @required String address,
+    @required String latitude,
+    @required String longitude,
+    @required String contactPersonName,
+    @required String contactPersonNumber,
+    @required String addressType,
+    @required String road,
+    @required String house,
+    @required String floor,
+    @required String dmTips,
+  }) {
     this._cart = cart;
     this._couponDiscountAmount = couponDiscountAmount;
     this._couponDiscountTitle = couponDiscountTitle;
@@ -175,13 +175,13 @@ class Cart {
   Cart(
       int foodId,
       int itemCampaignId,
-        String price,
-        String variant,
-        List<Variation> variation,
-        int quantity,
-        List<int> addOnIds,
-        List<AddOns> addOns,
-        List<int> addOnQtys) {
+      String price,
+      String variant,
+      List<Variation> variation,
+      int quantity,
+      List<int> addOnIds,
+      List<AddOns> addOns,
+      List<int> addOnQtys) {
     this._foodId = foodId;
     this._itemCampaignId = itemCampaignId;
     this._price = price;

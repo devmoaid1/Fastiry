@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/styles.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
+import '/util/dimensions.dart';
+import '/util/styles.dart';
+import '/view/base/custom_button.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -9,7 +9,8 @@ class PermissionDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL)),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL)),
       insetPadding: EdgeInsets.all(30),
       clipBehavior: Clip.antiAliasWithSaveLayer,
       child: Padding(
@@ -17,21 +18,24 @@ class PermissionDialog extends StatelessWidget {
         child: SizedBox(
           width: 500,
           child: Column(mainAxisSize: MainAxisSize.min, children: [
-
-            Icon(Icons.add_location_alt_rounded, color: Theme.of(context).primaryColor, size: 100),
+            Icon(Icons.add_location_alt_rounded,
+                color: Theme.of(context).primaryColor, size: 100),
             SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
             Text(
-              'you_denied_location_permission'.tr, textAlign: TextAlign.center,
+              'you_denied_location_permission'.tr,
+              textAlign: TextAlign.center,
               style: robotoMedium.copyWith(fontSize: Dimensions.fontSizeLarge),
             ),
             SizedBox(height: Dimensions.PADDING_SIZE_LARGE),
-
             Row(children: [
               Expanded(
                 child: TextButton(
                   style: TextButton.styleFrom(
-                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(Dimensions.RADIUS_SMALL), side: BorderSide(width: 2, color: Theme.of(context).primaryColor)),
+                    shape: RoundedRectangleBorder(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.RADIUS_SMALL),
+                        side: BorderSide(
+                            width: 2, color: Theme.of(context).primaryColor)),
                     minimumSize: Size(1, 50),
                   ),
                   child: Text('close'.tr),
@@ -39,12 +43,14 @@ class PermissionDialog extends StatelessWidget {
                 ),
               ),
               SizedBox(width: Dimensions.PADDING_SIZE_SMALL),
-              Expanded(child: CustomButton(buttonText: 'settings'.tr, onPressed: () async {
-                await Geolocator.openAppSettings();
-                Navigator.pop(context);
-              })),
+              Expanded(
+                  child: CustomButton(
+                      buttonText: 'settings'.tr,
+                      onPressed: () async {
+                        await Geolocator.openAppSettings();
+                        Navigator.pop(context);
+                      })),
             ]),
-
           ]),
         ),
       ),

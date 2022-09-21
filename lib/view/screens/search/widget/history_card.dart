@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/controller/search_controller.dart';
+import '/controller/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';

@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/no_data_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

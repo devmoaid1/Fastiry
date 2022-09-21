@@ -1,9 +1,9 @@
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/data/repository/product_repo.dart';
-import 'package:efood_multivendor/data/repository/wishlist_repo.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/restaurant_model.dart';
+import '/data/repository/product_repo.dart';
+import '/data/repository/wishlist_repo.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

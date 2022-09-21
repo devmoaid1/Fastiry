@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/data/model/response/basic_campaign_model.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
+import '/data/model/response/basic_campaign_model.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/restaurant_model.dart';
 
 class BannerModel {
   List<BasicCampaignModel> campaigns;
@@ -51,7 +51,9 @@ class Banner {
     title = json['title'];
     type = json['type'];
     image = json['image'];
-    restaurant = json['restaurant'] != null ? Restaurant.fromJson(json['restaurant']) : null;
+    restaurant = json['restaurant'] != null
+        ? Restaurant.fromJson(json['restaurant'])
+        : null;
     food = json['food'] != null ? Product.fromJson(json['food']) : null;
   }
 

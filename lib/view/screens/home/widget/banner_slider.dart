@@ -1,5 +1,5 @@
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:efood_multivendor/controller/banner_controller.dart';
+import '/controller/banner_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

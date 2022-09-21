@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/util/colors.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/util/colors.dart';
+import '/util/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

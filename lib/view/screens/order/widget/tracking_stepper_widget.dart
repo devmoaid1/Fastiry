@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/screens/order/widget/custom_stepper.dart';
+import '/util/dimensions.dart';
+import '/view/screens/order/widget/custom_stepper.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -11,17 +11,17 @@ class TrackingStepperWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     int _status = -1;
-    if(status == 'pending') {
+    if (status == 'pending') {
       _status = 0;
-    }else if(status == 'accepted' || status == 'confirmed') {
+    } else if (status == 'accepted' || status == 'confirmed') {
       _status = 1;
-    }else if(status == 'processing') {
+    } else if (status == 'processing') {
       _status = 2;
-    }else if(status == 'handover') {
+    } else if (status == 'handover') {
       _status = takeAway ? 3 : 2;
-    }else if(status == 'picked_up') {
+    } else if (status == 'picked_up') {
       _status = 3;
-    }else if(status == 'delivered') {
+    } else if (status == 'delivered') {
       _status = 4;
     }
 
@@ -33,19 +33,39 @@ class TrackingStepperWidget extends StatelessWidget {
       ),
       child: Row(children: [
         CustomStepper(
-          title: 'order_placed'.tr, isActive: _status > -1, haveLeftBar: false, haveRightBar: true, rightActive: _status > 0,
+          title: 'order_placed'.tr,
+          isActive: _status > -1,
+          haveLeftBar: false,
+          haveRightBar: true,
+          rightActive: _status > 0,
         ),
         CustomStepper(
-          title: 'order_confirmed'.tr, isActive: _status > 0, haveLeftBar: true, haveRightBar: true, rightActive: _status > 1,
+          title: 'order_confirmed'.tr,
+          isActive: _status > 0,
+          haveLeftBar: true,
+          haveRightBar: true,
+          rightActive: _status > 1,
         ),
         CustomStepper(
-          title: 'preparing_food'.tr, isActive: _status > 1, haveLeftBar: true, haveRightBar: true, rightActive: _status > 2,
+          title: 'preparing_food'.tr,
+          isActive: _status > 1,
+          haveLeftBar: true,
+          haveRightBar: true,
+          rightActive: _status > 2,
         ),
         CustomStepper(
-          title: takeAway ? 'ready_for_handover'.tr : 'food_on_the_way'.tr, isActive: _status > 2, haveLeftBar: true, haveRightBar: true, rightActive: _status > 3,
+          title: takeAway ? 'ready_for_handover'.tr : 'food_on_the_way'.tr,
+          isActive: _status > 2,
+          haveLeftBar: true,
+          haveRightBar: true,
+          rightActive: _status > 3,
         ),
         CustomStepper(
-          title: 'delivered'.tr, isActive: _status > 3, haveLeftBar: true, haveRightBar: false, rightActive: _status > 4,
+          title: 'delivered'.tr,
+          isActive: _status > 3,
+          haveLeftBar: true,
+          haveRightBar: false,
+          rightActive: _status > 4,
         ),
       ]),
     );

@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/model/response/product_model.dart';
+import '/data/model/response/product_model.dart';
 
 class CartModel {
   int _restaurantId;

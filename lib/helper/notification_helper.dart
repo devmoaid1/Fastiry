@@ -1,12 +1,12 @@
 import 'dart:io';
 
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/notification_controller.dart';
-import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
+import '/controller/auth_controller.dart';
+import '/controller/notification_controller.dart';
+import '/controller/order_controller.dart';
+import '/helper/route_helper.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/util/app_constants.dart';
 import 'package:get/get.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:path_provider/path_provider.dart';

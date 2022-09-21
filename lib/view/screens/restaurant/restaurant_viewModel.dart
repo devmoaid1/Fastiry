@@ -1,9 +1,9 @@
-import 'package:efood_multivendor/controller/restaurant_controller.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/data/repository/category_repo.dart';
-import 'package:efood_multivendor/data/repository/restaurant_repo.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/controller/restaurant_controller.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/restaurant_model.dart';
+import '/data/repository/category_repo.dart';
+import '/data/repository/restaurant_repo.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';

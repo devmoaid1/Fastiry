@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/theme/font_styles.dart';
+import '/helper/route_helper.dart';
+import '/theme/font_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

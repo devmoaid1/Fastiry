@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/model/response/category_model.dart';
-import 'package:efood_multivendor/helper/subCategory_image_detector.dart';
+import '/data/model/response/category_model.dart';
+import '/helper/subCategory_image_detector.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,9 +1,9 @@
-import 'package:efood_multivendor/controller/restaurant_controller.dart';
-import 'package:efood_multivendor/data/model/response/review_model.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/widget/review_widget.dart';
+import '/controller/restaurant_controller.dart';
+import '/data/model/response/review_model.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/screens/restaurant/widget/review_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

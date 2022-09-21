@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/response_model.dart';
-import 'package:efood_multivendor/data/repository/user_repo.dart';
-import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/response_model.dart';
+import '/data/repository/user_repo.dart';
+import '/data/model/response/userinfo_model.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

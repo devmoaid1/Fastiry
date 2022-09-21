@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/util/services_instances.dart';
-import 'package:efood_multivendor/view/base/no_internet_screen.dart';
+import '/util/services_instances.dart';
+import '/view/base/no_internet_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

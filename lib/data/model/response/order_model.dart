@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
+import '/data/model/response/address_model.dart';
+import '/data/model/response/restaurant_model.dart';
 
 class PaginatedOrderModel {
   int totalSize;
@@ -31,7 +31,6 @@ class PaginatedOrderModel {
     }
     return data;
   }
-
 }
 
 class OrderModel {
@@ -74,42 +73,41 @@ class OrderModel {
 
   OrderModel(
       {this.id,
-        this.userId,
-        this.orderAmount,
-        this.couponDiscountAmount,
-        this.couponDiscountTitle,
-        this.paymentStatus,
-        this.orderStatus,
-        this.totalTaxAmount,
-        this.paymentMethod,
-        this.couponCode,
-        this.orderNote,
-        this.orderType,
-        this.createdAt,
-        this.updatedAt,
-        this.deliveryCharge,
-        this.scheduleAt,
-        this.otp,
-        this.pending,
-        this.accepted,
-        this.confirmed,
-        this.processing,
-        this.handover,
-        this.pickedUp,
-        this.delivered,
-        this.canceled,
-        this.refundRequested,
-        this.refunded,
-        this.scheduled,
-        this.restaurantDiscountAmount,
-        this.failed,
-        this.dmTips,
-        this.processingTime,
-        this.detailsCount,
-        this.deliveryMan,
-        this.deliveryAddress,
-        this.restaurant
-      });
+      this.userId,
+      this.orderAmount,
+      this.couponDiscountAmount,
+      this.couponDiscountTitle,
+      this.paymentStatus,
+      this.orderStatus,
+      this.totalTaxAmount,
+      this.paymentMethod,
+      this.couponCode,
+      this.orderNote,
+      this.orderType,
+      this.createdAt,
+      this.updatedAt,
+      this.deliveryCharge,
+      this.scheduleAt,
+      this.otp,
+      this.pending,
+      this.accepted,
+      this.confirmed,
+      this.processing,
+      this.handover,
+      this.pickedUp,
+      this.delivered,
+      this.canceled,
+      this.refundRequested,
+      this.refunded,
+      this.scheduled,
+      this.restaurantDiscountAmount,
+      this.failed,
+      this.dmTips,
+      this.processingTime,
+      this.detailsCount,
+      this.deliveryMan,
+      this.deliveryAddress,
+      this.restaurant});
 
   OrderModel.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -222,20 +220,19 @@ class DeliveryMan {
 
   DeliveryMan(
       {this.id,
-        this.fName,
-        this.lName,
-        this.phone,
-        this.email,
-        this.image,
-        this.zoneId,
-        this.active,
-        this.available,
-        this.avgRating,
-        this.ratingCount,
-        this.lat,
-        this.lng,
-        this.location
-      });
+      this.fName,
+      this.lName,
+      this.phone,
+      this.email,
+      this.image,
+      this.zoneId,
+      this.active,
+      this.available,
+      this.avgRating,
+      this.ratingCount,
+      this.lat,
+      this.lng,
+      this.location});
 
   DeliveryMan.fromJson(Map<String, dynamic> json) {
     id = json['id'];

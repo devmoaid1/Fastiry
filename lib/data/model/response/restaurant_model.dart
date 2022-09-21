@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/data/model/response/category_model.dart';
+import '/data/model/response/category_model.dart';
 
 class RestaurantModel {
   int totalSize;

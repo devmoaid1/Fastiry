@@ -1,15 +1,15 @@
 import 'dart:convert';
 
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/body/signup_body.dart';
-import 'package:efood_multivendor/data/model/body/social_customer.dart';
-import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
-import 'package:efood_multivendor/data/model/response/response_model.dart';
-import 'package:efood_multivendor/data/model/response/userinfo_model.dart';
-import 'package:efood_multivendor/data/repository/auth_repo.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/controller/splash_controller.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/body/signup_body.dart';
+import '/data/model/body/social_customer.dart';
+import '/data/model/body/social_log_in_body.dart';
+import '/data/model/response/response_model.dart';
+import '/data/model/response/userinfo_model.dart';
+import '/data/repository/auth_repo.dart';
+import '/helper/route_helper.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';

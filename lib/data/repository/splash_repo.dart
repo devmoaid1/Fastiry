@@ -1,5 +1,5 @@
-import 'package:efood_multivendor/data/api/api_client.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/data/api/api_client.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';

@@ -3,10 +3,10 @@ import 'dart:io';
 
 import 'package:dio/adapter.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:efood_multivendor/data/api/api_consumer.dart';
-import 'package:efood_multivendor/data/api/interceptors.dart';
-import 'package:efood_multivendor/data/errors/status_code.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/data/api/api_consumer.dart';
+import '/data/api/interceptors.dart';
+import '/data/errors/status_code.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/foundation.dart';
 import 'package:get/get.dart';
 

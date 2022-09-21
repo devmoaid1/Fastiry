@@ -1,10 +1,10 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/controller/wallet_controller.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/base/custom_text_field.dart';
+import '/controller/splash_controller.dart';
+import '/controller/wallet_controller.dart';
+import '/helper/price_converter.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_button.dart';
+import '/view/base/custom_snackbar.dart';
+import '/view/base/custom_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/util/images.dart';
+import '/util/images.dart';
 
 String getSubCategoryImage(String name) {
   String imagePath = "";

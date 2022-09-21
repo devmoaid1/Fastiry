@@ -1,17 +1,17 @@
-import 'package:efood_multivendor/controller/category_controller.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
-import 'package:efood_multivendor/view/screens/home/widget/category_card.dart';
+import '/controller/category_controller.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/screens/fastiry_mart/mart_viewModel.dart';
+import '/view/screens/home/widget/category_card.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../theme/font_styles.dart';
 
 class CategoryScreen extends StatefulWidget {
-  bool fromMartScreen;
+  final bool fromMartScreen;
 
   CategoryScreen({@required this.fromMartScreen});
   @override

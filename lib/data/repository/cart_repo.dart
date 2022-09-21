@@ -1,7 +1,7 @@
 import 'dart:convert';
 
-import 'package:efood_multivendor/data/model/response/cart_model.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/data/model/response/cart_model.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 

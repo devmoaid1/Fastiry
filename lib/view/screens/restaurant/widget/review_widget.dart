@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/data/model/response/review_model.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/rating_bar.dart';
+import '/data/model/response/review_model.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/rating_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

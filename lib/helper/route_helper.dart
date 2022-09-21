@@ -1,65 +1,65 @@
 import 'dart:convert';
 
-import 'package:efood_multivendor/data/model/body/social_log_in_body.dart';
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/data/model/response/basic_campaign_model.dart';
-import 'package:efood_multivendor/data/model/response/order_model.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/util/html_type.dart';
-import 'package:efood_multivendor/view/base/image_viewer_screen.dart';
-import 'package:efood_multivendor/view/base/internet_connection_wrapper.dart';
-import 'package:efood_multivendor/view/base/not_found.dart';
-import 'package:efood_multivendor/view/screens/address/add_address_screen.dart';
-import 'package:efood_multivendor/view/screens/address/address_screen.dart';
-import 'package:efood_multivendor/view/screens/auth/sign_in_screen.dart';
-import 'package:efood_multivendor/view/screens/auth/sign_up_screen.dart';
-import 'package:efood_multivendor/view/screens/cart/cart_screen.dart';
-import 'package:efood_multivendor/view/screens/category/category_product_screen.dart';
-import 'package:efood_multivendor/view/screens/category/category_screen.dart';
-import 'package:efood_multivendor/view/screens/checkout/checkout_screen.dart';
-import 'package:efood_multivendor/view/screens/checkout/order_successful_screen.dart';
-import 'package:efood_multivendor/view/screens/checkout/payment_screen.dart';
-import 'package:efood_multivendor/view/screens/coupon/coupon_screen.dart';
-import 'package:efood_multivendor/view/screens/dashboard/dashboard_screen.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/all_products.dart';
-import 'package:efood_multivendor/view/screens/fastiry_food/food_screen.dart';
-import 'package:efood_multivendor/view/screens/food/item_campaign_screen.dart';
-import 'package:efood_multivendor/view/screens/food/popular_food_screen.dart';
-import 'package:efood_multivendor/view/screens/forget/forget_pass_screen.dart';
-import 'package:efood_multivendor/view/screens/forget/new_pass_screen.dart';
-import 'package:efood_multivendor/view/screens/forget/social_phone_screen.dart';
-import 'package:efood_multivendor/view/screens/forget/verification_screen.dart';
-import 'package:efood_multivendor/view/screens/html/html_viewer_screen.dart';
-import 'package:efood_multivendor/view/screens/interest/interest_screen.dart';
-import 'package:efood_multivendor/view/screens/language/language_screen.dart';
-import 'package:efood_multivendor/view/screens/location/access_location_screen.dart';
-import 'package:efood_multivendor/view/screens/location/map_screen.dart';
-import 'package:efood_multivendor/view/screens/location/pick_map_screen.dart';
-import 'package:efood_multivendor/view/screens/notification/notification_screen.dart';
-import 'package:efood_multivendor/view/screens/onboard/onboarding_screen.dart';
-import 'package:efood_multivendor/view/screens/order/order_details_screen.dart';
-import 'package:efood_multivendor/view/screens/order/order_screen.dart';
-import 'package:efood_multivendor/view/screens/order/order_tracking_screen.dart';
-import 'package:efood_multivendor/view/screens/profile/profile_screen.dart';
-import 'package:efood_multivendor/view/screens/profile/update_profile_screen.dart';
-import 'package:efood_multivendor/view/screens/refer_and_earn/refer_and_earn_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/all_restaurant_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/campaign_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/restaurant_product_search_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/restaurant_screen.dart';
-import 'package:efood_multivendor/view/screens/restaurant/review_screen.dart';
-import 'package:efood_multivendor/view/screens/search/search_screen.dart';
-import 'package:efood_multivendor/view/screens/splash/splash_screen.dart';
-import 'package:efood_multivendor/view/screens/support/support_screen.dart';
-import 'package:efood_multivendor/view/screens/update/update_screen.dart';
-import 'package:efood_multivendor/view/screens/wallet/wallet_screen.dart';
+import '/data/model/body/social_log_in_body.dart';
+import '/data/model/response/address_model.dart';
+import '/data/model/response/basic_campaign_model.dart';
+import '/data/model/response/order_model.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/restaurant_model.dart';
+import '/util/html_type.dart';
+import '/view/base/image_viewer_screen.dart';
+import '/view/base/internet_connection_wrapper.dart';
+import '/view/base/not_found.dart';
+import '/view/screens/address/add_address_screen.dart';
+import '/view/screens/address/address_screen.dart';
+import '/view/screens/auth/sign_in_screen.dart';
+import '/view/screens/auth/sign_up_screen.dart';
+import '/view/screens/cart/cart_screen.dart';
+import '/view/screens/category/category_product_screen.dart';
+import '/view/screens/category/category_screen.dart';
+import '/view/screens/checkout/checkout_screen.dart';
+import '/view/screens/checkout/order_successful_screen.dart';
+import '/view/screens/checkout/payment_screen.dart';
+import '/view/screens/coupon/coupon_screen.dart';
+import '/view/screens/dashboard/dashboard_screen.dart';
+import '/view/screens/fastiry_mart/all_products.dart';
+import '/view/screens/fastiry_food/food_screen.dart';
+import '/view/screens/food/item_campaign_screen.dart';
+import '/view/screens/food/popular_food_screen.dart';
+import '/view/screens/forget/forget_pass_screen.dart';
+import '/view/screens/forget/new_pass_screen.dart';
+import '/view/screens/forget/social_phone_screen.dart';
+import '/view/screens/forget/verification_screen.dart';
+import '/view/screens/html/html_viewer_screen.dart';
+import '/view/screens/interest/interest_screen.dart';
+import '/view/screens/language/language_screen.dart';
+import '/view/screens/location/access_location_screen.dart';
+import '/view/screens/location/map_screen.dart';
+import '/view/screens/location/pick_map_screen.dart';
+import '/view/screens/notification/notification_screen.dart';
+import '/view/screens/onboard/onboarding_screen.dart';
+import '/view/screens/order/order_details_screen.dart';
+import '/view/screens/order/order_screen.dart';
+import '/view/screens/order/order_tracking_screen.dart';
+import '/view/screens/profile/profile_screen.dart';
+import '/view/screens/profile/update_profile_screen.dart';
+import '/view/screens/refer_and_earn/refer_and_earn_screen.dart';
+import '/view/screens/restaurant/all_restaurant_screen.dart';
+import '/view/screens/restaurant/campaign_screen.dart';
+import '/view/screens/restaurant/restaurant_product_search_screen.dart';
+import '/view/screens/restaurant/restaurant_screen.dart';
+import '/view/screens/restaurant/review_screen.dart';
+import '/view/screens/search/search_screen.dart';
+import '/view/screens/splash/splash_screen.dart';
+import '/view/screens/support/support_screen.dart';
+import '/view/screens/update/update_screen.dart';
+import '/view/screens/wallet/wallet_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 
 import '../data/model/body/customer.dart';
-import '../view/screens/fastiry mart/mart_screen.dart';
-import '../view/screens/navigator_screen/navigator_screen.dart';
+import '../view/screens/fastiry_mart/mart_screen.dart';
+
 import '../view/screens/product_details/productDetails.dart';
 
 class RouteHelper {
@@ -234,9 +234,6 @@ class RouteHelper {
               screen: OrderScreen(),
             )),
     GetPage(name: initial, page: () => DashboardScreen(pageIndex: 0)),
-    GetPage(
-        name: navigatorScreen,
-        page: () => InternetConnectionWrapper(screen: NavigatorScreen())),
     GetPage(
         name: fastiryFood,
         page: () => InternetConnectionWrapper(screen: FoodScreen())),

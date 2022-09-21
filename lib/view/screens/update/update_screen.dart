@@ -1,8 +1,8 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
+import '/controller/splash_controller.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/custom_button.dart';
+import '/view/base/custom_snackbar.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:url_launcher/url_launcher.dart';

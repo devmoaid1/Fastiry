@@ -4,9 +4,9 @@ import 'dart:typed_data';
 import 'package:get/get_connect/http/src/request/request.dart';
 import 'package:http_parser/http_parser.dart';
 
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/data/model/response/error_response.dart';
-import 'package:efood_multivendor/util/app_constants.dart';
+import '/data/model/response/address_model.dart';
+import '/data/model/response/error_response.dart';
+import '/util/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';

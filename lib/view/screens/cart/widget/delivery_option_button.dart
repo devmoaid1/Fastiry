@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/controller/order_controller.dart';
-import 'package:efood_multivendor/helper/price_converter.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
+import '/controller/order_controller.dart';
+import '/helper/price_converter.dart';
+import '/util/dimensions.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

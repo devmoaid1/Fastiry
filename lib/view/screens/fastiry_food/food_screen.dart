@@ -1,4 +1,4 @@
-import 'package:efood_multivendor/view/base/custom_loader.dart';
+import '/view/base/custom_loader.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -85,9 +85,18 @@ class _FoodScreenState extends State<FoodScreen> {
                                             Dimensions.screenWidth * 0.70),
                                     child: Text(
                                       locationController
-                                          .getUserAddress()
-                                          .address
-                                          .substring(0, 40),
+                                                  .getUserAddress()
+                                                  .address
+                                                  .length <
+                                              40
+                                          ? locationController
+                                              .getUserAddress()
+                                              .address
+                                          : locationController
+                                              .getUserAddress()
+                                              .address
+                                              .substring(0, 40)
+                                              .trim(),
                                       style: Get.find<FontStyles>()
                                           .poppinsRegular
                                           .copyWith(

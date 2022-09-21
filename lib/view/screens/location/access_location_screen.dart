@@ -1,17 +1,17 @@
-import 'package:efood_multivendor/controller/auth_controller.dart';
-import 'package:efood_multivendor/controller/location_controller.dart';
-import 'package:efood_multivendor/data/model/response/address_model.dart';
-import 'package:efood_multivendor/data/model/response/zone_response_model.dart';
-import 'package:efood_multivendor/helper/route_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
-import 'package:efood_multivendor/view/base/custom_app_bar.dart';
-import 'package:efood_multivendor/view/base/custom_button.dart';
-import 'package:efood_multivendor/view/base/custom_loader.dart';
-import 'package:efood_multivendor/view/base/custom_snackbar.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/screens/location/widget/address_selection.dart';
-import 'package:efood_multivendor/view/screens/location/widget/permission_dialog.dart';
+import '/controller/auth_controller.dart';
+import '/controller/location_controller.dart';
+import '/data/model/response/address_model.dart';
+import '/data/model/response/zone_response_model.dart';
+import '/helper/route_helper.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
+import '/view/base/custom_app_bar.dart';
+import '/view/base/custom_button.dart';
+import '/view/base/custom_loader.dart';
+import '/view/base/custom_snackbar.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/screens/location/widget/address_selection.dart';
+import '/view/screens/location/widget/permission_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -140,7 +140,7 @@ class BottomButton extends StatelessWidget {
                         .getCurrentLocation(true);
                     ZoneResponseModel _response = await locationController
                         .getZone(_address.latitude, _address.longitude, false);
-                    if (_response.isSuccess) {
+                    if (_response != null) {
                       locationController.saveAddressAndNavigate(
                           _address, fromSignUp, route, route != null);
                     } else {

@@ -1,12 +1,12 @@
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/model/response/restaurant_model.dart';
-import 'package:efood_multivendor/helper/responsive_helper.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/view/base/no_data_screen.dart';
-import 'package:efood_multivendor/view/base/product_shimmer.dart';
-import 'package:efood_multivendor/view/base/product_widget.dart';
-import 'package:efood_multivendor/view/base/veg_filter_widget.dart';
-import 'package:efood_multivendor/view/screens/home/theme1/restaurant_widget.dart';
+import '/data/model/response/product_model.dart';
+import '/data/model/response/restaurant_model.dart';
+import '/helper/responsive_helper.dart';
+import '/util/dimensions.dart';
+import '/view/base/no_data_screen.dart';
+import '/view/base/product_shimmer.dart';
+import '/view/base/product_widget.dart';
+import '/view/base/veg_filter_widget.dart';
+import '/view/screens/home/theme1/restaurant_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

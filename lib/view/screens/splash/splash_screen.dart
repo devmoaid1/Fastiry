@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
-import 'package:efood_multivendor/util/dimensions.dart';
-import 'package:efood_multivendor/util/images.dart';
+import '/controller/splash_controller.dart';
+import '/util/dimensions.dart';
+import '/util/images.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

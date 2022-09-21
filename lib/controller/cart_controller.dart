@@ -1,10 +1,10 @@
 import 'dart:async';
 
-import 'package:efood_multivendor/data/api/api_checker.dart';
-import 'package:efood_multivendor/data/model/response/cart_model.dart';
-import 'package:efood_multivendor/data/model/response/product_model.dart';
-import 'package:efood_multivendor/data/repository/cart_repo.dart';
-import 'package:efood_multivendor/data/repository/restaurant_repo.dart';
+import '/data/api/api_checker.dart';
+import '/data/model/response/cart_model.dart';
+import '/data/model/response/product_model.dart';
+import '/data/repository/cart_repo.dart';
+import '/data/repository/restaurant_repo.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

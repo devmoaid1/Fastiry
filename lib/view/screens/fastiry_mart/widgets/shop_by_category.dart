@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/mart_category_card.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/mart_category_shimmer.dart';
+import '/view/screens/fastiry_mart/mart_viewModel.dart';
+import '/view/screens/fastiry_mart/widgets/mart_category_card.dart';
+import '/view/screens/fastiry_mart/widgets/mart_category_shimmer.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

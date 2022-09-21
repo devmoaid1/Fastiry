@@ -1,9 +1,8 @@
-import 'package:efood_multivendor/controller/splash_controller.dart';
+import '/controller/splash_controller.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
 class DateConverter {
-
   static String formatDate(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd hh:mm:ss a').format(dateTime);
   }
@@ -15,16 +14,19 @@ class DateConverter {
   static String dateToDateAndTime(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd HH:mm').format(dateTime);
   }
+
   static String dateToDateAndTimeAm(DateTime dateTime) {
     return DateFormat('yyyy-MM-dd ${_timeFormatter()}').format(dateTime);
   }
 
   static String dateTimeStringToDateTime(String dateTime) {
-    return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    return DateFormat('dd MMM yyyy  ${_timeFormatter()}')
+        .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
   }
 
   static String dateTimeStringToDateOnly(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
+    return DateFormat('dd MMM yyyy')
+        .format(DateFormat('yyyy-MM-dd HH:mm:ss').parse(dateTime));
   }
 
   static DateTime dateTimeStringToDate(String dateTime) {
@@ -36,7 +38,8 @@ class DateConverter {
   }
 
   static String isoStringToDateTimeString(String dateTime) {
-    return DateFormat('dd MMM yyyy  ${_timeFormatter()}').format(isoStringToLocalDate(dateTime));
+    return DateFormat('dd MMM yyyy  ${_timeFormatter()}')
+        .format(isoStringToLocalDate(dateTime));
   }
 
   static String isoStringToLocalDateOnly(String dateTime) {
@@ -44,7 +47,8 @@ class DateConverter {
   }
 
   static String stringToLocalDateOnly(String dateTime) {
-    return DateFormat('dd MMM yyyy').format(DateFormat('yyyy-MM-dd').parse(dateTime));
+    return DateFormat('dd MMM yyyy')
+        .format(DateFormat('yyyy-MM-dd').parse(dateTime));
   }
 
   static String localDateToIsoString(DateTime dateTime) {
@@ -59,21 +63,34 @@ class DateConverter {
     return DateFormat('HH:mm').parse(time);
   }
 
-  static bool isAvailable(String start, String end, {DateTime time, bool isoTime = false}) {
+  static bool isAvailable(String start, String end,
+      {DateTime time, bool isoTime = false}) {
     DateTime _currentTime;
-    if(time != null) {
+    if (time != null) {
       _currentTime = time;
-    }else {
+    } else {
       _currentTime = Get.find<SplashController>().currentTime;
     }
-    DateTime _start = start != null ? isoTime ? isoStringToLocalDate(start) : DateFormat('HH:mm').parse(start) : DateTime(_currentTime.year);
-    DateTime _end = end != null ? isoTime ? isoStringToLocalDate(end) : DateFormat('HH:mm').parse(end) : DateTime(_currentTime.year, _currentTime.month, _currentTime.day, 23, 59);
-    DateTime _startTime = DateTime(_currentTime.year, _currentTime.month, _currentTime.day, _start.hour, _start.minute, _start.second);
-    DateTime _endTime = DateTime(_currentTime.year, _currentTime.month, _currentTime.day, _end.hour, _end.minute, _end.second);
-    if(_endTime.isBefore(_startTime)) {
-      if(_currentTime.isBefore(_startTime) && _currentTime.isBefore(_endTime)){
+    DateTime _start = start != null
+        ? isoTime
+            ? isoStringToLocalDate(start)
+            : DateFormat('HH:mm').parse(start)
+        : DateTime(_currentTime.year);
+    DateTime _end = end != null
+        ? isoTime
+            ? isoStringToLocalDate(end)
+            : DateFormat('HH:mm').parse(end)
+        : DateTime(
+            _currentTime.year, _currentTime.month, _currentTime.day, 23, 59);
+    DateTime _startTime = DateTime(_currentTime.year, _currentTime.month,
+        _currentTime.day, _start.hour, _start.minute, _start.second);
+    DateTime _endTime = DateTime(_currentTime.year, _currentTime.month,
+        _currentTime.day, _end.hour, _end.minute, _end.second);
+    if (_endTime.isBefore(_startTime)) {
+      if (_currentTime.isBefore(_startTime) &&
+          _currentTime.isBefore(_endTime)) {
         _startTime = _startTime.add(Duration(days: -1));
-      }else {
+      } else {
         _endTime = _endTime.add(Duration(days: 1));
       }
     }
@@ -81,28 +98,34 @@ class DateConverter {
   }
 
   static String _timeFormatter() {
-    return Get.find<SplashController>().configModel.timeformat == '24' ? 'HH:mm' : 'hh:mm a';
+    return Get.find<SplashController>().configModel.timeformat == '24'
+        ? 'HH:mm'
+        : 'hh:mm a';
   }
 
-  static int differenceInMinute(String deliveryTime, String orderTime, int processingTime, String scheduleAt) {
+  static int differenceInMinute(String deliveryTime, String orderTime,
+      int processingTime, String scheduleAt) {
     // 'min', 'hours', 'days'
     int _minTime = processingTime != null ? processingTime : 0;
-    if(deliveryTime != null && deliveryTime.isNotEmpty && processingTime == null) {
+    if (deliveryTime != null &&
+        deliveryTime.isNotEmpty &&
+        processingTime == null) {
       try {
         List<String> _timeList = deliveryTime.split('-'); // ['15', '20']
         _minTime = int.parse(_timeList[0]);
-      }catch(e) {}
+      } catch (e) {}
     }
-    DateTime _deliveryTime = dateTimeStringToDate(scheduleAt != null ? scheduleAt : orderTime).add(Duration(minutes: _minTime));
+    DateTime _deliveryTime =
+        dateTimeStringToDate(scheduleAt != null ? scheduleAt : orderTime)
+            .add(Duration(minutes: _minTime));
     return _deliveryTime.difference(DateTime.now()).inMinutes;
   }
 
   static bool isBeforeTime(String dateTime) {
-    if(dateTime == null) {
+    if (dateTime == null) {
       return false;
     }
     DateTime scheduleTime = dateTimeStringToDate(dateTime);
     return scheduleTime.isBefore(DateTime.now());
   }
-
 }

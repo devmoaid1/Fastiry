@@ -1,7 +1,7 @@
-import 'package:efood_multivendor/view/screens/fastiry%20mart/mart_viewModel.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/all_mart_products.dart';
-import 'package:efood_multivendor/view/screens/fastiry%20mart/widgets/shop_by_category.dart';
-import 'package:efood_multivendor/view/screens/restaurant/widget/restaurant_bottom._bar.dart';
+import '/view/screens/fastiry_mart/mart_viewModel.dart';
+import '/view/screens/fastiry_mart/widgets/all_mart_products.dart';
+import '/view/screens/fastiry_mart/widgets/shop_by_category.dart';
+import '/view/screens/restaurant/widget/restaurant_bottom._bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';

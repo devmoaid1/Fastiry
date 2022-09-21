@@ -1,6 +1,6 @@
-import 'package:efood_multivendor/view/screens/product_details/widgets/add_to_bascket_bottom.dart';
-import 'package:efood_multivendor/view/screens/product_details/widgets/product_details_card.dart';
-import 'package:efood_multivendor/view/screens/product_details/widgets/product_image.dart';
+import '/view/screens/product_details/widgets/add_to_bascket_bottom.dart';
+import '/view/screens/product_details/widgets/product_details_card.dart';
+import '/view/screens/product_details/widgets/product_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
