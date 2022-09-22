@@ -158,9 +158,9 @@ class RestaurantDescriptionView extends StatelessWidget {
               restaurant.deliveryPrice != 0
                   ? PriceConverter.convertPrice(restaurant.deliveryPrice)
                   : "free_delivery".tr,
-              style: Get.find<FontStyles>()
-                  .poppinsRegular
-                  .copyWith(fontSize: Dimensions.blockscreenHorizontal * 2.8),
+              style: Get.find<FontStyles>().poppinsRegular.copyWith(
+                  fontSize: Dimensions.blockscreenHorizontal * 2.8,
+                  color: Theme.of(context).dividerColor),
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),

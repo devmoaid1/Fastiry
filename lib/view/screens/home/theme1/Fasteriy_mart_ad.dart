@@ -50,18 +50,6 @@ class FastriyMartAdSection extends StatelessWidget {
                                 width: Dimensions.blockscreenVertical * 12,
                               )
                             : Container()
-                        // Container(
-                        //   height: Dimensions.blockscreenVertical * 8,
-                        //   child: Image.asset(
-                        //     Images.fastiryLogoRed,
-                        //     fit: BoxFit.fill,
-                        //   ),
-                        // ),
-                        // Text("fasteriy".tr,
-                        //     maxLines: 1,
-                        //     style: Get.find<FontStyles>().poppinsRegular.copyWith(
-                        //         fontSize: Dimensions.blockscreenHorizontal * 4.5,
-                        //         color: Theme.of(context).primaryColor)),
                       ],
                     ),
                   ),
@@ -107,7 +95,6 @@ class FastriyMartAdSection extends StatelessWidget {
               child: Image.asset(
                 Images.fasteriyMartGraphics,
                 fit: BoxFit.cover,
-                height: Dimensions.blockscreenVertical * 18,
               ),
             ),
           )
