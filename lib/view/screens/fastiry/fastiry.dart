@@ -17,9 +17,9 @@ import '../../../util/app_constants.dart';
 import '../../../util/messages.dart';
 
 class FastiryApp extends StatelessWidget {
-  final Map<String, Map<String, String>> languages;
-  final int orderID;
-  FastiryApp({@required this.languages, @required this.orderID});
+  final Map<String, Map<String, String>>? languages;
+  final int? orderID;
+  FastiryApp({this.languages, this.orderID});
 
   void _route() {
     Get.find<SplashController>().getConfigData().then((bool isSuccess) async {

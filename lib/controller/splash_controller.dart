@@ -7,7 +7,6 @@ import '/data/api/api_checker.dart';
 import '/data/api/api_client.dart';
 import '/data/model/response/config_model.dart';
 import '/data/repository/splash_repo.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../helper/route_helper.dart';
@@ -19,7 +18,7 @@ import 'location_controller.dart';
 
 class SplashController extends GetxController implements GetxService {
   final SplashRepo splashRepo;
-  SplashController({@required this.splashRepo});
+  SplashController({required this.splashRepo});
   final cartController = Get.find<CartController>();
   ConfigModel _configModel = ConfigModel();
   bool _firstTimeConnectionCheck = true;
