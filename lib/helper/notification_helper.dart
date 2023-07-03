@@ -13,24 +13,27 @@ import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 
 class NotificationHelper {
+  static void onRecieve(NotificationResponse response) async {
+    try {
+      if (response.payload != null && response.payload.isNotEmpty) {
+        Get.toNamed(
+            RouteHelper.getOrderDetailsRoute(int.parse(response.payload)));
+      } else {
+        Get.toNamed(RouteHelper.getNotificationRoute());
+      }
+    } catch (e) {}
+    return;
+  }
+
   static Future<void> initialize(
       FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin) async {
     var androidInitialize =
         new AndroidInitializationSettings('@drawable/ic_notification');
-    var iOSInitialize = new IOSInitializationSettings();
+    var iOSInitialize = new DarwinInitializationSettings();
     var initializationsSettings = new InitializationSettings(
         android: androidInitialize, iOS: iOSInitialize);
     flutterLocalNotificationsPlugin.initialize(initializationsSettings,
-        onSelectNotification: (String payload) async {
-      try {
-        if (payload != null && payload.isNotEmpty) {
-          Get.toNamed(RouteHelper.getOrderDetailsRoute(int.parse(payload)));
-        } else {
-          Get.toNamed(RouteHelper.getNotificationRoute());
-        }
-      } catch (e) {}
-      return;
-    });
+        onDidReceiveNotificationResponse: NotificationHelper.onRecieve);
 
     FirebaseMessaging.onMessage.listen((RemoteMessage message) {
       print(
